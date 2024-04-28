@@ -20,6 +20,10 @@ Route::view('clearance-type', 'clearance-type')
     ->middleware(['auth', 'verified'])
     ->name('clearance-type');
 
+Route::view('announcement', 'announcement')
+    ->middleware(['auth', 'verified'])
+    ->name('announcement');
+
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');

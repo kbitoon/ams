@@ -30,12 +30,8 @@ new class extends Component
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('todo')" :active="request()->routeIs('todo')">
-                        {{ __('ToDo') }}
-                    </x-nav-link>
-
-{{--                    <x-nav-link :href="route('clearance')" :active="request()->routeIs('clearance')">--}}
-{{--                        {{ __('Clearance') }}--}}
+{{--                    <x-nav-link :href="route('todo')" :active="request()->routeIs('todo')" wire:navigate>--}}
+{{--                        {{ __('ToDo') }}--}}
 {{--                    </x-nav-link>--}}
 
                     <!-- Clearance Dropdown -->
@@ -54,16 +50,20 @@ new class extends Component
                             </x-slot>
 
                             <x-slot name="content">
-                                <x-dropdown-link :href="route('clearance')" :active="request()->routeIs('clearance')">
+                                <x-dropdown-link :href="route('clearance')" :active="request()->routeIs('clearance')" wire:navigate>
                                     {{ __('Listing') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link :href="route('clearance-type')" :active="request()->routeIs('clearance-type')">
+                                <x-dropdown-link :href="route('clearance-type')" :active="request()->routeIs('clearance-type')" wire:navigate>
                                     {{ __('Type') }}
                                 </x-dropdown-link>
 
                             </x-slot>
                         </x-dropdown>
                     </div>
+
+                    <x-nav-link :href="route('announcement')" :active="request()->routeIs('announcement')" wire:navigate>
+                        {{ __('Announcement') }}
+                    </x-nav-link>
 
                 </div>
             </div>
