@@ -19,13 +19,13 @@ return new class extends Migration
             $table->unsignedBigInteger('type_id');
             $table->foreign('type_id')->references('id')->on('clearance_types');
             $table->string('purpose');
-            $table->float('amount');
+            $table->float('amount')->default(0);
             $table->date('date');
             $table->string('notes');
             $table->string('contact_number');
             $table->unsignedBigInteger('approved_by')->nullable();
             $table->foreign('approved_by')->references('id')->on('users')->onDelete('set null');
-            $table->string('status');
+            $table->string('status')->default('pending');
 
             $table->timestamps();
         });

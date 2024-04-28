@@ -9,6 +9,7 @@ use Livewire\Form;
 class ClearanceTypeForm extends Form
 {
     public ?ClearanceType $clearanceType = null;
+
     public string $name = '';
     public string $amount = '';
 

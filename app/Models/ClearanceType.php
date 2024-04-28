@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ClearanceType extends Model
 {
@@ -13,4 +14,12 @@ class ClearanceType extends Model
         'name',
         'amount',
     ];
+
+    /**
+     * @return HasMany
+     */
+    public function clearances(): HasMany
+    {
+        return $this->hasMany(Clearance::class);
+    }
 }
