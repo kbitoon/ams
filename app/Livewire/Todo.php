@@ -66,6 +66,6 @@ class Todo extends Component
     public function render()
     {
         $todos = $this->repository->fetchAll();
-        return view('livewire.todo', compact('todos'));
+        return view('livewire.todo.list', compact('todos'));
     }
 }
