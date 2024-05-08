@@ -2,14 +2,14 @@
 
 namespace App\Livewire;
 
-use App\Models\Clearance as ClearanceModel;
+use App\Models\Announcement as AnnouncementModel;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class Clearance extends Component
+class Announcement extends Component
 {
     #[On('refresh-list')]
     public function refresh() {}
@@ -19,8 +19,8 @@ class Clearance extends Component
      */
     public function render(): Application|View|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('livewire.clearance.list', [
-            'clearances' => ClearanceModel::all(),
+        return view('livewire.announcement.list', [
+            'announcements' => AnnouncementModel::all(),
         ]);
     }
 }

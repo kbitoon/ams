@@ -24,6 +24,10 @@ Route::view('announcement', 'announcement')
     ->middleware(['auth', 'verified'])
     ->name('announcement');
 
+Route::view('announcement-category', 'announcement-category')
+    ->middleware(['auth', 'verified'])
+    ->name('announcement-category');
+
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
