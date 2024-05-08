@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-class Announcement extends Model
+class Complaint extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'title',
-        'content',
+        'complaint',
         'user_id',
         'category_id',
         'is_pinned',
@@ -32,7 +32,7 @@ class Announcement extends Model
      */
     public function category(): BelongsTo
     {
-        return $this->belongsTo(AnnouncementCategory::class);
+        return $this->belongsTo(ComplaintCategory::class);
     }
 
     /**

@@ -17,6 +17,7 @@ class ClearanceForm extends Form
     public string $date = '';
     public string $notes = '';
     public string $contact_number = '';
+    public array $attachments = [];
 
     /**
      * @param Clearance|null $clearance
@@ -46,6 +47,7 @@ class ClearanceForm extends Form
             'date' => ['required'],
             'notes' => ['required'],
             'contact_number' => ['required'],
+            'attachments' => ['required'],
         ];
     }
 
@@ -62,6 +64,7 @@ class ClearanceForm extends Form
             'date' => 'date',
             'notes' => 'notes',
             'contact_number' => 'contact number',
+            'attachments' => 'attachment',
         ];
     }
 
@@ -72,7 +75,14 @@ class ClearanceForm extends Form
     {
         $this->validate();
         if (!$this->clearance) {
-            auth()->user()->clearances()->create($this->only(['name', 'purpose', 'user_id', 'type_id', 'amount', 'date', 'notes', 'contact_number']));
+            $clearance = auth()->user()->clearances()->create($this->only(['name', 'purpose', 'user_id', 'type_id', 'amount', 'date', 'notes', 'contact_number']));
+
+            foreach ($this->attachments as $attachment) {
+                $path = $attachment->storePubliclyAs('attachments/' . auth()->user()->id, time() . '-' . $attachment->getClientOriginalName());
+                $clearance->assets()->create([
+                    'path' => $path,
+                ]);
+            }
             //Clearance::create($this->only(['name', 'purpose', 'user_id', 'type_id', 'amount', 'date', 'notes', 'contact_number']));
         } else {
             $this->clearance->update($this->only(['name', 'purpose', 'type_id', 'amount', 'date', 'notes', 'contact_number']));

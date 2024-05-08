@@ -11,7 +11,6 @@ class AnnouncementCategoryForm extends Form
     public ?AnnouncementCategory $announcementCategory = null;
 
     public string $name = '';
-    public string $amount = '';
 
     /**
      * @param AnnouncementCategory|null $announcementCategory

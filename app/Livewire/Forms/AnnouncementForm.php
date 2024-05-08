@@ -58,7 +58,7 @@ class AnnouncementForm extends Form
     {
         $this->validate();
         if (!$this->announcement) {
-            auth()->user()->announcements()->create($this->only(['title', 'content', 'category_id', 'is_pinned']));
+            $announcement = auth()->user()->announcements()->create($this->only(['title', 'content', 'category_id', 'is_pinned']));
         } else {
             $this->announcement->update($this->only(['title', 'content', 'category_id', 'is_pinned']));
         }

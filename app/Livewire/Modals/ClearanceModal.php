@@ -5,11 +5,14 @@ namespace App\Livewire\Modals;
 use App\Models\Clearance;
 use App\Models\ClearanceType;
 use Illuminate\Contracts\View\View;
+use Livewire\WithFileUploads;
 use LivewireUI\Modal\ModalComponent;
 use App\Livewire\Forms\ClearanceForm;
 
 class ClearanceModal extends ModalComponent
 {
+    use WithFileUploads;
+
     public ?Clearance $clearance = null;
     public ClearanceForm $form;
 
