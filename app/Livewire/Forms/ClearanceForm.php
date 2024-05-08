@@ -86,6 +86,13 @@ class ClearanceForm extends Form
             //Clearance::create($this->only(['name', 'purpose', 'user_id', 'type_id', 'amount', 'date', 'notes', 'contact_number']));
         } else {
             $this->clearance->update($this->only(['name', 'purpose', 'type_id', 'amount', 'date', 'notes', 'contact_number']));
+
+            foreach ($this->attachments as $attachment) {
+                $path = $attachment->storePubliclyAs('attachments/' . auth()->user()->id, time() . '-' . $attachment->getClientOriginalName());
+                $this->clearance->assets()->create([
+                    'path' => $path,
+                ]);
+            }
         }
         $this->reset();
     }

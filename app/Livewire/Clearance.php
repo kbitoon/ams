@@ -20,7 +20,7 @@ class Clearance extends Component
     public function render(): Application|View|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.clearance.list', [
-            'clearances' => ClearanceModel::all(),
+            'clearances' => ClearanceModel::with('assets')->get(),
         ]);
     }
 }
