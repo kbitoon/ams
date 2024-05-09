@@ -5,6 +5,7 @@ namespace App\Livewire\Modals;
 use App\Models\Clearance;
 use App\Models\ClearanceType;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\WithFileUploads;
 use LivewireUI\Modal\ModalComponent;
 use App\Livewire\Forms\ClearanceForm;
@@ -15,6 +16,7 @@ class ClearanceModal extends ModalComponent
 
     public ?Clearance $clearance = null;
     public ClearanceForm $form;
+    public Collection $clearanceTypes;
 
     /**
      * @param Clearance|null $clearance
@@ -24,6 +26,20 @@ class ClearanceModal extends ModalComponent
         if ($clearance && $clearance->exists) {
             $this->form->setClearance($clearance);
         }
+
+        $this->clearanceTypes = ClearanceType::all();
+    }
+
+    /**
+     * @param $value
+     */
+    public function updatedFormTypeId($value)
+    {
+        $clearanceType = $this->clearanceTypes->first(function($item) use ($value) {
+            return $item->id == $value;
+        });
+
+        $this->form->amount = $clearanceType->amount;
     }
 
     /**
@@ -42,7 +58,7 @@ class ClearanceModal extends ModalComponent
     public function render() : View
     {
         return view('livewire.forms.clearance-form',  [
-            'clearanceTypes' => ClearanceType::all(),
+            'clearanceTypes' => $this->clearanceTypes,
         ]);
     }
 }

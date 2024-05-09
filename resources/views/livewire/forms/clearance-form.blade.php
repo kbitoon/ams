@@ -9,7 +9,7 @@
 
         <div class="mt-4">
             <x-input-label for="type_id" :value="__('Type')" />
-            <select wire:model="form.type_id" id="type_id" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+            <select wire:model.live.debounce.500ms="form.type_id" id="type_id" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                 <option selected>Please select a type</option>
                 @forelse($clearanceTypes as $clearanceTypes)
                     <option value="{{ $clearanceTypes->id }}">{{ $clearanceTypes->name }}</option>
