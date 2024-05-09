@@ -39,7 +39,7 @@ class ClearanceForm extends Form
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'name' => ['required'],
             'purpose' => ['required'],
             'type_id' => ['required'],
@@ -47,8 +47,13 @@ class ClearanceForm extends Form
             'date' => ['required'],
             'notes' => ['required'],
             'contact_number' => ['required'],
-            'attachments' => ['required'],
         ];
+
+        if ($this->clearance === null) {
+            $rules['attachments'] = ['required'];
+        }
+
+        return $rules;
     }
 
     /**
@@ -75,25 +80,21 @@ class ClearanceForm extends Form
     {
         $this->validate();
         if (!$this->clearance) {
-            $clearance = auth()->user()->clearances()->create($this->only(['name', 'purpose', 'user_id', 'type_id', 'amount', 'date', 'notes', 'contact_number']));
-
-            foreach ($this->attachments as $attachment) {
-                $path = $attachment->storePubliclyAs('attachments/' . auth()->user()->id, time() . '-' . $attachment->getClientOriginalName());
-                $clearance->assets()->create([
-                    'path' => $path,
-                ]);
-            }
+            $this->clearance = auth()->user()->clearances()->create($this->only(['name', 'purpose', 'user_id', 'type_id', 'amount', 'date', 'notes', 'contact_number']));
             //Clearance::create($this->only(['name', 'purpose', 'user_id', 'type_id', 'amount', 'date', 'notes', 'contact_number']));
         } else {
             $this->clearance->update($this->only(['name', 'purpose', 'type_id', 'amount', 'date', 'notes', 'contact_number']));
 
-            foreach ($this->attachments as $attachment) {
-                $path = $attachment->storePubliclyAs('attachments/' . auth()->user()->id, time() . '-' . $attachment->getClientOriginalName());
-                $this->clearance->assets()->create([
-                    'path' => $path,
-                ]);
-            }
         }
+
+        // handle file uploads, possible convert this to traits to be re-used on other entities
+        foreach ($this->attachments as $attachment) {
+            $path = $attachment->storePubliclyAs('attachments/' . auth()->user()->id, time() . '-' . $attachment->getClientOriginalName());
+            $this->clearance->assets()->create([
+                'path' => $path,
+            ]);
+        }
+
         $this->reset();
     }
 
