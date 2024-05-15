@@ -17,7 +17,11 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            <livewire:layout.navigation />
+            @auth
+                <livewire:layout.navigation />
+            @else
+                <livewire:welcome.navigation />
+            @endauth
 
             <!-- Page Heading -->
             @if (isset($header))
