@@ -29,7 +29,7 @@ new class extends Component
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('todo')" :active="request()->routeIs('todo')" wire:navigate>
+                    <x-nav-link :href="route('get-a-clearance')" :active="request()->routeIs('get-a-clearance')" wire:navigate>
                         {{ __('Get a Clearance') }}
                     </x-nav-link>
 
@@ -43,7 +43,7 @@ new class extends Component
                 </div>
             </div>
 
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                 <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
                     {{ __('Login') }}
                 </x-nav-link>

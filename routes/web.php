@@ -2,34 +2,34 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::view('dashboard', 'dashboard')
+        ->name('dashboard');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+    Route::view('todo', 'todo')
+        ->name('todo');
 
-Route::view('todo', 'todo')
-    ->middleware(['auth', 'verified'])
-    ->name('todo');
+    Route::view('clearance', 'clearance')
+        ->name('clearance');
 
-Route::view('clearance', 'clearance')
-    ->middleware(['auth', 'verified'])
-    ->name('clearance');
+    Route::view('clearance-type', 'clearance-type')
+        ->name('clearance-type');
 
-Route::view('clearance-type', 'clearance-type')
-    ->middleware(['auth', 'verified'])
-    ->name('clearance-type');
+    Route::view('announcement', 'announcement')
+        ->name('announcement');
 
-Route::view('announcement', 'announcement')
-    ->middleware(['auth', 'verified'])
-    ->name('announcement');
+    Route::view('announcement-category', 'announcement-category')
+        ->name('announcement-category');
 
-Route::view('announcement-category', 'announcement-category')
-    ->middleware(['auth', 'verified'])
-    ->name('announcement-category');
+    Route::view('profile', 'profile')
+        ->name('profile');
+});
 
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
+Route::middleware('guest')->group(function () {
+    Route::view('/', 'welcome');
+
+    Route::view('get-a-clearance', 'clearance')
+        ->name('get-a-clearance');
+});
 
 require __DIR__.'/auth.php';

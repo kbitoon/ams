@@ -18,6 +18,7 @@ class ClearanceForm extends Form
     public string $notes = '';
     public string $contact_number = '';
     public array $attachments = [];
+    public int $user_id = 1; // default to anonymous user, make sure we have this seeded
 
     /**
      * @param Clearance|null $clearance
@@ -80,8 +81,11 @@ class ClearanceForm extends Form
     {
         $this->validate();
         if (!$this->clearance) {
-            $this->clearance = auth()->user()->clearances()->create($this->only(['name', 'purpose', 'user_id', 'type_id', 'amount', 'date', 'notes', 'contact_number']));
-            //Clearance::create($this->only(['name', 'purpose', 'user_id', 'type_id', 'amount', 'date', 'notes', 'contact_number']));
+            if (auth()->user()) {
+                $this->clearance = auth()->user()->clearances()->create($this->only(['name', 'purpose', 'user_id', 'type_id', 'amount', 'date', 'notes', 'contact_number']));
+            } else {
+                $this->clearance = Clearance::create($this->only(['name', 'purpose', 'user_id', 'type_id', 'amount', 'date', 'notes', 'contact_number']));
+            }
         } else {
             $this->clearance->update($this->only(['name', 'purpose', 'type_id', 'amount', 'date', 'notes', 'contact_number']));
 
@@ -89,13 +93,16 @@ class ClearanceForm extends Form
 
         // handle file uploads, possible convert this to traits to be re-used on other entities
         foreach ($this->attachments as $attachment) {
-            $path = $attachment->storePubliclyAs('attachments/' . auth()->user()->id, time() . '-' . $attachment->getClientOriginalName());
+            $id = auth()->id() ?? 1;
+            $path = $attachment->storePubliclyAs('attachments/' . $id, time() . '-' . $attachment->getClientOriginalName());
             $this->clearance->assets()->create([
                 'path' => $path,
             ]);
         }
 
         $this->reset();
+
+        session()->flash('message', 'Request submitted successfully');
     }
 
 }

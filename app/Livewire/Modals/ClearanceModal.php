@@ -31,6 +31,8 @@ class ClearanceModal extends ModalComponent
     }
 
     /**
+     * Automatically updates the amount field based on type
+     *
      * @param $value
      */
     public function updatedFormTypeId($value)
