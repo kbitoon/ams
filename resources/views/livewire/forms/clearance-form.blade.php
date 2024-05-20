@@ -51,8 +51,8 @@
         </div>
 
         <div class="mt-4">
-            <x-input-label for="attachments" :value="__('Upload File')" />
-            <x-text-input wire:model="form.attachments" id="attachments" class="mt-1 block w-full" type="file" multiple />
+            <x-input-label for="attachments" :value="__('Attachment')" />
+            <x-text-input wire:model="form.attachments" id="attachments" class="mt-1 block w-full rounded-none" type="file" multiple />
             <x-input-error :messages="$errors->get('form.attachments')" class="mt-2" />
         </div>
 
