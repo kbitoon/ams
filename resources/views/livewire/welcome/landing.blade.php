@@ -29,9 +29,9 @@
                         <div class="pt-3 sm:pt-5 lg:pt-0">
                             <h2 class="text-xl font-semibold text-black dark:text-white">{{ $pinned_announcement->title }}</h2>
 
-                            <p class="mt-4 text-sm/relaxed">
-                                {!! $pinned_announcement->excerpt() !!}
-                            </p>
+                            <div class="mt-4 text-sm/relaxed">
+                                {!! $pinned_announcement->excerpt(1000) !!}
+                            </div>
                         </div>
                     </div>
 
@@ -52,7 +52,7 @@
                     <h2 class="text-xl font-semibold text-black dark:text-white">{{ $announcement->title }}</h2>
 
                     <p class="mt-4 text-sm/relaxed">
-                        {!!   $announcement->excerpt() !!}
+                        {!! $announcement->excerpt() !!}
                     </p>
                 </div>
 
