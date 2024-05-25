@@ -19,9 +19,18 @@
             <x-input-error :messages="$errors->get('form.category_id')" class="mt-2" />
         </div>
 
-        <div class="mt-4">
+        <div class="mt-4" wire:ignore>
             <x-input-label for="content" :value="__('Content')" />
-            <textarea wire:model="form.content" id="content" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+{{--            <textarea wire:model="form.content" id="content" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>--}}
+            <trix-editor
+                id="content"
+                class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                x-data
+                x-on:trix-change="$dispatch('input', event.target.value)"
+                x-ref="trix"
+                wire:model.debounce.60s="form.content"
+                wire:key="contentKey"
+            ></trix-editor>
             <x-input-error :messages="$errors->get('form.content')" class="mt-2" />
         </div>
 
@@ -33,3 +42,6 @@
         </div>
     </form>
 </div>
+
+
+

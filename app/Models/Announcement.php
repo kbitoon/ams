@@ -6,10 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Str;
+use JetBrains\PhpStorm\Pure;
 
 class Announcement extends Model
 {
     use HasFactory;
+
+    const EXCERPT_LENGTH = 100;
 
     protected $fillable = [
         'title',
@@ -41,5 +45,14 @@ class Announcement extends Model
     public function assets(): MorphMany
     {
         return $this->morphMany(Asset::class, 'assetable');
+    }
+
+    /**
+     * @return string
+     */
+    public function excerpt($limit = null)
+    {
+
+        return Str::limit($this->content, is_null($limit) ? Announcement::EXCERPT_LENGTH : $limit);
     }
 }

@@ -27,7 +27,7 @@
 
         <div class="mt-4">
             <x-input-label for="date" :value="__('Date')" />
-            <x-text-input wire:model="form.date" id="date" class="mt-1 block w-full" type="text" />
+            <x-input-date wire:model="form.date" id="date" class="mt-1 block w-full" type="text" />
             <x-input-error :messages="$errors->get('form.date')" class="mt-2" />
         </div>
 
