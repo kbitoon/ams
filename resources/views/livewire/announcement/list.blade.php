@@ -11,18 +11,22 @@
         </thead>
         <!-- Table Body -->
         <tbody class="bg-white divide-y divide-gray-200 divide-solid">
+        @hasanyrole('superadmin|administrator')
         <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.announcement-modal' })" class="mb-4">
             New Announcement
         </x-primary-button>
+        @endhasanyrole
         @forelse($announcements as $announcement)
             <tr>
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                     {{ $announcement->title }}
                 </td>
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                    @hasanyrole('superadmin|administrator')
                     <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.announcement-modal', arguments: { announcement: {{ $announcement }} }})">
                         Edit
                     </x-secondary-button>
+                    @endhasanyrole
                 </td>
             </tr>
         @empty
