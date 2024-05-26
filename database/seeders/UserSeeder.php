@@ -21,5 +21,21 @@ class UserSeeder extends Seeder
         ]);
 
         $user->assignRole('anonymous');
+
+        $superadmin = User::factory()->create([
+            'name' => 'Super Admin',
+            'email' => 'superadmin@ams.com',
+            'password' => Hash::make('$upp3r!@#'),
+        ]);
+
+        $superadmin->assignRole('superadmin');
+
+        $administrator = User::factory()->create([
+            'name' => 'Administrator',
+            'email' => 'administrator@ams.com',
+            'password' => Hash::make('@dm1n1$tr@tor'),
+        ]);
+
+        $administrator->assignRole('superadmin');
     }
 }
