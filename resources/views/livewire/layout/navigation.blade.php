@@ -53,9 +53,11 @@ new class extends Component
                                 <x-dropdown-link :href="route('clearance')" :active="request()->routeIs('clearance')" wire:navigate>
                                     {{ __('Listing') }}
                                 </x-dropdown-link>
+                                @hasanyrole('superadmin|administrator')
                                 <x-dropdown-link :href="route('clearance-type')" :active="request()->routeIs('clearance-type')" wire:navigate>
                                     {{ __('Type') }}
                                 </x-dropdown-link>
+                                @endhasanyrole
 
                             </x-slot>
                         </x-dropdown>
@@ -80,9 +82,11 @@ new class extends Component
                                 <x-dropdown-link :href="route('announcement')" :active="request()->routeIs('announcement')" wire:navigate>
                                     {{ __('Listing') }}
                                 </x-dropdown-link>
+                                @hasanyrole('superadmin|administrator')
                                 <x-dropdown-link :href="route('announcement-category')" :active="request()->routeIs('annnouncement-category')" wire:navigate>
                                     {{ __('Category') }}
                                 </x-dropdown-link>
+                                @endhasanyrole
 
                             </x-slot>
                         </x-dropdown>
@@ -107,9 +111,11 @@ new class extends Component
                                 <x-dropdown-link :href="route('complaint')" :active="request()->routeIs('complaint')" wire:navigate>
                                     {{ __('Listing') }}
                                 </x-dropdown-link>
+                                @hasanyrole('superadmin|administrator')
                                 <x-dropdown-link :href="route('complaint-category')" :active="request()->routeIs('complaint-category')" wire:navigate>
                                     {{ __('Category') }}
                                 </x-dropdown-link>
+                                @endhasanyrole
 
                             </x-slot>
                         </x-dropdown>
