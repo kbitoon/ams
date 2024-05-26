@@ -70,4 +70,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Announcement::class);
     }
+
+    /**
+     * @return HasMany
+     */
+    public function complaints(): HasMany
+    {
+        return $this->hasMany(Complaint::class);
+    }
 }

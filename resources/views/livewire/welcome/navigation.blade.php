@@ -33,13 +33,13 @@ new class extends Component
                         {{ __('Get a Clearance') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('todo')" :active="request()->routeIs('todo')" wire:navigate>
+                    <x-nav-link :href="route('file-a-complaint')" :active="request()->routeIs('file-a-complaint')" wire:navigate>
                         {{ __('File a Complaint') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('todo')" :active="request()->routeIs('todo')" wire:navigate>
-                        {{ __('Submit a Feedback') }}
-                    </x-nav-link>
+{{--                    <x-nav-link :href="route('todo')" :active="request()->routeIs('todo')" wire:navigate>--}}
+{{--                        {{ __('Submit a Feedback') }}--}}
+{{--                    </x-nav-link>--}}
                 </div>
             </div>
 

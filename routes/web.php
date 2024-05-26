@@ -21,15 +21,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('announcement-category', 'announcement-category')
         ->name('announcement-category');
 
+    Route::view('complaint', 'complaint')
+        ->name('complaint');
+
+    Route::view('complaint-category', 'complaint-category')
+        ->name('complaint-category');
+
     Route::view('profile', 'profile')
         ->name('profile');
 });
 
 Route::middleware('guest')->group(function () {
-    Route::view('/', 'welcome');
+    Route::view('/', 'welcome')->name('home');
 
     Route::view('get-a-clearance', 'clearance')
         ->name('get-a-clearance');
+
+    Route::view('file-a-complaint', 'complaint')
+        ->name('file-a-complaint');
 });
 
 require __DIR__.'/auth.php';

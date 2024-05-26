@@ -13,7 +13,7 @@ class Complaint extends Model
 
     protected $fillable = [
         'title',
-        'complaint',
+        'content',
         'user_id',
         'category_id',
         'is_pinned',

@@ -11,16 +11,16 @@
         </thead>
         <!-- Table Body -->
         <tbody class="bg-white divide-y divide-gray-200 divide-solid">
-        <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.announcement-category-modal' })" class="mb-4">
-            New Announcement Category
+        <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.complaint-category-modal' })" class="mb-4">
+            New Complaint Category
         </x-primary-button>
-        @forelse($announcementCategories as $announcementCategory)
+        @forelse($complaintCategories as $complaintCategory)
             <tr>
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                    {{ $announcementCategory->name }}
+                    {{ $complaintCategory->name }}
                 </td>
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                    <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.announcement-category-modal', arguments: { announcementCategory: {{ $announcementCategory }} }})">
+                    <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.complaint-category-modal', arguments: { complaintCategory: {{ $complaintCategory }} }})">
                         Edit
                     </x-secondary-button>
                 </td>
