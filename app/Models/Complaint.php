@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Str;
 
 class Complaint extends Model
 {
@@ -41,5 +42,14 @@ class Complaint extends Model
     public function assets(): MorphMany
     {
         return $this->morphMany(Asset::class, 'assetable');
+    }
+
+    /**
+     * @return string
+     */
+    public function excerpt($limit = null)
+    {
+
+        return Str::limit($this->content, is_null($limit) ? Announcement::EXCERPT_LENGTH : $limit);
     }
 }
