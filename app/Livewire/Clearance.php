@@ -19,8 +19,13 @@ class Clearance extends Component
      */
     public function render(): Application|View|Factory|\Illuminate\Contracts\Foundation\Application
     {
+        if (auth()->user()->hasRole('superadmin|admin')) {
+            $clearances = ClearanceModel::with('assets')->get();
+        } else {
+            $clearances = ClearanceModel::with('assets')->where('user_id', auth()->user()->id)->get();
+        }
         return view('livewire.clearance.list', [
-            'clearances' => ClearanceModel::with('assets')->get(),
+            'clearances' => $clearances,
         ]);
     }
 }

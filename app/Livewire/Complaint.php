@@ -19,8 +19,14 @@ class Complaint extends Component
      */
     public function render(): Application|View|Factory|\Illuminate\Contracts\Foundation\Application
     {
+        if (auth()->user()->hasRole('superadmin|admin')) {
+            $complaints = ComplaintModel::with('assets')->get();
+        } else {
+            $complaints = ComplaintModel::with('assets')->where('user_id', auth()->user()->id)->get();
+        }
+
         return view('livewire.complaint.list', [
-            'complaints' => ComplaintModel::all(),
+            'complaints' => $complaints,
         ]);
     }
 }
