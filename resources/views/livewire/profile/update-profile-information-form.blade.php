@@ -3,13 +3,21 @@
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Livewire\Attributes\Validate;
 use Livewire\Volt\Component;
+use Livewire\WithFileUploads;
 
 new class extends Component
 {
+    use WithFileUploads;
+
     public string $name = '';
     public string $email = '';
+
+    #[Validate('image|max:1024')] // 1MB Max
+    public $photo;
 
     /**
      * Mount the component.
@@ -38,7 +46,17 @@ new class extends Component
             $user->email_verified_at = null;
         }
 
-        $user->save();
+        $path = $user->photo;
+        if ($this->photo) {
+            $path = $this->photo->storePubliclyAs('photo/' . $user->id, time() . '-' . $this->photo->getClientOriginalName());
+            Storage::delete($user->photo);
+        }
+
+        $user->update([
+            'name' => $this->name,
+            'email' => $this->email,
+            'photo' => $path
+        ]);
 
         $this->dispatch('profile-updated', name: $user->name);
     }
@@ -71,6 +89,10 @@ new class extends Component
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
             {{ __("Update your account's profile information and email address.") }}
         </p>
+
+        <div class="flex justify-center items-center mt-4">
+            <img class="h-50 w-50 rounded-full overflow-hidden bg-gray-100" src="{{ auth()->user()->photoUrl() }}">
+        </div>
     </header>
 
     <form wire:submit="updateProfileInformation" class="mt-6 space-y-6">
@@ -102,6 +124,12 @@ new class extends Component
                     @endif
                 </div>
             @endif
+        </div>
+
+        <div>
+            <x-input-label for="photo" :value="__('Photo')" />
+            <x-text-input wire:model="photo" id="photo" class="mt-1 block w-full rounded-none" type="file" />
+            <x-input-error :messages="$errors->get('photo')" class="mt-2" />
         </div>
 
         <div class="flex items-center gap-4">
