@@ -91,7 +91,7 @@ new class extends Component
         </p>
 
         <div class="flex justify-center items-center mt-4">
-            <img class="h-50 w-50 rounded-full overflow-hidden bg-gray-100" src="{{ auth()->user()->photoUrl() }}">
+            <img class="w-50 h-50 rounded-full" src="{{ auth()->user()->photoUrl() }}">
         </div>
     </header>
 
