@@ -27,6 +27,9 @@
                         Edit
                     </x-secondary-button>
                     @endhasanyrole
+                    <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.show.announcement-modal', arguments: { announcement: {{ $announcement }} }})">
+                        View
+                    </x-secondary-button>
                 </td>
             </tr>
         @empty
