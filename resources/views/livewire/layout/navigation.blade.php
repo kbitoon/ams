@@ -23,10 +23,18 @@ new class extends Component
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}" wire:navigate>
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                    </a>
+{{--                    <a href="{{ route('dashboard') }}" wire:navigate>--}}
+{{--                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />--}}
+{{--                    </a>--}}
+
+                    <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-red-100 rounded-full dark:bg-red-600">
+                        <a href="/">
+                            <span class="font-medium text-gray-600 dark:text-gray-300">BIS</span>
+                        </a>
+                    </div>
                 </div>
+
+
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
