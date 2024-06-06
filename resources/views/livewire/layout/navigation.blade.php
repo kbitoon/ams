@@ -35,6 +35,7 @@ new class extends Component
 {{--                    </x-nav-link>--}}
 
                     <!-- Clearance Dropdown -->
+                    @hasanyrole('superadmin|administrator')
                     <div class="hidden sm:flex sm:items-center sm:ml-6 pt-1">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
@@ -53,17 +54,21 @@ new class extends Component
                                 <x-dropdown-link :href="route('clearance')" :active="request()->routeIs('clearance')" wire:navigate>
                                     {{ __('Listing') }}
                                 </x-dropdown-link>
-                                @hasanyrole('superadmin|administrator')
+
                                 <x-dropdown-link :href="route('clearance-type')" :active="request()->routeIs('clearance-type')" wire:navigate>
                                     {{ __('Type') }}
                                 </x-dropdown-link>
-                                @endhasanyrole
-
                             </x-slot>
                         </x-dropdown>
                     </div>
+                    @else
+                        <x-nav-link :href="route('clearance')" :active="request()->routeIs('clearance')" wire:navigate>
+                            {{ __('Clearance') }}
+                        </x-nav-link>
+                    @endhasanyrole
 
                     <!-- Announcement Dropdown -->
+                    @hasanyrole('superadmin|administrator')
                     <div class="hidden sm:flex sm:items-center sm:ml-6 pt-1">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
@@ -82,17 +87,20 @@ new class extends Component
                                 <x-dropdown-link :href="route('announcement')" :active="request()->routeIs('announcement')" wire:navigate>
                                     {{ __('Listing') }}
                                 </x-dropdown-link>
-                                @hasanyrole('superadmin|administrator')
                                 <x-dropdown-link :href="route('announcement-category')" :active="request()->routeIs('annnouncement-category')" wire:navigate>
                                     {{ __('Category') }}
                                 </x-dropdown-link>
-                                @endhasanyrole
-
                             </x-slot>
                         </x-dropdown>
                     </div>
+                    @else
+                        <x-nav-link :href="route('announcement')" :active="request()->routeIs('announcement')" wire:navigate>
+                            {{ __('Announcement') }}
+                        </x-nav-link>
+                    @endhasanyrole
 
                     <!-- Complaint Dropdown -->
+                    @hasanyrole('superadmin|administrator')
                     <div class="hidden sm:flex sm:items-center sm:ml-6 pt-1">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
@@ -111,16 +119,17 @@ new class extends Component
                                 <x-dropdown-link :href="route('complaint')" :active="request()->routeIs('complaint')" wire:navigate>
                                     {{ __('Listing') }}
                                 </x-dropdown-link>
-                                @hasanyrole('superadmin|administrator')
                                 <x-dropdown-link :href="route('complaint-category')" :active="request()->routeIs('complaint-category')" wire:navigate>
                                     {{ __('Category') }}
                                 </x-dropdown-link>
-                                @endhasanyrole
-
                             </x-slot>
                         </x-dropdown>
                     </div>
-
+                    @else
+                        <x-nav-link :href="route('complaint')" :active="request()->routeIs('complaint')" wire:navigate>
+                            {{ __('Complaint') }}
+                        </x-nav-link>
+                    @endhasanyrole
                 </div>
             </div>
 

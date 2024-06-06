@@ -34,7 +34,7 @@
                             <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.clearance-modal', arguments: { clearance: {{ $clearance }} }})">
                                 Edit
                             </x-secondary-button>
-                        @hasanyrole
+                        @endhasanyrole
                     <x-secondary-button wire:click="">
                         Done
                     </x-secondary-button>
