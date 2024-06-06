@@ -40,7 +40,7 @@
                             <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.complaint-modal', arguments: { complaint: {{ $complaint }} }})">
                                 Edit
                             </x-secondary-button>
-                        @hasanyrole
+                        @endhasanyrole
                     <x-secondary-button wire:click="">
                         Done
                     </x-secondary-button>

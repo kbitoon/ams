@@ -12,6 +12,7 @@ class AnnouncementCategory extends Model
 
     protected $fillable = [
         'name',
+        'icon',
     ];
 
     /**

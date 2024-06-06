@@ -11,6 +11,7 @@ class AnnouncementCategoryForm extends Form
     public ?AnnouncementCategory $announcementCategory = null;
 
     public string $name = '';
+    public string $icon = '';
 
     /**
      * @param AnnouncementCategory|null $announcementCategory
@@ -19,6 +20,7 @@ class AnnouncementCategoryForm extends Form
     {
         $this->announcementCategory = $announcementCategory;
         $this->name = $announcementCategory->name;
+        $this->icon = $announcementCategory->icon ?? '';
     }
 
     /**
@@ -48,9 +50,9 @@ class AnnouncementCategoryForm extends Form
     {
         $this->validate();
         if (!$this->announcementCategory) {
-            AnnouncementCategory::create($this->only(['name']));
+            AnnouncementCategory::create($this->only(['name', 'icon']));
         } else {
-            $this->announcementCategory->update($this->only(['name']));
+            $this->announcementCategory->update($this->only(['name', 'icon']));
         }
         $this->reset();
     }
