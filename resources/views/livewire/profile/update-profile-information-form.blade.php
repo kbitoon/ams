@@ -15,8 +15,6 @@ new class extends Component
 
     public string $name = '';
     public string $email = '';
-
-    #[Validate('image|max:1024')] // 1MB Max
     public $photo;
 
     /**
@@ -38,6 +36,7 @@ new class extends Component
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
+            'photo' => 'image|max:1024'
         ]);
 
         $user->fill($validated);
