@@ -34,7 +34,7 @@ new class extends Component
                     </x-nav-link>
 
                     <x-nav-link :href="route('file-a-complaint')" :active="request()->routeIs('file-a-complaint')" wire:navigate>
-                        {{ __('File a Complaint') }}
+                        {{ __('Request or Complaint') }}
                     </x-nav-link>
 
 {{--                    <x-nav-link :href="route('todo')" :active="request()->routeIs('todo')" wire:navigate>--}}
@@ -75,7 +75,7 @@ new class extends Component
             </x-responsive-nav-link>
 
             <x-responsive-nav-link :href="route('todo')" :active="request()->routeIs('todo')" wire:navigate>
-                {{ __('File a Complaint') }}
+                {{ __('Request or Complaint') }}
             </x-responsive-nav-link>
 
             <x-responsive-nav-link :href="route('todo')" :active="request()->routeIs('todo')" wire:navigate>

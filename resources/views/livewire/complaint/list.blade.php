@@ -4,7 +4,13 @@
         <thead>
         <tr>
             <th class="px-6 py-3 text-left bg-gray-50">
+                <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Name</span>
+            </th>
+            <th class="px-6 py-3 text-left bg-gray-50">
                 <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Title</span>
+            </th>
+            <th class="px-6 py-3 text-left bg-gray-50">
+            <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Status</span>
             </th>
             <th class="px-6 py-3 text-left bg-gray-50"></th>
         </tr>
@@ -17,12 +23,28 @@
         @forelse($complaints as $complaint)
             <tr>
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                    {{ $complaint->name }}
+                </td>
+                <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                     {{ $complaint->title }}
                 </td>
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                    <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.complaint-modal', arguments: { complaint: {{ $complaint }} }})">
-                        Edit
+                {{ $complaint->status }}
+                </td>
+                <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                    <x-secondary-button wire:click="">
+                        View
                     </x-secondary-button>
+                    @if($complaint->status <> 'done')
+                        @hasanyrole('superadmin|administrator')
+                            <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.complaint-modal', arguments: { complaint: {{ $complaint }} }})">
+                                Edit
+                            </x-secondary-button>
+                        @hasanyrole
+                    <x-secondary-button wire:click="">
+                        Done
+                    </x-secondary-button>
+                    @endif
                 </td>
             </tr>
         @empty

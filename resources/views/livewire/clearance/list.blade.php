@@ -7,7 +7,7 @@
                 <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Name</span>
             </th>
             <th class="px-6 py-3 text-left bg-gray-50">
-                <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Purpose</span>
+                <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Type</span>
             </th>
             <th class="px-6 py-3 text-left bg-gray-50"></th>
         </tr>
@@ -23,12 +23,23 @@
                     {{ $clearance->name }}
                 </td>
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                    {{ $clearance->purpose }}
+                    {{ $clearance->type->name }}
                 </td>
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                    <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.clearance-modal', arguments: { clearance: {{ $clearance }} }})">
-                        Edit
+                    <x-secondary-button wire:click="">
+                        View
                     </x-secondary-button>
+                    @if($clearance->status <> 'done')
+                        @hasanyrole('superadmin|administrator')
+                            <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.clearance-modal', arguments: { clearance: {{ $clearance }} }})">
+                                Edit
+                            </x-secondary-button>
+                        @hasanyrole
+                    <x-secondary-button wire:click="">
+                        Done
+                    </x-secondary-button>
+
+                    @endif
                 </td>
             </tr>
         @empty
