@@ -20,6 +20,7 @@ class Complaint extends Model
         'is_pinned',
         'name',
         'contact_number',
+        'status',
     ];
 
     /**
