@@ -34,5 +34,9 @@
         @endforelse
         </tbody>
     </table>
+    <div class="mt-5">
+        {{-- Pagination links --}}
+        {{ $complaintCategories->links() }}
+    </div>
 </div>
 

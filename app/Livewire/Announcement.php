@@ -8,9 +8,13 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\Features\SupportPagination\WithoutUrlPagination;
+use Livewire\WithPagination;
 
 class Announcement extends Component
 {
+    use WithPagination, WithoutUrlPagination;
+
     #[On('refresh-list')]
     public function refresh() {}
 
@@ -20,7 +24,7 @@ class Announcement extends Component
     public function render(): Application|View|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.announcement.list', [
-            'announcements' => AnnouncementModel::all(),
+            'announcements' => AnnouncementModel::paginate(10),
         ]);
     }
 }

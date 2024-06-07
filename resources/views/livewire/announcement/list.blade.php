@@ -41,5 +41,9 @@
         @endforelse
         </tbody>
     </table>
+    <div class="mt-5">
+        {{-- Pagination links --}}
+        {{ $announcements->links() }}
+    </div>
 </div>
 

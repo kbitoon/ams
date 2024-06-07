@@ -40,5 +40,8 @@
         @endforelse
         </tbody>
     </table>
+    <div class="mt-5">
+        {{-- Pagination links --}}
+        {{ $clearanceTypes->links() }}
+    </div>
 </div>
-
