@@ -34,7 +34,7 @@
         <!-- Purpose input -->
         <div class="mt-4">
             <x-input-label for="purpose" :value="__('Purpose')" />
-            <textarea wire:model="form.purpose" id="purpose" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+            <x-text-input wire:model="form.purpose" id="purpose" class="mt-1 block w-full" type="text" />
             <x-input-error :messages="$errors->get('form.purpose')" class="mt-2" />
         </div>
 
@@ -64,3 +64,35 @@
         </div>
     </form>
 </div>
+
+<script>
+  $( function() {
+    var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+    $( "#purpose" ).autocomplete({
+      source: availableTags
+    });
+  } );
+</script>
