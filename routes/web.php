@@ -29,6 +29,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::view('profile', 'profile')
         ->name('profile');
+
+    Route::get('/clearancepurpose', [App\Http\Controllers\AmsController::class, 'clearancepurpose'])->name('clearancepurpose');
 });
 
 Route::middleware('guest')->group(function () {
@@ -39,6 +41,8 @@ Route::middleware('guest')->group(function () {
 
     Route::view('file-a-complaint', 'complaint')
         ->name('file-a-complaint');
+
+    Route::get('/clearancepurpose', [App\Http\Controllers\AmsController::class, 'clearancepurpose'])->name('clearancepurpose');
 });
 
 require __DIR__.'/auth.php';

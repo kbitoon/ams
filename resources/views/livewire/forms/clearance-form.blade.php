@@ -1,5 +1,5 @@
 <div class="p-6">
-    <form wire:submit="save">
+    <form wire:submit.prevent="save">
         <!-- Name input -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
@@ -11,9 +11,10 @@
             <x-input-label for="type_id" :value="__('Type')" />
             <select wire:model.live.debounce.500ms="form.type_id" id="type_id" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                 <option selected>Please select a type</option>
-                @forelse($clearanceTypes as $clearanceTypes)
-                    <option value="{{ $clearanceTypes->id }}">{{ $clearanceTypes->name }}</option>
+                @forelse($clearanceTypes as $clearanceType)
+                    <option value="{{ $clearanceType->id }}">{{ $clearanceType->name }}</option>
                 @empty
+                    <option>No types available</option>
                 @endforelse
             </select>
             <x-input-error :messages="$errors->get('form.type_id')" class="mt-2" />
@@ -45,7 +46,7 @@
         </div>
 
         <div class="mt-4">
-            <x-input-label for="date" :value="__('Contact Number')" />
+            <x-input-label for="contact_number" :value="__('Contact Number')" />
             <x-text-input wire:model="form.contact_number" id="contact_number" class="mt-1 block w-full" type="text" />
             <x-input-error :messages="$errors->get('form.contact_number')" class="mt-2" />
         </div>
@@ -66,33 +67,69 @@
 </div>
 
 <script>
-  $( function() {
-    var availableTags = [
-      "ActionScript",
-      "AppleScript",
-      "Asp",
-      "BASIC",
-      "C",
-      "C++",
-      "Clojure",
-      "COBOL",
-      "ColdFusion",
-      "Erlang",
-      "Fortran",
-      "Groovy",
-      "Haskell",
-      "Java",
-      "JavaScript",
-      "Lisp",
-      "Perl",
-      "PHP",
-      "Python",
-      "Ruby",
-      "Scala",
-      "Scheme"
-    ];
-    $( "#purpose" ).autocomplete({
-      source: availableTags
+$(function() {
+    // Fetch dynamic tags from a server-side source
+    $.ajax({
+        url: '/clearancepurpose', // Replace with your endpoint
+        method: 'GET',
+        success: function(data) {
+            // Assuming `data` is an array of objects with a 'purpose' property
+            var purposes = data.map(function(item) {
+                return {
+                    label: item.purpose,
+                    value: item.purpose
+                };
+            });
+
+            $("#purpose").autocomplete({
+                source: purposes,
+                select: function(event, ui) {
+                    // Replace the existing value with the selected value
+                    $("#purpose").val(ui.item.value);
+                    // Manually trigger input event to update Livewire model
+                    let purposeInput = document.getElementById('purpose');
+                    purposeInput.dispatchEvent(new Event('input'));
+                    return false; // Prevent the default behavior of autocomplete
+                }
+            });
+        },
+        error: function(error) {
+            console.error("Error fetching tags:", error);
+        }
     });
-  } );
+});
+
+    document.addEventListener('livewire:load', function () {
+        $('#clearancePurposeModal').on('shown.bs.modal', function () {
+            // Fetch dynamic tags from a server-side source
+            $.ajax({
+                url: '/clearancepurpose', // Replace with your endpoint
+                method: 'GET',
+                success: function (data) {
+                    // Assuming `data` is an array of objects with a 'purpose' property
+                    var purposes = data.map(function (item) {
+                        return {
+                            label: item.purpose,
+                            value: item.purpose
+                        };
+                    });
+
+                    $("#purpose").autocomplete({
+                        source: purposes,
+                        select: function (event, ui) {
+                            // Replace the existing value with the selected value
+                            $("#purpose").val(ui.item.value);
+                            // Manually trigger input event to update Livewire model
+                            let purposeInput = document.getElementById('purpose');
+                            purposeInput.dispatchEvent(new Event('input'));
+                            return false; // Prevent the default behavior of autocomplete
+                        }
+                    });
+                },
+                error: function (error) {
+                    console.error("Error fetching tags:", error);
+                }
+            });
+        });
+    });
 </script>
