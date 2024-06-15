@@ -1,5 +1,66 @@
-<div class="flex-container" style="display: flex; gap: 20px;">
-    <div class="p-6" style="flex: 1;">
+<style type="text/css">
+    body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.form-instructions, .form-container {
+    flex: 1;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 800px;
+    line-height: 1.7;
+}
+
+.form-instructions center {
+    display: block;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-instructions ol,
+.form-instructions ul {
+    padding-left: 20px;
+}
+
+.form-instructions li {
+    margin-bottom: 10px;
+}
+
+@media (max-width: 600px) {
+    .flex-container {
+        flex-direction: column;
+    }
+
+    .form-instructions {
+        order: -1;
+        padding: 10px;
+    }
+
+    .form-instructions ol,
+    .form-instructions ul {
+        padding-left: 15px;
+    }
+
+    .form-instructions li {
+        font-size: 14px;
+    }
+
+    .form-container {
+        padding: 10px;
+    }
+}
+
+</style>
+<div class="flex-container">
+    <div class="form-container">
         <form wire:submit.prevent="save">
             <!-- Name input -->
             <div>
@@ -67,9 +128,10 @@
         </form>
     </div>
 
-    <div style="flex: 1; line-height: 2.0;">
+    <div class="form-instructions">
         <center><strong>Form Submission Instructions</strong></center>
         <p>To complete and submit the form, follow these steps:</p>
+        <ol>
             <li><strong>Enter Your Name:</strong> Find the "Name" field. Type your full name in the text box provided.</li>
             <li><strong>Select the Type:</strong> Locate the "Type" dropdown. Click the dropdown and choose the appropriate type from the list.</li>
             <li><strong>Enter the Amount:</strong> Find the "Amount" field. Enter the required amount in the text box.</li>
