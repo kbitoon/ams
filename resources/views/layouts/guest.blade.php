@@ -22,7 +22,8 @@
 {{--                </a>--}}
                 <div class="relative inline-flex items-center justify-center w-40 h-40 overflow-hidden bg-red-100 rounded-full dark:bg-red-600">
                     <a href="/" wire:navigate>
-                        <span class="text-6xl font-medium text-gray-600 dark:text-gray-300">BIS</span>
+                        {{-- <span class="text-6xl font-medium text-gray-600 dark:text-gray-300">BIS</span> --}}
+                        <img src="/storage/public/logo.png" />
                     </a>
                 </div>
 {{--            </div>--}}
