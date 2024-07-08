@@ -186,6 +186,7 @@
     });
 
     document.addEventListener('livewire:load', function () {
+        alert('hi');
         $('#clearancePurposeModal').on('shown.bs.modal', function () {
             // Fetch dynamic tags from a server-side source
             $.ajax({
