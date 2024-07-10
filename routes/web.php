@@ -49,6 +49,12 @@ Route::middleware('guest')->group(function () {
         ->name('file-a-complaint');
 
     Route::get('/clearancepurpose', [App\Http\Controllers\AmsController::class, 'clearancepurpose'])->name('clearancepurpose');
+
+    Route::view('information-category', 'information-category')
+        ->name('information-category');
+
+    Route::view('information', 'information')
+        ->name('information');
 });
 
 require __DIR__.'/auth.php';
