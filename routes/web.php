@@ -50,11 +50,9 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/clearancepurpose', [App\Http\Controllers\AmsController::class, 'clearancepurpose'])->name('clearancepurpose');
 
-    Route::view('information-category', 'information-category')
-        ->name('information-category');
+    Route::view('information-list', 'information-list')
+        ->name('information-list');
 
-    Route::view('information', 'information')
-        ->name('information');
 });
 
 require __DIR__.'/auth.php';
