@@ -16,7 +16,8 @@
     padding: 20px;
     margin: 0 auto;
     max-width: 800px;
-    line-height: 1.7;
+    line-height: 1.2;
+    font-size: 13px;
 }
 
 .form-instructions center {
@@ -57,6 +58,11 @@
         padding: 10px;
     }
 }
+
+@media (min-width: 640px) {
+    .sm\:max-w-md {
+        max-width: 40rem !important;
+    }
 
 </style>
 <div class="flex-container">
@@ -185,38 +191,4 @@
         });
     });
 
-    document.addEventListener('livewire:load', function () {
-        alert('hi');
-        $('#clearancePurposeModal').on('shown.bs.modal', function () {
-            // Fetch dynamic tags from a server-side source
-            $.ajax({
-                url: '/clearancepurpose', // Replace with your endpoint
-                method: 'GET',
-                success: function (data) {
-                    // Assuming `data` is an array of objects with a 'purpose' property
-                    var purposes = data.map(function (item) {
-                        return {
-                            label: item.purpose,
-                            value: item.purpose
-                        };
-                    });
-
-                    $("#purpose").autocomplete({
-                        source: purposes,
-                        select: function (event, ui) {
-                            // Replace the existing value with the selected value
-                            $("#purpose").val(ui.item.value);
-                            // Manually trigger input event to update Livewire model
-                            let purposeInput = document.getElementById('purpose');
-                            purposeInput.dispatchEvent(new Event('input'));
-                            return false; // Prevent the default behavior of autocomplete
-                        }
-                    });
-                },
-                error: function (error) {
-                    console.error("Error fetching tags:", error);
-                }
-            });
-        });
-    });
 </script>
