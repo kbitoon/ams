@@ -66,12 +66,13 @@
         $.ajax({
             url: '/clearancepurpose', // Replace with your endpoint
             method: 'GET',
+            // dataType: 'json',
             success: function(data) {
                 // Assuming `data` is an array of objects with a 'purpose' property
                 // var purposes = data.map(function(item) {
                 //     return {
-                //         label: item.purpose,
-                //         value: item.purpose
+                //         label: item.label,
+                //         value: item.value,
                 //     };
                 // });
 

@@ -15,15 +15,15 @@ class AmsController extends Controller
      */
     public function clearancepurpose()
     {
-        // $tmp = DB::table("clearance_purpose")->select('purpose')->get();
-        // return response()->json($tmp);
+        $tmp = DB::table("clearance_purpose")->select('purpose')->get();
+        return response()->json($tmp);
 
-        $purposes = [
-            ['label' => 'Employment', 'value' => 'Employment'],
-            ['label' => 'Business', 'value' => 'Business']
-        ];
+        // $purposes = [
+        //     ['label' => 'Employment', 'value' => 'Employment'],
+        //     ['label' => 'Business', 'value' => 'Business']
+        // ];
 
-        return response()->json($purposes);
+        // return response()->json($purposes);
     }
 
     public function clearancepurposemodal(Request $request)
