@@ -57,3 +57,48 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', (event) => {
+        document.addEventListener('openModal', function (event) {
+            if (event.detail && event.detail.component === 'modals.clearance-modal') {
+                $(function() {
+        // Fetch dynamic tags from a server-side source
+        $.ajax({
+            url: '/clearancepurpose', // Replace with your endpoint
+            method: 'GET',
+            // dataType: 'json',
+            success: function(data) {
+                // Assuming `data` is an array of objects with a 'purpose' property
+                // var purposes = data.map(function(item) {
+                //     return {
+                //         label: item.label,
+                //         value: item.value,
+                //     };
+                // });
+
+                var purposes = [
+                    { label: 'Business', value: 'Business' },
+                    { label: 'Employment', value: 'Employment' },
+                ];
+
+                $("#purpose").autocomplete({
+                    source: purposes,
+                    select: function(event, ui) {
+                        // Replace the existing value with the selected value
+                        $("#purpose").val(ui.item.value);
+                        // Manually trigger input event to update Livewire model
+                        let purposeInput = document.getElementById('purpose');
+                        purposeInput.dispatchEvent(new Event('input'));
+                        return false; // Prevent the default behavior of autocomplete
+                    }
+                });
+            },
+            error: function(error) {
+                console.error("Error fetching tags:", error);
+            }
+        });
+    });
+            }
+        });
+    });
+</script>

@@ -43,6 +43,10 @@ new class extends Component
                         {{ __('Request or Complaint') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('information-list')" :active="request()->routeIs('information-list')" wire:navigate>
+                        {{ __('Information') }}
+                    </x-nav-link>
+
 {{--                    <x-nav-link :href="route('todo')" :active="request()->routeIs('todo')" wire:navigate>--}}
 {{--                        {{ __('Submit a Feedback') }}--}}
 {{--                    </x-nav-link>--}}

@@ -14,6 +14,7 @@ class InformationForm extends Form
     public string $content = '';
     public string $category_id = '';
     public int $is_pinned = 0;
+    public int $public = 0;
 
     /**
      * @param Information|null $information
@@ -25,6 +26,7 @@ class InformationForm extends Form
         $this->content = $information->content;
         $this->category_id = $information->category_id;
         $this->is_pinned = $information->is_pinned;
+        $this->public = $information->public;
     }
 
     /**
@@ -58,9 +60,9 @@ class InformationForm extends Form
     {
         $this->validate();
         if (!$this->information) {
-            $information = auth()->user()->informations()->create($this->only(['title', 'content', 'category_id', 'is_pinned']));
+            $information = auth()->user()->informations()->create($this->only(['title', 'content', 'category_id', 'is_pinned', 'public']));
         } else {
-            $this->information->update($this->only(['title', 'content', 'category_id', 'is_pinned']));
+            $this->information->update($this->only(['title', 'content', 'category_id', 'is_pinned', 'public']));
         }
         $this->reset();
     }
