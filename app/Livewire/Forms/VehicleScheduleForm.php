@@ -44,7 +44,7 @@ class VehicleScheduleForm extends Form
             'start' => ['required', 'date', 'after_or_equal:today'],
             'end' => ['required', 'date', 'after:start'],
             'vehicle_id' => ['required'],
-            // 'driver_id' => ['required'],
+            'driver_id' => ['required'],
         ];
     }
 

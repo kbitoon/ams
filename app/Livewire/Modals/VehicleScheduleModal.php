@@ -56,18 +56,10 @@ class VehicleScheduleModal extends ModalComponent
         $usedVehicleIds = $overlappingSchedules->pluck('vehicle_id')->unique();
         $usedDriverIds = $overlappingSchedules->pluck('driver_id')->unique();
 
-        // Debugging information
-        \Log::info('Overlapping schedules:', $overlappingSchedules->toArray());
-        \Log::info('Used vehicle IDs:', $usedVehicleIds->toArray());
-        \Log::info('Used driver IDs:', $usedDriverIds->toArray());
 
         // Filter out used vehicles and drivers
         $this->vehicles = Vehicle::whereNotIn('id', $usedVehicleIds)->get();
         $this->drivers = Driver::whereNotIn('id', $usedDriverIds)->get();
-
-        // Debugging information
-        \Log::info('Available vehicles:', $this->vehicles->toArray());
-        \Log::info('Available drivers:', $this->drivers->toArray());
     }
 
 
