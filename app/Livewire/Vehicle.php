@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\InformationCategory as InformationCategoryModel;
+use App\Models\Vehicle as VehicleModel;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -11,7 +11,7 @@ use Livewire\Component;
 use Livewire\Features\SupportPagination\WithoutUrlPagination;
 use Livewire\WithPagination;
 
-class InformationCategory extends Component
+class Vehicle extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
@@ -23,8 +23,8 @@ class InformationCategory extends Component
      */
     public function render(): Factory|\Illuminate\Foundation\Application|View|Application
     {
-        return view('livewire.information.category', [
-            'informationCategories' => InformationCategoryModel::paginate(10),
+        return view('livewire.vehicle.list', [
+            'vehicles' => VehicleModel::paginate(10),
         ]);
     }
 }

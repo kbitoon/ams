@@ -36,6 +36,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('information-category', 'information-category')
         ->name('information-category');
 
+    Route::view('vehicle-listing', 'vehicle-listing')
+        ->name('vehicle-listing');
+        
+    Route::view('driver', 'driver')
+        ->name('driver');
+
+    Route::view('vehicle-schedule', 'vehicle-schedule')
+        ->name('vehicle-schedule');
+
     Route::get('/clearancepurpose', [App\Http\Controllers\AmsController::class, 'clearancepurpose'])->name('clearancepurpose');
 });
 
