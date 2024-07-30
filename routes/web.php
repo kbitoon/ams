@@ -36,7 +36,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('information-category', 'information-category')
         ->name('information-category');
 
-<<<<<<< HEAD
     Route::view('vehicle-listing', 'vehicle-listing')
         ->name('vehicle-listing');
         
@@ -45,9 +44,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::view('vehicle-schedule', 'vehicle-schedule')
         ->name('vehicle-schedule');
-=======
+        
     Route::get('/clearancepurposemodal', [App\Http\Controllers\AmsController::class, 'clearancepurposemodal'])->name('clearancepurposemodal');
->>>>>>> 73cfb3f93e1018d237f42019f79a3f4444012426
 
     Route::get('/clearancepurpose', [App\Http\Controllers\AmsController::class, 'clearancepurpose'])->name('clearancepurpose');
 });
