@@ -5,16 +5,15 @@ namespace App\Livewire\Forms;
 use App\Models\ItemSchedule;
 use Illuminate\Validation\ValidationException;
 use Livewire\Form;
-use Carbon\Carbon;
 
 class ItemScheduleForm extends Form
 {
     public ?ItemSchedule $itemSchedule = null;
 
+    public string $location = '';
     public string $start = '';
     public string $end = '';
-    public string $location = '';
-    public string $quantity = '';
+    public int $quantity = 0;
     public string $item_id = '';
     public string $status = '';
     public string $purpose = '';
@@ -24,16 +23,15 @@ class ItemScheduleForm extends Form
      */
     public function setItemSchedule(?ItemSchedule $itemSchedule = null): void
     {
-        if($itemSchedule){
+        $this->location = $itemSchedule->location;
         $this->itemSchedule = $itemSchedule;
         $this->start = $itemSchedule->start;
         $this->end = $itemSchedule->end;
-        $this->location = $itemSchedule->location;
         $this->quantity = $itemSchedule->quantity;
         $this->item_id = $itemSchedule->item_id;
         $this->purpose = $itemSchedule->purpose;
         $this->status = $itemSchedule->status;
-        }
+        
     }
 
     /**
@@ -42,13 +40,13 @@ class ItemScheduleForm extends Form
     public function rules(): array
     {
         return [
+            'location' => ['required'],
             'start' => ['required', 'date', 'after_or_equal:today'],
             'end' => ['required', 'date', 'after:start'],
-            'location' => ['required'],
             'quantity' => ['required'],
             'item_id' => ['required'],
             'purpose' => ['required'],
-            'status' => ['required'],
+            // 'status' => ['required'],
         ];
     }
 
@@ -58,9 +56,9 @@ class ItemScheduleForm extends Form
     public function validationAttributes(): array
     {
         return [
+            'location' => 'location',
             'start' => 'start',
             'end' => 'end',
-            'location' => 'location',
             'quantity' => 'quantity',
             'item_id' => 'item',
             'purpose' => 'purpose',
@@ -73,12 +71,13 @@ class ItemScheduleForm extends Form
      */
     public function save(): void
     {
+
         $this->validate();
 
         if (!$this->itemSchedule) {
-           ItemSchedule::create($this->only(['start', 'end', 'location', 'quantity','item_id', 'purpose', 'status']));
+           ItemSchedule::create($this->only(['location', 'start', 'end',  'quantity','item_id', 'purpose', 'status']));
         } else {
-            $this->itemSchedule->update($this->only(['start', 'end', 'location', 'quantity','item_id', 'purpose', 'status']));
+            $this->itemSchedule->update($this->only(['location', 'start', 'end', 'quantity','item_id', 'purpose', 'status']));
         }
         
         $this->reset();

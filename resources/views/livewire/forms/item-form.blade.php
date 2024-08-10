@@ -28,6 +28,7 @@
                 @forelse($itemCategories as $itemCategory)
                     <option value="{{ $itemCategory->id }}">{{ $itemCategory->name }}</option>
                 @empty
+                   <option>No category available</option>
                 @endforelse
             </select>
             <x-input-error :messages="$errors->get('form.category_id')" class="mt-2" />

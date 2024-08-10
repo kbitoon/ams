@@ -11,8 +11,8 @@ class ItemForm extends Form
     public ?Item $item = null;
 
     public string $name = '';
-    public string $TotalQuantity = '';
-    public string $QuantityLeft = '';
+    public int $TotalQuantity = 0;
+    public int $QuantityLeft = 0;
     public string $category_id = '';
 
     /**

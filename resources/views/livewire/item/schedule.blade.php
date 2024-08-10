@@ -31,19 +31,23 @@
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                     {{ $itemSchedule->end }}
                 </td>
-            <tr>
+            
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                    {{ $item->name }}
+                    {{ $itemSchedule->item->name }}
                 </td>
 
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                     {{ $itemSchedule->status }}
                 </td>
-
+                
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                    <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.item-schedule-modal', arguments: { itemSchedule: {{ $itemSchedule }} }})">
+                        View
+                    </x-secondary-button>
                     <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.item-schedule-modal', arguments: { itemSchedule: {{ $itemSchedule }} }})">
                         Edit
                     </x-secondary-button>
+                    
                 </td>
                 
             </tr>

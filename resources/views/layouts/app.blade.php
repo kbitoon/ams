@@ -28,6 +28,8 @@
         <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewire('wire-elements-modal')
+        @livewireStyles
+        
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -45,6 +47,7 @@
                     </div>
                 </header>
             @endif
+            @livewireScripts
 
             <!-- Page Content -->
             <main>

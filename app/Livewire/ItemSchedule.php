@@ -3,7 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\ItemSchedule as ItemScheduleModel;
-use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
@@ -19,9 +19,9 @@ class ItemSchedule extends Component
     public function refresh() {}
 
     /**
-     * @return Factory|\Illuminate\Foundation\Application|View|Application
+     * @return  Application|View|Factory|\Illuminate\Contracts\Foundation\Application
      */
-    public function render(): Factory|\Illuminate\Foundation\Application|View|Application
+    public function render(): Application|View|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.item.schedule', [
             'itemSchedules' => ItemScheduleModel::paginate(10),

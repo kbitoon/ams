@@ -3,14 +3,18 @@
 namespace App\Livewire\Modals;
 
 use App\Models\ItemSchedule;
+use App\Models\Item;
 use Illuminate\Contracts\View\View;
 use LivewireUI\Modal\ModalComponent;
 use App\Livewire\Forms\ItemScheduleForm;
+use Illuminate\Database\Eloquent\Collection;
+
 
 class ItemScheduleModal extends ModalComponent
 {
     public ?ItemSchedule $itemSchedule = null;
     public ItemScheduleForm $form;
+    public Collection $items;
     
     /**
      * @param ItemSchedule|null $itemSchedule
@@ -20,6 +24,8 @@ class ItemScheduleModal extends ModalComponent
         if ($itemSchedule && $itemSchedule->exists) {
             $this->form->setItemSchedule($itemSchedule);
         }
+        $this->items = Item::all();
+
 
     }
 
@@ -39,7 +45,8 @@ class ItemScheduleModal extends ModalComponent
     public function render(): View
     {
         return view('livewire.forms.item-schedule-form', [
-            'items' => ItemSchedule::all(), // Pass collection to the view
+            'items' => $this->items
         ]);
     }
 }
+ 
