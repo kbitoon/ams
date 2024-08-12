@@ -17,6 +17,9 @@
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Item</span>
                     </th>
                     <th class="px-6 py-3 text-left bg-gray-50">
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Quantity</span>
+                    </th>
+                    <th class="px-6 py-3 text-left bg-gray-50">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Status</span>
                     </th>
                     <th class="px-6 py-3 text-left bg-gray-50"></th>
@@ -26,10 +29,10 @@
         @forelse($itemSchedules as $itemSchedule)
             <tr>
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                    {{ $itemSchedule->start }}
+                    {{ $itemSchedule->formatted_start }}
                 </td>
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                    {{ $itemSchedule->end }}
+                    {{ $itemSchedule->formatted_end }}
                 </td>
             
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
@@ -37,17 +40,30 @@
                 </td>
 
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                    {{ $itemSchedule->quantity }}
+                </td>
+
+                <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                     {{ $itemSchedule->status }}
                 </td>
+
                 
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                    <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.item-schedule-modal', arguments: { itemSchedule: {{ $itemSchedule }} }})">
+                    <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.show.item-schedule-modal', arguments: { itemSchedule: {{ $itemSchedule }} }})">
                         View
                     </x-secondary-button>
                     <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.item-schedule-modal', arguments: { itemSchedule: {{ $itemSchedule }} }})">
                         Edit
                     </x-secondary-button>
-                    
+                @if($itemSchedule->status === '')
+                    <x-secondary-button wire:click="updateStatus({{ $itemSchedule->id }}, 'Ongoing')">
+                        Ongoing
+                    </x-secondary-button>
+                @elseif($itemSchedule->status === 'Ongoing')
+                    <x-secondary-button wire:click="updateStatus({{ $itemSchedule->id }}, 'Done')">
+                        Done
+                    </x-secondary-button>
+                @endif
                 </td>
                 
             </tr>

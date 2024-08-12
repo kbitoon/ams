@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Models\ItemSchedule;
+use App\Models\Item;
 use Illuminate\Validation\ValidationException;
 use Livewire\Form;
 
@@ -43,11 +44,20 @@ class ItemScheduleForm extends Form
             'location' => ['required'],
             'start' => ['required', 'date', 'after_or_equal:today'],
             'end' => ['required', 'date', 'after:start'],
-            'quantity' => ['required'],
+            'quantity' => ['required','integer', 'min:1', 'max:'.$this->getQuantityLeft()],
             'item_id' => ['required'],
             'purpose' => ['required'],
-            // 'status' => ['required'],
         ];
+    }
+    /**
+     * Custom method to get the QuantityLeft for the selected item.
+     *
+     * @return int
+     */
+    protected function getQuantityLeft(): int
+    {
+        $item = Item::find($this->item_id);
+        return $item ? $item->QuantityLeft : 0;
     }
 
     /**

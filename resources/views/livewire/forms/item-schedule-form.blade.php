@@ -39,7 +39,7 @@
 
         <div class="mt-4">
             <x-input-label for="purpose" :value="__('Purpose')" />
-            <x-text-input wire:model="form.purpose" id="purpose" class="mt-1 block w-full" type="text" />
+            <x-text-input  wire:model="form.purpose" id="purpose" class="mt-1 block w-full" type="text" />
             <x-input-error :messages="$errors->get('form.purpose')" class="mt-2" />
         </div>
 

@@ -34,8 +34,8 @@ class ItemForm extends Form
     {
         return [
             'name' => ['required'],
-            'TotalQuantity' => ['required'],
-            'QuantityLeft' => ['required'],
+            'TotalQuantity' => ['required', 'integer', 'min:1'],
+            'QuantityLeft' => ['required','integer', 'min:0', 'lte:TotalQuantity'],
             'category_id' => ['required'],
         ];
     }
