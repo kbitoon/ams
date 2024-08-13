@@ -9,7 +9,8 @@ use Livewire\Form;
 class ItemForm extends Form
 {
     public ?Item $item = null;
-
+    
+    public string $acquired = '';
     public string $name = '';
     public int $TotalQuantity = 0;
     public int $QuantityLeft = 0;
@@ -21,6 +22,7 @@ class ItemForm extends Form
     public function setItem(?Item $item = null): void
     {
         $this->item = $item;
+        $this->acquired = $item->$acquired;
         $this->name = $item->name;
         $this->TotalQuantity = $item->TotalQuantity;
         $this->QuantityLeft = $item->QuantityLeft;
@@ -33,6 +35,7 @@ class ItemForm extends Form
     public function rules(): array
     {
         return [
+            'acquired' => ['required'],
             'name' => ['required'],
             'TotalQuantity' => ['required', 'integer', 'min:1'],
             'QuantityLeft' => ['required','integer', 'min:0', 'lte:TotalQuantity'],
@@ -46,6 +49,7 @@ class ItemForm extends Form
     public function validationAttributes(): array
     {
         return [
+            'acquired' => 'acquired',
             'name' => 'name',
             'TotalQuantity' => 'TotalQuantity',
             'QuantityLeft' => 'QuantityLeft',
@@ -60,7 +64,7 @@ class ItemForm extends Form
     {
         $this->validate();
         if (!$this->item) {
-            Item::create($this->only(['name', 'TotalQuantity', 'QuantityLeft', 'category_id']));
+            Item::create($this->only(['acquired','name', 'TotalQuantity', 'QuantityLeft', 'category_id']));
         } else {
             $this->item->update($this->only(['name', 'TotalQuantity', 'QuantityLeft', 'category_id']));
         }

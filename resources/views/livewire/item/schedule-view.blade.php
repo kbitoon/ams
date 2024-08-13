@@ -5,6 +5,7 @@
         <div class="mt-4 text-sm/relaxed text-gray-800 dark:text-gray-300 space-y-2">
             <p><span class="font-semibold">Location:</span> {!! $itemSchedule->location !!}</p>
             <p><span class="font-semibold">Purpose:</span> {!! $itemSchedule->purpose !!}</p>
+            <p><span class="font-semibold">Assigned To:</span> {!! $itemSchedule->assigned !!}</p>
         </div>
     </div>
 </div>

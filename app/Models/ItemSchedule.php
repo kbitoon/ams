@@ -20,6 +20,7 @@ class ItemSchedule extends Model
         'item_id',
         'status',
         'purpose',
+        'assigned',
     ];
 
     public function user(): BelongsTo

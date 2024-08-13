@@ -18,6 +18,7 @@ class ItemScheduleForm extends Form
     public string $item_id = '';
     public string $status = '';
     public string $purpose = '';
+    public string $assigned = '';
 
     /**
      * @param ItemSchedule|null $itemSchedule
@@ -32,6 +33,7 @@ class ItemScheduleForm extends Form
         $this->item_id = $itemSchedule->item_id;
         $this->purpose = $itemSchedule->purpose;
         $this->status = $itemSchedule->status;
+        $this->assigned = $itemSchedule->assigned;
         
     }
 
@@ -47,6 +49,7 @@ class ItemScheduleForm extends Form
             'quantity' => ['required','integer', 'min:1', 'max:'.$this->getQuantityLeft()],
             'item_id' => ['required'],
             'purpose' => ['required'],
+            'assigned' => ['required'],
         ];
     }
     /**
@@ -73,6 +76,7 @@ class ItemScheduleForm extends Form
             'item_id' => 'item',
             'purpose' => 'purpose',
             'status' => 'status',
+            'assigned' => 'assigned',
         ];
     }
 
@@ -85,9 +89,9 @@ class ItemScheduleForm extends Form
         $this->validate();
 
         if (!$this->itemSchedule) {
-           ItemSchedule::create($this->only(['location', 'start', 'end',  'quantity','item_id', 'purpose', 'status']));
+           ItemSchedule::create($this->only(['location', 'start', 'end',  'quantity','item_id', 'purpose', 'status','assigned']));
         } else {
-            $this->itemSchedule->update($this->only(['location', 'start', 'end', 'quantity','item_id', 'purpose', 'status']));
+            $this->itemSchedule->update($this->only(['location', 'start', 'end', 'quantity','item_id', 'purpose', 'status', 'assigned']));
         }
         
         $this->reset();

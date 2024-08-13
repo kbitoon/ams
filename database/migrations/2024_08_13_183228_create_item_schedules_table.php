@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
             $table->string('purpose');
             $table->string('status');
+            $table->string('assigned');
             $table->timestamps();
         });
     }
