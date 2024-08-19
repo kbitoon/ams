@@ -18,6 +18,17 @@ class Clearance extends Component
     #[On('refresh-list')]
     public function refresh() {}
 
+    public function markAsDone($clearanceId)
+    {
+        $clearance = ClearanceModel::find($clearanceId);
+
+        if ($clearance) {
+            $clearance->status = 'done';
+            $clearance->approved_by = auth()->user()->id;
+            $clearance->save();
+        }
+        
+    }
     /**
      * @return \Illuminate\Contracts\Foundation\Application|Factory|View|Application
      */

@@ -26,7 +26,7 @@
                     {{ $clearance->type->name }}
                 </td>
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                    <x-secondary-button wire:click="">
+                    <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.show.clearance-modal', arguments: { clearance: {{ $clearance}} }})">
                         View
                     </x-secondary-button>
                     @if($clearance->status <> 'done')
@@ -35,7 +35,7 @@
                                 Edit
                             </x-secondary-button>
                         @endhasanyrole
-                    <x-secondary-button wire:click="">
+                    <x-secondary-button wire:click="markAsDone({{ $clearance->id }})">
                         Done
                     </x-secondary-button>
 
