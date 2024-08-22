@@ -13,10 +13,10 @@ class AmsController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function clearancepurpose()
+    public function clearancepurpose(Request $request)
     {
-        $tmp = DB::table("clearance_purpose")->select('purpose')->get();
-        return response()->json($tmp);
+        // $tmp = DB::table("clearance_purpose")->select('purpose')->get();
+        // return response()->json($tmp);
 
         // $purposes = [
         //     ['label' => 'Employment', 'value' => 'Employment'],
@@ -24,34 +24,46 @@ class AmsController extends Controller
         // ];
 
         // return response()->json($purposes);
+
+        $purposes = DB::table('clearance_purpose')->select('purpose')->get();
+        
+        // Format the data as needed
+        $formattedPurposes = $purposes->map(function($purpose) {
+            return [
+                'label' => $purpose->purpose,
+                'value' => $purpose->purpose
+            ];
+        });
+
+        return response()->json($formattedPurposes);
     }
 
     public function clearancepurposemodal(Request $request)
     {
-        // $purposes = DB::table('clearance_purpose')->select('purpose')->get();
+        $purposes = DB::table('clearance_purpose')->select('purpose')->get();
         
-        // // Format the data as needed
-        // $formattedPurposes = $purposes->map(function($purpose) {
-        //     return [
-        //         'label' => $purpose->purpose,
-        //         'value' => $purpose->purpose
-        //     ];
-        // });
-
-        // return response()->json($formattedPurposes);
-
-        $query = $request->get('query');
-
-        $purposes = DB::table('clearance_purpose')
-            ->where('purpose', 'LIKE', "%{$query}%")
-            ->get(['purpose']);
-
+        // Format the data as needed
         $formattedPurposes = $purposes->map(function($purpose) {
-            return ['label' => $purpose->purpose, 'value' => $purpose->purpose];
+            return [
+                'label' => $purpose->purpose,
+                'value' => $purpose->purpose
+            ];
         });
 
-        Log::info('Purposes: ', $formattedPurposes->toArray());
-
         return response()->json($formattedPurposes);
+
+        // $query = $request->get('query');
+
+        // $purposes = DB::table('clearance_purpose')
+        //     ->where('purpose', 'LIKE', "%{$query}%")
+        //     ->get(['purpose']);
+
+        // $formattedPurposes = $purposes->map(function($purpose) {
+        //     return ['label' => $purpose->purpose, 'value' => $purpose->purpose];
+        // });
+
+        // Log::info('Purposes: ', $formattedPurposes->toArray());
+
+        // return response()->json($formattedPurposes);
     }
 }

@@ -1,3 +1,70 @@
+<style type="text/css">
+    body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.form-instructions, .form-container {
+    flex: 1;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 800px;
+    line-height: 1.2;
+    font-size: 13px;
+}
+
+.form-instructions center {
+    display: block;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-instructions ol,
+.form-instructions ul {
+    padding-left: 20px;
+}
+
+.form-instructions li {
+    margin-bottom: 10px;
+}
+
+@media (max-width: 600px) {
+    .flex-container {
+        flex-direction: column;
+    }
+
+    .form-instructions {
+        order: -1;
+        padding: 10px;
+    }
+
+    .form-instructions ol,
+    .form-instructions ul {
+        padding-left: 15px;
+    }
+
+    .form-instructions li {
+        font-size: 14px;
+    }
+
+    .form-container {
+        padding: 10px;
+    }
+}
+
+@media (min-width: 640px) {
+    .sm\:max-w-md {
+        max-width: 40rem !important;
+    }
+
+</style>
 <x-app-layout>
     @auth
         <x-slot name="header">

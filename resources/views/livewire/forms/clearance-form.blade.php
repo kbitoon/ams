@@ -1,137 +1,70 @@
-<style type="text/css">
-    body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
-
-.flex-container {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.form-instructions, .form-container {
-    flex: 1;
-    padding: 20px;
-    margin: 0 auto;
-    max-width: 800px;
-    line-height: 1.2;
-    font-size: 13px;
-}
-
-.form-instructions center {
-    display: block;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.form-instructions ol,
-.form-instructions ul {
-    padding-left: 20px;
-}
-
-.form-instructions li {
-    margin-bottom: 10px;
-}
-
-@media (max-width: 600px) {
-    .flex-container {
-        flex-direction: column;
-    }
-
-    .form-instructions {
-        order: -1;
-        padding: 10px;
-    }
-
-    .form-instructions ol,
-    .form-instructions ul {
-        padding-left: 15px;
-    }
-
-    .form-instructions li {
-        font-size: 14px;
-    }
-
-    .form-container {
-        padding: 10px;
-    }
-}
-
-@media (min-width: 640px) {
-    .sm\:max-w-md {
-        max-width: 40rem !important;
-    }
-
-</style>
-<div class="flex-container">
+<div class="p-6">
+    <div class="flex-container">
     <div class="form-container">
-        <form wire:submit.prevent="save">
-            <!-- Name input -->
-            <div>
-                <x-input-label for="name" :value="__('Name')" />
-                <x-text-input wire:model="form.name" id="name" class="mt-1 block w-full" type="text" />
-                <x-input-error :messages="$errors->get('form.name')" class="mt-2" />
-            </div>
+    <form wire:submit="save">
+        <!-- Name input -->
+        <div>
+            <x-input-label for="name" :value="__('Name')" />
+            <x-text-input wire:model="form.name" id="name" class="mt-1 block w-full" type="text" />
+            <x-input-error :messages="$errors->get('form.name')" class="mt-2" />
+        </div>
 
-            <div class="mt-4">
-                <x-input-label for="type_id" :value="__('Type')" />
-                <select wire:model.live.debounce.500ms="form.type_id" id="type_id" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                    <option selected>Please select a type</option>
-                    @forelse($clearanceTypes as $clearanceType)
-                        <option value="{{ $clearanceType->id }}">{{ $clearanceType->name }}</option>
-                    @empty
-                        <option>No types available</option>
-                    @endforelse
-                </select>
-                <x-input-error :messages="$errors->get('form.type_id')" class="mt-2" />
-            </div>
+        <div class="mt-4">
+            <x-input-label for="type_id" :value="__('Type')" />
+            <select wire:model.live.debounce.500ms="form.type_id" id="type_id" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                <option selected>Please select a type</option>
+                @forelse($clearanceTypes as $clearanceTypes)
+                    <option value="{{ $clearanceTypes->id }}">{{ $clearanceTypes->name }}</option>
+                @empty
+                @endforelse
+            </select>
+            <x-input-error :messages="$errors->get('form.type_id')" class="mt-2" />
+        </div>
 
-            <div class="mt-4">
-                <x-input-label for="amount" :value="__('Amount')" />
-                <x-text-input wire:model="form.amount" id="amount" class="mt-1 block w-full" type="text" />
-                <x-input-error :messages="$errors->get('form.amount')" class="mt-2" />
-            </div>
+        <div class="mt-4">
+            <x-input-label for="amount" :value="__('Amount')" />
+            <x-text-input wire:model="form.amount" id="amount" class="mt-1 block w-full" type="text" />
+            <x-input-error :messages="$errors->get('form.amount')" class="mt-2" />
+        </div>
 
-            <div class="mt-4">
-                <x-input-label for="date" :value="__('Date')" />
-                <x-input-date wire:model="form.date" id="date" class="mt-1 block w-full" type="text" />
-                <x-input-error :messages="$errors->get('form.date')" class="mt-2" />
-            </div>
+        <div class="mt-4">
+            <x-input-label for="date" :value="__('Date')" />
+            <x-input-date wire:model="form.date" id="date" class="mt-1 block w-full" type="text" />
+            <x-input-error :messages="$errors->get('form.date')" class="mt-2" />
+        </div>
 
-            <!-- Purpose input -->
-            <div class="mt-4">
-                <x-input-label for="purpose" :value="__('Purpose')" />
-                <x-text-input wire:model="form.purpose" id="purpose" class="mt-1 block w-full" type="text" />
-                <x-input-error :messages="$errors->get('form.purpose')" class="mt-2" />
-            </div>
+        <!-- Purpose input -->
+        <div class="mt-4">
+            <x-input-label for="purpose" :value="__('Purpose')" />
+            <x-text-input wire:model="form.purpose" id="purpose" class="mt-1 block w-full" type="text" />
+            <x-input-error :messages="$errors->get('form.purpose')" class="mt-2" />
+        </div>
 
-            <div class="mt-4">
-                <x-input-label for="notes" :value="__('Notes')" />
-                <textarea wire:model="form.notes" id="notes" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
-                <x-input-error :messages="$errors->get('form.notes')" class="mt-2" />
-            </div>
+        <div class="mt-4">
+            <x-input-label for="notes" :value="__('Notes')" />
+            <textarea wire:model="form.notes" id="notes" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+            <x-input-error :messages="$errors->get('form.notes')" class="mt-2" />
+        </div>
 
-            <div class="mt-4">
-                <x-input-label for="contact_number" :value="__('Contact Number')" />
-                <x-text-input wire:model="form.contact_number" id="contact_number" class="mt-1 block w-full" type="text" />
-                <x-input-error :messages="$errors->get('form.contact_number')" class="mt-2" />
-            </div>
+        <div class="mt-4">
+            <x-input-label for="date" :value="__('Contact Number')" />
+            <x-text-input wire:model="form.contact_number" id="contact_number" class="mt-1 block w-full" type="text" />
+            <x-input-error :messages="$errors->get('form.contact_number')" class="mt-2" />
+        </div>
 
-            <div class="mt-4">
-                <x-input-label for="attachments" :value="__('Attachment')" />
-                <x-text-input wire:model="form.attachments" id="attachments" class="mt-1 block w-full rounded-none" type="file" multiple />
-                <x-input-error :messages="$errors->get('form.attachments')" class="mt-2" />
-            </div>
+        <div class="mt-4">
+            <x-input-label for="attachments" :value="__('Attachment')" />
+            <x-text-input wire:model="form.attachments" id="attachments" class="mt-1 block w-full rounded-none" type="file" multiple />
+            <x-input-error :messages="$errors->get('form.attachments')" class="mt-2" />
+        </div>
 
-            <!-- Save button -->
-            <div class="mt-4">
-                <x-primary-button>
-                    Save
-                </x-primary-button>
-            </div>
-        </form>
+        <!-- Save button -->
+        <div class="mt-4">
+            <x-primary-button>
+                Save
+            </x-primary-button>
+        </div>
+    </form>
     </div>
 
     <div class="form-instructions">
@@ -156,6 +89,8 @@
         </ul>
         <p>Thank you for filling out the form!</p>
     </div>
+
+</div>
 </div>
 
 <script>

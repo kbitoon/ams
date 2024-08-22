@@ -61,6 +61,7 @@
     document.addEventListener('DOMContentLoaded', (event) => {
         document.addEventListener('openModal', function (event) {
             if (event.detail && event.detail.component === 'modals.clearance-modal') {
+                console.log("Modal shown, initializing autocomplete...");
                 $(function() {
         // Fetch dynamic tags from a server-side source
         $.ajax({
@@ -69,20 +70,20 @@
             // dataType: 'json',
             success: function(data) {
                 // Assuming `data` is an array of objects with a 'purpose' property
-                // var purposes = data.map(function(item) {
+                // var purposes = [data].map(function(item) {
                 //     return {
-                //         label: item.label,
-                //         value: item.value,
+                //         label: item.purpose,
+                //         value: item.purpose,
                 //     };
                 // });
 
-                var purposes = [
-                    { label: 'Business', value: 'Business' },
-                    { label: 'Employment', value: 'Employment' },
-                ];
+                // var purposes = [
+                //     { label: 'Business', value: 'Business' },
+                //     { label: 'Employment', value: 'Employment' },
+                // ];
 
                 $("#purpose").autocomplete({
-                    source: purposes,
+                    source: data,
                     select: function(event, ui) {
                         // Replace the existing value with the selected value
                         $("#purpose").val(ui.item.value);
