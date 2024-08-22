@@ -77,13 +77,13 @@
                 //     };
                 // });
 
-                // var purposes = [
-                //     { label: 'Business', value: 'Business' },
-                //     { label: 'Employment', value: 'Employment' },
-                // ];
+                var purposes = [
+                    { label: 'Business', value: 'Business' },
+                    { label: 'Employment', value: 'Employment' },
+                ];
 
                 $("#purpose").autocomplete({
-                    source: data,
+                    source: purposes,
                     select: function(event, ui) {
                         // Replace the existing value with the selected value
                         $("#purpose").val(ui.item.value);
