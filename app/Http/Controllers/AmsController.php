@@ -15,6 +15,9 @@ class AmsController extends Controller
      */
     public function clearancepurpose(Request $request)
     {
+        $tmp = DB::table("clearance_purpose")->select('purpose')->get();
+        return response()->json($tmp);
+        
         // $tmp = DB::table("clearance_purpose")->select('purpose')->get();
         // return response()->json($tmp);
 
@@ -25,17 +28,17 @@ class AmsController extends Controller
 
         // return response()->json($purposes);
 
-        $purposes = DB::table('clearance_purpose')->select('purpose')->get();
+        // $purposes = DB::table('clearance_purpose')->select('purpose')->get();
         
-        // Format the data as needed
-        $formattedPurposes = $purposes->map(function($purpose) {
-            return [
-                'label' => $purpose->purpose,
-                'value' => $purpose->purpose
-            ];
-        });
+        // // Format the data as needed
+        // $formattedPurposes = $purposes->map(function($purpose) {
+        //     return [
+        //         'label' => $purpose->purpose,
+        //         'value' => $purpose->purpose
+        //     ];
+        // });
 
-        return response()->json($formattedPurposes);
+        // return response()->json($formattedPurposes);
     }
 
     public function clearancepurposemodal(Request $request)

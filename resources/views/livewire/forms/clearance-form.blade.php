@@ -94,36 +94,29 @@
 </div>
 
 <script>
-    $(function() {
-        // Fetch dynamic tags from a server-side source
-        $.ajax({
-            url: '/clearancepurpose', // Replace with your endpoint
-            method: 'GET',
-            success: function(data) {
-                // Assuming `data` is an array of objects with a 'purpose' property
-                var purposes = data.map(function(item) {
-                    return {
-                        label: item.purpose,
-                        value: item.purpose
-                    };
-                });
+$(function() {
+    // Fetch dynamic tags from a server-side source
+    $.ajax({
+        url: '/clearancepurpose', // Replace with your endpoint
+        method: 'GET',
+        success: function(data) {
+            // Assuming `data` is an array of objects with a 'purpose' property
+            var purposes = data.map(function(item) {
+                return item.purpose;
+            });
 
-                $("#purpose").autocomplete({
-                    source: purposes,
-                    select: function(event, ui) {
-                        // Replace the existing value with the selected value
-                        $("#purpose").val(ui.item.value);
-                        // Manually trigger input event to update Livewire model
-                        let purposeInput = document.getElementById('purpose');
-                        purposeInput.dispatchEvent(new Event('input'));
-                        return false; // Prevent the default behavior of autocomplete
-                    }
-                });
-            },
-            error: function(error) {
-                console.error("Error fetching tags:", error);
-            }
-        });
+            $("#purpose").autocomplete({
+                source: purposes,
+                select: function(event, ui) {
+                    // Replace the existing value with the selected value
+                    $("#purpose").val(ui.item.value);
+                    return false; // Prevent the default behavior of autocomplete
+                }
+            });
+        },
+        error: function(error) {
+            console.error("Error fetching tags:", error);
+        }
     });
-
+});
 </script>
