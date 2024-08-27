@@ -50,6 +50,12 @@ class User extends Authenticatable
         ];
     }
 
+    public function assets()
+    {
+        return $this->hasMany(Asset::class);
+    }
+
+
     /**
      * @return HasMany
      */
@@ -90,10 +96,29 @@ class User extends Authenticatable
         return $this->hasMany(Complaint::class);
     }
 
+    /**
+     * @return HasMany
+     */
+    public function vehicles(): HasMany
+    {
+        return $this->hasMany(Vehicle::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function items(): HasMany
+    {
+        return $this->hasMany(Item::class);
+    }
+
+
+
     public function photoUrl()
     {
         return $this->photo
             ? asset('storage/'. auth()->user()->photo)
             : 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email)));
     }
+    
 }

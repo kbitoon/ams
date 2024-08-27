@@ -249,11 +249,19 @@ new class extends Component
                             </div>
                         </button>
                     </x-slot>
-
+                    
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile')" wire:navigate>
                             {{ __('Profile') }}
                         </x-dropdown-link>
+
+                        @hasanyrole('superadmin')
+                        <button wire:click="" class="w-full text-start">
+                        <x-dropdown-link :href="route('user-management')" wire:navigate>
+                            {{ __('User Management') }}
+                        </x-dropdown-link>
+                    @else
+                    @endhasanyrole
 
                         <!-- Authentication -->
                         <button wire:click="logout" class="w-full text-start">

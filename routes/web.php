@@ -53,7 +53,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     Route::view('item-schedule', 'item-schedule')
         ->name('item-schedule');
-        
+    
+    Route::view('user-management', 'user-management')
+        ->name('user-management');
+
     Route::get('/clearancepurposemodal', [App\Http\Controllers\AmsController::class, 'clearancepurposemodal'])->name('clearancepurposemodal');
 
     Route::get('/clearancepurpose', [App\Http\Controllers\AmsController::class, 'clearancepurpose'])->name('clearancepurpose');
