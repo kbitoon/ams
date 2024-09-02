@@ -1,6 +1,40 @@
 <div>
     <div class="grid grid-cols-2 gap-2">
         <div class="grid gap-6 lg:grid-cols-1 lg:gap-8">
+             <!-- Display total number of users with enhanced design -->    
+             @hasanyrole('superadmin|administrator')
+             
+             <div class="flex gap-4">
+             <a
+                    href="{{ route('user-management') }}"
+                    class="flex-1 p-4 bg-white rounded-lg shadow-md dark:bg-zinc-900"
+                >
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div>
+                                <p class="text-lg font-semibold text-black dark:text-white">Total Users</p>
+                                <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_users }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <!-- Clickable section for pending clearances -->
+                <a
+                    href="{{ route('clearance') }}"
+                    class="flex-1 p-4 bg-white rounded-lg shadow-md dark:bg-zinc-900"
+                >
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div>
+                                <p class="text-lg font-semibold text-black dark:text-white">Pending Clearances</p>
+                                <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $pending_clearances }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            @endhasanyrole
+            
             @forelse($complaints as $complaint)
                 <a
                     href="#"

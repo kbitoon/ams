@@ -22,7 +22,7 @@ class ItemForm extends Form
     public function setItem(?Item $item = null): void
     {
         $this->item = $item;
-        $this->acquired = $item->$acquired;
+        $this->acquired = $item->acquired;
         $this->name = $item->name;
         $this->TotalQuantity = $item->TotalQuantity;
         $this->QuantityLeft = $item->QuantityLeft;
