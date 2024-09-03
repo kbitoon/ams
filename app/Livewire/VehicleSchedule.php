@@ -59,8 +59,8 @@ class VehicleSchedule extends Component
     public function render(): Application|View|Factory|\Illuminate\Contracts\Foundation\Application
     {
         // Filter and sort the data
-        $vehicleSchedules = auth()->user()->hasRole('superadmin|admin') 
-            ? VehicleScheduleModel::where('status', '!=', 'Done')->orderBy('start', 'asc')->paginate(10) 
+        $vehicleSchedules = auth()->user()->hasRole('superadmin|admin')
+            ? VehicleScheduleModel::where('status', '!=', 'Done')->orderBy('start', 'desc')->paginate(10) 
             : VehicleScheduleModel::where('user_id', auth()->user()->id)->where('status', '!=', 'Done')->orderBy('start', 'asc')->paginate(10);
 
             foreach ($vehicleSchedules as $schedule) {
