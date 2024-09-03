@@ -33,8 +33,13 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+
+            @if (request()->is('pending'))
+                    <!-- No navigation for this route -->
+                
             @auth
-                <livewire:layout.navigation />
+                    <livewire:layout.navigation />
+                @endif
             @else
                 <livewire:welcome.navigation />
             @endauth
