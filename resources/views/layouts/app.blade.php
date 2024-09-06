@@ -35,15 +35,14 @@
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
 
             @if (request()->is('pending'))
-                    <!-- No navigation for this route -->
-                
-            @auth
-                    <livewire:layout.navigation />
-                @endif
+                <!-- No navigation for this route -->
             @else
-                <livewire:welcome.navigation />
-            @endauth
-
+                @auth
+                    <livewire:layout.navigation />
+                @else
+                    <livewire:welcome.navigation />
+                @endauth
+            @endif
             <!-- Page Heading -->
             @if (isset($header))
                 <header class="bg-white dark:bg-gray-800 shadow">
