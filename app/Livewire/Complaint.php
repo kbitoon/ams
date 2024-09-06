@@ -18,6 +18,17 @@ class Complaint extends Component
     #[On('refresh-list')]
     public function refresh() {}
 
+    public function markAsDone($complaintId)
+    {
+        $complaint = ComplaintModel::find($complaintId);
+
+        if ($complaint) {
+            $complaint->status = 'done';
+            $complaint->approved_by = auth()->user()->id;
+            $complaint->save();
+        }
+        
+    }
     /**
      * @return \Illuminate\Contracts\Foundation\Application|Factory|View|Application
      */

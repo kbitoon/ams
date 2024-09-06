@@ -32,7 +32,7 @@
                 {{ $complaint->status }}
                 </td>
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                    <x-secondary-button wire:click="">
+                    <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.show.complaint-modal', arguments: { complaint: {{ $complaint}} }})">
                         View
                     </x-secondary-button>
                     @if($complaint->status <> 'done')
@@ -41,7 +41,7 @@
                                 Edit
                             </x-secondary-button>
                         @endhasanyrole
-                    <x-secondary-button wire:click="">
+                    <x-secondary-button wire:click="markAsDone({{ $complaint->id }})">
                         Done
                     </x-secondary-button>
                     @endif
