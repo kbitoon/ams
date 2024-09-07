@@ -43,7 +43,7 @@ new class extends Component
 {{--                    </x-nav-link>--}}
 
                     <!-- Clearance Dropdown -->
-                    @hasanyrole('superadmin|administrator')
+                    @hasanyrole('superadmin|administrator|support')
                     <div class="hidden sm:flex sm:items-center sm:ml-6 pt-1">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
@@ -76,7 +76,7 @@ new class extends Component
                     @endhasanyrole
 
                     <!-- Announcement Dropdown -->
-                    @hasanyrole('superadmin|administrator')
+                    @hasanyrole('superadmin|administrator') 
                     <div class="hidden sm:flex sm:items-center sm:ml-6 pt-1">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
@@ -95,17 +95,20 @@ new class extends Component
                                 <x-dropdown-link :href="route('announcement')" :active="request()->routeIs('announcement')" wire:navigate>
                                     {{ __('Listing') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link :href="route('announcement-category')" :active="request()->routeIs('annnouncement-category')" wire:navigate>
+                                <x-dropdown-link :href="route('announcement-category')" :active="request()->routeIs('announcement-category')" wire:navigate>
                                     {{ __('Category') }}
                                 </x-dropdown-link>
                             </x-slot>
                         </x-dropdown>
                     </div>
-                    @else
+                @else
+                    @unlessrole('support')
                         <x-nav-link :href="route('announcement')" :active="request()->routeIs('announcement')" wire:navigate>
                             {{ __('Announcement') }}
                         </x-nav-link>
-                    @endhasanyrole
+                    @endunlessrole
+                @endhasanyrole
+
 
                     <!-- Information Dropdown -->
                     @hasanyrole('superadmin|administrator')
@@ -134,13 +137,15 @@ new class extends Component
                         </x-dropdown>
                     </div>
                     @else
+                        @unlessrole('support')
                         <x-nav-link :href="route('information')" :active="request()->routeIs('information')" wire:navigate>
                             {{ __('Information') }}
                         </x-nav-link>
+                        @endunlessrole
                     @endhasanyrole
 
                     <!-- Complaint Dropdown -->
-                    @hasanyrole('superadmin|administrator')
+                    @hasanyrole('superadmin|administrator|support')
                     <div class="hidden sm:flex sm:items-center sm:ml-6 pt-1">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">

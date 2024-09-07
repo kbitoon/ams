@@ -34,7 +34,7 @@ class Clearance extends Component
      */
     public function render(): Application|View|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        if (auth()->user()->hasRole('superadmin|admin')) {
+        if (auth()->user()->hasRole('superadmin|admin|support')) {
             $clearances = ClearanceModel::with('assets')
             ->orderBy('date', 'desc')
             ->paginate(10);

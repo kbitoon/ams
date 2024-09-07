@@ -37,5 +37,13 @@ class UserSeeder extends Seeder
         ]);
 
         $administrator->assignRole('superadmin');
+
+        $support = User::factory()->create([
+            'name' => 'Support',
+            'email' => 'support@ams.com',
+            'password' => Hash::make('$upp0rt'),
+        ]);
+
+        $support->assignRole('support');
     }
 }

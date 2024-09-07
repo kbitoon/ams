@@ -36,7 +36,7 @@
                         View
                     </x-secondary-button>
                     @if($complaint->status <> 'done')
-                        @hasanyrole('superadmin|administrator')
+                        @hasanyrole('superadmin|administrator|support')
                             <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.complaint-modal', arguments: { complaint: {{ $complaint }} }})">
                                 Edit
                             </x-secondary-button>

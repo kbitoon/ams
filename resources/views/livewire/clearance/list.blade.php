@@ -30,7 +30,7 @@
                         View
                     </x-secondary-button>
                     @if($clearance->status <> 'done')
-                        @hasanyrole('superadmin|administrator')
+                        @hasanyrole('superadmin|administrator|support')
                             <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.clearance-modal', arguments: { clearance: {{ $clearance }} }})">
                                 Edit
                             </x-secondary-button>
@@ -38,7 +38,6 @@
                     <x-secondary-button wire:click="markAsDone({{ $clearance->id }})">
                         Done
                     </x-secondary-button>
-
                     @endif
                 </td>
             </tr>

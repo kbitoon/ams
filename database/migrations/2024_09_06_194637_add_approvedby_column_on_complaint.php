@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('complaints', function (Blueprint $table) {
-            $table->unsignedBigInteger('approved_by')->after('is_pinned');
+            $table->unsignedBigInteger('approved_by')->nullable()->after('is_pinned');
         });
     }
 
