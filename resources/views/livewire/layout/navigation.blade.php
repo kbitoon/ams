@@ -43,7 +43,7 @@ new class extends Component
 {{--                    </x-nav-link>--}}
 
                     <!-- Clearance Dropdown -->
-                    @hasanyrole('superadmin|administrator|support')
+                    @hasanyrole('superadmin|administrator')
                     <div class="hidden sm:flex sm:items-center sm:ml-6 pt-1">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
@@ -145,7 +145,7 @@ new class extends Component
                     @endhasanyrole
 
                     <!-- Complaint Dropdown -->
-                    @hasanyrole('superadmin|administrator|support')
+                    @hasanyrole('superadmin|administrator')
                     <div class="hidden sm:flex sm:items-center sm:ml-6 pt-1">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
