@@ -102,11 +102,9 @@ new class extends Component
                         </x-dropdown>
                     </div>
                 @else
-                    @unlessrole('support')
                         <x-nav-link :href="route('announcement')" :active="request()->routeIs('announcement')" wire:navigate>
                             {{ __('Announcement') }}
                         </x-nav-link>
-                    @endunlessrole
                 @endhasanyrole
 
 
@@ -137,11 +135,9 @@ new class extends Component
                         </x-dropdown>
                     </div>
                     @else
-                        @unlessrole('support')
                         <x-nav-link :href="route('information')" :active="request()->routeIs('information')" wire:navigate>
                             {{ __('Information') }}
                         </x-nav-link>
-                        @endunlessrole
                     @endhasanyrole
 
                     <!-- Complaint Dropdown -->
@@ -265,6 +261,11 @@ new class extends Component
                         <x-dropdown-link :href="route('user-management')" wire:navigate>
                             {{ __('User Management') }}
                         </x-dropdown-link>
+
+                        <x-dropdown-link :href="route('settings')" wire:navigate>
+                        
+                            {{ __('Settings') }}
+                        </x-dropdown-link>
                     @else
                     @endhasanyrole
 
@@ -296,6 +297,57 @@ new class extends Component
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('clearance')" :active="request()->routeIs('clearance')" wire:navigate>
+                {{ __('Clearance') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('announcement')" :active="request()->routeIs('announcement')" wire:navigate>
+                {{ __('Announcement') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('information')" :active="request()->routeIs('information')" wire:navigate>
+                {{ __('Information') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('complaint')" :active="request()->routeIs('complaint')" wire:navigate>
+                {{ __('Complaint') }}
+            </x-responsive-nav-link>
+            
+        @hasanyrole('superadmin|administrator')
+        <!-- Vehicle Dropdown -->
+        <div x-data="{ open: false }">
+            <button @click="open = !open" class="w-full text-left px-4 py-2 rounded-md bg-white dark:bg-zinc-900">
+                {{ __('Vehicle') }}
+                <svg class="inline w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+            </button>
+            <div x-show="open" @click.away="open = false" class="mt-2 space-y-1">
+                <x-responsive-nav-link :href="route('vehicle-listing')" :active="request()->routeIs('vehicle-listing')" wire:navigate>
+                    {{ __('Listing') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('vehicle-schedule')" :active="request()->routeIs('vehicle-schedule')" wire:navigate>
+                    {{ __('Schedule') }}
+                </x-responsive-nav-link>
+            </div>
+        </div>
+
+        <!-- Inventory Dropdown -->
+        <div x-data="{ open: false }">
+            <button @click="open = !open" class="w-full text-left px-4 py-2 rounded-md bg-white dark:bg-zinc-900">
+                {{ __('Inventory') }}
+                <svg class="inline w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+            </button>
+            <div x-show="open" @click.away="open = false" class="mt-2 space-y-1">
+                <x-responsive-nav-link :href="route('item')" :active="request()->routeIs('item')" wire:navigate>
+                    {{ __('Listing') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('item-schedule')" :active="request()->routeIs('item-schedule')" wire:navigate>
+                    {{ __('Schedule') }}
+                </x-responsive-nav-link>
+            </div>
+        </div>
+        @else
+        @endhasanyrole
         </div>
 
         <!-- Responsive Settings Options -->

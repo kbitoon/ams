@@ -18,6 +18,8 @@ class Dashboard extends Component
 
         $pending_clearances = ClearanceModel::where('status', 'pending')->count();
 
+        $pending_complaints = ComplaintModel::where('status', 'pending')->count();
+
 
         return view('livewire.dashboard.landing', [
             'pinned_announcement' => AnnouncementModel::where('is_pinned', 1)->orderByDesc('created_at')->first(),
@@ -25,6 +27,7 @@ class Dashboard extends Component
             'complaints' => ComplaintModel::where('is_pinned', 0)->where('user_id', auth()->user()->id)->orderByDesc('created_at')->paginate(5),
             'total_users' => $total_users,
             'pending_clearances' => $pending_clearances,
+            'pending_complaints' => $pending_complaints,
         ]);
     }
 }

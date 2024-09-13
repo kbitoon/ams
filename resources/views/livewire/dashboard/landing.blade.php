@@ -1,11 +1,10 @@
 <div>
     <div class="grid grid-cols-2 gap-2">
         <div class="grid gap-6 lg:grid-cols-1 lg:gap-8">
-             <!-- Display total number of users with enhanced design -->    
+             <!-- Display total number of users -->    
              @hasanyrole('superadmin|administrator')
-             
-             <div class="flex gap-4">
-             <a
+            <div class="flex gap-4">
+                <a
                     href="{{ route('user-management') }}"
                     class="flex-1 p-4 bg-white rounded-lg shadow-md dark:bg-zinc-900"
                 >
@@ -18,7 +17,23 @@
                         </div>
                     </div>
                 </a>
-                @endhasanyrole
+            </div>
+            @endhasanyrole
+                @hasanyrole('support')
+                <a
+                    href="{{ route('complaint') }}"
+                    class="flex-1 p-4 bg-white rounded-lg shadow-md dark:bg-zinc-900"
+                >
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div>
+                                <p class="text-lg font-semibold text-black dark:text-white">Pending Complaints</p>
+                                <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $pending_complaints }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                 @endhasanyrole
                 <!-- Clickable section for pending clearances -->
                 @hasanyrole('superadmin|administrator|support')
                 <a
@@ -36,6 +51,8 @@
                 </a>
             </div>
             @endhasanyrole
+
+            
             
             @forelse($complaints as $complaint)
                 <a
@@ -94,7 +111,10 @@
                     </div>
                 </a>
             @endif
+
+            @unlessrole('support')
             @forelse($announcements as $announcement)
+            <div>
                 <a
                     href="#"
                     wire:click="$dispatch('openModal', { component: 'modals.show.announcement-modal', arguments: { announcement: {{ $announcement }} }})"
@@ -123,6 +143,8 @@
                         <span>No announcement found</span>
                     </div>
                 </a>
+            </div>
+                @endunlessrole
             @endforelse
         </div>
     </div>
