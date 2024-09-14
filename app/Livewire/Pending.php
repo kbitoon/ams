@@ -14,6 +14,9 @@ class Pending extends Component
 {
     use WithPagination;
 
+    // Listen for specific events to refresh the component
+    protected $listeners = ['refreshPendingClearances' => '$refresh'];
+
     // Define the render method explicitly
     public function render(): View|Factory|Application
     {
@@ -28,5 +31,11 @@ class Pending extends Component
             'clearances' => $clearances,
             'complaints' => $complaints,
         ]);
+    }
+
+    // Method to refresh the component
+    public function refreshPending()
+    {
+        $this->render();
     }
 }
