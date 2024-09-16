@@ -1,4 +1,4 @@
-<div class="min-w-full align-middle overflow-auto max-w-4xl mx-auto pt-10 pr-4 pl-4 sm:pr-10 sm:pl-10" wire:poll.60000ms>
+<div class="min-w-full align-middle overflow-auto max-w-4xl mx-auto pt-10 pr-4 pl-4 sm:pr-10 sm:pl-10" wire:poll.120000ms>
     <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
         <!-- Clearance Table -->
         <div class="flex-1">
