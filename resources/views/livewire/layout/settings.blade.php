@@ -2,7 +2,7 @@
     <!-- Navigation Links -->
     <div style="
         display: flex; 
-        gap: 2.5rem;
+        gap: 2rem;
         margin-bottom: 1rem; 
         flex-wrap: wrap;
     ">
