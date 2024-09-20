@@ -3,7 +3,7 @@
         <div class="grid gap-6 lg:grid-cols-1 lg:gap-8">
              <!-- Display total number of users -->    
              @hasanyrole('superadmin|administrator')
-            <div class="flex gap-4">
+            <div class="flex flex-col lg:flex-row gap-4">
                 <a
                     href="{{ route('user-management') }}"
                     class="flex-1 p-4 bg-white rounded-lg shadow-md dark:bg-zinc-900"
@@ -53,7 +53,7 @@
             @endhasanyrole
 
             
-            
+            @unlessrole('superadmin|adminstrator')
             @forelse($complaints as $complaint)
                 <a
                     href="#"
@@ -84,6 +84,7 @@
                 </a>
             @endforelse
         </div>
+        @endunlessrole
         <div class="grid gap-6 lg:grid-cols-1 lg:gap-8">
 
             @if($pinned_announcement)

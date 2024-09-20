@@ -248,7 +248,11 @@ new class extends Component
                 <x-responsive-nav-link :href="route('profile')" wire:navigate>
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
-
+                @hasanyrole('superadmin|administrator')
+                <x-responsive-nav-link :href="route('user-management')" wire:navigate>
+                    {{ __('User Management') }}
+                </x-responsive-nav-link>
+                @endhasanyrole
                 <!-- Authentication -->
                 <button wire:click="logout" class="w-full text-start">
                     <x-responsive-nav-link>
