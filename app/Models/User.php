@@ -72,6 +72,7 @@ class User extends Authenticatable
         return $this->hasOne(PersonalInformation::class);
     }
 
+
     /**
      * @return HasMany
      */

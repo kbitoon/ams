@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 class PersonalInformation extends Model
 {
     use HasFactory;
+    protected $table = 'personal_informations';
 
     protected $fillable = [
         'user_id',
@@ -43,19 +44,4 @@ class PersonalInformation extends Model
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * @return BelongsTo
-     */
-    public function type(): BelongsTo
-    {
-        return $this->belongsTo(ClearanceType::class);
-    }
-
-    /**
-     * @return MorphMany
-     */
-    public function assets(): MorphMany
-    {
-        return $this->morphMany(Asset::class, 'assetable');
-    }
 }
