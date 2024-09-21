@@ -178,11 +178,11 @@ new class extends Component
     <x-input-label for="living_in_danger_zone" :value="__('Living in Danger Zone')" />
     <div class="flex items-center">
         <label class="mr-2">
-            <input type="radio" wire:model="living_in_danger_zone" name="living_in_danger_zone" value="1" class="mr-1">
+            <input type="radio" wire:model="living_in_danger_zone" name="living_in_danger_zone" value="True" class="mr-1">
             True
         </label>
         <label>
-            <input type="radio" wire:model="living_in_danger_zone" name="living_in_danger_zone" value="0" class="mr-1">
+            <input type="radio" wire:model="living_in_danger_zone" name="living_in_danger_zone" value="False" class="mr-1">
             False
         </label>
     </div>
@@ -194,11 +194,11 @@ new class extends Component
         <x-input-label for="registered_voter" :value="__('Registered Voter')" />
         <div class="flex items-center">
         <label class="mr-2">
-            <input type="radio" wire:model="registered_voter" name="registered_voter" value="1" class="mr-1">
+            <input type="radio" wire:model="registered_voter" name="registered_voter" value="Yes" class="mr-1">
             Yes
         </label>
         <label>
-            <input type="radio" wire:model="registered_voter" name="registered_voter" value="0" class="mr-1">
+            <input type="radio" wire:model="registered_voter" name="registered_voter" value="No" class="mr-1">
             No
         </label>
     </div>
