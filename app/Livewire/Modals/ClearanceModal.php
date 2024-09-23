@@ -27,7 +27,7 @@ class ClearanceModal extends ModalComponent
             $this->form->setClearance($clearance);
         }
 
-        $this->clearanceTypes = ClearanceType::all();
+        $this->clearanceTypes = ClearanceType::orderBy('name')->get();
     }
 
     /**
