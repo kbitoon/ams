@@ -1,4 +1,4 @@
-<div class="p-6">
+<div class="p-6 z-30">
     <div class="flex-container">
     <div class="form-container">
     <form wire:submit="save">

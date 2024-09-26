@@ -1,4 +1,4 @@
-<div class="p-6">
+<div class="p-6 z-30">
     <form wire:submit.prevent="save">
         <!-- Location Input -->
         <div class="mt-4">
