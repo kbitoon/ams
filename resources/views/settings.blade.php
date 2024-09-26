@@ -40,8 +40,8 @@
 .hidden {
     display: none;
 }
+</style>
 
- </style>   
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -54,6 +54,36 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <livewire:layout.settings />
+                    
+                    <!-- Photo Upload Section -->
+                    <div class="mt-6">
+                        <h3 class="text-lg font-semibold">Upload Banner Photo</h3>
+                        <form method="POST" action="{{ route('photo.upload') }}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="mt-4">
+                                <input type="file" name="photo" accept="image/*" required class="border border-gray-300 rounded p-2">
+                            </div>
+                            <div class="mt-4">
+                                <button type="submit" class="nav-link">Upload</button>
+                            </div>
+                        </form>
+
+                        <!-- Display success or error message -->
+                        @if (session('message'))
+                            <div class="mt-4 text-green-600">
+                                {{ session('message') }}
+                            </div>
+                        @endif
+                        @if ($errors->any())
+                            <div class="mt-4 text-red-600">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>

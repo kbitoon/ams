@@ -1,5 +1,16 @@
 <div>
-    <div class="grid grid-cols-2 gap-2">
+    <!-- Photo Banner Section -->
+    @if($latest_photo && $latest_photo->path)
+    <div id="photo-container" class="w-full flex items-center justify-center bg-black bg-opacity-50">
+    <img id="latest-photo" src="{{ asset('storage/public/' . $latest_photo->path) }}" alt="Latest Photo" class="object-cover w-full" />
+    </div>
+
+    @else
+        <div class="h-40 bg-gray-300 flex items-center justify-center">
+            <span class="text-gray-700">No photo available</span>
+        </div>
+    @endif
+    <div class="grid grid-cols-2 gap-2 mt-5">
         <div class="grid gap-6 lg:grid-cols-1 lg:gap-8">
             @if($pinned_announcement)
                 <a
@@ -43,8 +54,8 @@
                 </a>
             @endif
         </div>
-        <div class="grid gap-6 lg:grid-cols-1 lg:gap-8">
 
+        <div class="grid gap-6 lg:grid-cols-1 lg:gap-8">
             @forelse($announcements as $announcement)
                 <a
                     href="#"
@@ -75,7 +86,20 @@
                     </div>
                 </a>
             @endforelse
-
         </div>
     </div>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const img = document.getElementById("latest-photo");
+    const container = document.getElementById("photo-container");
+
+    img.onload = function() {
+        // Get the actual height of the image
+        const imgHeight = img.naturalHeight;
+
+        // Set the container's height to the image height (in pixels)
+        container.style.height = imgHeight + 'px';
+    };
+});
+</script>

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Pending;
+use App\Http\Controllers\PhotoController;
+
 
 Route::get('/pending', Pending::class)->name('pending');
 
@@ -66,6 +68,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/clearancepurposemodal', [App\Http\Controllers\AmsController::class, 'clearancepurposemodal'])->name('clearancepurposemodal');
 
     Route::get('/clearancepurpose', [App\Http\Controllers\AmsController::class, 'clearancepurpose'])->name('clearancepurpose');
+   
+    Route::post('/photo/upload', [PhotoController::class, 'upload'])->name('photo.upload');
+
 });
 
 Route::middleware('guest')->group(function () {
