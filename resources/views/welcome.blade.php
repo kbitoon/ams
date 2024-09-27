@@ -7,7 +7,7 @@
         </x-slot>
     @endif
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <main class="mt-4">
+            <main class="mt-2">
                 @livewire('welcome')
             </main>
             <footer class="py-16 text-center text-sm text-black dark:text-white/70">
