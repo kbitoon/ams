@@ -1,4 +1,4 @@
-<div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
+<div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 h-auto">
     <div class="pt-3 sm:pt-5">
         <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">More Information</h3>
         

@@ -26,6 +26,9 @@
                     <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.announcement-modal', arguments: { announcement: {{ $announcement }} }})">
                         Edit
                     </x-secondary-button>
+                    <x-secondary-button wire:click="pinned_announcement({{ $announcement->id }})">
+                    {{ $announcement->is_pinned ? 'Unpin' : 'Pin' }}
+                    </x-secondary-button>
                     @endhasanyrole
                     <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.show.announcement-modal', arguments: { announcement: {{ $announcement }} }})">
                         View

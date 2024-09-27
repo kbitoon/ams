@@ -1,4 +1,4 @@
-<div class="p-6 z-80 relative">
+<div class="p-6">
     <form wire:submit="save">
         <!-- Name input -->
         <div>

@@ -18,6 +18,21 @@ class Announcement extends Component
     #[On('refresh-list')]
     public function refresh() {}
 
+    public function pinned_announcement($announcementId)
+    {
+        $announcement = AnnouncementModel::find($announcementId);
+        
+        // Toggle the is_pinned status
+        $announcement->is_pinned = !$announcement->is_pinned;
+        $announcement->save();
+
+        // Optionally trigger an event to refresh the list
+        $this->dispatch('announcement-pinned', ['id' => $announcementId]);
+
+        // Refresh component
+        $this->refresh();
+    }
+
     /**
      * @return \Illuminate\Contracts\Foundation\Application|Factory|View|Application
      */

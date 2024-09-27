@@ -80,12 +80,16 @@ new class extends Component
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('todo')" :active="request()->routeIs('todo')" wire:navigate>
+            <x-responsive-nav-link :href="route('get-a-clearance')" :active="request()->routeIs('get-a-clearance')" wire:navigate>
                 {{ __('Get a Clearance') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('todo')" :active="request()->routeIs('todo')" wire:navigate>
+            <x-responsive-nav-link :href="route('file-a-complaint')" :active="request()->routeIs('file-a-complaint')" wire:navigate>
                 {{ __('Request or Complaint') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('information-list')" :active="request()->routeIs('information-list')" wire:navigate>
+                {{ __('Information') }}
             </x-responsive-nav-link>
 
             <x-responsive-nav-link :href="route('todo')" :active="request()->routeIs('todo')" wire:navigate>

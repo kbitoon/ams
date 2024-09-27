@@ -2,15 +2,17 @@
     <!-- Photo Banner Section -->
     @if($latest_photo && $latest_photo->path)
     <div id="photo-container" class="flex items-center justify-center bg-black bg-opacity-50">
-    <img id="latest-photo" src="{{ asset('storage/public/' . $latest_photo->path) }}" alt="Latest Photo" class="object-cover w-full" />
+        <img id="latest-photo" src="{{ asset('storage/public/' . $latest_photo->path) }}" alt="Latest Photo" class="object-cover w-full" />
     </div>
-
     @else
         <div class="h-40 bg-gray-300 flex items-center justify-center">
             <span class="text-gray-700">No photo available</span>
         </div>
     @endif
-    <div class="grid grid-cols-2 gap-2 mt-2">
+
+    <!-- Main Content Section -->
+    <div class="grid grid-cols-1 gap-2 mt-2 sm:grid-cols-2">
+        <!-- Left Column: Pinned Announcement -->
         <div class="grid gap-6 lg:grid-cols-1 lg:gap-8">
             @if($pinned_announcement)
                 <a
@@ -32,7 +34,9 @@
                                 </div>
                             </div>
                         </div>
-                        <svg class="size-6 shrink-0 stroke-[#FF2D20]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"/></svg>
+                        <svg class="size-6 shrink-0 stroke-[#FF2D20]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"/>
+                        </svg>
                     </div>
                 </a>
             @else
@@ -55,6 +59,7 @@
             @endif
         </div>
 
+        <!-- Right Column: Announcements List -->
         <div class="grid gap-6 lg:grid-cols-1 lg:gap-8">
             @forelse($announcements as $announcement)
                 <a
@@ -74,7 +79,9 @@
                         </p>
                     </div>
 
-                    <svg class="size-6 shrink-0 self-center stroke-[#FF2D20]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"/></svg>
+                    <svg class="size-6 shrink-0 self-center stroke-[#FF2D20]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"/>
+                    </svg>
                 </a>
             @empty
                 <a
