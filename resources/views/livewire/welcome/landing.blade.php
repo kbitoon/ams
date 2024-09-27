@@ -89,17 +89,3 @@
         </div>
     </div>
 </div>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const img = document.getElementById("latest-photo");
-    const container = document.getElementById("photo-container");
-
-    img.onload = function() {
-        // Get the actual height of the image
-        const imgHeight = img.naturalHeight;
-
-        // Set the container's height to the image height (in pixels)
-        container.style.height = imgHeight + 'px';
-    };
-});
-</script>
