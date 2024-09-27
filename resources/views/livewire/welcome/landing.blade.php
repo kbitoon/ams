@@ -10,7 +10,7 @@
             <span class="text-gray-700">No photo available</span>
         </div>
     @endif
-    <div class="grid grid-cols-2 gap-2 mt-5">
+    <div class="grid grid-cols-2 gap-2 mt-2">
         <div class="grid gap-6 lg:grid-cols-1 lg:gap-8">
             @if($pinned_announcement)
                 <a
