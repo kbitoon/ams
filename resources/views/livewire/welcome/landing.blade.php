@@ -1,7 +1,7 @@
 <div>
     <!-- Photo Banner Section -->
     @if($latest_photo && $latest_photo->path)
-    <div id="photo-container" class="w-full flex items-center justify-center bg-black bg-opacity-50">
+    <div id="photo-container" class="flex items-center justify-center bg-black bg-opacity-50">
     <img id="latest-photo" src="{{ asset('storage/public/' . $latest_photo->path) }}" alt="Latest Photo" class="object-cover w-full" />
     </div>
 
