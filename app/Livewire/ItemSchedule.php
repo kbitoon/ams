@@ -50,7 +50,7 @@ class ItemSchedule extends Component
     public function render(): Application|View|Factory|\Illuminate\Contracts\Foundation\Application
     {
          // Filter and sort the data
-         $itemSchedules = auth()->user()->hasRole('superadmin|admin') 
+         $itemSchedules = auth()->user()->hasRole('superadmin|administrator') 
          ? ItemScheduleModel::where('status', '!=', 'Done')->orderBy('start', 'asc')->paginate(10) 
          : ItemScheduleModel::where('user_id', auth()->user()->id)->where('status', '!=', 'Done')->orderBy('start', 'asc')->paginate(10);
 

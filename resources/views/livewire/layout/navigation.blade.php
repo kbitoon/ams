@@ -147,7 +147,7 @@ new class extends Component
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
-                        @hasanyrole('superadmin|admin')
+                        @hasanyrole('superadmin')
                         <button wire:click="" class="w-full text-start">
                         <x-dropdown-link :href="route('user-management')" wire:navigate>
                             {{ __('User Management') }}

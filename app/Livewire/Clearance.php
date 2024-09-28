@@ -58,7 +58,7 @@ class Clearance extends Component
             $query->where('name', 'like', '%' . $this->search . '%');
         }
 
-        if (auth()->user()->hasRole('superadmin|admin|support')) {
+        if (auth()->user()->hasRole('superadmin|administrator|support')) {
             $clearances = $query->paginate(10);
         } else {
             $clearances = $query->where('user_id', auth()->user()->id)->paginate(10); // For non-admin users

@@ -36,7 +36,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('@dm1n1$tr@tor'),
         ]);
 
-        $administrator->assignRole('superadmin');
+        $administrator->assignRole('administrator');
 
         $support = User::factory()->create([
             'name' => 'Support',

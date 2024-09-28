@@ -15,6 +15,10 @@ class Announcement extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
+    public string $search = '';
+
+    protected $updatesQueryString = ['search',];
+
     #[On('refresh-list')]
     public function refresh() {}
 
@@ -33,13 +37,28 @@ class Announcement extends Component
         $this->refresh();
     }
 
+    public function searchAnnouncement()
+    {
+        $this->resetPage(); // Reset pagination to the first page
+    }
+
+
     /**
      * @return \Illuminate\Contracts\Foundation\Application|Factory|View|Application
      */
     public function render(): Application|View|Factory|\Illuminate\Contracts\Foundation\Application
     {
+        $query = AnnouncementModel::query();
+
+        if ($this->search) {
+            $query->where('title', 'like', '%' . $this->search . '%');
+        }
+
+        // Apply the pagination after filtering
+        $announcements = $query->paginate(10);
+
         return view('livewire.announcement.list', [
-            'announcements' => AnnouncementModel::paginate(10),
+            'announcements' => $announcements,
         ]);
     }
 }
