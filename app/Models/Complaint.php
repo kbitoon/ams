@@ -53,6 +53,6 @@ class Complaint extends Model
     public function excerpt($limit = null)
     {
 
-        return Str::limit($this->content, is_null($limit) ? Announcement::EXCERPT_LENGTH : $limit);
+        return Str::limit($this->content, is_null($limit) ? Complaint::EXCERPT_LENGTH : $limit);
     }
 }

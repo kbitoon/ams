@@ -81,6 +81,9 @@ new class extends Component
                             </x-slot>
 
                             <x-slot name="content">
+                            <x-dropdown-link :href="route('vehicle-listing')" :active="request()->routeIs('vehicle-listing')" wire:navigate>
+                                    {{ __('Listing') }}
+                                </x-dropdown-link>
                                 <x-dropdown-link :href="route('driver')" :active="request()->routeIs('driver')" wire:navigate>
                                     {{ __('Driver') }}
                                 </x-dropdown-link>
