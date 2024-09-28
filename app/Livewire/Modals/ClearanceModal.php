@@ -51,7 +51,7 @@ class ClearanceModal extends ModalComponent
     {
         $this->form->save();
         $this->closeModal();
-        $this->dispatchBrowserEvent('clearance-updated'); 
+        $this->dispatch('refresh-list'); 
 
         if (!auth()->user()) {
             session()->flash('status', 'Clearance successfully requested.');
