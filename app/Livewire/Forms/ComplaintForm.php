@@ -18,6 +18,7 @@ class ComplaintForm extends Form
     public string $contact_number = '';
     public string $name = '';
     public string $status = 'pending';
+    public array $attachments = [];
 
     /**
      * @param Complaint|null $complaint
@@ -55,6 +56,7 @@ class ComplaintForm extends Form
             'title' => 'title',
             'content' => 'content',
             'category_id' => 'category',
+            'attachments' => 'attachment',
         ];
     }
 
@@ -73,6 +75,17 @@ class ComplaintForm extends Form
         } else {
             $this->complaint->update($this->only(['name', 'title', 'content', 'category_id', 'is_pinned', 'contact_number', 'status']));
         }
+
+        foreach ($this->attachments as $attachment) {
+            $id = auth()->id() ?? 1;
+            $path = $attachment->storePubliclyAs('attachments/' . $id, time() . '-' . $attachment->getClientOriginalName());
+            $this->complaint->assets()->create([
+                'path' => $path,
+            ]);
+        }
+
         $this->reset();
+
+        session()->flash('message', 'Request submitted successfully');
     }
 }

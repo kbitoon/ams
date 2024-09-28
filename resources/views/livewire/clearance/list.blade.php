@@ -13,10 +13,21 @@
         </tr>
         </thead>
         <!-- Table Body -->
-        <tbody class="bg-white divide-y divide-gray-200 divide-solid">
-        <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.clearance-modal' })" class="mb-4">
+        <div class="flex justify-between items-center mb-4">
+        
+
+        <!-- New Clearance button -->
+        <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.clearance-modal' })">
             New Clearance
         </x-primary-button>
+        <div class="flex items-center">
+            <input type="text" wire:model="search" placeholder="Search..." class="border p-2 rounded mr-2">
+            <x-primary-button wire:click="searchClearance" class="ml-2">
+                Search
+            </x-primary-button>
+        </div>
+    </div>
+
         @forelse($clearances as $clearance)
             <tr>
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">

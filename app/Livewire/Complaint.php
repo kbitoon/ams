@@ -10,10 +10,13 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\Features\SupportPagination\WithoutUrlPagination;
 use Livewire\WithPagination;
-
 class Complaint extends Component
 {
     use WithPagination, WithoutUrlPagination;
+
+    public string $search = '';
+
+    protected $updatesQueryString = ['search',];
 
     #[On('refresh-list')]
     public function refresh() {}
@@ -27,17 +30,31 @@ class Complaint extends Component
             $complaint->approved_by = auth()->user()->id;
             $complaint->save();
         }
-        
     }
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|Factory|View|Application
-     */
+
+    public function searchComplaint()
+    {
+        $this->resetPage(); // Reset pagination to the first page
+    }
+
     public function render(): Application|View|Factory|\Illuminate\Contracts\Foundation\Application
     {
+        // Build the query
+        $query = ComplaintModel::query();
+
+        // Apply search filter
+        if ($this->search) {
+            $query->where('name', 'like', '%' . $this->search . '%')
+                  ->orWhere('title', 'like', '%' . $this->search . '%');
+        }
+
+        // If the user is a superadmin/admin, show all complaints, else filter by user
         if (auth()->user()->hasRole('superadmin|admin')) {
-            $complaints = ComplaintModel::with('assets')->paginate(10);
+            $complaints = $query->orderBy('created_at', 'desc')->paginate(10);
         } else {
-            $complaints = ComplaintModel::with('assets')->where('user_id', auth()->user()->id)->paginate(10);
+            $complaints = $query->where('user_id', auth()->user()->id)
+                                ->orderBy('created_at', 'desc')
+                                ->paginate(10);
         }
 
         return view('livewire.complaint.list', [

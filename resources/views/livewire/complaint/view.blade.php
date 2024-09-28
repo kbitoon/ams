@@ -4,6 +4,7 @@
         <div class="mt-4 text-sm/relaxed text-gray-800 dark:text-gray-300 space-y-2">
         <p><span class="font-semibold">{!! $complaint->name!!} | {!! $complaint->contact_number!!} </span></p>
             <p>{!! $complaint->content!!}</p>
+            <p>{{ $complaint->created_at->format('Y-m-d') }}</p>
             @if ($complaint->status === 'done')
             <p><span class="font-semibold">Approved By: </span> {!! $complaint->user->name !!}</p>
             @endif

@@ -22,6 +22,7 @@ class Clearance extends Model
         'contact_number',
         'approved_by',
         'status',
+        'address',
     ];
 
     /**

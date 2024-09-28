@@ -18,6 +18,10 @@ class Clearance extends Component
     #[On('refresh-list')]
     public function refresh() {}
 
+    public string $search = '';
+
+    protected $updatesQueryString = ['search',];
+
     public function markAsDone($clearanceId)
     {
         $clearance = ClearanceModel::find($clearanceId);
@@ -29,21 +33,28 @@ class Clearance extends Component
         }
         
     }
+    public function searchClearance()
+    {
+    $this->resetPage(); // Reset pagination to the first page
+    }
+
     /**
      * @return \Illuminate\Contracts\Foundation\Application|Factory|View|Application
      */
     public function render(): Application|View|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        if (auth()->user()->hasRole('superadmin|admin|support')) {
-            $clearances = ClearanceModel::with('assets')
-            ->orderBy('date', 'desc')
-            ->paginate(10);
-        } else {
-            $clearances = ClearanceModel::with('assets')
-            ->where('user_id', auth()->user()->id)
-            ->orderBy('date', 'desc')
-            ->paginate(10);
+        $query = ClearanceModel::with('assets')->orderBy('date', 'desc');
+
+        if ($this->search) {
+            $query->where('name', 'like', '%' . $this->search . '%');
         }
+
+        if (auth()->user()->hasRole('superadmin|admin|support')) {
+            $clearances = $query->paginate(10);
+        } else {
+            $clearances = $query->where('user_id', auth()->user()->id)->paginate(10); // For non-admin users
+        }
+
         return view('livewire.clearance.list', [
             'clearances' => $clearances,
         ]);

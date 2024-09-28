@@ -5,11 +5,14 @@ namespace App\Livewire\Modals;
 use App\Livewire\Forms\ComplaintForm;
 use App\Models\Complaint;
 use App\Models\ComplaintCategory;
+use Livewire\WithFileUploads;
 use Illuminate\Contracts\View\View;
 use LivewireUI\Modal\ModalComponent;
 
 class ComplaintModal extends ModalComponent
 {
+    use WithFileUploads;
+
     public ?Complaint $complaint = null;
     public ComplaintForm $form;
 

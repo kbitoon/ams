@@ -17,6 +17,7 @@ class ClearanceForm extends Form
     public string $date = '';
     public string $notes = '';
     public string $contact_number = '';
+    public string $address = '';
     public array $attachments = [];
     public int $user_id = 1; // default to anonymous user, make sure we have this seeded
 
@@ -33,6 +34,7 @@ class ClearanceForm extends Form
         $this->date = $clearance->date;
         $this->notes = $clearance->notes;
         $this->contact_number = $clearance->contact_number;
+        $this->address = $clearance->address;
     }
 
     /**
@@ -48,11 +50,12 @@ class ClearanceForm extends Form
             'date' => ['required'],
             'notes' => ['required'],
             'contact_number' => ['required'],
+            'address' => ['required'],
         ];
 
-        if ($this->clearance === null) {
-            $rules['attachments'] = ['required'];
-        }
+        // if ($this->clearance === null) {
+        //     $rules['attachments'] = ['required'];
+        // }
 
         return $rules;
     }
@@ -70,6 +73,7 @@ class ClearanceForm extends Form
             'date' => 'date',
             'notes' => 'notes',
             'contact_number' => 'contact number',
+            'address' => 'address',
             'attachments' => 'attachment',
         ];
     }
@@ -82,12 +86,12 @@ class ClearanceForm extends Form
         $this->validate();
         if (!$this->clearance) {
             if (auth()->user()) {
-                $this->clearance = auth()->user()->clearances()->create($this->only(['name', 'purpose', 'user_id', 'type_id', 'amount', 'date', 'notes', 'contact_number']));
+                $this->clearance = auth()->user()->clearances()->create($this->only(['name', 'purpose', 'user_id', 'type_id', 'amount', 'date', 'notes', 'contact_number','address']));
             } else {
-                $this->clearance = Clearance::create($this->only(['name', 'purpose', 'user_id', 'type_id', 'amount', 'date', 'notes', 'contact_number']));
+                $this->clearance = Clearance::create($this->only(['name', 'purpose', 'user_id', 'type_id', 'amount', 'date', 'notes', 'contact_number', 'address']));
             }
         } else {
-            $this->clearance->update($this->only(['name', 'purpose', 'type_id', 'amount', 'date', 'notes', 'contact_number']));
+            $this->clearance->update($this->only(['name', 'purpose', 'type_id', 'amount', 'date', 'notes', 'contact_number', 'address']));
 
         }
 

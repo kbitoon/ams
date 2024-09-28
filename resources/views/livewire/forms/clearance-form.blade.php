@@ -51,7 +51,11 @@
             <x-text-input wire:model="form.contact_number" id="contact_number" class="mt-1 block w-full" type="text" />
             <x-input-error :messages="$errors->get('form.contact_number')" class="mt-2" />
         </div>
-
+        <div class="mt-4">
+            <x-input-label for="date" :value="__('Complete Address')" />
+            <textarea wire:model="form.address" id="address" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" type="text" ></textarea>
+            <x-input-error :messages="$errors->get('form.address')" class="mt-2" />
+        </div>
         <div class="mt-4">
             <x-input-label for="attachments" :value="__('Attachment')" />
             <x-text-input wire:model="form.attachments" id="attachments" class="mt-1 block w-full rounded-none" type="file" multiple />
