@@ -10,17 +10,18 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\Features\SupportPagination\WithoutUrlPagination;
 use Livewire\WithPagination;
+use Carbon\Carbon;
 
 class Clearance extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
-    #[On('refresh-list')]
-    public function refresh() {}
-
     public string $search = '';
 
     protected $updatesQueryString = ['search',];
+
+    #[On('refresh-list')]
+    public function refresh() {}
 
     public function markAsDone($clearanceId)
     {
@@ -31,11 +32,19 @@ class Clearance extends Component
             $clearance->approved_by = auth()->user()->id;
             $clearance->save();
         }
-        
     }
+
     public function searchClearance()
     {
-    $this->resetPage(); // Reset pagination to the first page
+        $this->resetPage(); // Reset pagination to the first page
+    }
+
+    public function getDaysAgo($clearanceDate)
+    {
+        $createdDate = Carbon::parse($clearanceDate);
+        $now = Carbon::now();
+
+        return (int) $createdDate->diffInDays($now);
     }
 
     /**

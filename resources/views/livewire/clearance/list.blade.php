@@ -1,43 +1,41 @@
-<div class="min-w-full align-middle">
+<div class="min-w-full align-middle overflow-x-auto">
     <table class="min-w-full border divide-y divide-gray-200">
         <!-- Table Header -->
         <thead>
         <tr>
-            <th class="px-6 py-3 text-left bg-gray-50">
+            <th class="px-2 py-3 text-left bg-gray-50">
                 <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Name</span>
             </th>
-            <th class="px-6 py-3 text-left bg-gray-50">
+            <th class="px-2 py-3 text-left bg-gray-50">
                 <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Type</span>
             </th>
-            <th class="px-6 py-3 text-left bg-gray-50"></th>
+            <th class="px-2 py-3 text-left bg-gray-50"></th>
         </tr>
         </thead>
         <!-- Table Body -->
-        <div class="flex justify-between items-center mb-4">
-        
-
-        <!-- New Clearance button -->
-        <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.clearance-modal' })">
-            New Clearance
-        </x-primary-button>
-        <div class="flex items-center">
-            <input type="text" wire:model="search" placeholder="Search..." class="border p-2 rounded mr-2">
-            <x-primary-button wire:click="searchClearance" class="ml-2">
-                Search
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-4">
+            <!-- New Clearance button -->
+            <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.clearance-modal' })" class="mb-4 sm:mb-0">
+                New Clearance
             </x-primary-button>
+            <div class="flex items-center">
+                <input type="text" wire:model="search" class="border p-2 rounded mr-2 h-8 w-full sm:w-auto">
+                <x-primary-button wire:click="searchClearance" class="ml-2">
+                    Search
+                </x-primary-button>
+            </div>
         </div>
-    </div>
 
         @forelse($clearances as $clearance)
             <tr>
-                <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                <td class="px-2 py-4 text-sm leading-5 text-gray-900 whitespace-normal break-words">
                     {{ $clearance->name }}
                 </td>
-                <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                <td class="px-2 py-4 text-sm leading-5 text-gray-900 whitespace-normal break-words">
                     {{ $clearance->type->name }}
                 </td>
-                <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                    <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.show.clearance-modal', arguments: { clearance: {{ $clearance}} }})">
+                <td class="px-2 py-4 text-sm leading-5 text-gray-900 flex flex-wrap gap-2">
+                    <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.show.clearance-modal', arguments: { clearance: {{ $clearance }} }})">
                         View
                     </x-secondary-button>
                     @if($clearance->status <> 'done')
@@ -46,15 +44,19 @@
                                 Edit
                             </x-secondary-button>
                         @endhasanyrole
-                    <x-secondary-button wire:click="markAsDone({{ $clearance->id }})">
-                        Done
-                    </x-secondary-button>
+                        <x-secondary-button wire:click="markAsDone({{ $clearance->id }})">
+                            Done
+                        </x-secondary-button>
+
+                        <span class="text-xs text-gray-500 ml-2">
+                            {{ $this->getDaysAgo($clearance->date) }} day(s) ago
+                        </span>
                     @endif
                 </td>
             </tr>
         @empty
             <tr>
-                <td colspan="3" class="px-6 py-4 text-sm leading-5 text-gray-900">
+                <td colspan="3" class="px-2 py-4 text-sm leading-5 text-gray-900 text-center">
                     No clearance available.
                 </td>
             </tr>
@@ -73,42 +75,33 @@
             if (event.detail && event.detail.component === 'modals.clearance-modal') {
                 console.log("Modal shown, initializing autocomplete...");
                 $(function() {
-        // Fetch dynamic tags from a server-side source
-        $.ajax({
-            url: '/clearancepurpose', // Replace with your endpoint
-            method: 'GET',
-            // dataType: 'json',
-            success: function(data) {
-                // Assuming `data` is an array of objects with a 'purpose' property
-                // var purposes = [data].map(function(item) {
-                //     return {
-                //         label: item.purpose,
-                //         value: item.purpose,
-                //     };
-                // });
+                    // Fetch dynamic tags from a server-side source
+                    $.ajax({
+                        url: '/clearancepurpose', // Replace with your endpoint
+                        method: 'GET',
+                        success: function(data) {
+                            var purposes = [
+                                { label: 'Business', value: 'Business' },
+                                { label: 'Employment', value: 'Employment' },
+                            ];
 
-                var purposes = [
-                    { label: 'Business', value: 'Business' },
-                    { label: 'Employment', value: 'Employment' },
-                ];
-
-                $("#purpose").autocomplete({
-                    source: purposes,
-                    select: function(event, ui) {
-                        // Replace the existing value with the selected value
-                        $("#purpose").val(ui.item.value);
-                        // Manually trigger input event to update Livewire model
-                        let purposeInput = document.getElementById('purpose');
-                        purposeInput.dispatchEvent(new Event('input'));
-                        return false; // Prevent the default behavior of autocomplete
-                    }
+                            $("#purpose").autocomplete({
+                                source: purposes,
+                                select: function(event, ui) {
+                                    // Replace the existing value with the selected value
+                                    $("#purpose").val(ui.item.value);
+                                    // Manually trigger input event to update Livewire model
+                                    let purposeInput = document.getElementById('purpose');
+                                    purposeInput.dispatchEvent(new Event('input'));
+                                    return false;
+                                }
+                            });
+                        },
+                        error: function(error) {
+                            console.error("Error fetching tags:", error);
+                        }
+                    });
                 });
-            },
-            error: function(error) {
-                console.error("Error fetching tags:", error);
-            }
-        });
-    });
             }
         });
     });

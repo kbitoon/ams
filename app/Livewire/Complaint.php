@@ -10,6 +10,7 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\Features\SupportPagination\WithoutUrlPagination;
 use Livewire\WithPagination;
+use Carbon\Carbon;
 class Complaint extends Component
 {
     use WithPagination, WithoutUrlPagination;
@@ -30,6 +31,13 @@ class Complaint extends Component
             $complaint->approved_by = auth()->user()->id;
             $complaint->save();
         }
+    }
+    public function getDaysAgo($complaintDate)
+    {
+        $complaintDate = Carbon::parse($complaintDate);
+        $now = Carbon::now();
+
+        return (int) $complaintDate->diffInDays($now);
     }
 
     public function searchComplaint()
