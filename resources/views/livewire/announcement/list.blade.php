@@ -10,19 +10,19 @@
         </tr>
         </thead>
         <!-- Table Body -->
-        <div class="flex flex-col sm:flex-row justify-between items-center mb-4">
+        <div class="flex justify-between items-center mb-4">
         @hasanyrole('superadmin|administrator')
         <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.announcement-modal' })" class="mb-4">
             New Announcement
         </x-primary-button>
 
         <div class="flex items-center">
-                <input type="text" wire:model="search" placeholder="Search..." class="border p-2 rounded mr-2 h-8 w-full sm:w-auto">
-                <x-primary-button wire:click="searchAnnouncement" class="ml-2">
-                    Search
-                </x-primary-button>
-            </div>
+            <input type="text" wire:model="search" class="border p-2 rounded mr-2 h-8">
+            <x-primary-button wire:click="searchAnnouncement" class="ml-2">
+                Search
+            </x-primary-button>
         </div>
+    </div>
         @endhasanyrole
         @forelse($announcements as $announcement)
             <tr>

@@ -10,7 +10,7 @@
         </tr>
         </thead>
         <!-- Table Body -->
-        <div class="flex flex-col sm:flex-row justify-between items-center mb-4">
+        <div class="flex justify-between items-center mb-4">
         @hasanyrole('superadmin|administrator')
         <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.information-modal' })" class="mb-4">
             New Information
