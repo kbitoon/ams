@@ -51,7 +51,10 @@
                     </x-secondary-button>
 
                     <span class="text-xs text-gray-500 ml-2">
-                        {{ $this->getDaysAgo($clearance->date) }} day(s) ago
+                    @php
+                        $daysAgo = $this->getDaysAgo($clearance->date);
+                    @endphp
+                    {{ $daysAgo === 1 ? "$daysAgo day ago" : "$daysAgo days ago" }}
                     </span>
                     @endif
                 </td>

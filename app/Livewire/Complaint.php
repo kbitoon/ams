@@ -32,13 +32,24 @@ class Complaint extends Component
             $complaint->save();
         }
     }
-    public function getDaysAgo($complaintDate)
+    public function getTimeAgo($complaintDate)
     {
         $complaintDate = Carbon::parse($complaintDate);
         $now = Carbon::now();
+    
+        $diffInSeconds = $complaintDate->diffInSeconds($now);
 
-        return (int) $complaintDate->diffInDays($now);
-    }
+        if ($diffInSeconds < 3600) {
+            $minutes = floor($complaintDate->diffInMinutes($now));
+            return $minutes . ' minute' . ($minutes > 1 ? 's' : '') . ' ago';
+        }
+        if ($diffInSeconds < 86400) {
+            $hours = floor($complaintDate->diffInHours($now));
+            return $hours . ' hour' . ($hours > 1 ? 's' : '') . ' ago';
+        }
+        $days = floor($complaintDate->diffInDays($now));
+        return $days . ' day' . ($days > 1 ? 's' : '') . ' ago';
+    }    
 
     public function searchComplaint()
     {
@@ -57,7 +68,7 @@ class Complaint extends Component
         }
 
         // If the user is a superadmin/administrator, show all complaints, else filter by user
-        if (auth()->user()->hasRole('superadmin|administrator')) {
+        if (auth()->user()->hasRole('superadmin|administrator|support')) {
             $complaints = $query->orderBy('created_at', 'desc')->paginate(10);
         } else {
             $complaints = $query->where('user_id', auth()->user()->id)

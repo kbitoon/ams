@@ -44,7 +44,7 @@
                 </a>
             @endhasanyrole
 
-            @unlessrole('superadmin|administrator')
+            @unlessrole('superadmin|administrator|support')
                 @forelse($complaints as $complaint)
                     <a href="#" class="flex items-start gap-4 rounded-lg bg-white p-6 shadow-md ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] dark:bg-zinc-900 dark:ring-zinc-800">
                         <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#FF2D20]/10">
@@ -96,7 +96,6 @@
                 </a>
             @endif
 
-            @unlessrole('support')
                 @forelse($announcements as $announcement)
                     <a href="#" wire:click="$dispatch('openModal', { component: 'modals.show.announcement-modal', arguments: { announcement: {{ $announcement }} }})" class="flex items-start gap-4 rounded-lg bg-white p-6 shadow-md ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] dark:bg-zinc-900 dark:ring-zinc-800">
                         <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#FF2D20]/10">
@@ -119,7 +118,6 @@
                         </div>
                     </div>
                 @endforelse
-            @endunlessrole
         </div>
     </div>
 </div>
