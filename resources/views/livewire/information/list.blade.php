@@ -24,17 +24,18 @@
         </div>
         @endhasanyrole
         @forelse($informations as $information)
-            <tr>
+        <tr class="hover:bg-gray-100 cursor-pointer"
+        wire:click="$dispatch('openModal', { component: 'modals.show.information-modal', arguments: { information: {{ $information }} }})">
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                     {{ $information->title }}
                 </td>
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                     @hasanyrole('superadmin|administrator')
-                    <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.information-modal', arguments: { information: {{ $information }} }})">
+                    <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.information-modal', arguments: { information: {{ $information }} }})">
                         Edit
                     </x-secondary-button>
                     @endhasanyrole
-                    <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.show.information-modal', arguments: { information: {{ $information }} }})">
+                    <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.show.information-modal', arguments: { information: {{ $information }} }})">
                         View
                     </x-secondary-button>
                 </td>

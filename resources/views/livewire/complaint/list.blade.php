@@ -28,7 +28,8 @@
             </div>
             </div>
             @forelse($complaints as $complaint)
-                <tr>
+            <tr class="hover:bg-gray-100 cursor-pointer"
+            wire:click="$dispatch('openModal', { component: 'modals.show.complaint-modal', arguments: { complaint: {{ $complaint }} }})">
                     <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                         {{ $complaint->name }}
                     </td>
@@ -39,16 +40,16 @@
                     {{ $complaint->status }}
                     </td>
                     <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                        <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.show.complaint-modal', arguments: { complaint: {{ $complaint}} }})">
+                        <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.show.complaint-modal', arguments: { complaint: {{ $complaint}} }})">
                             View
                         </x-secondary-button>
                         @if($complaint->status <> 'done')
                             @hasanyrole('superadmin|administrator|support')
-                                <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.complaint-modal', arguments: { complaint: {{ $complaint }} }})">
+                                <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.complaint-modal', arguments: { complaint: {{ $complaint }} }})">
                                     Edit
                                 </x-secondary-button>
                             @endhasanyrole
-                        <x-secondary-button wire:click="markAsDone({{ $complaint->id }})">
+                        <x-secondary-button wire:click.stop="markAsDone({{ $complaint->id }})">
                             Done
                         </x-secondary-button>
 

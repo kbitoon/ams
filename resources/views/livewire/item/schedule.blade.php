@@ -27,7 +27,8 @@
             </thead>
 
         @forelse($itemSchedules as $itemSchedule)
-            <tr>
+             <tr class="hover:bg-gray-100 cursor-pointer"
+                 wire:click="$dispatch('openModal', { component: 'modals.show.itemSchedule-modal', arguments: { itemSchedule: {{ $itemSchedule }} }})">
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                     {{ $itemSchedule->formatted_start }}
                 </td>
@@ -49,18 +50,18 @@
 
                 
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                    <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.show.item-schedule-modal', arguments: { itemSchedule: {{ $itemSchedule }} }})">
+                    <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.show.item-schedule-modal', arguments: { itemSchedule: {{ $itemSchedule }} }})">
                         View
                     </x-secondary-button>
-                    <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.item-schedule-modal', arguments: { itemSchedule: {{ $itemSchedule }} }})">
+                    <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.item-schedule-modal', arguments: { itemSchedule: {{ $itemSchedule }} }})">
                         Edit
                     </x-secondary-button>
                 @if($itemSchedule->status === '')
-                    <x-secondary-button wire:click="updateStatus({{ $itemSchedule->id }}, 'Ongoing')">
+                    <x-secondary-button wire:click.stop="updateStatus({{ $itemSchedule->id }}, 'Ongoing')">
                         Ongoing
                     </x-secondary-button>
                 @elseif($itemSchedule->status === 'Ongoing')
-                    <x-secondary-button wire:click="updateStatus({{ $itemSchedule->id }}, 'Done')">
+                    <x-secondary-button wire:click.stop="updateStatus({{ $itemSchedule->id }}, 'Done')">
                         Done
                     </x-secondary-button>
                 @endif

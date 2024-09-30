@@ -25,20 +25,21 @@
     </div>
         @endhasanyrole
         @forelse($announcements as $announcement)
-            <tr>
+        <tr class="hover:bg-gray-100 cursor-pointer"
+        wire:click="$dispatch('openModal', { component: 'modals.show.announcement-modal', arguments: { announcement: {{ $announcement }} }})">
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                     {{ $announcement->title }}
                 </td>
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                     @hasanyrole('superadmin|administrator')
-                    <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.announcement-modal', arguments: { announcement: {{ $announcement }} }})">
+                    <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.announcement-modal', arguments: { announcement: {{ $announcement }} }})">
                         Edit
                     </x-secondary-button>
-                    <x-secondary-button wire:click="pinned_announcement({{ $announcement->id }})">
+                    <x-secondary-button wire:click.stop="pinned_announcement({{ $announcement->id }})">
                     {{ $announcement->is_pinned ? 'Unpin' : 'Pin' }}
                     </x-secondary-button>
                     @endhasanyrole
-                    <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.show.announcement-modal', arguments: { announcement: {{ $announcement }} }})">
+                    <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.show.announcement-modal', arguments: { announcement: {{ $announcement }} }})">
                         View
                     </x-secondary-button>
                 </td>

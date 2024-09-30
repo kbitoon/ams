@@ -67,7 +67,7 @@ class Complaint extends Component
                   ->orWhere('title', 'like', '%' . $this->search . '%');
         }
 
-        // If the user is a superadmin/administrator, show all complaints, else filter by user
+        // If the user is a superadmin/administrator/support, show all complaints, else filter by user
         if (auth()->user()->hasRole('superadmin|administrator|support')) {
             $complaints = $query->orderBy('created_at', 'desc')->paginate(10);
         } else {

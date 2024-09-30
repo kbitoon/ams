@@ -29,7 +29,8 @@
     </div>
 
         @forelse($clearances as $clearance)
-            <tr>
+        <tr class="hover:bg-gray-100 cursor-pointer"
+        wire:click="$dispatch('openModal', { component: 'modals.show.clearance-modal', arguments: { clearance: {{ $clearance }} }})">
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                     {{ $clearance->name }}
                 </td>
@@ -37,16 +38,16 @@
                     {{ $clearance->type->name }}
                 </td>
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                    <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.show.clearance-modal', arguments: { clearance: {{ $clearance}} }})">
+                    <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.show.clearance-modal', arguments: { clearance: {{ $clearance}} }})">
                         View
                     </x-secondary-button>
                     @if($clearance->status <> 'done')
                         @hasanyrole('superadmin|administrator|support')
-                            <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.clearance-modal', arguments: { clearance: {{ $clearance }} }})">
+                            <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.clearance-modal', arguments: { clearance: {{ $clearance }} }})">
                                 Edit
                             </x-secondary-button>
                         @endhasanyrole
-                    <x-secondary-button wire:click="markAsDone({{ $clearance->id }})">
+                    <x-secondary-button wire:click.stop="markAsDone({{ $clearance->id }})">
                         Done
                     </x-secondary-button>
 
