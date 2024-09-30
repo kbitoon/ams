@@ -13,9 +13,6 @@ class AnnouncementModal extends ModalComponent
     public ?Announcement $announcement = null;
     public AnnouncementForm $form;
 
-    /**
-     * @param Announcement|null $announcement
-     */
     public function mount(Announcement $announcement = null): void
     {
         if ($announcement && $announcement->exists) {
@@ -23,9 +20,6 @@ class AnnouncementModal extends ModalComponent
         }
     }
 
-    /**
-     * Save clearance
-     */
     public function save(): void
     {
         $this->form->save();
@@ -33,12 +27,9 @@ class AnnouncementModal extends ModalComponent
         $this->dispatch('refresh-list');
     }
 
-    /**
-     * @return View
-     */
-    public function render() : View
+    public function render(): View
     {
-        return view('livewire.forms.announcement-form',[
+        return view('livewire.forms.announcement-form', [
             'announcementCategories' => AnnouncementCategory::all(),
         ]);
     }
