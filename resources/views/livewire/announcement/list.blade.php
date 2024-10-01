@@ -31,6 +31,9 @@
                     {{ $announcement->title }}
                 </td>
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                    <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.show.announcement-modal', arguments: { announcement: {{ $announcement }} }})">
+                        View
+                    </x-secondary-button>
                     @hasanyrole('superadmin|administrator')
                     <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.announcement-modal', arguments: { announcement: {{ $announcement }} }})">
                         Edit
@@ -39,9 +42,6 @@
                     {{ $announcement->is_pinned ? 'Unpin' : 'Pin' }}
                     </x-secondary-button>
                     @endhasanyrole
-                    <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.show.announcement-modal', arguments: { announcement: {{ $announcement }} }})">
-                        View
-                    </x-secondary-button>
                 </td>
             </tr>
         @empty

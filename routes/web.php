@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Pending;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\CommentController;
+
 
 
 Route::get('/pending', Pending::class)->name('pending');
@@ -70,6 +72,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/clearancepurpose', [App\Http\Controllers\AmsController::class, 'clearancepurpose'])->name('clearancepurpose');
    
     Route::post('/photo/upload', [PhotoController::class, 'upload'])->name('photo.upload');
+
+    Route::post('/complaints/{complaint}/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::get('/complaints/{complaint}', [ComplaintController::class, 'show'])->name('complaint.show');
+
 
 });
 

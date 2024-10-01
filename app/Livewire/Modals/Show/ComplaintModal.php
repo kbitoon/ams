@@ -29,6 +29,7 @@ class ComplaintModal extends ModalComponent
     {
         return view('livewire.complaint.view', [
             'complaint' => $this->complaint,
+            'comments' => $this->complaint->comments ?? [],
         ]);
     }
 }
