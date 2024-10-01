@@ -6,7 +6,6 @@
         <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">{!! $item->name !!}</h3>
         
         <div class="mt-4 text-sm/relaxed text-gray-800 dark:text-gray-300 space-y-2">
-            <p><span class="font-semibold">Total Quantity: </span> {!! $item->TotalQuantity !!}</p>
             <p><span class="font-semibold">Quantity Left: </span> {!! $item->QuantityLeft !!}</p>
             <p><span class="font-semibold">Description: </span> {!! $item->description !!}</p>
             <p><span class="font-semibold">Acquisition Cost: </span> {!! $item->AcquisitionCost !!}</p>

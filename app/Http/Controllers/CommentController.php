@@ -19,11 +19,11 @@ class CommentController extends Controller
         // Create the comment
         Comment::create([
             'comment' => $request->comment,
-            'user_id' => Auth::id(), // Get the ID of the authenticated user
+            'user_id' => Auth::id(),
             'complaint_id' => $complaint->id,
         ]);
 
-        // Optionally, redirect back with a success message
+        //redirect back with a success message
         return redirect()->back()->with('message', 'Comment uploaded successfully!');
     }
 }

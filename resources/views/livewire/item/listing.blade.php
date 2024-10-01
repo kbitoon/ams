@@ -27,6 +27,9 @@
                     <th class="px-6 py-3 text-left bg-gray-50">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Date Acquired</span>
                     </th>
+                    <th class="px-6 py-3 text-left bg-gray-50">
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Remaining Quantity</span>
+                    </th>
                     <th class="px-6 py-3 bg-gray-50"></th>
                 </tr>
             </thead>
@@ -38,6 +41,9 @@
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             {{ $item->acquired }}
+                        </td>
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                            {{ $item->QuantityLeft }}
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             @hasanyrole('superadmin|administrator')
