@@ -2,7 +2,7 @@
     <!-- Photo Banner Section -->
     @if($latest_photo && $latest_photo->path)
     <div id="photo-container" class="flex items-center justify-center bg-black bg-opacity-50">
-        <img id="latest-photo" src="{{ asset('storage/public/' . $latest_photo->path) }}" alt="Latest Photo" class="object-cover w-full" />
+        <img id="latest-photo" src="{{ asset('storage/' . $latest_photo->path) }}" alt="Latest Photo" class="object-cover w-full" />
     </div>
     @else
         <div class="h-40 bg-gray-300 flex items-center justify-center">
