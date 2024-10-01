@@ -1,5 +1,5 @@
 <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
-    <button class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 focus:outline-none" wire:click="closeModal">
+    <button class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 focus:outline-none text-3xl" wire:click="closeModal">
         &times;
     </button>
     <div class="pt-3 sm:pt-5">
