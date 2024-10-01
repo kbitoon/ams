@@ -14,6 +14,8 @@ class ItemForm extends Form
     public string $name = '';
     public int $TotalQuantity = 0;
     public int $QuantityLeft = 0;
+    public string $description = '';
+    public float $AcquisitionCost = 0;
     public string $category_id = '';
 
     /**
@@ -26,6 +28,8 @@ class ItemForm extends Form
         $this->name = $item->name;
         $this->TotalQuantity = $item->TotalQuantity;
         $this->QuantityLeft = $item->QuantityLeft;
+        $this->description = $item->description;
+        $this->AcquisitionCost = $item->AcquisitionCost;
         $this->category_id = $item->category_id;
     }
 
@@ -39,6 +43,8 @@ class ItemForm extends Form
             'name' => ['required'],
             'TotalQuantity' => ['required', 'integer', 'min:1'],
             'QuantityLeft' => ['required','integer', 'min:0', 'lte:TotalQuantity'],
+            'description'=>['required'],
+            'AcquisitionCost'=>['required'],
             'category_id' => ['required'],
         ];
     }
@@ -53,6 +59,8 @@ class ItemForm extends Form
             'name' => 'name',
             'TotalQuantity' => 'TotalQuantity',
             'QuantityLeft' => 'QuantityLeft',
+            'description' => 'description',
+            'AcquisitionCost' => 'AcquisitionCost',
             'category_id' => 'category',
         ];
     }
@@ -64,9 +72,9 @@ class ItemForm extends Form
     {
         $this->validate();
         if (!$this->item) {
-            Item::create($this->only(['acquired','name', 'TotalQuantity', 'QuantityLeft', 'category_id']));
+            Item::create($this->only(['acquired','name', 'TotalQuantity', 'QuantityLeft', 'description', 'AcquisitionCost', 'category_id']));
         } else {
-            $this->item->update($this->only(['name', 'TotalQuantity', 'QuantityLeft', 'category_id']));
+            $this->item->update($this->only(['name', 'TotalQuantity', 'QuantityLeft', 'description', 'AcquisitionCost', 'category_id']));
         }
         $this->reset();
     }

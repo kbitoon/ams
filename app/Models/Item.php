@@ -16,6 +16,8 @@ class Item extends Model
         'name',
         'TotalQuantity',
         'QuantityLeft',
+        'description',
+        'AcquisitionCost',
         'category_id',
     ];
 

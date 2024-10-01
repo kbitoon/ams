@@ -29,7 +29,7 @@ new class extends Component
                     <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-red-100 rounded-full dark:bg-red-600">
                         <a href="/">
                         {{--    <span class="font-medium text-gray-600 dark:text-gray-300">BIS</span> --}}
-                            <img src="/storage/public/logo.png" />
+                            <img src="/storage/logo.png" />
                         </a>
                     </div>
                 </div>

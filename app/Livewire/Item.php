@@ -13,11 +13,14 @@ use Livewire\WithPagination;
 class Item extends Component
 {
     use WithPagination;
+    #[On('refresh-list')]
+    public function refresh() {}
 
     public string $search = '';
     public string $categoryFilter = '';
-
+    protected $listeners = ['refresh-list' => 'refresh'];
     protected $updatesQueryString = ['search', 'categoryFilter'];
+
 
     public function searchItems()
     {

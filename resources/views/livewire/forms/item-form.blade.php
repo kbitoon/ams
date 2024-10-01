@@ -32,6 +32,18 @@
         </div>
 
         <div class="mt-4">
+            <x-input-label for="description" :value="__('Description')" />
+            <textarea wire:model="form.description" id="description" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" type="text"></textarea>
+            <x-input-error :messages="$errors->get('form.description')" class="mt-2" />
+        </div>
+
+        <div class="mt-4">
+            <x-input-label for="AcquisitionCost" :value="__('Acquisition Cost')" />
+            <x-text-input wire:model="form.AcquisitionCost" id="AcquisitionCost" class="mt-1 block w-full" type="text" />
+            <x-input-error :messages="$errors->get('form.AcquisitionCost')" class="mt-2" />
+        </div>
+
+        <div class="mt-4">
             <x-input-label for="category_id" :value="__('Category')" />
             <select wire:model="form.category_id" id="category_id" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                 <option selected>Please select a category</option>
