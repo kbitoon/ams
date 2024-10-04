@@ -24,9 +24,8 @@ class User extends Component
 
     public function searchUsers()
     {
-        $this->resetPage(); // Reset pagination to the first page
+        $this->resetPage();
 
-        $this->render();
     }
 
     /**
@@ -35,11 +34,6 @@ class User extends Component
     public function render(): Factory|\Illuminate\Foundation\Application|View|Application
     {
         $query = UserModel::query();
-
-       // Filtering users who have the role 'user'
-        $query->whereHas('roles', function($q) {
-            $q->where('name', 'user');
-        });
 
         if ($this->search) {
             $query->where('name', 'like', '%' . $this->search . '%');
@@ -50,5 +44,5 @@ class User extends Component
         return view('livewire.user-management.list', [
             'users' => $users,
         ]);
-    } 
+    }
 }
