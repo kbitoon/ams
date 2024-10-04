@@ -47,7 +47,7 @@
                                         // Assigning classes based on role names
                                         $roleClass = match($role->name) {
                                             'superadmin' => 'bg-red-300 text-red-800',
-                                            'admin' => 'bg-blue-300 text-blue-800',
+                                            'administrator' => 'bg-blue-300 text-blue-800',
                                             'support' => 'bg-green-300 text-green-800',
                                             'user' => 'bg-yellow-300 text-yellow-800',
                                             default => 'bg-gray-300 text-gray-800', // Fallback for undefined roles
