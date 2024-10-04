@@ -35,7 +35,7 @@
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
 
-            @if (request()->is('pending'))
+            @if (request()->is('Pending'))
                 <!-- No navigation for this route -->
             @else
                 @auth

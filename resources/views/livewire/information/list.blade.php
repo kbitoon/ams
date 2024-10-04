@@ -16,7 +16,7 @@
             New Information
         </x-primary-button>
         <div class="flex items-center">
-                <input type="text" wire:model="search" placeholder="Search..." class="border p-2 rounded mr-2 h-8 w-full sm:w-auto">
+                <input type="text" wire:model="search" class="border p-2 rounded mr-2 h-8 w-full sm:w-auto">
                 <x-primary-button wire:click="searchInformation" class="ml-2">
                     Search
                 </x-primary-button>

@@ -41,7 +41,7 @@
                     <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.show.clearance-modal', arguments: { clearance: {{ $clearance}} }})">
                         View
                     </x-secondary-button>
-                    @if($clearance->status <> 'done')
+                    @if($clearance->status <> 'Done')
                         @hasanyrole('superadmin|administrator|support')
                             <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.clearance-modal', arguments: { clearance: {{ $clearance }} }})">
                                 Edit

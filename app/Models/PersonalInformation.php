@@ -30,8 +30,8 @@ class PersonalInformation extends Model
         'financial_assistance',
         'living_in_danger_zone',
         'registered_voter',
-        'emergency_contact_1',
-        'emergency_contact_2',
+        'emergency_contact_person',
+        'emergency_contact_number',
         'weight',
         'height',
     ];

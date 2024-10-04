@@ -20,10 +20,10 @@ class Pending extends Component
     // Define the render method explicitly
     public function render(): View|Factory|Application
     {
-        $clearances = ClearanceModel::where('status', 'pending')
+        $clearances = ClearanceModel::where('status', 'Pending')
             ->orderBy('date', 'asc')
             ->paginate(10);
-        $complaints = ComplaintModel::where('status', 'pending')
+        $complaints = ComplaintModel::where('status', 'Pending')
             ->orderBy('created_at', 'asc')
             ->paginate(10);
 

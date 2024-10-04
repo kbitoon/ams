@@ -17,7 +17,7 @@ class ComplaintForm extends Form
     public int $user_id = 1; // default to anonymous user, make sure we have this seeded
     public string $contact_number = '';
     public string $name = '';
-    public string $status = 'pending';
+    public string $status = 'Pending';
     public array $attachments = [];
 
     /**

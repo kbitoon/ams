@@ -13,7 +13,7 @@
             <p><span class="font-semibold">Complete Address: </span> {!! $clearance->address !!}</p>
             <p><span class="font-semibold">Status: </span> {!! $clearance->status !!}</p>
 
-            @if ($clearance->status === 'done')
+            @if ($clearance->status === 'Done')
             <p><span class="font-semibold">Approved By: </span> {!! $clearance->user->name !!}</p>
             @endif
         </div>

@@ -27,7 +27,7 @@ class Complaint extends Component
         $complaint = ComplaintModel::find($complaintId);
 
         if ($complaint) {
-            $complaint->status = 'done';
+            $complaint->status = 'Done';
             $complaint->approved_by = auth()->user()->id;
             $complaint->save();
         }
@@ -53,7 +53,7 @@ class Complaint extends Component
 
     public function searchComplaint()
     {
-        $this->resetPage(); // Reset pagination to the first page
+        $this->resetPage();
     }
 
     public function render(): Application|View|Factory|\Illuminate\Contracts\Foundation\Application

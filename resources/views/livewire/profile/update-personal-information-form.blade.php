@@ -144,14 +144,22 @@ new class extends Component
 
     <div>
         <x-input-label for="civil_status" :value="__('Civil Status')" />
-        <x-text-input wire:model="civil_status" id="civil_status" name="civil_status" type="text" class="mt-1 block w-full"/>
+        <select wire:model="civil_status" id="civil_status" name="civil_status" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+        <option value="" disabled>Select your Civil Status</option>
+        <option value="Single">Single</option>
+        <option value="Married">Married</option>
+        <option value="Divorced">Divorced</option>
+        <option value="Widowed">Widowed</option>
+        <option value="Separated">Separated</option>
+        <option value="Other">Other</option>
+        </select>
         <x-input-error class="mt-2" :messages="$errors->get('civil_status')" />
     </div>
 
     <div>
     <x-input-label for="education" :value="__('Education')" />
-    <select wire:model="education" id="education" name="education" class="mt-1 block w-full">
-        <option value="" disabled>Select your education level</option>
+    <select wire:model="education" id="education" name="education" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+        <option value="" disabled>Select your Education Level</option>
         <option value="Bachelor">Bachelor</option>
         <option value="Some College">Some College</option>
         <option value="Highschool">Highschool</option>
@@ -163,8 +171,8 @@ new class extends Component
 
     <div>
     <x-input-label for="financial_assistance" :value="__('Financial Assistance')" />
-    <select wire:model="financial_assistance" id="financial_assistance" name="financial_assistance" class="mt-1 block w-full">
-        <option value="" disabled>Select financial assistance type</option>
+    <select wire:model="financial_assistance" id="financial_assistance" name="financial_assistance" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+        <option value="" disabled>Select Financial Assistance Type</option>
         <option value="PWD">PWD</option>
         <option value="Senior Citizen">Senior Citizen</option>
         <option value="Social Pensioner">Social Pensioner</option>
@@ -212,7 +220,7 @@ new class extends Component
     </div>
 
     <div>
-        <x-input-label for="height" :value="__('Height in ft.')" />
+        <x-input-label for="height" :value="__('Height in cm.')" />
         <x-text-input wire:model="height" id="height" name="height" type="text" class="mt-1 block w-full"/>
         <x-input-error class="mt-2" :messages="$errors->get('height')" />
     </div>

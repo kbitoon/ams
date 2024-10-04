@@ -1,23 +1,8 @@
 <div>
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div class="grid gap-6">
-            <!-- Display total number of users -->
-            @hasanyrole('superadmin|administrator')
-                <div class="flex flex-col lg:flex-row gap-4">
-                    <a href="{{ route('user-management') }}" class="flex-1 p-4 bg-white rounded-lg shadow-md dark:bg-zinc-900">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <div>
-                                    <p class="text-lg font-semibold text-black dark:text-white">Total Users</p>
-                                    <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_users }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            @endhasanyrole
 
-            @hasanyrole('support')
+        @hasanyrole('support|superadmin|administrator')
                 <a href="{{ route('complaint') }}" class="flex-1 p-4 bg-white rounded-lg shadow-md dark:bg-zinc-900">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
@@ -28,10 +13,8 @@
                         </div>
                     </div>
                 </a>
-            @endhasanyrole
 
             <!-- Clickable section for pending clearances -->
-            @hasanyrole('superadmin|administrator|support')
                 <a href="{{ route('clearance') }}" class="flex-1 p-4 bg-white rounded-lg shadow-md dark:bg-zinc-900">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
@@ -43,8 +26,65 @@
                     </div>
                 </a>
             @endhasanyrole
+            <!-- Display total number of users -->
+            @hasanyrole('superadmin|administrator')
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <!-- Out of School Youth -->
+                <a href="{{ route('user-management') }}" class="p-4 bg-white rounded-lg shadow-md dark:bg-zinc-900">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-lg font-semibold text-black dark:text-white">Out of School Youth</p>
+                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_users }}</span>
+                        </div>
+                    </div>
+                </a>
 
-            @unlessrole('superadmin|administrator|support')
+                <!-- Malnourish Children -->
+                <a href="{{ route('user-management') }}" class="p-4 bg-white rounded-lg shadow-md dark:bg-zinc-900">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-lg font-semibold text-black dark:text-white">Malnourished Children</p>
+                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_users }}</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Senior Citizen -->
+                <a href="{{ route('user-management') }}" class="p-4 bg-white rounded-lg shadow-md dark:bg-zinc-900">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-lg font-semibold text-black dark:text-white">Senior Citizen</p>
+                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_users }}</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Pregnant -->
+                <a href="{{ route('user-management') }}" class="p-4 bg-white rounded-lg shadow-md dark:bg-zinc-900">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-lg font-semibold text-black dark:text-white">Pregnant</p>
+                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_users }}</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Single Parent -->
+                <a href="{{ route('user-management') }}" class="p-4 bg-white rounded-lg shadow-md dark:bg-zinc-900">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-lg font-semibold text-black dark:text-white">Single Parent</p>
+                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_users }}</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        @endhasanyrole
+            
+
+            
+
+            @hasanyrole('user')
                 @forelse($complaints as $complaint)
                     <a href="#" class="flex items-start gap-4 rounded-lg bg-white p-6 shadow-md ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] dark:bg-zinc-900 dark:ring-zinc-800">
                         <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#FF2D20]/10">
@@ -71,7 +111,7 @@
                         </div>
                     </div>
                 @endforelse
-            @endunlessrole
+            @endhasanyrole
         </div>
 
         <div class="grid gap-6">
@@ -85,6 +125,9 @@
 
                             <div class="pt-3">
                                 <h2 class="text-xl font-semibold text-black dark:text-white">{{ $pinned_announcement->title }}</h2>
+                                <span class="block text-gray-500 dark:text-gray-400" style="font-size: 0.65rem;">
+                                     {{ $announcement->created_at->format('F j, Y') }}
+                                </span>
                                 <div class="mt-4 text-sm/relaxed">{!! $pinned_announcement->excerpt(500) !!}</div>
                             </div>
                         </div>
@@ -104,6 +147,9 @@
 
                         <div class="pt-3">
                             <h2 class="text-xl font-semibold text-black dark:text-white">{{ $announcement->title }}</h2>
+                            <span class="block text-gray-500 dark:text-gray-400" style="font-size: 0.65rem;">
+                                     {{ $announcement->created_at->format('F j, Y') }}
+                             </span>
                             <p class="mt-4 text-sm/relaxed">{!! $announcement->excerpt() !!}</p>
                         </div>
 

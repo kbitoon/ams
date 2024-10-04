@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('contact_number');
             $table->unsignedBigInteger('approved_by')->nullable();
             $table->foreign('approved_by')->references('id')->on('users')->onDelete('set null');
-            $table->string('status')->default('pending');
+            $table->string('status')->default('Pending');
 
             $table->timestamps();
         });

@@ -38,10 +38,10 @@ class Item extends Component
             $query->where('name', 'like', '%' . $this->search . '%');
         }
 
-        if ($this->categoryFilter) {
+        if ($this->categoryFilter !== 'all') {
             $query->where('category_id', $this->categoryFilter);
         }
-
+    
         $items = $query->paginate(10);
         $categories = ItemCategory::all();
 

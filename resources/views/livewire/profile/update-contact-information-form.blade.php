@@ -8,8 +8,8 @@ new class extends Component
     public string $contact_number = '';
     public string $address = '';
     public string $sitio = '';
-    public string $emergency_contact_1 = '';
-    public string $emergency_contact_2 = '';
+    public string $emergency_contact_number = '';
+    public string $emergency_contact_person = '';
 
     /**
      * Mount the component with the current user information.
@@ -34,10 +34,10 @@ new class extends Component
     {
         $validated = $this->validate([
             'contact_number' => ['required', 'digits:11'],
-            'address' => ['required','string', 'max:255'],
-            'sitio' => ['required','string', 'max:255'],
-            'emergency_contact_1' => ['required','numeric', 'digits:11'],
-            'emergency_contact_2' => ['required','numeric', 'digits:11'],
+            'address' => ['required', 'max:255'],
+            'sitio' => ['required', 'max:255'],
+            'emergency_contact_number' => ['nullable','max:255'],
+            'emergency_contact_person' => ['nullable','numeric', 'digits:11'],
         ]);
 
         $user = Auth::user();
@@ -78,20 +78,29 @@ new class extends Component
 
     <div>
         <x-input-label for="sitio" :value="__('Sitio')" />
-        <x-text-input wire:model="sitio" id="sitio" name="sitio" type="text" class="mt-1 block w-full"/>
+        <select wire:model="sitio" id="sitio" name="sitio" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+        <option value="" disabled>Select your Sitio</option>
+        <option value="Center">Center</option>
+        <option value="Common">Common</option>
+        <option value="Huyong Huyong">Huyong Huyong</option>
+        <option value="Lower">Lower</option>
+        <option value="Sugarlandia">Sugarlandia</option>
+        <option value="Upper">Upper</option>
+        <option value="Villa Leyson">Villa Leyson</option>
+        </select>
         <x-input-error class="mt-2" :messages="$errors->get('sitio')" />
     </div>
 
     <div>
-        <x-input-label for="emergency_contact_1" :value="__('Emergency Contact 1')" />
-        <x-text-input wire:model="emergency_contact_1" id="emergency_contact_1" name="emergency_contact_1" type="text" class="mt-1 block w-full"/>
-        <x-input-error class="mt-2" :messages="$errors->get('emergency_contact_1')" />
+        <x-input-label for="emergency_contact_person" :value="__('Emergency Contact Person')" />
+        <x-text-input wire:model="emergency_contact_person" id="emergency_contact_person" name="emergency_contact_person" type="text" class="mt-1 block w-full"/>
+        <x-input-error class="mt-2" :messages="$errors->get('emergency_contact_person')" />
     </div>
 
     <div>
-        <x-input-label for="emergency_contact_2" :value="__('Emergency Contact 2')" />
-        <x-text-input wire:model="emergency_contact_2" id="emergency_contact_2" name="emergency_contact_2" type="text" class="mt-1 block w-full"/>
-        <x-input-error class="mt-2" :messages="$errors->get('emergency_contact_2')" />
+        <x-input-label for="emergency_contact_number" :value="__('Emergency Contact Number')" />
+        <x-text-input wire:model="emergency_contact_number" id="emergency_contact_number" name="emergency_contact_number" type="text" class="mt-1 block w-full"/>
+        <x-input-error class="mt-2" :messages="$errors->get('emergency_contact_number')" />
     </div>
 
     <div class="flex items-center gap-4">

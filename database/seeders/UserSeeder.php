@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
         ]);
 
         $user->assignRole('anonymous');
-
+        
         $superadmin = User::factory()->create([
             'name' => 'Super Admin',
             'email' => 'superadmin@ams.com',

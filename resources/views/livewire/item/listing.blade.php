@@ -6,7 +6,7 @@
         <div class="flex items-center">
             <input type="text" wire:model="search" class="border p-1 rounded mr-2">
             <select wire:model="categoryFilter" class="border p-1 rounded">
-                <option value="categoryfilter"></option>
+            <option value="all">All</option>
                 @foreach($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                 @endforeach

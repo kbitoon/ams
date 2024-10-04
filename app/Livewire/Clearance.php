@@ -28,7 +28,7 @@ class Clearance extends Component
         $clearance = ClearanceModel::find($clearanceId);
 
         if ($clearance) {
-            $clearance->status = 'done';
+            $clearance->status = 'Done';
             $clearance->approved_by = auth()->user()->id;
             $clearance->save();
         }
@@ -61,11 +61,11 @@ class Clearance extends Component
         if (auth()->user()->hasRole('superadmin|administrator|support')) {
             $clearances = $query->paginate(10);
         } else {
-            $clearances = $query->where('user_id', auth()->user()->id)->paginate(10); // For non-admin users
+            $clearances = $query->where('user_id', auth()->user()->id)->paginate(10);
         }
 
         return view('livewire.clearance.list', [
             'clearances' => $clearances,
-        ]);
+        ]); 
     }
 }

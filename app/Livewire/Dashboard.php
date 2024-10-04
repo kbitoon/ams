@@ -16,9 +16,9 @@ class Dashboard extends Component
             $query->where('name', 'user');
         })->count();
 
-        $pending_clearances = ClearanceModel::where('status', 'pending')->count();
+        $pending_clearances = ClearanceModel::where('status', 'Pending')->count();
 
-        $pending_complaints = ComplaintModel::where('status', 'pending')->count();
+        $pending_complaints = ComplaintModel::where('status', 'Pending')->count();
 
 
         return view('livewire.dashboard.landing', [
