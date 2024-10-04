@@ -12,6 +12,17 @@
             <p><span class="font-semibold">Notes: </span> {!! $clearance->notes !!}</p>
             <p><span class="font-semibold">Complete Address: </span> {!! $clearance->address !!}</p>
             <p><span class="font-semibold">Status: </span> {!! $clearance->status !!}</p>
+            <h3 class="font-semibold">Attachments:</h3>
+            <div class="space-y-2">
+                @foreach($clearance->assets as $attachment)
+                    <div>
+                        <a href="{{ Storage::url($attachment->path) }}" target="_blank" class="text-blue-500 hover:underline">
+                            {{ basename($attachment->path) }}
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+        </div>
 
             @if ($clearance->status === 'Done')
             <p><span class="font-semibold">Approved By: </span> {!! $clearance->user->name !!}</p>

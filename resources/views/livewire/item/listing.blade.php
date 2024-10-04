@@ -1,18 +1,32 @@
 <div class="p-6">
-    <div class="flex justify-between items-center mb-4">
-        <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.item-modal' })">
-            New Item
+    <div class="flex justify-between items-center mb-4 mr-2">
+        <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.item-modal' })" class="h-8 mr-2">
+            <!-- Show text for large screens, icon for mobile -->
+            <span class="hidden sm:inline">New Item</span>
+            <span class="sm:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+            </span>
         </x-primary-button>
-        <div class="flex items-center">
-            <input type="text" wire:model="search" class="border p-1 rounded mr-2">
-            <select wire:model="categoryFilter" class="border p-1 rounded">
-            <option value="all">All</option>
+        
+        <!-- Wrapping search and filter in a flex container -->
+        <div class="flex items-center ml-auto"> <!-- ml-auto pushes it to the right -->
+            <input type="text" wire:model="search" class="border p-1 rounded mr-2 h-8 w-full sm:w-32" placeholder="Search..."> <!-- Adjust width here -->
+            <select wire:model="categoryFilter" class="border p-1 rounded h-8 w-full sm:w-32"> <!-- Adjust width here -->
+                <option value="all">All</option>
                 @foreach($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                 @endforeach
             </select>
-            <x-primary-button wire:click="searchItems" class="ml-2">
-                Search
+            <x-primary-button wire:click="searchItems" class="ml-1 h-8">
+                <!-- Show text for large screens, icon for mobile -->
+                <span class="hidden sm:inline">Search</span>
+                <span class="sm:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M12.9 14.32a8 8 0 111.41-1.41l3.9 3.9a1 1 0 11-1.42 1.42l-3.9-3.9zM8 14A6 6 0 108 2a6 6 0 000 12z" clip-rule="evenodd" />
+                    </svg>
+                </span>
             </x-primary-button>
         </div>
     </div>
