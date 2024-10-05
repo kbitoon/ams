@@ -43,18 +43,17 @@
                 {{ $announcement->title }}
             </td>
             <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.show.announcement-modal', arguments: { announcement: {{ $announcement }} }})">
-                    View
-                </x-secondary-button>
                 @hasanyrole('superadmin|administrator')
-                <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.announcement-modal', arguments: { announcement: {{ $announcement }} }})">
-                    Edit
-                </x-secondary-button>
-                <x-secondary-button wire:click.stop="pinned_announcement({{ $announcement->id }})">
-                    {{ $announcement->is_pinned ? 'Unpin' : 'Pin' }}
-                </x-secondary-button>
+                    <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.announcement-modal', arguments: { announcement: {{ $announcement }} }})" class="flex items-center">
+                    <i class="fas fa-pencil-alt"></i>
+                    </x-secondary-button>
+
+                    <x-secondary-button wire:click.stop="pinned_announcement({{ $announcement->id }})" class="flex items-center">
+                    <i class="{{ $announcement->is_pinned ? 'fas fa-unlock-alt' : 'fas fa-thumbtack' }}"></i>
+                    </x-secondary-button>
                 @endhasanyrole
             </td>
+
         </tr>
         @empty
             <tr>

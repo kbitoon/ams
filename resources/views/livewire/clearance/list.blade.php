@@ -50,17 +50,14 @@
                 {{ $clearance->type->name }}
             </td>
             <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.show.clearance-modal', arguments: { clearance: {{ $clearance}} }})">
-                    View
-                </x-secondary-button>
                 @if($clearance->status <> 'Done')
                     @hasanyrole('superadmin|administrator|support')
                         <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.clearance-modal', arguments: { clearance: {{ $clearance }} }})">
-                            Edit
+                        <i class="fas fa-pencil-alt"></i>
                         </x-secondary-button>
                     @endhasanyrole
                     <x-secondary-button wire:click.stop="markAsDone({{ $clearance->id }})">
-                        Done
+                    <i class="fas fa-check mr-1"></i>
                     </x-secondary-button>
 
                     <span class="text-xs text-gray-500 ml-2">
