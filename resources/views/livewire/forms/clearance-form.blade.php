@@ -76,20 +76,23 @@
 
     <div class="form-instructions">
         <!-- <center><strong>Form Submission Instructions</strong></center> -->
-        <p>All clearances and certifications are free of charge. The following items are also delivered to your house for free, as part of our effort to improve and streamline the delivery of our services to the public: Cohabitation, Open Bank Account, Postal ID, National ID, Police Clearance, SSS Requirement, Driver's License, Board Exam, Electrical Connection, Water Connection, and House Ownership. Other items can be picked up at the Barangay Hall with minimal to no waiting time.</p>
-        <!--
+        <p>All clearances and certifications are free of charge. The following items are also <strong>delivered to your house for FREE</strong>, as part of our effort to improve and streamline the delivery of our services to the public: </p>    
+        
         <ol>
-            <li><strong>Enter Your Name:</strong> Find the "Name" field. Type your full name in the text box provided.</li>
-            <li><strong>Select the Type:</strong> Locate the "Type" dropdown. Click the dropdown and choose the appropriate type from the list.</li>
-            <li><strong>Enter the Amount:</strong> Find the "Amount" field. Enter the required amount in the text box.</li>
-            <li><strong>Select the Date:</strong> Locate the "Date" field. Use the date picker to select the relevant date.</li>
-            <li><strong>Specify the Purpose:</strong> Find the "Purpose" field. Enter the purpose of your submission in the text box provided and select the appropriate option from the autocomplete suggestions.</li>
-            <li><strong>Add Any Notes:</strong> Locate the "Notes" section. Enter any additional information or notes in the text area.</li>
-            <li><strong>Provide Your Contact Number:</strong> Find the "Contact Number" field. Enter your phone number in the text box provided.</li>
-            <li><strong>Attach Files (if any):</strong> Locate the "Attachment" field. Click the "Choose Files" button to upload any necessary files.</li>
-            <li><strong>Submit the Form:</strong> Review all the entered information for accuracy. Click the "Save" button to submit the form.</li>
+            <li>Cohabitation</li>
+            <li>Open Bank Account</li>
+            <li>Postal ID</li>
+            <li>National ID</li>
+            <li>Police Clearance</li>
+            <li>SSS Requirement</li>
+            <li>Driver's License</li>
+            <li>Board Exam</li>
+            <li>Electrical Connection</li>
+            <li>Water Connection</li>
+            <li>House Ownership</li>
         </ol>
-        <p><strong>Tips:</strong></p>
+        <p>Other items can be picked up at the Barangay Hall with minimal to no waiting time.</p>
+        <!--
         <ul>
             <li>Make sure all required fields are filled out correctly.</li>
             <li>If there are any errors, they will be displayed below the respective fields.</li>
