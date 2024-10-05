@@ -75,8 +75,9 @@
     </div>
 
     <div class="form-instructions">
-        <center><strong>Form Submission Instructions</strong></center>
-        <p>To complete and submit the form, follow these steps:</p>
+        <!-- <center><strong>Form Submission Instructions</strong></center> -->
+        <p>All clearances and certifications are free of charge. The following items are also delivered to your house for free, as part of our effort to improve and streamline the delivery of our services to the public: Cohabitation, Open Bank Account, Postal ID, National ID, Police Clearance, SSS Requirement, Driver's License, Board Exam, Electrical Connection, Water Connection, and House Ownership. Other items can be picked up at the Barangay Hall with minimal to no waiting time.</p>
+        <!--
         <ol>
             <li><strong>Enter Your Name:</strong> Find the "Name" field. Type your full name in the text box provided.</li>
             <li><strong>Select the Type:</strong> Locate the "Type" dropdown. Click the dropdown and choose the appropriate type from the list.</li>
@@ -93,8 +94,8 @@
             <li>Make sure all required fields are filled out correctly.</li>
             <li>If there are any errors, they will be displayed below the respective fields.</li>
             <li>Ensure your attachments are in the correct format and within size limits.</li>
-        </ul>
-        <p>Thank you for filling out the form!</p>
+        </ul> -->
+        <p>Thank you! #AbanteBacayan</p>
     </div>
 
 </div>
