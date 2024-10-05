@@ -36,7 +36,16 @@ class ComplaintModal extends ModalComponent
         $this->dispatch('refresh-list');
 
         if (!auth()->user()) {
-            session()->flash('status', 'Complaint successfully submitted.');
+
+            $latestComplaint = Complaint::orderBy('id', 'desc')->first();
+            $nextId = $latestComplaint ? $latestComplaint->id : 1; 
+            $base64Id = base64_encode($nextId);
+    
+            // Set the success message with the base64 reference ID
+            session()->flash('status', "Complaint successfully submitted.");
+            session()->flash('reference_id', $base64Id);
+    
+            // Redirect to the home route
             $this->redirectRoute('home');
         }
     }

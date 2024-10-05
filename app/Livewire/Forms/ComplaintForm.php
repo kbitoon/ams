@@ -66,11 +66,21 @@ class ComplaintForm extends Form
     public function save(): void
     {
         $this->validate();
+
+        // Default user id for anonymous users
         if (!$this->complaint) {
             if (auth()->user()) {
                 $this->complaint = auth()->user()->complaints()->create($this->only(['name', 'title', 'user_id', 'content', 'category_id', 'is_pinned', 'contact_number', 'status']));
             } else {
+                // For unauthenticated users
+                $latestComplaint = Complaint::orderBy('id', 'desc')->first();
+                $nextId = $latestComplaint ? $latestComplaint->id + 1 : 1; // Incrementing the last ID
+                $base64Id = base64_encode($nextId); // Convert to base64
+
                 $this->complaint = Complaint::create($this->only(['name', 'title', 'user_id', 'content', 'category_id', 'is_pinned', 'contact_number', 'status']));
+                
+                // Include the base64 encoded ID in the success message
+                session()->flash('message', "Request submitted successfully. Your reference ID is: $base64Id");
             }
         } else {
             $this->complaint->update($this->only(['name', 'title', 'content', 'category_id', 'is_pinned', 'contact_number', 'status']));
@@ -86,6 +96,6 @@ class ComplaintForm extends Form
 
         $this->reset();
 
-        session()->flash('message', 'Request submitted successfully');
+            session()->flash('message', 'Request submitted successfully');
     }
 }

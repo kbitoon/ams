@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\Pending;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ComplaintTrackingController;
 
 
 
@@ -89,6 +90,9 @@ Route::middleware('guest')->group(function () {
 
     Route::view('file-a-complaint', 'complaint')
         ->name('file-a-complaint');
+
+    Route::get('/track-complaint', [ComplaintTrackingController::class, 'showTrackForm'])->name('track-complaint');
+    Route::post('/track-complaint', [ComplaintTrackingController::class, 'trackComplaint'])->name('track-complaint.submit');
 
     Route::get('/clearancepurpose', [App\Http\Controllers\AmsController::class, 'clearancepurpose'])->name('clearancepurpose');
 

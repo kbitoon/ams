@@ -29,7 +29,7 @@
                             <div class="pt-3 sm:pt-5 lg:pt-0">
                                 <h2 class="text-xl font-semibold text-black dark:text-white">{{ $pinned_announcement->title }}</h2>
                                 <span class="block text-gray-500 dark:text-gray-400" style="font-size: 0.65rem;">
-                                    {{ $announcement->created_at->format('F j, Y') }}
+                                    {{ $pinned_announcement->created_at->format('F j, Y') }}
                                 </span>
 
                                 <div class="mt-4 text-sm/relaxed">

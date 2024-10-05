@@ -1,8 +1,12 @@
 <x-app-layout>
     @if (session('status'))
         <x-slot name="header">
-            <div class="alert alert-success text-green-600">
-                {{ session('status') }}
+            <div class="alert alert-success text-green-600" style="padding: 15px; border: 1px solid #c3e6cb; background-color: #d4edda; border-radius: 5px;">
+                {!! session('status') !!}
+                <div style="margin-top: 10px;">
+                    <strong>Reference ID: <span style='font-size: 1.2em; color: black;'>{{ session('reference_id') }}</span></strong>
+                    <span style="display: block; margin-top: 5px; font-size: 0.9em;">Use this ID to track for updates.</span>
+                </div>
             </div>
         </x-slot>
     @endif
