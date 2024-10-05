@@ -45,9 +45,9 @@
                             <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
                                 <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">{{ $complaint->title }}</h3>
                                 <div class="mt-4 text-sm/relaxed text-gray-800 dark:text-gray-300 space-y-2">
-                                    <p><span class="font-semibold">{{ $complaint->name }} | {{ $complaint->contact_number }}</span><br>
+                                    <p><span class="font-semibold">{{ $complaint->name }} ({{ $complaint->contact_number }}) </span><br>
                                     <span class ="block text-gray-500 dark:text-gray-400" style="font-size: 0.65rem;">
-                                        {{ $complaint->created_at->format('F j, Y') }}
+                                        {{ $complaint->created_at->format('F j, Y') }} | {{$complaint->status}}
                                     </span></p>
                                     <p>{{ strip_tags($complaint->content) }}</p>
                                     @if ($complaint->status === 'Done')
