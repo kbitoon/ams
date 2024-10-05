@@ -23,7 +23,11 @@
                     <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.complaint-category-modal', arguments: { complaintCategory: {{ $complaintCategory }} }})">
                         Edit
                     </x-secondary-button>
+                    <x-danger-button wire:click="delete({{ $complaintCategory->id }})" onclick="return confirm('Are you sure you want to delete this clearance type?')">
+                        Delete
+                    </x-danger-button>
                 </td>
+                
             </tr>
         @empty
             <tr>

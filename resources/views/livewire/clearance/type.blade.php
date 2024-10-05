@@ -25,10 +25,13 @@
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                     {{ $clearanceType->amount }}
                 </td>
-                <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                <td class="px-6 py-4 text-sm leading-5 text-gray-900 flex space-x-2">
                     <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.clearance-type-modal', arguments: { clearanceType: {{ $clearanceType }} }})">
                         Edit
                     </x-secondary-button>
+                    <x-danger-button wire:click="delete({{ $clearanceType->id }})" onclick="return confirm('Are you sure you want to delete this clearance type?')">
+                        Delete
+                    </x-danger-button>
                 </td>
             </tr>
         @empty

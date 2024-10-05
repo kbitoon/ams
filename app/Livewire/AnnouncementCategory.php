@@ -18,6 +18,16 @@ class AnnouncementCategory extends Component
     #[On('refresh-list')]
     public function refresh() {}
 
+    public function delete($id)
+    {
+        // Find the clearance type by id and delete it
+        $clearanceType = AnnouncementCategoryModel::findOrFail($id);
+        $clearanceType->delete();
+
+        // Refresh the component to update the list
+        $this->dispatch('refresh-list');
+    }
+
     /**
      * @return Factory|\Illuminate\Foundation\Application|View|Application
      */

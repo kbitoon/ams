@@ -17,6 +17,15 @@ class InformationCategory extends Component
 
     #[On('refresh-list')]
     public function refresh() {}
+    
+    public function delete($id)
+    {
+        
+        $clearanceType = InformationCategoryModel::findOrFail($id);
+        $clearanceType->delete();
+
+        $this->dispatch('refresh-list');
+    }
 
     /**
      * @return Factory|\Illuminate\Foundation\Application|View|Application

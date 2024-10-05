@@ -18,6 +18,14 @@ class ClearanceType extends Component
     #[On('refresh-list')]
     public function refresh() {}
 
+    public function delete($id)
+    {
+        $clearanceType = ClearanceTypeModel::findOrFail($id);
+        $clearanceType->delete();
+
+        $this->dispatch('refresh-list');
+    }
+
     /**
      * @return Factory|\Illuminate\Foundation\Application|View|Application
      */
