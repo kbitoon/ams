@@ -77,7 +77,7 @@
     <div class="form-instructions">
         <!-- <center><strong>Form Submission Instructions</strong></center> -->
         <p>All clearances and certifications are free of charge. The following items are also <strong>delivered to your house for FREE</strong>, as part of our effort to improve and streamline the delivery of our services to the public: </p>
-        <p></p>
+        <p>&nbsp;</p>
         <ul>
             <li>Cohabitation</li>
             <li>Open Bank Account</li>
@@ -89,7 +89,7 @@
             <li>Electrical/Water Connection</li>            
             <li>House Ownership</li>
         </ul>
-        <p></p>
+        <p>&nbsp;</p>
         <p>Other items can be picked up at the Barangay Hall with minimal to no waiting time.</p>
         <!--
         <ul>
@@ -97,7 +97,7 @@
             <li>If there are any errors, they will be displayed below the respective fields.</li>
             <li>Ensure your attachments are in the correct format and within size limits.</li>
         </ul> -->
-        <p></p>
+        <p>&nbsp;</p>
         <p>Thank you! #AbanteBacayan</p>
     </div>
 
