@@ -3,7 +3,7 @@
         <div class="flex items-center ml-auto">
             <select wire:model="selectedRole" class="border p-1 rounded mr-2">
                 <option value="">All Roles</option>
-                @foreach($roles as $role) <!-- Loop through the roles -->
+                @foreach($roles as $role) 
                     <option value="{{ $role->name }}">{{ ucfirst($role->name) }}</option> <!-- Display role name -->
                 @endforeach
             </select>

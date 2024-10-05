@@ -3,7 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\User as UserModel;
-use Spatie\Permission\Models\Role; // Import the Role model
+use Spatie\Permission\Models\Role;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -20,13 +20,13 @@ class User extends Component
     public function refresh() {}
 
     public string $search = '';
-    public string $selectedRole = ''; // Property to hold selected role
+    public string $selectedRole = ''; 
 
     protected $updatesQueryString = ['search', 'selectedRole'];
 
     public function searchUsers()
     {
-        $this->resetPage(); // Reset pagination to the first page
+        $this->resetPage();
     }
 
     /**
@@ -50,7 +50,6 @@ class User extends Component
 
         $users = $query->paginate(10);
         
-        // Fetch available roles
         $roles = Role::all(); // Fetch all roles
 
         return view('livewire.user-management.list', [
