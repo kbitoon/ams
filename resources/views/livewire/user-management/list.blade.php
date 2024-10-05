@@ -1,13 +1,19 @@
 <div class="p-6">
     <div class="flex justify-between items-center mb-4">
         <div class="flex items-center ml-auto">
+            <select wire:model="selectedRole" class="border p-1 rounded mr-2">
+                <option value="">All Roles</option>
+                @foreach($roles as $role) <!-- Loop through the roles -->
+                    <option value="{{ $role->name }}">{{ ucfirst($role->name) }}</option> <!-- Display role name -->
+                @endforeach
+            </select>
             <input type="text" wire:model="search" class="border p-1 rounded mr-2" placeholder="Search users...">
             <x-primary-button wire:click="searchUsers" class="ml-2">
                 Search
             </x-primary-button>
         </div>
     </div>
-
+    
     <div class="overflow-x-auto">
         <table class="min-w-full border divide-y divide-gray-200">
             <thead>
