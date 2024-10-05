@@ -50,21 +50,20 @@
 
                 
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                    <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.show.item-schedule-modal', arguments: { itemSchedule: {{ $itemSchedule }} }})">
-                        View
-                    </x-secondary-button>
-                    <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.item-schedule-modal', arguments: { itemSchedule: {{ $itemSchedule }} }})">
-                        Edit
-                    </x-secondary-button>
-                @if($itemSchedule->status === '')
-                    <x-secondary-button wire:click.stop="updateStatus({{ $itemSchedule->id }}, 'Ongoing')">
-                        Ongoing
-                    </x-secondary-button>
-                @elseif($itemSchedule->status === 'Ongoing')
-                    <x-secondary-button wire:click.stop="updateStatus({{ $itemSchedule->id }}, 'Done')">
-                        Done
-                    </x-secondary-button>
-                @endif
+                    <div class="flex items-center space-x-2"> 
+                        <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.item-schedule-modal', arguments: { itemSchedule: {{ $itemSchedule }} }})">
+                        <i class="fas fa-pencil-alt"></i>
+                        </x-secondary-button>
+                    @if($itemSchedule->status === '')
+                        <x-secondary-button wire:click.stop="updateStatus({{ $itemSchedule->id }}, 'Ongoing')">
+                        <i class="fas fa-hourglass-half mr-1"></i>
+                        </x-secondary-button>
+                    @elseif($itemSchedule->status === 'Ongoing')
+                        <x-secondary-button wire:click.stop="updateStatus({{ $itemSchedule->id }}, 'Done')">
+                        <i class="fas fa-check mr-1"></i>
+                        </x-secondary-button>
+                    @endif
+                    </div>
                 </td>
                 
             </tr>

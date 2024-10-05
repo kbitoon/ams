@@ -21,10 +21,10 @@
                 </td>
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                     <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.complaint-category-modal', arguments: { complaintCategory: {{ $complaintCategory }} }})">
-                        Edit
+                    <i class="fas fa-pencil-alt"></i>
                     </x-secondary-button>
                     <x-danger-button wire:click="delete({{ $complaintCategory->id }})" onclick="return confirm('Are you sure you want to delete this clearance type?')">
-                        Delete
+                    <i class="fas fa-trash-alt"></i>
                     </x-danger-button>
                 </td>
                 

@@ -2,21 +2,20 @@
     <table class="min-w-full border divide-y divide-gray-200">
         <!-- Table Header -->
         <thead>
-        <tr>
-            <th class="px-6 py-3 text-left bg-gray-50">
-                <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Name</span>
-            </th>
-            <th class="px-6 py-3 text-left bg-gray-50">
-                <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Type</span>
-            </th>
-            <th class="px-6 py-3 text-left bg-gray-50"></th>
-        </tr>
+            <tr>
+                <th class="px-6 py-3 text-left bg-gray-50">
+                    <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Name</span>
+                </th>
+                <th class="px-6 py-3 text-left bg-gray-50">
+                    <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Type</span>
+                </th>
+                <th class="px-6 py-3 text-left bg-gray-50"></th>
+            </tr>
         </thead>
         <!-- Table Body -->
         <div class="flex justify-between items-center mb-4">
             <!-- New Clearance button -->
             <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.clearance-modal' })" class="h-8">
-                <!-- Show text for large screens, icon for mobile -->
                 <span class="hidden sm:inline">New Clearance</span>
                 <span class="sm:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-5 w-5">
@@ -29,7 +28,6 @@
             <div class="flex items-center">
                 <input type="text" wire:model="search" class="border p-2 rounded mr-2 h-8" placeholder="Search...">
                 <x-primary-button wire:click="searchClearance" class="h-8">
-                    <!-- Show text for large screens, icon for mobile -->
                     <span class="hidden sm:inline">Search</span>
                     <span class="sm:hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
@@ -42,7 +40,7 @@
 
         @forelse($clearances as $clearance)
         <tr class="hover:bg-gray-100 cursor-pointer"
-        wire:click="$dispatch('openModal', { component: 'modals.show.clearance-modal', arguments: { clearance: {{ $clearance }} }})">
+            wire:click="$dispatch('openModal', { component: 'modals.show.clearance-modal', arguments: { clearance: {{ $clearance }} }})">
             <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                 {{ $clearance->name }}
             </td>
@@ -52,20 +50,29 @@
             <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                 @if($clearance->status <> 'Done')
                     @hasanyrole('superadmin|administrator|support')
-                        <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.clearance-modal', arguments: { clearance: {{ $clearance }} }})">
-                        <i class="fas fa-pencil-alt"></i>
-                        </x-secondary-button>
+                        <div class="flex items-center space-x-2 flex-wrap"> <!-- Added flex-wrap for responsiveness -->
+                            <div class="flex items-center">
+                                <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.clearance-modal', arguments: { clearance: {{ $clearance }} }})" class="flex items-center mr-2">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </x-secondary-button>
+                                <x-secondary-button wire:click.stop="markAsDone({{ $clearance->id }})" class="flex items-center">
+                                    <i class="fas fa-check mr-1"></i>
+                                </x-secondary-button>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-2 block sm:hidden"> <!-- Hidden on desktop -->
+                                @php
+                                    $daysAgo = $this->getDaysAgo($clearance->date);
+                                @endphp
+                                {{ $daysAgo === 1 ? "$daysAgo day ago" : "$daysAgo days ago" }}
+                            </span>
+                            <span class="text-xs text-gray-500 ml-2 hidden sm:block"> <!-- Hidden on mobile -->
+                                @php
+                                    $daysAgo = $this->getDaysAgo($clearance->date);
+                                @endphp
+                                {{ $daysAgo === 1 ? "$daysAgo day ago" : "$daysAgo days ago" }}
+                            </span>
+                        </div>
                     @endhasanyrole
-                    <x-secondary-button wire:click.stop="markAsDone({{ $clearance->id }})">
-                    <i class="fas fa-check mr-1"></i>
-                    </x-secondary-button>
-
-                    <span class="text-xs text-gray-500 ml-2">
-                    @php
-                        $daysAgo = $this->getDaysAgo($clearance->date);
-                    @endphp
-                    {{ $daysAgo === 1 ? "$daysAgo day ago" : "$daysAgo days ago" }}
-                    </span>
                 @endif
             </td>
         </tr>

@@ -70,7 +70,7 @@
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             @hasanyrole('superadmin|admin')
                                 <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.user-modal', arguments: { user: {{ $user }} }})">
-                                    Edit
+                                <i class="fas fa-pencil-alt"></i>
                                 </x-secondary-button>
                             @endhasanyrole
                         </td>
