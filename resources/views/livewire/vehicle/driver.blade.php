@@ -29,7 +29,7 @@
                     
                         @hasanyrole('superadmin|administrator')
                             <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.driver-modal', arguments: { driver: {{ $driver }} }})">
-                                Edit
+                            <i class="fas fa-pencil-alt"></i>
                             </x-secondary-button>
                         @endhasanyrole
                 </td>

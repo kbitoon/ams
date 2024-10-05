@@ -26,8 +26,6 @@ class Item extends Component
     {
         $this->resetPage(); // Reset pagination to the first page
 
-        // Trigger the render method
-        $this->render();
     }
 
     public function render(): Application|View|Factory|\Illuminate\Contracts\Foundation\Application
@@ -38,7 +36,7 @@ class Item extends Component
             $query->where('name', 'like', '%' . $this->search . '%');
         }
 
-        if ($this->categoryFilter !== 'all') {
+        if ($this->categoryFilter) {
             $query->where('category_id', $this->categoryFilter);
         }
     

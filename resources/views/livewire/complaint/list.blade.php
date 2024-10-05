@@ -55,18 +55,16 @@
                 {{ $complaint->status }}
             </td>
             <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                <div class="flex flex-col sm:flex-row items-start sm:items-center">
-                    <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.show.complaint-modal', arguments: { complaint: {{ $complaint }} }})">
-                        View
-                    </x-secondary-button>
+                <div class="sm:flex-row items-start sm:items-center">
                     @if($complaint->status !== 'done')
                     @hasanyrole('superadmin|administrator|support')
                     <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.complaint-modal', arguments: { complaint: {{ $complaint }} }})">
-                        Edit
+                    <i class="fas fa-pencil-alt"></i>
                     </x-secondary-button>
                     @endhasanyrole
+
                     <x-secondary-button wire:click.stop="markAsDone({{ $complaint->id }})">
-                        Done
+                    <i class="fas fa-check mr-1"></i>
                     </x-secondary-button>
                     <span class="text-xs text-gray-500 mt-1 sm:mt-0 sm:ml-2">
                         {{ $this->getTimeAgo($complaint->created_at) }}

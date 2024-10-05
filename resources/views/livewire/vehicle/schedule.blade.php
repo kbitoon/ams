@@ -53,17 +53,17 @@
                             @if($vehicleSchedule->status !== 'Done')
                                 @hasanyrole('superadmin|administrator')
                                     <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.vehicleSchedule-modal', arguments: { vehicleSchedule: {{ $vehicleSchedule }} }})">
-                                        Edit
+                                    <i class="fas fa-pencil-alt"></i>
                                     </x-secondary-button>
                                 @endhasanyrole
 
                                 @if($vehicleSchedule->status === 'Ongoing')
                                     <x-secondary-button wire:click="markAsDone({{ $vehicleSchedule->id }})">
-                                        Done
+                                    <i class="fas fa-check mr-1"></i>
                                     </x-secondary-button>
                                 @else
                                     <x-secondary-button wire:click="markAsOngoing({{ $vehicleSchedule->id }})">
-                                        Ongoing
+                                    <i class="fas fa-hourglass-half mr-1"></i>
                                     </x-secondary-button>
                                 @endif
                             @endif

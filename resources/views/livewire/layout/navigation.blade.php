@@ -115,7 +115,7 @@ new class extends Component
                                         {{ __('Listing') }}
                                     </x-dropdown-link>
                                     <x-dropdown-link :href="route('item-schedule')" :active="request()->routeIs('item-schedule')" wire:navigate>
-                                        {{ __('Schedule') }}
+                                        {{ __('Assignment Schedule') }}
                                     </x-dropdown-link>
                                 </x-slot>
                             </x-dropdown>

@@ -14,7 +14,7 @@
         <div class="flex items-center ml-auto"> <!-- ml-auto pushes it to the right -->
             <input type="text" wire:model="search" class="border p-1 rounded mr-2 h-8 w-full sm:w-32" placeholder="Search..."> <!-- Adjust width here -->
             <select wire:model="categoryFilter" class="border p-1 rounded h-8 w-full sm:w-32"> <!-- Adjust width here -->
-                <option value="all">All</option>
+                <option value="">All</option>
                 @foreach($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                 @endforeach
@@ -61,11 +61,8 @@
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             @hasanyrole('superadmin|administrator')
-                                <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.show.item-modal', arguments: { item: {{ $item->id }} }})">
-                                    View
-                                </x-secondary-button>
                                 <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.item-modal', arguments: { item: {{ $item->id }} }})">
-                                    Edit
+                                <i class="fas fa-pencil-alt"></i>
                                 </x-secondary-button>
                             @endhasanyrole
                         </td>
