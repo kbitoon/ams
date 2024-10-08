@@ -18,6 +18,8 @@ class ClearanceModal extends ModalComponent
     public ClearanceForm $form;
     public Collection $clearanceTypes;
 
+    public string $requirement = ''; // Add a property to hold the requirement
+
     /**
      * @param Clearance|null $clearance
      */
@@ -31,7 +33,7 @@ class ClearanceModal extends ModalComponent
     }
 
     /**
-     * Automatically updates the amount field based on type
+     * Automatically updates the amount and requirement fields based on the selected type.
      *
      * @param $value
      */
@@ -41,7 +43,13 @@ class ClearanceModal extends ModalComponent
             return $item->id == $value;
         });
 
-        $this->form->amount = $clearanceType->amount;
+        if ($clearanceType) {
+            $this->form->amount = $clearanceType->amount; // Update amount
+            $this->requirement = $clearanceType->requirement; // Update requirement
+        } else {
+            $this->form->amount = 0;
+            $this->requirement = '';
+        }
     }
 
     /**
@@ -66,6 +74,7 @@ class ClearanceModal extends ModalComponent
     {
         return view('livewire.forms.clearance-form',  [
             'clearanceTypes' => $this->clearanceTypes,
+            'requirement' => $this->requirement,
         ]);
     }
 }

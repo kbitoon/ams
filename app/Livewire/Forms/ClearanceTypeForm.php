@@ -12,6 +12,7 @@ class ClearanceTypeForm extends Form
 
     public string $name = '';
     public string $amount = '';
+    public string $requirement = '';
 
     /**
      * @param ClearanceType|null $clearanceType
@@ -21,6 +22,7 @@ class ClearanceTypeForm extends Form
         $this->clearanceType = $clearanceType;
         $this->name = $clearanceType->name;
         $this->amount = $clearanceType->amount;
+        $this->requirement = $clearanceType->requirement;
     }
 
     /**
@@ -31,6 +33,7 @@ class ClearanceTypeForm extends Form
         return [
             'name' => ['required'],
             'amount' => ['required'],
+            'requirement' => ['nullable'],
         ];
     }
 
@@ -42,6 +45,7 @@ class ClearanceTypeForm extends Form
         return [
             'name' => 'name',
             'amount' => 'amount',
+            'requirement' => 'requirement',
         ];
     }
 
@@ -52,9 +56,9 @@ class ClearanceTypeForm extends Form
     {
         $this->validate();
         if (!$this->clearanceType) {
-            ClearanceType::create($this->only(['name', 'amount']));
+            ClearanceType::create($this->only(['name', 'amount','requirement']));
         } else {
-            $this->clearanceType->update($this->only(['name', 'amount']));
+            $this->clearanceType->update($this->only(['name', 'amount','requirement']));
         }
         $this->reset();
     }

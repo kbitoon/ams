@@ -13,6 +13,7 @@ class ClearanceType extends Model
     protected $fillable = [
         'name',
         'amount',
+        'requirement',
     ];
 
     /**

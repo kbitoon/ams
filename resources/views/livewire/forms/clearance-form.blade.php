@@ -26,7 +26,7 @@
 
         <div class="mt-4">
             <x-input-label for="amount" :value="__('Amount')" />
-            <x-text-input wire:model="form.amount" id="amount" class="mt-1 block w-full" type="text" />
+            <x-text-input wire:model="form.amount" id="amount" class="mt-1 block w-full" type="text" readonly/>
             <x-input-error :messages="$errors->get('form.amount')" class="mt-2" />
         </div>
 
@@ -58,6 +58,12 @@
             <x-input-label for="date" :value="__('Complete Address')" />
             <textarea wire:model="form.address" id="address" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" type="text" ></textarea>
             <x-input-error :messages="$errors->get('form.address')" class="mt-2" />
+        </div>
+        <div class="mt-4">
+            <x-input-label for="requirement" :value="__('Requirement')" />
+            <div id="requirement" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" style=" background-color: #f9f9f9; white-space:">
+                {!! $requirement !!}
+            </div>
         </div>
         <div class="mt-4">
             <x-input-label for="attachments" :value="__('Attachment')" />
