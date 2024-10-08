@@ -28,61 +28,115 @@
             @endhasanyrole
             <!-- Display total number of users -->
             @hasanyrole('superadmin|administrator')
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                <!-- Out of School Youth -->
-                <a href="{{ route('user-management') }}" class="p-4 bg-white rounded-lg shadow-md dark:bg-zinc-900">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-lg font-semibold text-black dark:text-white">Out of School Youth</p>
-                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_users }}</span>
-                        </div>
-                    </div>
-                </a>
+            <div x-data="{ open: false }" class="my-4">
+                <!-- Collapsible Header -->
+                <div @click="open = !open" class="flex items-center justify-between p-4 bg-white rounded-lg shadow-md dark:bg-zinc-900 cursor-pointer lg:hidden">
+                    <p class="text-lg font-semibold text-black dark:text-white">User Statistics</p>
+                    <span class="ml-2 transform transition-transform" :class="{ 'rotate-180': open }">
+                        &#9660; <!-- Down arrow -->
+                    </span>
+                </div>
 
-                <!-- Malnourish Children -->
-                <a href="{{ route('user-management') }}" class="p-4 bg-white rounded-lg shadow-md dark:bg-zinc-900">
-                    <div class="flex items-center justify-between">
-                        <div>
+                <!-- Collapsible Content for Mobile -->
+                <div x-show="open" class="grid grid-cols-1 lg:grid-cols-3 gap-4 p-4 bg-gray-50 dark:bg-zinc-800 lg:hidden">
+                    <!-- Out of School Youth -->
+                    <a href="{{ route('user-management') }}" class="relative p-4 bg-cover bg-center rounded-lg shadow-md dark:bg-zinc-900" style="background-image: url('/storage/OutofSchool.png');">
+                        <div class="absolute inset-0 bg-white opacity-80 rounded-lg"></div>
+                        <div class="relative z-5"> 
+                            <div>
+                                <p class="text-lg font-semibold text-black">Out of School Youth</p>
+                                <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_users }}</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Malnourished Children -->
+                    <a href="{{ route('user-management') }}" class="relative p-4 bg-cover bg-center rounded-lg shadow-md dark:bg-zinc-900" style="background-image: url('/storage/malnourished.png');">
+                        <div class="absolute inset-0 bg-white opacity-80 rounded-lg"></div>
+                        <div class="relative z-5">
                             <p class="text-lg font-semibold text-black dark:text-white">Malnourished Children</p>
                             <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_users }}</span>
                         </div>
-                    </div>
-                </a>
+                    </a>
 
-                <!-- Senior Citizen -->
-                <a href="{{ route('user-management') }}" class="p-4 bg-white rounded-lg shadow-md dark:bg-zinc-900">
-                    <div class="flex items-center justify-between">
-                        <div>
+                    <!-- Senior Citizen -->
+                    <a href="{{ route('user-management') }}" class="relative p-4 bg-cover bg-center rounded-lg shadow-md dark:bg-zinc-900" style="background-image: url('/storage/senior.png');">
+                        <div class="absolute inset-0 bg-white opacity-80 rounded-lg"></div>
+                        <div class="relative z-7">
                             <p class="text-lg font-semibold text-black dark:text-white">Senior Citizen</p>
                             <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_users }}</span>
                         </div>
-                    </div>
-                </a>
+                    </a>
 
-                <!-- Pregnant -->
-                <a href="{{ route('user-management') }}" class="p-4 bg-white rounded-lg shadow-md dark:bg-zinc-900">
-                    <div class="flex items-center justify-between">
-                        <div>
+                    <!-- Pregnant -->
+                    <a href="{{ route('user-management') }}" class="relative p-4 bg-cover bg-center rounded-lg shadow-md dark:bg-zinc-900" style="background-image: url('/storage/Pregnant.png');">
+                        <div class="absolute inset-0 bg-white opacity-80 rounded-lg"></div>
+                        <div class="relative z-5">
                             <p class="text-lg font-semibold text-black dark:text-white">Pregnant</p>
                             <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_users }}</span>
                         </div>
-                    </div>
-                </a>
+                    </a>
 
-                <!-- Single Parent -->
-                <a href="{{ route('user-management') }}" class="p-4 bg-white rounded-lg shadow-md dark:bg-zinc-900">
-                    <div class="flex items-center justify-between">
-                        <div>
+                    <!-- Single Parent -->
+                    <a href="{{ route('user-management') }}" class="relative p-4 bg-cover bg-center rounded-lg shadow-md dark:bg-zinc-900" style="background-image: url('/storage/singleparent.png');">
+                        <div class="absolute inset-0 bg-white opacity-80 rounded-lg"></div>
+                        <div class="relative z-5">
                             <p class="text-lg font-semibold text-black dark:text-white">Single Parent</p>
                             <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_users }}</span>
                         </div>
-                    </div>
-                </a>
-            </div>
-        @endhasanyrole
-            
+                    </a>
+                </div>
 
-            
+                <!-- Desktop View -->
+                <div class="hidden lg:grid lg:grid-cols-3 lg:gap-4 lg:p-4 lg:bg-gray-50 lg:dark:bg-zinc-800">
+                    <!-- Out of School Youth -->
+                    <a href="{{ route('user-management') }}" class="relative p-4 bg-cover bg-center rounded-lg shadow-md dark:bg-zinc-900" style="background-image: url('/storage/OutofSchool.png');">
+                        <div class="absolute inset-0 bg-white opacity-80 rounded-lg"></div>
+                        <div class="relative z-5">
+                            <p class="text-lg font-semibold text-black dark:text-white">Out of School Youth</p>
+                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_users }}</span>
+                        </div>
+                    </a>
+
+                    <!-- Malnourished Children -->
+                    <a href="{{ route('user-management') }}" class="relative p-4 bg-cover bg-center rounded-lg shadow-md dark:bg-zinc-900" style="background-image: url('/storage/malnourished.png');">
+                        <div class="absolute inset-0 bg-white opacity-80 rounded-lg"></div>
+                        <div class="relative z-5">
+                            <p class="text-lg font-semibold text-black dark:text-white">Malnourished Children</p>
+                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_users }}</span>
+                        </div>
+                    </a>
+
+                    <!-- Senior Citizen -->
+                    <a href="{{ route('user-management') }}" class="relative p-4 bg-cover bg-center rounded-lg shadow-md dark:bg-zinc-900" style="background-image: url('/storage/senior.png');">
+                        <div class="absolute inset-0 bg-white opacity-80 rounded-lg"></div>
+                        <div class="relative z-5">
+                            <p class="text-lg font-semibold text-black dark:text-white">Senior Citizen</p>
+                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_users }}</span>
+                        </div>
+                    </a>
+
+                    <!-- Pregnant -->
+                    <a href="{{ route('user-management') }}" class="relative p-4 bg-cover bg-center rounded-lg shadow-md dark:bg-zinc-900" style="background-image: url('/storage/Pregnant.png');">
+                        <div class="absolute inset-0 bg-white opacity-80 rounded-lg"></div>
+                        <div class="relative z-5">
+                            <p class="text-lg font-semibold text-black dark:text-white">Pregnant</p>
+                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_users }}</span>
+                        </div>
+                    </a>
+
+                    <!-- Single Parent -->
+                    <a href="{{ route('user-management') }}" class="relative p-4 bg-cover bg-center rounded-lg shadow-md dark:bg-zinc-900" style="background-image: url('/storage/singleparent.png');">
+                        <div class="absolute inset-0 bg-white opacity-80 rounded-lg"></div>
+                        <div class="relative z-8">
+                            <p class="text-lg font-semibold text-black dark:text-white">Single Parent</p>
+                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_users }}</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            @endhasanyrole
+
 
             @hasanyrole('user')
                 @forelse($complaints as $complaint)
