@@ -22,7 +22,7 @@ class ClearanceTypeForm extends Form
         $this->clearanceType = $clearanceType;
         $this->name = $clearanceType->name;
         $this->amount = $clearanceType->amount;
-        $this->requirement = $clearanceType->requirement;
+        $this->requirement = empty($clearanceType->requirement) ? '' : $clearanceType->requirement;
     }
 
     /**
