@@ -13,15 +13,15 @@
             <p><span class="font-semibold">Complete Address: </span> {!! $clearance->address !!}</p>
             <p><span class="font-semibold">Status: </span> {!! $clearance->status !!}</p>
             <h3 class="font-semibold">Attachments:</h3>
-            <div class="space-y-2">
+            <ul class="list-disc list-inside space-y-2">
                 @foreach($clearance->assets as $attachment)
-                    <div>
+                    <li>
                         <a href="{{ Storage::url($attachment->path) }}" target="_blank" class="text-blue-500 hover:underline">
                             {{ basename($attachment->path) }}
                         </a>
-                    </div>
+                    </li>
                 @endforeach
-            </div>
+            </ul>
         </div>
 
             @if ($clearance->status === 'Done')
