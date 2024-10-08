@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\ComplaintCategory as ComplaintCategoryModel;
+use App\Models\UserStatistics as UserStatisticsModel;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -11,7 +11,7 @@ use Livewire\Component;
 use Livewire\Features\SupportPagination\WithoutUrlPagination;
 use Livewire\WithPagination;
 
-class ComplaintCategory extends Component
+class UserStatistics extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
@@ -20,9 +20,8 @@ class ComplaintCategory extends Component
 
     public function delete($id)
     {
-        
-        $complaintCategory = ComplaintCategoryModel::findOrFail($id);
-        $complaintCategory->delete();
+        $userStatistics = UserStatisticsModel::findOrFail($id);
+        $userStatistics->delete();
 
         $this->dispatch('refresh-list');
     }
@@ -32,8 +31,8 @@ class ComplaintCategory extends Component
      */
     public function render(): Factory|\Illuminate\Foundation\Application|View|Application
     {
-        return view('livewire.complaint.category', [
-            'complaintCategories' => ComplaintCategoryModel::paginate(10),
+        return view('livewire.user-statistics', [
+            'statistics' => UserStatisticsModel::paginate(10),
         ]);
     }
 }

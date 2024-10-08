@@ -54,9 +54,13 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <livewire:layout.settings />
+                
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mt-20">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                    @livewire('user-statistics')
                     
                     <!-- Photo Upload Section -->
-                    <div class="mt-6">
+                    <div class="mt-20">
                         <h3 class="text-lg font-semibold">Upload Banner Photo</h3>
                         <form method="POST" action="{{ route('photo.upload') }}" enctype="multipart/form-data">
                             @csrf
