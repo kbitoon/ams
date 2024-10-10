@@ -96,7 +96,7 @@
             <li>House Ownership</li>
         </ul>
         <p>&nbsp;</p>
-        <p>Other items can be picked up at the Barangay Hall with minimal to no waiting time.</p>
+        <p>Other items can be picked up at the Barangay Hall with minimal to no waiting time. Some clearances, such as the business clearance, require personal appearance, especially for applicants who aren't registered voters.</p>        
         <!--
         <ul>
             <li>Make sure all required fields are filled out correctly.</li>
