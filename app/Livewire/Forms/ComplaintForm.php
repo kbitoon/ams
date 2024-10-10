@@ -74,8 +74,8 @@ class ComplaintForm extends Form
             } else {
                 // For unauthenticated users
                 $latestComplaint = Complaint::orderBy('id', 'desc')->first();
-                $nextId = $latestComplaint ? $latestComplaint->id + 1 : 1; // Incrementing the last ID
-                $base64Id = base64_encode($nextId); // Convert to base64
+                $nextId = $latestComplaint ? $latestComplaint->id : 1; 
+                $base64Id = base64_encode($nextId); 
 
                 $this->complaint = Complaint::create($this->only(['name', 'title', 'user_id', 'content', 'category_id', 'is_pinned', 'contact_number', 'status']));
                 
