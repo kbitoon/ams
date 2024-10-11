@@ -40,7 +40,7 @@ class ComplaintModal extends ModalComponent
             // Check if the form is for a complaint and set the reference ID
             if ($this->form instanceof ComplaintForm) {
                 $latestComplaint = Complaint::orderBy('id', 'desc')->first();
-                $nextId = $latestComplaint ? $latestComplaint->id + 1 : 1; 
+                $nextId = $latestComplaint ? $latestComplaint->id: 1; 
                 $base64Id = base64_encode($nextId);
         
                 // Set the success message with the base64 reference ID

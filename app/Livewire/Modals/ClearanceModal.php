@@ -44,8 +44,8 @@ class ClearanceModal extends ModalComponent
         });
 
         if ($clearanceType) {
-            $this->form->amount = $clearanceType->amount; // Update amount
-            $this->requirement = $clearanceType->requirement; // Update requirement
+            $this->form->amount = $clearanceType->amount;
+            $this->requirement = empty($clearanceType->requirement) ? '' : $clearanceType->requirement;
         } else {
             $this->form->amount = 0;
             $this->requirement = '';
