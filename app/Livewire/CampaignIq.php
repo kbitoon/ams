@@ -15,8 +15,20 @@ class CampaignIq extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
+    public string $search = '';
+    public string $filter = '';
+    protected $listeners = ['refresh-list' => 'refresh'];
+    protected $updatesQueryString = ['search', 'filter'];
+
     #[On('refresh-list')]
     public function refresh() {}
+
+    public function searchItems()
+    {
+        $this->resetPage(); 
+
+    }
+
 
     public function delete($id)
     {
@@ -31,8 +43,24 @@ class CampaignIq extends Component
      */
     public function render(): Factory|\Illuminate\Foundation\Application|View|Application
     {
+
+        $query = CampaignIqModel::query();
+
+        if ($this->search) {
+            $query->where('firstname', 'like', '%' . $this->search . '%')
+                  ->orWhere('familyname', 'like', '%' . $this->search . '%')
+                  ->orWhere('designation', 'like', '%' . $this->search . '%');
+        }
+        if ($this->filter) {
+            $query->where('barangay', $this->filter);
+        }
+
+        $campaignIqs = $query->paginate(10);
+        $barangays = CampaignIqModel::select('barangay')->distinct()->pluck('barangay');
+        
         return view('livewire.campaign-iq.listing', [
-            'campaignIqs' => CampaignIqModel::paginate(10),
+            'campaignIqs'=>$campaignIqs,
+            'barangays' => $barangays,
         ]);
     }
 }

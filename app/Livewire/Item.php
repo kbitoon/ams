@@ -24,7 +24,7 @@ class Item extends Component
 
     public function searchItems()
     {
-        $this->resetPage(); // Reset pagination to the first page
+        $this->resetPage();
 
     }
 

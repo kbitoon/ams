@@ -51,9 +51,20 @@
         </div>
         <div>
             <x-input-label for="upline" :value="__('Upline')" />
-            <x-text-input wire:model="form.upline" id="upline" class="mt-1 block w-full" type="text" />
+            <input wire:model="form.uplineSearch" id="upline" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" type="text" placeholder="Search for Upline" />
             <x-input-error :messages="$errors->get('form.upline')" class="mt-2" />
+
+            @if ($form->uplineSearch && count($form->uplineOptions()))
+                <ul class="absolute bg-white border mt-1 max-h-60 overflow-y-auto">
+                    @foreach ($form->uplineOptions() as $upline)
+                        <li wire:click="$set('form.upline', '{{ $upline['id'] }}')" class="cursor-pointer hover:bg-gray-200 p-2">
+                            {{ $upline['name'] }}
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
         </div>
+
         <div>
             <x-input-label for="designation" :value="__('Designation')" />
             <select wire:model="form.designation" id="designation" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">

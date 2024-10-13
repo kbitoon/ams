@@ -36,7 +36,9 @@ class CampaignIqModal extends ModalComponent
      * @return View
      */
     public function render(): View{
-        return view('livewire.forms.campaign-iq-form');
+       return view('livewire.forms.campaign-iq-form', [
+            'uplines' => $this->form->uplineOptions(),
+        ]);
     }
     
 }

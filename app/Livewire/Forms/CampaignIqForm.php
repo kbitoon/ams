@@ -16,14 +16,32 @@ class CampaignIqForm extends Form
     public string $address = '';
     public string $sitio = '';
     public string $barangay = '';
-    public string $city = '';
-    public string $province = '';
+    public string $city = 'Cebu City';
+    public string $province = 'Cebu';
     public string $contact_number = '';
-    public string $upline = '';
+    public string $upline = ''; 
     public string $designation = '';
     public string $government_position = '';
     public string $sector = '';
     public string $remarks = '';
+
+    public string $uplineSearch = '';
+    
+
+    public function uplineOptions(): array
+    {
+        return CampaignIq::where(function ($query) {
+            if ($this->uplineSearch) {
+                $query->where('firstname', 'like', '%' . $this->uplineSearch . '%')
+                      ->orWhere('familyname', 'like', '%' . $this->uplineSearch . '%');
+            }
+        })->get()->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'name' => "{$item->firstname} {$item->familyname}"
+            ];
+        })->toArray();
+    }
 
     /**
      * @param CampaignIq|null $campaignIq
