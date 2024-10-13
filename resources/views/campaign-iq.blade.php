@@ -14,9 +14,9 @@
             </div>
         </div>
     </div>
-    <x-slot name="footer">
+    <div class="py-12">
         <p class="font-semibold text-sm text-gray-800 dark:text-gray-200 leading-tight">
             Copyright &copy; 2024, Winston Pepito
         </p>
-    </x-slot>
+    </div>
 </x-app-layout>
