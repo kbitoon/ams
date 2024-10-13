@@ -14,4 +14,9 @@
             </div>
         </div>
     </div>
+    <x-slot name="footer">
+        <p class="font-semibold text-sm text-gray-800 dark:text-gray-200 leading-tight">
+            Copyright &copy; 2024, Winston Pepito
+        </p>
+    </x-slot>
 </x-app-layout>
