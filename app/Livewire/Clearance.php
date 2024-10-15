@@ -53,7 +53,11 @@ class Clearance extends Component
      */
     public function render(): Application|View|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $query = ClearanceModel::with('assets')->orderBy('date', 'desc');
+        $query = ClearanceModel::with('assets');
+
+        // First, prioritize Pending clearances
+        $query->orderByRaw("CASE WHEN status = 'Pending' THEN 0 ELSE 1 END")
+            ->orderBy('date', 'asc');
 
         if ($this->search) {
             $query->where('name', 'like', '%' . $this->search . '%');
