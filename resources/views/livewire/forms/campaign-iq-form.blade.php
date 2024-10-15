@@ -32,7 +32,55 @@
         </div>
         <div class="mt-4">
             <x-input-label for="barangay" :value="__('Barangay')" />
-            <x-text-input wire:model="form.barangay" id="barangay" class="mt-1 block w-full" type="text" />
+            <select wire:model="form.barangay" id="barangay" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+            <option selected>Select Barangay</option>
+                <option value="Adlaon">Adlaon</option>
+                <option value="Agsungot">Agsungot</option>
+                <option value="Apas">Apas</option>
+                <option value="Bacayan">Bacayan</option>
+                <option value="Banilad">Banilad</option>
+                <option value="Binaliw">Binaliw</option>
+                <option value="Budlaan">Budlaan</option>
+                <option value="Busay">Busay</option>
+                <option value="Cambinocot">Cambinocot</option>
+                <option value="Capitol Site">Capitol Site</option>
+                <option value="Carreta">Carreta</option>
+                <option value="Cogon Ramos">Cogon Ramos</option>
+                <option value="Day‑as">Day‑as</option>
+                <option value="Ermita">Ermita</option>
+                <option value="Guba">Guba</option>
+                <option value="Hipodromo">Hipodromo</option>
+                <option value="Kalubihan">Kalubihan</option>
+                <option value="Kamagayan">Kamagayan</option>
+                <option value="Kamputhaw">Kamputhaw</option>
+                <option value="Kasambagan">Kasambagan</option>
+                <option value="Lahug">Lahug</option>
+                <option value="Lorega San Miguel">Lorega San Miguel</option>
+                <option value="Lusaran">Lusaran</option>
+                <option value="Luz">Luz</option>
+                <option value="Mabini">Mabini</option>
+                <option value="Mabolo">Mabolo</option>
+                <option value="Malubog">Malubog</option>
+                <option value="Pahina Central">Pahina Central</option>
+                <option value="Pari-an">Pari-an</option>
+                <option value="Paril">Paril</option>
+                <option value="Pit-os">Pit-os</option>
+                <option value="Pulangbato">Pulangbato</option>
+                <option value="Sambag I">Sambag I</option>
+                <option value="Sambag II">Sambag II</option>
+                <option value="San Antonio">San Antonio</option>
+                <option value="San Jose">San Jose</option>
+                <option value="San Roque">San Roque</option>
+                <option value="Santa Cruz">Santa Cruz</option>
+                <option value="Santo Niño">Santo Niño</option>
+                <option value="Sirao">Sirao</option>
+                <option value="T. Padilla">T. Padilla</option>
+                <option value="Talamban">Talamban</option>
+                <option value="Taptap">Taptap</option>
+                <option value="Tejero">Tejero</option>
+                <option value="Tinago">Tinago</option>
+                <option value="Zapatera">Zapatera</option>
+            </select>
             <x-input-error :messages="$errors->get('form.barangay')" class="mt-2" />
         </div>
         <div class="mt-4">
