@@ -15,7 +15,7 @@
             <footer class="py-16 text-center text-sm text-black dark:text-white/70">
             Copyright © 2024, Winston Pepito
             <p>
-                Please read our privacy policy <a href="http://www.barangaysystem.com/information/2">here</a>.
+                Read our privacy policy <a href="http://www.barangaysystem.com/information/2">here</a>.
             </p>
             </footer>
         </div>
