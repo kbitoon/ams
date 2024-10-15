@@ -18,7 +18,7 @@
             @endif
         </div>
         <!-- Attachments Section -->
-        @if($complaint->assets)
+        @if(count($complaint->assets) > 0)
         <div class="mt-4 text-sm/relaxed text-gray-800 dark:text-gray-300 space-y-2">
             <h3 class="font-semibold">Attachments</h3>
             <ul class="list-disc list-inside space-y-2">
