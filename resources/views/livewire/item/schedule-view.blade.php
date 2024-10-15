@@ -5,10 +5,21 @@
     <div class="pt-3 sm:pt-5">
         <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">More Information</h3>
         
-        <div class="mt-4 text-sm/relaxed text-gray-800 dark:text-gray-300 space-y-2">
-            <p><span class="font-semibold">Location:</span> {!! $itemSchedule->location !!}</p>
-            <p><span class="font-semibold">Purpose:</span> {!! $itemSchedule->purpose !!}</p>
-            <p><span class="font-semibold">Assigned To:</span> {!! $itemSchedule->assigned !!}</p>
-        </div>
+        <table class="mt-4 text-sm text-gray-800 dark:text-gray-300">
+            <tbody>
+                <tr>
+                    <td class="py-2"><span class="font-semibold">Location:</span></td>
+                    <td class="py-2">{!! $itemSchedule->location !!}</td>
+                </tr>
+                <tr>
+                    <td class="py-2"><span class="font-semibold">Purpose:</span></td>
+                    <td class="py-2">{!! $itemSchedule->purpose !!}</td>
+                </tr>
+                <tr>
+                    <td class="py-2"><span class="font-semibold">Assigned To:</span></td>
+                    <td class="py-2">{!! $itemSchedule->assigned !!}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
