@@ -72,11 +72,7 @@
                 {{ __('Clearance Listing') }}
             </h2>
         </x-slot>
-        @if (session('status'))
-        <div class=" alert alert-success text-green-600" style="padding: 15px; border: 1px solid #c3e6cb; background-color: #d4edda; border-radius: 5px; margin-top: 10px;">
-            {!! session('status') !!}
-        </div>
-        @endif
+        
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -88,6 +84,11 @@
             </div>
         </div>
     @else
+    @if (session('status'))
+        <div class=" alert alert-success text-green-600" style="padding: 15px; border: 1px solid #c3e6cb; background-color: #d4edda; border-radius: 5px; margin-top: 10px;">
+            {!! session('status') !!}
+        </div>
+        @endif
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
