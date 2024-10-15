@@ -5,6 +5,7 @@ use App\Livewire\Pending;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ComplaintTrackingController;
+use App\Http\Controllers\PublicInformationController;
 
 
 
@@ -104,6 +105,8 @@ Route::middleware('guest')->group(function () {
     Route::view('new-supporter', 'campaign-iq')
         ->name('new-supporter');
 
+     Route::get('/information/{id}', [PublicInformationController::class, 'show'])->name('information.public');
+        
     
 
 });
