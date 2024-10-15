@@ -18,9 +18,9 @@
         </div>
 
         <div class="mt-4">
-            <x-input-label for="sex" :value="__('Sex')" />
+            <x-input-label for="sex" :value="__('Gender')" />
             <select wire:model="form.sex" id="sex" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                <option selected>Select your Sex</option>
+                <option selected>Select your Gender</option>
                 <option value="Female">Female</option>
                 <option value="Male">Male</option>
             </select>
