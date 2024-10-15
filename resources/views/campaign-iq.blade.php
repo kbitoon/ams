@@ -2,7 +2,7 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Campaign IQ') }}
+            <img src="/storage/public/campaign_iq_logo.png" />
         </h2>
     </x-slot>
 @auth
@@ -27,4 +27,9 @@
             </div>
         </div>
     @endauth
+    <div style="text-align: center">
+        <p class="font-semibold text-sm text-gray-800 dark:text-gray-200 leading-tight">
+            Copyright &copy; 2024, Winston Pepito
+        </p>
+    </div>
 </x-app-layout>
