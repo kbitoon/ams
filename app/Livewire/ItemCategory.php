@@ -21,8 +21,8 @@ class ItemCategory extends Component
     public function delete($id)
     {
         
-        $clearanceType = ItemCategoryModel::findOrFail($id);
-        $clearanceType->delete();
+        $itemCategory = ItemCategoryModel::findOrFail($id);
+        $itemCategory->delete();
 
         $this->dispatch('refresh-list');
     }

@@ -32,10 +32,10 @@
                             </x-slot>
 
                             <x-slot name="content">
-                            <x-dropdown-link :href="route('file-a-complaint')" :active="request()->routeIs('vehicle-listing')" wire:navigate>
+                            <x-dropdown-link :href="route('file-a-complaint')" :active="request()->routeIs('file-a-complaint')" wire:navigate>
                                     {{ __('Submit') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link :href="route('track-complaint')" :active="request()->routeIs('driver')" wire:navigate>
+                                <x-dropdown-link :href="route('track-complaint')" :active="request()->routeIs('track-complaint')" wire:navigate>
                                     {{ __('Track') }}
                                 </x-dropdown-link>
                             </x-slot>

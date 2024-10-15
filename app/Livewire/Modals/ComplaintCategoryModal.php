@@ -23,7 +23,7 @@ class ComplaintCategoryModal extends ModalComponent
     }
 
     /**
-     * Save clearance
+     * Save 
      */
     public function save(): void
     {
