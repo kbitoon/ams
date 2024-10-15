@@ -62,7 +62,7 @@ class VehicleSchedule extends Component
         $today = Carbon::today();
 
         // Query all schedules and prioritize those that are not 'Done'
-        $vehicleSchedules = auth()->user()->hasRole('superadmin|administrator')
+        $vehicleSchedules = auth()->user()->hasRole('superadmin|administrator|support')
             ? VehicleScheduleModel::where(function($query) use ($today) {
                 $query->where('status', '!=', 'Done')
                     ->where('start', '>=', $today); // Fetch not done schedules for today or future dates

@@ -53,7 +53,7 @@ class ItemSchedule extends Component
         $today = Carbon::today();
     
         // Query all schedules and prioritize those that are not 'Done'
-        $itemSchedules = auth()->user()->hasRole('superadmin|administrator')
+        $itemSchedules = auth()->user()->hasRole('superadmin|administrator|support')
             ? ItemScheduleModel::where(function($query) use ($today) {
                 $query->where('status', '!=', 'Done')
                       ->where('start', '>=', $today); // Not done and start today or future
