@@ -37,7 +37,7 @@
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">First Name</span>
                     </th>
                     <th class="px-6 py-3 text-left bg-gray-50">
-                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Family Name</span>
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Last Name</span>
                     </th>
                     <th class="px-6 py-3 text-left bg-gray-50">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Barangay</span>
@@ -51,32 +51,34 @@
             <!-- Table Body -->
             <tbody class="bg-white divide-y divide-gray-200 divide-solid">
                 @forelse($campaignIqs as $campaignIq)
-                    <tr>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            {{ $campaignIq->firstname }}
-                        </td>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            {{ $campaignIq->familyname }}
-                        </td>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            {{ $campaignIq->barangay }}
-                        </td>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            {{ $campaignIq->designation }}
-                        </td>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900 flex space-x-2">
-                            <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.campaign-iq-modal', arguments: { campaignIq: {{ $campaignIq }} }})">
-                                <i class="fas fa-pencil-alt"></i>
-                            </x-secondary-button>
-                            <x-danger-button wire:click="delete({{ $campaignIq->id }})" onclick="return confirm('Are you sure you want to delete this?')">
-                                <i class="fas fa-trash-alt"></i>
-                            </x-danger-button>
-                        </td>
-                    </tr>
+                <tr class="hover:bg-gray-100 cursor-pointer" 
+                    wire:click="$dispatch('openModal', { component: 'modals.show.campaign-iq-modal', arguments: { campaignIq: {{ $campaignIq }} }})">
+                    <!-- Make the entire row clickable -->
+                    <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                        {{ $campaignIq->firstname }}
+                    </td>
+                    <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                        {{ $campaignIq->familyname }}
+                    </td>
+                    <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                        {{ $campaignIq->barangay }}
+                    </td>
+                    <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                        {{ $campaignIq->designation }}
+                    </td>
+                    <td class="px-6 py-4 text-sm leading-5 text-gray-900 flex space-x-2">
+                        <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.campaign-iq-modal', arguments: { campaignIq: {{ $campaignIq }} }})">
+                            <i class="fas fa-pencil-alt"></i>
+                        </x-secondary-button>
+                        <x-danger-button wire:click.stop="delete({{ $campaignIq->id }})" onclick="return confirm('Are you sure you want to delete this?')">
+                            <i class="fas fa-trash-alt"></i>
+                        </x-danger-button>
+                    </td>
+                </tr>
                 @empty
                     <tr>
-                        <td colspan="3" class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            No type available.
+                        <td colspan="5" class="px-6 py-4 text-sm leading-5 text-gray-900">
+                            No supporters available.
                         </td>
                     </tr>
                 @endforelse

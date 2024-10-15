@@ -11,7 +11,7 @@
             <x-input-error :messages="$errors->get('form.firstname')" class="mt-2" />
         </div>
         <div class="mt-4">
-            <x-input-label for="familyname" :value="__('Family Name')" />
+            <x-input-label for="familyname" :value="__('Last Name')" />
             <x-text-input wire:model="form.familyname" id="familyname" class="mt-1 block w-full" type="text" />
             <x-input-error :messages="$errors->get('form.familyname')" class="mt-2" />
         </div>

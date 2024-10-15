@@ -73,7 +73,8 @@ class CampaignIqForm extends Form
             'firstname' => ['required'],
             'familyname' => ['required'],
             'barangay' => ['required'],
-            'contact_number' => ['required','numeric','digits:11'],
+            'contact_number' => ['numeric'],
+            'birthdate' => ['nullable', 'date'],
         ];
     }
 
@@ -106,14 +107,20 @@ class CampaignIqForm extends Form
     public function save(): void
     {
         $this->validate();
-        
+
+        $data = $this->only([
+            'firstname', 'familyname', 'birthdate', 'address', 'sitio', 'barangay', 'city', 
+            'province', 'contact_number', 'upline', 'designation', 'government_position', 'sector', 'remarks'
+        ]);
+
+        $data['birthdate'] = $this->birthdate ?: null;
+
         if (!$this->campaignIq) {
-            $campaignIq = CampaignIq::create($this->only(['firstname', 'familyname', 'birthdate', 'address', 'sitio', 'barangay', 'city', 
-            'province', 'contact_number', 'upline', 'designation', 'government_position', 'sector', 'remarks']));
+            CampaignIq::create($data);
         } else {
-            $this->campaignIq->update($this->only(['firstname', 'familyname', 'birthdate', 'address', 'sitio', 'barangay', 'city', 
-            'province', 'contact_number', 'upline', 'designation', 'government_position', 'sector', 'remarks']));
+            $this->campaignIq->update($data);
         }
+
         $this->reset();
     }
 }
