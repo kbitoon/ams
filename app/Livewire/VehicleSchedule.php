@@ -58,18 +58,46 @@ class VehicleSchedule extends Component
 
     public function render(): Application|View|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        // Filter and sort the data
-        $vehicleSchedules = auth()->user()->hasRole('superadmin|administrator')
-            ? VehicleScheduleModel::orderBy('start', 'desc')->paginate(10) 
-            : VehicleScheduleModel::where('user_id', auth()->user()->id)->orderBy('start', 'asc')->paginate(10);
+        // Get today's date
+        $today = Carbon::today();
 
-            foreach ($vehicleSchedules as $schedule) {
-                $schedule->formatted_start = Carbon::parse($schedule->start)->format('M. j,  g:iA');
-                $schedule->formatted_end = Carbon::parse($schedule->end)->format('M. j,  g:iA');
-            }
+        // Query all schedules and prioritize those that are not 'Done'
+        $vehicleSchedules = auth()->user()->hasRole('superadmin|administrator')
+            ? VehicleScheduleModel::where(function($query) use ($today) {
+                $query->where('status', '!=', 'Done')
+                    ->where('start', '>=', $today); // Fetch not done schedules for today or future dates
+            })
+            ->orWhere(function($query) use ($today) {
+                $query->where('status', 'Done')
+                    ->orWhere('start', '<', $today); // Include done or past schedules
+            })
+            ->orderByRaw("FIELD(status, 'Ongoing', 'Pending', 'Done')") // Prioritize by status
+            ->orderBy('start', 'asc') // Sort by start date, with upcoming first
+            ->paginate(10)
+
+            : VehicleScheduleModel::where('user_id', auth()->user()->id)
+            ->where(function($query) use ($today) {
+                $query->where('status', '!=', 'Done')
+                    ->where('start', '>=', $today); 
+            })
+            ->orWhere(function($query) use ($today) {
+                $query->where('status', 'Done')
+                    ->orWhere('start', '<', $today); 
+            })
+            ->orderByRaw("FIELD(status, 'Ongoing', 'Pending', 'Done')")
+            ->orderBy('start', 'asc')
+            ->paginate(10);
+
+        // Format the start and end dates
+        foreach ($vehicleSchedules as $schedule) {
+            $schedule->formatted_start = Carbon::parse($schedule->start)->format('M. j,  g:iA');
+            $schedule->formatted_end = Carbon::parse($schedule->end)->format('M. j,  g:iA');
+        }
 
         return view('livewire.vehicle.schedule', [
             'vehicleSchedules' => $vehicleSchedules,
         ]);
     }
+
+
 }

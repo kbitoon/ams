@@ -88,7 +88,7 @@ new class extends Component
                                     {{ __('Driver') }}
                                 </x-dropdown-link>
                                 <x-dropdown-link :href="route('vehicle-schedule')" :active="request()->routeIs('vehicle-schedule')" wire:navigate>
-                                    {{ __('Schedule') }}
+                                    {{ __('Assignment Schedule') }}
                                 </x-dropdown-link>
                             </x-slot>
                         </x-dropdown>

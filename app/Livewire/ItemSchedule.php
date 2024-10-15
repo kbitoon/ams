@@ -49,18 +49,45 @@ class ItemSchedule extends Component
      */
     public function render(): Application|View|Factory|\Illuminate\Contracts\Foundation\Application
     {
-         // Filter and sort the data
-         $itemSchedules = auth()->user()->hasRole('superadmin|administrator') 
-         ? ItemScheduleModel::orderBy('start', 'asc')->paginate(10) 
-         : ItemScheduleModel::where('user_id', auth()->user()->id)->orderBy('start', 'asc')->paginate(10);
-
-         foreach ($itemSchedules as $schedule) {
-             $schedule->formatted_start = Carbon::parse($schedule->start)->format('M. j,  g:iA');
-             $schedule->formatted_end = Carbon::parse($schedule->end)->format('M. j,  g:iA');
-         }
-
-     return view('livewire.item.schedule', [
-         'itemSchedules' => $itemSchedules,
-     ]);
+        // Get today's date
+        $today = Carbon::today();
+    
+        // Query all schedules and prioritize those that are not 'Done'
+        $itemSchedules = auth()->user()->hasRole('superadmin|administrator')
+            ? ItemScheduleModel::where(function($query) use ($today) {
+                $query->where('status', '!=', 'Done')
+                      ->where('start', '>=', $today); // Not done and start today or future
+            })
+            ->orWhere(function($query) use ($today) {
+                $query->where('status', 'Done')
+                      ->orWhere('start', '<', $today); // Done or past schedules
+            })
+            ->orderByRaw("FIELD(status, 'Ongoing', 'Pending', 'Done')") // Prioritize based on status
+            ->orderBy('start', 'asc') // Sort by start date (upcoming first)
+            ->paginate(10)
+    
+            : ItemScheduleModel::where('user_id', auth()->user()->id)
+            ->where(function($query) use ($today) {
+                $query->where('status', '!=', 'Done')
+                      ->where('start', '>=', $today); 
+            })
+            ->orWhere(function($query) use ($today) {
+                $query->where('status', 'Done')
+                      ->orWhere('start', '<', $today); 
+            })
+            ->orderByRaw("FIELD(status, 'Ongoing', 'Pending', 'Done')")
+            ->orderBy('start', 'asc')
+            ->paginate(10);
+    
+        // Format the start and end dates for display
+        foreach ($itemSchedules as $schedule) {
+            $schedule->formatted_start = Carbon::parse($schedule->start)->format('M. j, g:iA');
+            $schedule->formatted_end = Carbon::parse($schedule->end)->format('M. j, g:iA');
+        }
+    
+        return view('livewire.item.schedule', [
+            'itemSchedules' => $itemSchedules,
+        ]);
     }
+    
 }
