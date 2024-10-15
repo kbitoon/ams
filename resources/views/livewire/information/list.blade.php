@@ -40,7 +40,8 @@
         </div>
         
         @forelse($informations as $information)
-        <tr class="hover:bg-gray-100 cursor-pointer">
+        <tr class="hover:bg-gray-100 cursor-pointer"
+        wire:click="$dispatch('openModal', { component: 'modals.show.information-modal', arguments: { information: {{ $information }} }})">
             <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                     {{ $information->title }}
             </td>
