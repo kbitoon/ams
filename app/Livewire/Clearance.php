@@ -57,7 +57,7 @@ class Clearance extends Component
 
         // First, prioritize Pending clearances
         $query->orderByRaw("CASE WHEN status = 'Pending' THEN 0 ELSE 1 END")
-            ->orderBy('date', 'asc');
+            ->orderBy('date', 'desc');
 
         if ($this->search) {
             $query->where('name', 'like', '%' . $this->search . '%');
