@@ -24,9 +24,11 @@
                     <th class="px-6 py-3 text-left bg-gray-50">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Email</span>
                     </th>
+                    <!-- 
                     <th class="px-6 py-3 text-left bg-gray-50">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Created At</span>
                     </th>
+                    -->
                     <th class="px-6 py-3 text-left bg-gray-50">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Role</span>
                     </th>
@@ -42,9 +44,11 @@
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             {{ $user->email }}
                         </td>
+                        <!--
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             {{ $user->created_at }}
                         </td>
+                        -->
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             {{-- Displaying user roles with color coding --}}
                             @if($user->roles->isNotEmpty())
