@@ -30,6 +30,11 @@ class CampaignIqModal extends ModalComponent
         $this->form->save();
         $this->closeModal();
         $this->dispatch('refresh-list');
+
+        if (!auth()->user()) {
+            session()->flash('status', 'New Supporter successfully added.');
+            $this->redirectRoute('new-supporter');
+        }
     }
 
     /**

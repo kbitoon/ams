@@ -48,7 +48,6 @@ class ClearanceForm extends Form
             'type_id' => ['required'],
             'amount' => ['required'],
             'date' => ['required'],
-            'notes' => ['required'],
             'contact_number' => ['required'],
             'address' => ['required'],
         ];

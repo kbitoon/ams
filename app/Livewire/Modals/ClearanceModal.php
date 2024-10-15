@@ -63,7 +63,7 @@ class ClearanceModal extends ModalComponent
 
         if (!auth()->user()) {
             session()->flash('status', 'Clearance successfully requested.');
-            $this->redirectRoute('home');
+            $this->redirectRoute('get-a-clearance');
         }
     }
 
