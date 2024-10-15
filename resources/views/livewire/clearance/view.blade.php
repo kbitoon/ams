@@ -49,6 +49,7 @@
                     </tr>
                 </tbody>
             </table>
+            @if(!$clearance->assets->isEmpty())
             <h3 class="font-semibold">Attachments:</h3>
             <ul class="list-disc list-inside space-y-2">
                 @foreach($clearance->assets as $attachment)
@@ -59,6 +60,7 @@
                     </li>
                 @endforeach
             </ul>
+            @endif
         </div>
 
         @if ($clearance->status === 'Done')
