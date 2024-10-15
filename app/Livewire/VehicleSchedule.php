@@ -60,8 +60,8 @@ class VehicleSchedule extends Component
     {
         // Filter and sort the data
         $vehicleSchedules = auth()->user()->hasRole('superadmin|administrator')
-            ? VehicleScheduleModel::where('status', '!=', 'Done')->orderBy('start', 'desc')->paginate(10) 
-            : VehicleScheduleModel::where('user_id', auth()->user()->id)->where('status', '!=', 'Done')->orderBy('start', 'asc')->paginate(10);
+            ? VehicleScheduleModel::orderBy('start', 'desc')->paginate(10) 
+            : VehicleScheduleModel::where('user_id', auth()->user()->id)->orderBy('start', 'asc')->paginate(10);
 
             foreach ($vehicleSchedules as $schedule) {
                 $schedule->formatted_start = Carbon::parse($schedule->start)->format('M. j,  g:iA');

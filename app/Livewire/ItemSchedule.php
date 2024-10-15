@@ -51,8 +51,8 @@ class ItemSchedule extends Component
     {
          // Filter and sort the data
          $itemSchedules = auth()->user()->hasRole('superadmin|administrator') 
-         ? ItemScheduleModel::where('status', '!=', 'Done')->orderBy('start', 'asc')->paginate(10) 
-         : ItemScheduleModel::where('user_id', auth()->user()->id)->where('status', '!=', 'Done')->orderBy('start', 'asc')->paginate(10);
+         ? ItemScheduleModel::orderBy('start', 'asc')->paginate(10) 
+         : ItemScheduleModel::where('user_id', auth()->user()->id)->orderBy('start', 'asc')->paginate(10);
 
          foreach ($itemSchedules as $schedule) {
              $schedule->formatted_start = Carbon::parse($schedule->start)->format('M. j,  g:iA');

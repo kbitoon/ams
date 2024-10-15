@@ -26,13 +26,14 @@ class Clearance extends Component
     public function markAsDone($clearanceId)
     {
         $clearance = ClearanceModel::find($clearanceId);
-
-        if ($clearance) {
+    
+        if ($clearance && auth()->check()) { // Ensure the user is authenticated
             $clearance->status = 'Done';
-            $clearance->approved_by = auth()->user()->id;
+            $clearance->approved_by = auth()->user()->id; // User must be authenticated
             $clearance->save();
         }
     }
+    
 
     public function searchClearance()
     {
