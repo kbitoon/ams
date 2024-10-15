@@ -9,13 +9,13 @@
             <p>
                 <span class="font-bold">{!! $clearance->name !!} | {!! $clearance->contact_number !!}</span>
             </p>
-            <table>
+            <table width="100%">
                 <tbody>
                     <tr>
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Date of Birth:</td>
                         <td style="font-size: 14px;">{!! $clearance->date_of_birth !!}</td>
                     </tr>
-                    <tr>
+                    <tr style="background: #eeeeee">
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Gender:</td>
                         <td style="font-size: 14px;">{!! $clearance->sex !!}</td>
                     </tr>
@@ -23,7 +23,7 @@
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Civil Status:</td>
                         <td style="font-size: 14px;">{!! $clearance->civil_status !!}</td>
                     </tr>
-                    <tr>
+                    <tr style="background: #eeeeee">
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Precinct No.:</td>
                         <td style="font-size: 14px;">{!! $clearance->precinct_no !!}</td>
                     </tr>
@@ -31,7 +31,7 @@
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Date:</td>
                         <td style="font-size: 14px;">{!! $clearance->date !!}</td>
                     </tr>
-                    <tr>
+                    <tr style="background: #eeeeee">
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Amount:</td>
                         <td style="font-size: 14px;">{!! $clearance->amount !!}</td>
                     </tr>
@@ -39,7 +39,7 @@
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Notes:</td>
                         <td style="font-size: 14px;">{!! $clearance->notes !!}</td>
                     </tr>
-                    <tr>
+                    <tr style="background: #eeeeee">
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Complete Address:</td>
                         <td style="font-size: 14px;">{!! $clearance->address !!}</td>
                     </tr>
@@ -49,6 +49,7 @@
                     </tr>
                 </tbody>
             </table>
+            @if(!$clearance->assets->isEmpty())
             <h3 class="font-semibold">Attachments:</h3>
             <ul class="list-disc list-inside space-y-2">
                 @foreach($clearance->assets as $attachment)
@@ -59,6 +60,7 @@
                     </li>
                 @endforeach
             </ul>
+            @endif
         </div>
 
         @if ($clearance->status === 'Done')

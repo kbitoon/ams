@@ -5,18 +5,18 @@
     <div class="pt-3 sm:pt-5">
         <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">{!! $item->name !!}</h3>
         
-        <table class="mt-4 text-sm text-gray-800 dark:text-gray-300">
+        <table width="100%">
             <tbody>
                 <tr>
-                    <td class="py-2"><span class="font-semibold">Quantity Left:</span></td>
+                    <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Quantity Left:</td>
                     <td class="py-2">{!! $item->QuantityLeft !!}</td>
                 </tr>
-                <tr>
-                    <td class="py-2"><span class="font-semibold">Description:</span></td>
+                <tr style="background: #eeeeee">
+                    <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Description:</td>
                     <td class="py-2">{!! $item->description !!}</td>
                 </tr>
                 <tr>
-                    <td class="py-2"><span class="font-semibold">Acquisition Cost:</span></td>
+                    <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Acquisition Cost:</td>
                     <td class="py-2">{!! $item->AcquisitionCost !!}</td>
                 </tr>
             </tbody>
