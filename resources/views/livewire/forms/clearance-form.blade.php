@@ -1,7 +1,9 @@
 <div class="p-6">
-    <button class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 focus:outline-none text-3xl" wire:click="closeModal">
+    @auth
+        <button class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 focus:outline-none text-3xl" wire:click="closeModal">
             &times;
-    </button>
+        </button>
+    @endauth
     <div class="flex-container">
     <div class="form-container">
     <form wire:submit="save">
