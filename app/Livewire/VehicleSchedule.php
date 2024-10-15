@@ -72,7 +72,7 @@ class VehicleSchedule extends Component
                     ->orWhere('start', '<', $today); // Include done or past schedules
             })
             ->orderByRaw("FIELD(status, 'Ongoing', 'Pending', 'Done')") // Prioritize by status
-            ->orderBy('start', 'asc') // Sort by start date, with upcoming first
+            ->orderBy('start', 'desc') // Sort by start date, with upcoming first
             ->paginate(10)
 
             : VehicleScheduleModel::where('user_id', auth()->user()->id)
@@ -85,7 +85,7 @@ class VehicleSchedule extends Component
                     ->orWhere('start', '<', $today); 
             })
             ->orderByRaw("FIELD(status, 'Ongoing', 'Pending', 'Done')")
-            ->orderBy('start', 'asc')
+            ->orderBy('start', 'desc')
             ->paginate(10);
 
         // Format the start and end dates

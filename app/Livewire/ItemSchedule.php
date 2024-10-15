@@ -63,7 +63,7 @@ class ItemSchedule extends Component
                       ->orWhere('start', '<', $today); // Done or past schedules
             })
             ->orderByRaw("FIELD(status, 'Ongoing', 'Pending', 'Done')") // Prioritize based on status
-            ->orderBy('start', 'asc') // Sort by start date (upcoming first)
+            ->orderBy('start', 'desc') // Sort by start date (upcoming first)
             ->paginate(10)
     
             : ItemScheduleModel::where('user_id', auth()->user()->id)
@@ -76,7 +76,7 @@ class ItemSchedule extends Component
                       ->orWhere('start', '<', $today); 
             })
             ->orderByRaw("FIELD(status, 'Ongoing', 'Pending', 'Done')")
-            ->orderBy('start', 'asc')
+            ->orderBy('start', 'desc')
             ->paginate(10);
     
         // Format the start and end dates for display
