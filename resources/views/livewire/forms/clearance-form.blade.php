@@ -82,7 +82,7 @@
 
     <div class="form-instructions">
         <!-- <center><strong>Form Submission Instructions</strong></center> -->
-        <p>All clearances and certifications are free of charge. The following items are also <strong>delivered to your house for FREE</strong>, as part of our effort to improve and streamline the delivery of our services to the public: </p>
+        <p>All clearances and certifications are free of charge. The following items are also <strong>delivered to your house for FREE</strong> within 24 hours, as part of our effort to improve and streamline the delivery of our services to the public: </p>
         <p>&nbsp;</p>
         <ul>
             <li>Cohabitation</li>
