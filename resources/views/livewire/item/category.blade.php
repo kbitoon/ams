@@ -23,7 +23,7 @@
                     <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.item-category-modal', arguments: { itemCategory: {{ $itemCategory }} }})">
                     <i class="fas fa-pencil-alt"></i>
                     </x-secondary-button>
-                    <x-danger-button wire:click="delete({{ $itemCategory->id }})" onclick="return confirm('Are you sure you want to delete this clearance type?')">
+                    <x-danger-button wire:click="delete({{ $itemCategory->id }})" onclick="return confirm('Are you sure you want to delete this item category?')">
                     <i class="fas fa-trash-alt"></i>
                     </x-danger-button>
                 </td>

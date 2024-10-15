@@ -22,7 +22,7 @@ class InformationCategory extends Component
     {
         
         $informationCategory = InformationCategoryModel::findOrFail($id);
-        $informationCategory>delete();
+        $informationCategory->delete();
 
         $this->dispatch('refresh-list');
     }
