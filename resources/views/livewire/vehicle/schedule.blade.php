@@ -1,9 +1,48 @@
 <div class="p-6">
-    <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.vehicleSchedule-modal' })" class="mb-4">
-        New Vehicle Schedule
-    </x-primary-button>
 
-    <div class="overflow-x-auto">
+    <!-- Filters Section -->
+    <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">
+        <!-- Date Filter -->
+        <div>
+            <label for="dateFilter" class="block text-sm font-medium text-gray-700">Filter by Date</label>
+            <input type="date" id="dateFilter" wire:model.defer="tempDateFilter" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        </div>
+
+        <!-- Vehicle Filter -->
+        <div>
+            <label for="vehicleFilter" class="block text-sm font-medium text-gray-700">Filter by Vehicle</label>
+            <select id="vehicleFilter" wire:model.defer="tempVehicleFilter" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <option value="">All Vehicles</option>
+                @foreach($vehicles as $vehicle)
+                    <option value="{{ $vehicle->id }}">{{ $vehicle->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <!-- Status Filter -->
+        <div>
+            <label for="statusFilter" class="block text-sm font-medium text-gray-700">Filter by Status</label>
+            <select id="statusFilter" wire:model.defer="tempStatusFilter" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <option value="">All Statuses</option>
+                <option value="Ongoing">Ongoing</option>
+                <option value="Done">Done</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Filter Button -->
+    <div class="mb-4 flex justify-end">
+
+        <x-primary-button wire:click="applyFilters">
+            Apply Filters
+        </x-primary-button>
+    </div>
+        <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.vehicleSchedule-modal' })">
+                    New Vehicle Schedule
+        </x-primary-button>
+
+    <!-- Schedule Table -->
+    <div class="overflow-x-auto mt-5">
         <table class="min-w-full border divide-y divide-gray-200">
             <thead>
                 <tr>
@@ -50,7 +89,7 @@
                             {{ $vehicleSchedule->status }}
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            <div class="flex items-center space-x-2"> <!-- Added flex container for buttons -->
+                            <div class="flex items-center space-x-2">
                                 @if($vehicleSchedule->status !== 'Done')
                                     @hasanyrole('superadmin|administrator')
                                         <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.vehicleSchedule-modal', arguments: { vehicleSchedule: {{ $vehicleSchedule }} }})">
@@ -68,7 +107,7 @@
                                         </x-secondary-button>
                                     @endif
                                 @endif
-                            </div> <!-- End of flex container -->
+                            </div>
                         </td>
                     </tr>
                 @empty
@@ -81,8 +120,8 @@
             </tbody>
         </table>
     </div>
+
     <div class="mt-5">
-        {{-- Pagination links --}}
         {{ $vehicleSchedules->links() }}
     </div>
 </div>

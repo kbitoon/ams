@@ -36,6 +36,14 @@ class Clearance extends Model
     /**
      * @return BelongsTo
      */
+    public function approvedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
+    /**
+     * @return BelongsTo
+     */
     public function type(): BelongsTo
     {
         return $this->belongsTo(ClearanceType::class);

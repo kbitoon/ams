@@ -63,8 +63,16 @@ new class extends Component
                         <x-nav-link :href="route('complaint')" :active="request()->routeIs('complaint')" wire:navigate>
                             {{ __('Complaint') }}
                         </x-nav-link>
-                    
-                
+                 @hasanyrole('support')
+                        <x-nav-link :href="route('vehicle-schedule')" :active="request()->routeIs('vehicle-schedule')" wire:navigate>
+                            {{ __('Vehicle Schedule') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('item-schedule')" :active="request()->routeIs('item-schedule')" wire:navigate>
+                            {{ __('Inventory Schedule') }}
+                        </x-nav-link>
+                    @else
+                @endhasanyrole
+
                 @hasanyrole('superadmin|administrator')
                     <div class="hidden sm:flex sm:items-center sm:ml-6 pt-1 ">
                         <x-dropdown align="right" width="48">
@@ -88,7 +96,7 @@ new class extends Component
                                     {{ __('Driver') }}
                                 </x-dropdown-link>
                                 <x-dropdown-link :href="route('vehicle-schedule')" :active="request()->routeIs('vehicle-schedule')" wire:navigate>
-                                    {{ __('Schedule') }}
+                                    {{ __('Assignment Schedule') }}
                                 </x-dropdown-link>
                             </x-slot>
                         </x-dropdown>

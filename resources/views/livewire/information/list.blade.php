@@ -40,26 +40,30 @@
         </div>
         
         @forelse($informations as $information)
-        <tr class="hover:bg-gray-100 cursor-pointer"
-        wire:click="$dispatch('openModal', { component: 'modals.show.information-modal', arguments: { information: {{ $information }} }})">
+        <tr class="hover:bg-gray-100 cursor-pointer">
             <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                {{ $information->title }}
+                    {{ $information->title }}
             </td>
-            <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+            <td class="px-6 py-4 text-sm leading-5 text-gray-900 flex space-x-2">
                 @hasanyrole('superadmin|administrator')
                 <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.information-modal', arguments: { information: {{ $information }} }})">
-                <i class="fas fa-pencil-alt"></i>
+                    <i class="fas fa-pencil-alt"></i>
                 </x-secondary-button>
+                <button class="bg-transparent text-gray-600 hover:text-blue-500" onclick="copyToClipboard('{{ route('information.public', $information->id) }}')">
+                    <i class="fas fa-link"></i>
+                </button>
                 @endhasanyrole
             </td>
         </tr>
         @empty
-            <tr>
-                <td colspan="2" class="px-6 py-4 text-sm leading-5 text-gray-900">
-                    No information available.
-                </td>
-            </tr>
+        <tr>
+            <td colspan="2" class="px-6 py-4 text-sm leading-5 text-gray-900">
+                No information available.
+            </td>
+        </tr>
         @endforelse
+
+
         </tbody>
     </table>
     <div class="mt-5">
@@ -67,3 +71,18 @@
         {{ $informations->links() }}
     </div>
 </div>
+
+<script>
+    function copyToClipboard(link) {
+        // Create a temporary textarea element
+        const tempInput = document.createElement("textarea");
+        tempInput.value = link;
+        document.body.appendChild(tempInput);
+        tempInput.select(); // Select the text
+        document.execCommand("copy"); // Copy the text
+        document.body.removeChild(tempInput); // Remove the temporary element
+
+        // Optional: Provide user feedback
+        alert("Link copied to clipboard!");
+    }
+</script>

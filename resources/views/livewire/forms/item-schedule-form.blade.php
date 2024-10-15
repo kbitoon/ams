@@ -1,4 +1,4 @@
-<div class="p-6">
+<div class="p-6 max-w-lg mx-auto">
     <button class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 focus:outline-none text-3xl" wire:click="closeModal">
         &times;
     </button>
@@ -48,7 +48,7 @@
         <!-- Purpose Input -->
         <div class="mt-4">
             <x-input-label for="purpose" :value="__('Purpose')" />
-            <textarea wire:model="form.purpose" id="purpose" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" type="text"></textarea>
+            <textarea wire:model="form.purpose" id="purpose" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" type="text" rows="4" style="min-height: 100px; max-height: 400px; overflow-y: auto;"></textarea>
             <x-input-error :messages="$errors->get('form.purpose')" class="mt-2" />
         </div>
 
@@ -61,13 +61,12 @@
 
         <!-- Save button -->
         <div class="mt-4">
-            <x-primary-button>
+            <x-primary-button class="w-full sm:w-auto">
                 Save
             </x-primary-button>
         </div>
     </form>
 </div>
-
 
 <script>
     $(function() {

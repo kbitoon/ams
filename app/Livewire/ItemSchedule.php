@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\ItemSchedule as ItemScheduleModel;
+use App\Models\Item;
 use Illuminate\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -16,51 +17,86 @@ class ItemSchedule extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
+    public $dateFilter;
+    public $itemFilter;
+    public $statusFilter;
+
+    public $tempDateFilter;
+    public $tempItemFilter;
+    public $tempStatusFilter;
+
     #[On('refresh-list')]
     public function refresh() {}
+
+    public function applyFilters()
+    {
+        $this->dateFilter = $this->tempDateFilter;
+        $this->itemFilter = $this->tempItemFilter;
+        $this->statusFilter = $this->tempStatusFilter;
+
+        // Reset the page number to 1
+        $this->resetPage();
+    }
 
     public function updateStatus($scheduleId, $newStatus): void
     {
         $schedule = ItemScheduleModel::findOrFail($scheduleId);
         $item = $schedule->item;
 
-        // Check the original status
         $originalStatus = $schedule->status;
 
-        // Adjust quantities based on status changes
         if ($originalStatus === 'Ongoing' && $newStatus === 'Done') {
-            // Status changed from ongoing to done
             $item->QuantityLeft += $schedule->quantity;
         } elseif ($originalStatus !== 'Ongoing' && $newStatus === 'Ongoing') {
-            // Status changed to ongoing
             $item->QuantityLeft -= $schedule->quantity;
         }
 
-        // Update the status
         $schedule->status = $newStatus;
         $schedule->save();
         $item->save();
 
-        // Refresh the component
         $this->refresh();
     }                   
-    /**
-     * @return  Application|View|Factory|\Illuminate\Contracts\Foundation\Application
-     */
+
     public function render(): Application|View|Factory|\Illuminate\Contracts\Foundation\Application
     {
-         // Filter and sort the data
-         $itemSchedules = auth()->user()->hasRole('superadmin|administrator') 
-         ? ItemScheduleModel::where('status', '!=', 'Done')->orderBy('start', 'asc')->paginate(10) 
-         : ItemScheduleModel::where('user_id', auth()->user()->id)->where('status', '!=', 'Done')->orderBy('start', 'asc')->paginate(10);
+        $query = ItemScheduleModel::query();
 
-         foreach ($itemSchedules as $schedule) {
-             $schedule->formatted_start = Carbon::parse($schedule->start)->format('M. j,  g:iA');
-             $schedule->formatted_end = Carbon::parse($schedule->end)->format('M. j,  g:iA');
-         }
+        if (auth()->user()->hasRole('superadmin|administrator')) {
+            if ($this->dateFilter) {
+                $query->whereDate('start', $this->dateFilter);
+            }
+            if ($this->itemFilter) {
+                $query->where('item_id', $this->itemFilter);
+            }
+            if ($this->statusFilter) {
+                $query->where('status', $this->statusFilter);
+            }
+        } else {
+            $query->where('user_id', auth()->user()->id);
+            if ($this->dateFilter) {
+                $query->whereDate('start', $this->dateFilter);
+            }
+            if ($this->itemFilter) {
+                $query->where('item_id', $this->itemFilter);
+            }
+            if ($this->statusFilter) {
+                $query->where('status', $this->statusFilter);
+            }
+        }
 
-     return view('livewire.item.schedule', [
-         'itemSchedules' => $itemSchedules,
-     ]);
+        $itemSchedules = $query->orderBy('start', 'desc')->paginate(10);
+
+        foreach ($itemSchedules as $schedule) {
+            $schedule->formatted_start = Carbon::parse($schedule->start)->format('M. j,  g:iA');
+            $schedule->formatted_end = Carbon::parse($schedule->end)->format('M. j,  g:iA');
+        }
+
+        $items = Item::all(); // Fetch items for dropdown
+
+        return view('livewire.item.schedule', [
+            'itemSchedules' => $itemSchedules,
+            'items' => $items, // Pass items for dropdown filter
+        ]);
     }
 }
