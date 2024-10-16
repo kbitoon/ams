@@ -1,9 +1,43 @@
 <div class="p-6">
-    <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.itemSchedule-modal' })" class="mb-4">
-        New Item Schedule
-    </x-primary-button>
 
-    <div class="overflow-x-auto">
+    <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">
+            <!-- Date Filter -->
+            <div>
+                <label for="dateFilter" class="block text-sm font-medium text-gray-700">Filter by Date</label>
+                <input type="date" id="dateFilter" wire:model.defer="tempDateFilter" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+
+            <!-- Item Filter -->
+            <div>
+                <label for="itemFilter" class="block text-sm font-medium text-gray-700">Filter by Item</label>
+                <select id="itemFilter" wire:model.defer="tempItemFilter" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="">All Items</option>
+                    @foreach($items as $item)
+                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Status Filter -->
+            <div>
+                <label for="statusFilter" class="block text-sm font-medium text-gray-700">Filter by Status</label>
+                <select id="statusFilter" wire:model.defer="tempStatusFilter" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="">All Statuses</option>
+                    <option value="Ongoing">Ongoing</option>
+                    <option value="Done">Done</option>
+                </select>
+            </div>
+        </div>
+    <div class="mb-4 flex justify-end">
+        <x-primary-button wire:click="applyFilters">
+            Apply Filters
+        </x-primary-button>
+    </div>
+        <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.itemSchedule-modal' })">
+                    New Item Schedule
+        </x-primary-button>
+
+    <div class="overflow-x-auto mt-5">
         <table class="min-w-full border divide-y divide-gray-200">
             <thead>
                 <tr>
