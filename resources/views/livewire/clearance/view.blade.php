@@ -12,6 +12,22 @@
             <table>
                 <tbody>
                     <tr>
+                        <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Date of Birth:</td>
+                        <td style="font-size: 14px;">{!! $clearance->date_of_birth !!}</td>
+                    </tr>
+                    <tr>
+                        <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Sex:</td>
+                        <td style="font-size: 14px;">{!! $clearance->sex !!}</td>
+                    </tr>
+                    <tr>
+                        <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Civil Status:</td>
+                        <td style="font-size: 14px;">{!! $clearance->civil_status !!}</td>
+                    </tr>
+                    <tr>
+                        <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Precinct No.:</td>
+                        <td style="font-size: 14px;">{!! $clearance->precinct_no !!}</td>
+                    </tr>
+                    <tr>
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Date:</td>
                         <td style="font-size: 14px;">{!! $clearance->date !!}</td>
                     </tr>

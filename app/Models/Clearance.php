@@ -23,6 +23,10 @@ class Clearance extends Model
         'approved_by',
         'status',
         'address',
+        'date_of_birth',
+        'sex',
+        'civil_status',
+        'precinct_no',
     ];
 
     /**

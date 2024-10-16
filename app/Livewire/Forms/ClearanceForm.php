@@ -18,6 +18,10 @@ class ClearanceForm extends Form
     public string $notes = '';
     public string $contact_number = '';
     public string $address = '';
+    public string $date_of_birth = '';
+    public string $sex = '';
+    public string $civil_status = '';
+    public string $precinct_no = '';
     public array $attachments = [];
     public int $user_id = 1; // default to anonymous user, make sure we have this seeded
 
@@ -35,6 +39,10 @@ class ClearanceForm extends Form
         $this->notes = $clearance->notes;
         $this->contact_number = $clearance->contact_number;
         $this->address = $clearance->address;
+        $this->date_of_birth = $clearances->date_of_birth;
+        $this->sex = $clearances->sex;
+        $this->civil_status = $clearance->civil_status;
+        $this->precinct_no = $clearance->precinct_no;
     }
 
     /**
@@ -48,8 +56,11 @@ class ClearanceForm extends Form
             'type_id' => ['required'],
             'amount' => ['required'],
             'date' => ['required'],
-            'contact_number' => ['required'],
+            'contact_number' => ['required', 'digits:11'],
             'address' => ['required'],
+            'date_of_birth' => ['required'],
+            'sex' => ['required'],
+            'civil_status' => ['required'],
         ];
 
         // if ($this->clearance === null) {
@@ -71,8 +82,12 @@ class ClearanceForm extends Form
             'amount' => 'amount',
             'date' => 'date',
             'notes' => 'notes',
-            'contact_number' => 'contact number',
-            'address' => 'address',
+            'contact_number' => 'contact_number',
+            'date_of_birth' => 'date_of_birth',
+            'sex' => 'sex',
+            'civil_status' => 'civil_status',
+            'precinct_no' => 'precinct_no',
+
             'attachments' => 'attachment',
         ];
     }
@@ -85,12 +100,12 @@ class ClearanceForm extends Form
         $this->validate();
         if (!$this->clearance) {
             if (auth()->user()) {
-                $this->clearance = auth()->user()->clearances()->create($this->only(['name', 'purpose', 'user_id', 'type_id', 'amount', 'date', 'notes', 'contact_number','address']));
+                $this->clearance = auth()->user()->clearances()->create($this->only(['name', 'purpose', 'user_id', 'type_id', 'amount', 'date', 'notes', 'contact_number','address','date_of_birth','sex','civil_status','precinct_no']));
             } else {
-                $this->clearance = Clearance::create($this->only(['name', 'purpose', 'user_id', 'type_id', 'amount', 'date', 'notes', 'contact_number', 'address']));
+                $this->clearance = Clearance::create($this->only(['name', 'purpose', 'user_id', 'type_id', 'amount', 'date', 'notes', 'contact_number', 'address','date_of_birth','sex','civil_status','precinct_no']));
             }
         } else {
-            $this->clearance->update($this->only(['name', 'purpose', 'type_id', 'amount', 'date', 'notes', 'contact_number', 'address']));
+            $this->clearance->update($this->only(['name', 'purpose', 'type_id', 'amount', 'date', 'notes', 'contact_number', 'address','date_of_birth','sex','civil_status','precinct_no']));
 
         }
 

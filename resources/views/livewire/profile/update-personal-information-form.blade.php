@@ -145,7 +145,7 @@ new class extends Component
     <div>
         <x-input-label for="civil_status" :value="__('Civil Status')" />
         <select wire:model="civil_status" id="civil_status" name="civil_status" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-        <option value="" disabled>Select your Civil Status</option>
+        <option selected>Select your Civil Status</option>
         <option value="Single">Single</option>
         <option value="Married">Married</option>
         <option value="Divorced">Divorced</option>

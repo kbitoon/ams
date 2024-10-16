@@ -11,6 +11,41 @@
             <x-text-input wire:model="form.name" id="name" class="mt-1 block w-full" type="text" />
             <x-input-error :messages="$errors->get('form.name')" class="mt-2" />
         </div>
+        <div class="mt-4">
+            <x-input-label for="date_of_birth" :value="__('Date of Birth')" />
+            <x-input-date wire:model="form.date_of_birth" id="date_of_birth" class="mt-1 block w-full" type="text" />
+            <x-input-error :messages="$errors->get('form.date_of_birth')" class="mt-2" />
+        </div>
+
+        <div class="mt-4">
+            <x-input-label for="sex" :value="__('Sex')" />
+            <select wire:model="form.sex" id="sex" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                <option selected>Select your Sex</option>
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+            </select>
+            <x-input-error :messages="$errors->get('form.sex')" class="mt-2" />
+        </div>
+
+        <div class="mt-4">
+            <x-input-label for="civil_status" :value="__('Civil Status')" />
+            <select wire:model="form.civil_status" id="civil_status" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+            <option selected>Select your Civil Status</option>
+            <option value="Single">Single</option>
+            <option value="Married">Married</option>
+            <option value="Divorced">Divorced</option>
+            <option value="Widowed">Widowed</option>
+            <option value="Separated">Separated</option>
+            <option value="Other">Other</option>
+            </select>
+            <x-input-error class="mt-2" :messages="$errors->get('form.civil_status')" />
+        </div>
+
+        <div class="mt-4">
+            <x-input-label for="precinct_no" :value="__('Precinct No.')" />
+            <x-text-input wire:model="form.precinct_no" id="precinct_no" class="mt-1 block w-full" type="text" />
+            <x-input-error :messages="$errors->get('form.precinct_no')" class="mt-2" />
+        </div>
 
         <div class="mt-4">
             <x-input-label for="type_id" :value="__('Type')" />
