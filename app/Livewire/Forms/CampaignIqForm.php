@@ -24,8 +24,8 @@ class CampaignIqForm extends Form
     public string $government_position = '';
     public string $sector = '';
     public string $remarks = '';
-
-    
+    public string $status = 'Unpaid';
+    public string $commitment = '';
 
     public string $uplineSearch = '';
     
@@ -64,6 +64,8 @@ class CampaignIqForm extends Form
         $this->government_position = $campaignIq->government_position;
         $this->sector = $campaignIq->sector;
         $this->remarks = $campaignIq->remarks;
+        $this->status = $campaignIq->status;
+        $this->commitment = $campaignIq->commmitment ? $campaignIq->commmitment : '';
     }
 
     /**
@@ -100,6 +102,8 @@ class CampaignIqForm extends Form
             'government_position' => 'government_position',
             'sector' => 'sector',
             'remarks' => 'remarks',
+            'status' => 'status',
+            'commitment' => 'commitment',
         ];
     }
 
@@ -112,7 +116,7 @@ class CampaignIqForm extends Form
 
         $data = $this->only([
             'firstname', 'familyname', 'birthdate', 'address', 'sitio', 'barangay', 'city', 
-            'province', 'contact_number', 'upline', 'designation', 'government_position', 'sector', 'remarks'
+            'province', 'contact_number', 'upline', 'designation', 'government_position', 'sector', 'remarks', 'status', 'commitment'
         ]);
 
         $data['birthdate'] = $this->birthdate ?: null;

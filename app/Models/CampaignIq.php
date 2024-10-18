@@ -26,6 +26,8 @@ class CampaignIq extends Model
         'government_position',
         'sector',
         'remarks',
+        'status',
+        'commitment',
     ];
 
     public $timestamps = true;

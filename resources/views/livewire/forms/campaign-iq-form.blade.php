@@ -155,12 +155,34 @@
             </select>
             <x-input-error :messages="$errors->get('form.sector')" class="mt-2" />
         </div>
+        
         <div class="mt-4">
             <x-input-label for="remarks" :value="__('Remarks')" />
             <x-text-input wire:model="form.remarks" id="remarks" class="mt-1 block w-full" type="text" />
             <x-input-error :messages="$errors->get('form.remarks')" class="mt-2" />
         </div>
 
+        <div class="mt-4">
+            <x-input-label for="commitment" :value="__('Commitment')" />
+            
+            <label class="inline-flex items-center mt-1 mr-5">
+                <input type="checkbox" wire:model="form.commitment" value="Yes" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500">
+                <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">Yes</span>
+            </label>
+    
+            <label class="inline-flex items-center mt-1 mr-5">
+                <input type="checkbox" wire:model="form.commitment" value="Neither" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500">
+                <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">Neither</span>
+            </label>
+            
+            <label class="inline-flex items-center mt-1 mr-5">
+                <input type="checkbox" wire:model="form.commitment" value="No" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500">
+                <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">No</span>
+            </label>
+
+            <x-input-error :messages="$errors->get('form.commitment')" class="mt-2" />
+        </div>
+        
         <!-- Save button -->
         <div class="mt-4">
             <x-primary-button>
