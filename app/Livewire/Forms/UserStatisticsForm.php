@@ -30,7 +30,7 @@ class UserStatisticsForm extends Form
     {
         return [
             'total' => ['required'],
-            'group' => ['nullable'],
+            'group' => ['required'],
         ];
     }
 
