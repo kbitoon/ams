@@ -65,7 +65,7 @@ class CampaignIqForm extends Form
         $this->sector = $campaignIq->sector;
         $this->remarks = $campaignIq->remarks;
         $this->status = $campaignIq->status;
-        $this->commitment = $campaignIq->commmitment ? $campaignIq->commmitment : '';
+        $this->commitment = $campaignIq->commitment ? $campaignIq->commitment : '';
     }
 
     /**

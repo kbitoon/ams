@@ -33,10 +33,18 @@ class CampaignIq extends Component
 
     public function delete($id)
     {
-        $clearanceType = CampaignIqModel::findOrFail($id);
-        $clearanceType->delete();
+        $campaignIq = CampaignIqModel::findOrFail($id);
+        $campaignIq->delete();
 
         $this->dispatch('refresh-list');
+    }
+    public function markAsPaid($id)
+    {
+        $campaignIq = CampaignIqModel::findOrFail($id);
+        if ($campaignIq && auth()->check()) { 
+            $campaignIq->status = 'Paid';
+            $campaignIq->save();
+        }
     }
 
     /**

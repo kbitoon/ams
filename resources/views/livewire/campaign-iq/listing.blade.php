@@ -103,6 +103,11 @@
                         <x-danger-button wire:click.stop="delete({{ $campaignIq->id }})" onclick="return confirm('Are you sure you want to delete this?')">
                             <i class="fas fa-trash-alt"></i>
                         </x-danger-button>
+                        @if($campaignIq->status <> 'Paid')
+                        <x-secondary-button wire:click.stop="markAsPaid({{ $campaignIq->id }})" class="flex items-center">
+                                    <i class="fas fa-check mr-1"></i>
+                        </x-secondary-button>
+                        @endif
                     </td>
                 </tr>
                 @empty

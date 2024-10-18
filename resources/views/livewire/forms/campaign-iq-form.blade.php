@@ -166,17 +166,17 @@
             <x-input-label for="commitment" :value="__('Commitment')" />
             
             <label class="inline-flex items-center mt-1 mr-5">
-                <input type="checkbox" wire:model="form.commitment" value="Yes" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500">
+                <input type="radio" wire:model="form.commitment" value="Yes" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500">
                 <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">Yes</span>
             </label>
-    
+
             <label class="inline-flex items-center mt-1 mr-5">
-                <input type="checkbox" wire:model="form.commitment" value="Neither" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500">
+                <input type="radio" wire:model="form.commitment" value="Neither" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500">
                 <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">Neither</span>
             </label>
             
             <label class="inline-flex items-center mt-1 mr-5">
-                <input type="checkbox" wire:model="form.commitment" value="No" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500">
+                <input type="radio" wire:model="form.commitment" value="No" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500">
                 <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">No</span>
             </label>
 

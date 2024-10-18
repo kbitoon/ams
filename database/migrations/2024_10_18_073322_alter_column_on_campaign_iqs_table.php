@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('campaign_iqs', function (Blueprint $table) {
-            $table->text('status')->nullable()->change();
-            $table->text('commitment')->nullable()->change();
+            $table->text('status')->nullable()->default('Unpaid')->change();
         });
     }
 
@@ -22,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-         Schema::table('campaign_iqs', function (Blueprint $table) {
+        Schema::table('campaign_iqs', function (Blueprint $table) {
             $table->dropColumn(['status']);
-            $table->dropColumn(['commitment']);
         });
     }
 };
