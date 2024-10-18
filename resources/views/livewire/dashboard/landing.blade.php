@@ -45,7 +45,7 @@
                         <div class="relative z-5"> 
                             <div>
                                 <p class="text-lg font-semibold text-black">Out of School Youth</p>
-                                <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_out_of_school_youth }}</span>
+                                <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_out_of_school_youth['total'] }}</span>
                             </div>
                         </div>
                     </a>
@@ -55,7 +55,7 @@
                         <div class="absolute inset-0 bg-white opacity-80 rounded-lg"></div>
                         <div class="relative z-5">
                             <p class="text-lg font-semibold text-black dark:text-white">Malnourished Children</p>
-                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_malnourished_children }}</span>
+                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_malnourished_children['total'] }}</span>
                         </div>
                     </a>
 
@@ -64,7 +64,7 @@
                         <div class="absolute inset-0 bg-white opacity-80 rounded-lg"></div>
                         <div class="relative z-7">
                             <p class="text-lg font-semibold text-black dark:text-white">Senior Citizen</p>
-                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_senior_citizens}}</span>
+                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_senior_citizens['total'] }}</span>
                         </div>
                     </a>
 
@@ -73,7 +73,7 @@
                         <div class="absolute inset-0 bg-white opacity-80 rounded-lg"></div>
                         <div class="relative z-5">
                             <p class="text-lg font-semibold text-black dark:text-white">Pregnant</p>
-                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_pregnant }}</span>
+                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_pregnant['total'] }}</span>
                         </div>
                     </a>
 
@@ -82,7 +82,7 @@
                         <div class="absolute inset-0 bg-white opacity-80 rounded-lg"></div>
                         <div class="relative z-5">
                             <p class="text-lg font-semibold text-black dark:text-white">Single Parent</p>
-                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_single_parents }}</span>
+                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_single_parents['total'] }}</span>
                         </div>
                     </a>
                 </div>
@@ -94,7 +94,7 @@
                         <div class="absolute inset-0 bg-white opacity-80 rounded-lg"></div>
                         <div class="relative z-5">
                             <p class="text-lg font-semibold text-black dark:text-white">Out of School Youth</p>
-                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_out_of_school_youth }}</span>
+                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_out_of_school_youth['total'] }}</span>
                         </div>
                     </a>
 
@@ -103,7 +103,7 @@
                         <div class="absolute inset-0 bg-white opacity-80 rounded-lg"></div>
                         <div class="relative z-5">
                             <p class="text-lg font-semibold text-black dark:text-white">Malnourished Children</p>
-                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_malnourished_children }}</span>
+                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_malnourished_children['total'] }}</span>
                         </div>
                     </a>
 
@@ -112,7 +112,7 @@
                         <div class="absolute inset-0 bg-white opacity-80 rounded-lg"></div>
                         <div class="relative z-5">
                             <p class="text-lg font-semibold text-black dark:text-white">Senior Citizens</p>
-                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_senior_citizens }}</span>
+                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_senior_citizens['total'] }}</span>
                         </div>
                     </a>
 
@@ -121,7 +121,7 @@
                         <div class="absolute inset-0 bg-white opacity-80 rounded-lg"></div>
                         <div class="relative z-5">
                             <p class="text-lg font-semibold text-black dark:text-white">Pregnants</p>
-                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_pregnant }}</span>
+                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_pregnant['total'] }}</span>
                         </div>
                     </a>
 
@@ -130,7 +130,7 @@
                         <div class="absolute inset-0 bg-white opacity-80 rounded-lg"></div>
                         <div class="relative z-8">
                             <p class="text-lg font-semibold text-black dark:text-white">Single Parents</p>
-                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_single_parents }}</span>
+                            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $total_single_parents['total'] }}</span>
                         </div>
                     </a>
                 </div>

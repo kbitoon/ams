@@ -10,9 +10,7 @@ class UserStatisticsForm extends Form
 {
     public ?UserStatistics $userStatistics = null;
 
-    public string $first_name = '';
-    public string $last_name = '';
-    public int $age = 0;
+    public int $total = 0;
     public string $group = '';
 
     /**
@@ -21,9 +19,7 @@ class UserStatisticsForm extends Form
     public function setUserStatistics(?UserStatistics $userStatistics = null): void
     {
         $this->userStatistics = $userStatistics;
-        $this->first_name = $userStatistics->first_name;
-        $this->last_name = $userStatistics->last_name;
-        $this->age = $userStatistics->age;
+        $this->total = $userStatistics->total;
         $this->group = $userStatistics->group;
     }
 
@@ -33,9 +29,7 @@ class UserStatisticsForm extends Form
     public function rules(): array
     {
         return [
-            'first_name' => ['required'],
-            'last_name' => ['required'],
-            'age' => ['required'],
+            'total' => ['required'],
             'group' => ['nullable'],
         ];
     }
@@ -46,9 +40,7 @@ class UserStatisticsForm extends Form
     public function validationAttributes(): array
     {
         return [
-            'first_name' => 'first_name',
-            'last_name' => 'last_name',
-            'amount' => 'amount',
+            'total' => 'total',
             'group' => 'group',
         ];
     }
@@ -60,9 +52,9 @@ class UserStatisticsForm extends Form
     {
         $this->validate();
         if (!$this->userStatistics) {
-            UserStatistics::create($this->only(['first_name', 'last_name','age', 'group']));
+            UserStatistics::create($this->only(['total', 'group']));
         } else {
-            $this->userStatistics->update($this->only(['first_name', 'last_name','age', 'group']));
+            $this->userStatistics->update($this->only(['total', 'group']));
         }
         $this->reset();
     }

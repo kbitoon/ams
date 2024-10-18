@@ -17,11 +17,11 @@ class Dashboard extends Component
             $query->where('name', 'user');
         })->count();
 
-        $total_out_of_school_youth = UserStatisticsModel::where('group', 'Out of School Youth')->count();
-        $total_malnourished_children = UserStatisticsModel::where('group', 'Malnourished')->count();
-        $total_senior_citizens = UserStatisticsModel::where('group', 'Senior Citizen')->count();
-        $total_pregnant = UserStatisticsModel::where('group', 'Pregnant')->count();
-        $total_single_parents = UserStatisticsModel::where('group', 'Single Parent')->count();
+        $total_out_of_school_youth = UserStatisticsModel::where('group', 'Out of School Youth')->value('total');
+        $total_malnourished_children = UserStatisticsModel::where('group', 'Malnourished Children')->value('total');
+        $total_senior_citizens = UserStatisticsModel::where('group', 'Senior Citizen')->value('total');
+        $total_pregnant = UserStatisticsModel::where('group', 'Pregnant')->value('total');
+        $total_single_parents = UserStatisticsModel::where('group', 'Single Parent')->value('total');
 
         $pending_clearances = ClearanceModel::where('status', 'Pending')->count();
 
@@ -33,11 +33,11 @@ class Dashboard extends Component
             'announcements' => AnnouncementModel::where('is_pinned', 0)->orderByDesc('created_at')->paginate(3),
             'complaints' => ComplaintModel::where('is_pinned', 0)->where('user_id', auth()->user()->id)->orderByDesc('created_at')->paginate(5),
             'total_users' => $total_users,
-            'total_out_of_school_youth' => $total_out_of_school_youth,
-            'total_malnourished_children' => $total_malnourished_children,
-            'total_senior_citizens' => $total_senior_citizens,
-            'total_pregnant' => $total_pregnant,
-            'total_single_parents' => $total_single_parents,
+            'total_out_of_school_youth' => ['total' => $total_out_of_school_youth, 'group' => 'Out of School Youth'],
+            'total_malnourished_children' => ['total' => $total_malnourished_children, 'group' => 'Malnourished Children'],
+            'total_senior_citizens' => ['total' => $total_senior_citizens, 'group' => 'Senior Citizen'],
+            'total_pregnant' => ['total' => $total_pregnant, 'group' => 'Pregnant'],
+            'total_single_parents' => ['total' => $total_single_parents, 'group' => 'Single Parent'],
             'pending_clearances' => $pending_clearances,
             'pending_complaints' => $pending_complaints,
         ]);
