@@ -34,7 +34,6 @@ class ItemSchedule extends Component
         $this->itemFilter = $this->tempItemFilter;
         $this->statusFilter = $this->tempStatusFilter;
 
-        // Reset the page number to 1
         $this->resetPage();
     }
 

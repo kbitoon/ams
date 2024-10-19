@@ -29,6 +29,39 @@ class VehicleSchedule extends Component
         $this->resetPage(); 
     }
 
+    public function markAsDone($scheduleId){
+
+        $schedule = VehicleScheduleModel::find($scheduleId);
+        if ($schedule) {
+            $schedule->status = 'Done';
+            $schedule->save();
+
+            // Set vehicle and driver to unavailable
+            if ($schedule->vehicle) {
+                $schedule->vehicle->update(['status' => 'Available']);
+            }
+            if ($schedule->driver) {
+                $schedule->driver->update(['status' => 'Available']);
+            }
+        }
+    }
+
+    public function markAsOngoing($scheduleId){
+        $schedule = VehicleScheduleModel::find($scheduleId);
+
+        if ($schedule) {
+            $schedule->status = 'Ongoing';
+            $schedule->save();
+               // Set vehicle and driver to unavailable
+            if ($schedule->vehicle) {
+            $schedule->vehicle->update(['status' => 'Unavailable']);
+            }
+            if ($schedule->driver) {
+                $schedule->driver->update(['status' => 'Unavailable']);
+            }
+        }
+    }
+
 
     public function applyFilters()
     {
