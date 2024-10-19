@@ -7,7 +7,7 @@
                     <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Group</span>
                 </th>
                 <th class="px-6 py-3 text-left bg-gray-50">
-                    <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Age</span>
+                    <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Total</span>
                 </th>
                 <th class="px-6 py-3 text-left bg-gray-50"></th>
             </tr>
