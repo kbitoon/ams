@@ -28,15 +28,16 @@
                 </select>
             </div>
         </div>
-    <div class="mb-4 flex justify-end">
+    <div class="mb-4 flex justify-center md:justify-end space-x-2">
         <x-primary-button wire:click="applyFilters">
             Apply Filters
         </x-primary-button>
     </div>
+    <div class="mb-4 flex justify-center md:justify-start space-x-2">
         <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.itemSchedule-modal' })">
                     New Item Schedule
         </x-primary-button>
-
+    </div>
     <div class="overflow-x-auto mt-5">
         <table class="min-w-full border divide-y divide-gray-200">
             <thead>
@@ -45,10 +46,10 @@
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Start</span>
                     </th>
                     <th class="px-6 py-3 text-left bg-gray-50">
-                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">End</span>
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Item</span>
                     </th>
                     <th class="px-6 py-3 text-left bg-gray-50">
-                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Item</span>
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">End</span>
                     </th>
                     <th class="px-6 py-3 text-left bg-gray-50">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Quantity</span>
@@ -67,11 +68,10 @@
                     {{ $itemSchedule->formatted_start }}
                 </td>
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                    {{ $itemSchedule->formatted_end }}
-                </td>
-            
-                <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                     {{ $itemSchedule->item->name }}
+                </td>
+                <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                    {{ $itemSchedule->formatted_end }}
                 </td>
 
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">

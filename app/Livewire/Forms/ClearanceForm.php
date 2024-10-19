@@ -55,10 +55,10 @@ class ClearanceForm extends Form
             'purpose' => ['required'],
             'type_id' => ['required'],
             'amount' => ['required'],
-            'date' => ['required'],
+            'date' => ['required', 'date_format:Y-m-d'],
             'contact_number' => ['required', 'digits:11'],
             'address' => ['required'],
-            'date_of_birth' => ['required'],
+            'date_of_birth' => ['required', 'date_format:Y-m-d'],
             'sex' => ['required'],
             'civil_status' => ['required'],
         ];

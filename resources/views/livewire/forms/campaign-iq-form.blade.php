@@ -16,8 +16,8 @@
             <x-input-error :messages="$errors->get('form.familyname')" class="mt-2" />
         </div>
         <div class="mt-4">
-            <x-input-label for="birthdate" :value="__('Birth Date')" />
-            <x-input-date wire:model="form.birthdate" id="birthdate" class="mt-1 block w-full" type="text" />
+            <x-input-label for="birthdate" :value="__('Date of Birth')" />
+            <x-text-input wire:model="form.birthdate" id="birthdate" class="mt-1 block w-full" type="text" placeholder="yyyy-mm-dd" />
             <x-input-error :messages="$errors->get('form.birthdate')" class="mt-2" />
         </div>
         <div class="mt-4">

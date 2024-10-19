@@ -74,7 +74,7 @@ class CampaignIqForm extends Form
             'familyname' => ['required'],
             'barangay' => ['required'],
             'contact_number' => ['numeric'],
-            'birthdate' => ['nullable', 'date'],
+            'birthdate' => ['nullable', 'date', 'date_format:Y-m-d'],
         ];
     }
 
