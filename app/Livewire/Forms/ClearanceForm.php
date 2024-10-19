@@ -39,8 +39,8 @@ class ClearanceForm extends Form
         $this->notes = $clearance->notes;
         $this->contact_number = $clearance->contact_number;
         $this->address = $clearance->address;
-        $this->date_of_birth = $clearances->date_of_birth;
-        $this->sex = $clearances->sex;
+        $this->date_of_birth = $clearance->date_of_birth;
+        $this->sex = $clearance->sex;
         $this->civil_status = $clearance->civil_status;
         $this->precinct_no = $clearance->precinct_no;
     }
@@ -87,7 +87,6 @@ class ClearanceForm extends Form
             'sex' => 'sex',
             'civil_status' => 'civil_status',
             'precinct_no' => 'precinct_no',
-
             'attachments' => 'attachment',
         ];
     }
