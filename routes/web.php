@@ -11,6 +11,9 @@ use App\Http\Controllers\PublicInformationController;
 
 Route::get('/pending', Pending::class)->name('pending');
 
+
+   
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')
         ->name('dashboard');
@@ -80,7 +83,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::view('campaign-iq', 'campaign-iq')
         ->name('campaign-iq');
-
+    Route::view('activity', 'activity')
+        ->name('activity');
 });
 
 Route::middleware('guest')->group(function () {

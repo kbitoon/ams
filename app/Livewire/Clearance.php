@@ -27,9 +27,9 @@ class Clearance extends Component
     {
         $clearance = ClearanceModel::find($clearanceId);
     
-        if ($clearance && auth()->check()) { // Ensure the user is authenticated
+        if ($clearance && auth()->check()) { 
             $clearance->status = 'Done';
-            $clearance->approved_by = auth()->user()->id; // User must be authenticated
+            $clearance->approved_by = auth()->user()->id; 
             $clearance->save();
         }
     }

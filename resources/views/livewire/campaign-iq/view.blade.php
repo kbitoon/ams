@@ -49,7 +49,7 @@
                         <td style="font-size: 14px;">{!! $campaignIq->remarks !!}</td>
                     </tr>
                     <tr>
-                        <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Status</td>
+                        <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Status:</td>
                         <td style="font-size: 14px;">{!! $campaignIq->status !!}</td>
                     </tr>
                     <tr style="background: #eeeeee">
