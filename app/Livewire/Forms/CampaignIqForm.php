@@ -25,6 +25,8 @@ class CampaignIqForm extends Form
     public string $sector = '';
     public string $remarks = '';
 
+    
+
     public string $uplineSearch = '';
     
 

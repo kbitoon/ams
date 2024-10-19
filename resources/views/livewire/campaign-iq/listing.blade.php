@@ -1,10 +1,40 @@
+
 <div class="min-w-full align-middle">
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
+            <div class="bg-white shadow-md rounded-md p-4 border border-gray-200">
+                <p class="text-lg font-semibold text-black dark:text-white">Total People</p>
+                <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $totalPeople }}</span>
+            </div>
+
+            <div class="bg-white shadow-md rounded-md p-4 border border-gray-200">
+                <p class="text-lg font-semibold text-black dark:text-white">Total Leaders</p>
+                <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $totalLeaders }}</span>
+            </div>
+
+
+            <div class="bg-white shadow-md rounded-md p-4 border border-gray-200">
+                <p class="text-lg font-semibold text-black dark:text-white">Total Coordinators</p>
+                <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $totalCoordinators }}</span>
+            </div>
+
+            <div class="bg-white shadow-md rounded-md p-4 border border-gray-200">
+            <p class="text-lg font-semibold text-black dark:text-white">Barangay Captains</p>
+            <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $totalBarangayCaptains }} <span class="text-sm font-normal text-black">out of</span> {{ $totalBarangays }} <span class="text-sm font-normal text-black">Barangays</span></span>
+    </div>
+</div>
+
 
     <div class="flex justify-between items-center mb-4">
 
-        <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.campaign-iq-modal' })">
-            New Supporter
-        </x-primary-button>
+                <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.campaignIq-modal' })" class="h-8 mr-2">
+                    <span class="hidden sm:inline">New Supporter</span>
+                    <span class="inline sm:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                    </span>
+                </x-primary-button>
+
 
         <div class="flex items-center space-x-2">
 

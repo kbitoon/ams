@@ -1,14 +1,13 @@
 <div class="p-6">
     <div class="flex justify-between items-center mb-4 mr-2">
-        <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.item-modal' })" class="h-8 mr-2">
-            <!-- Show text for large screens, icon for mobile -->
-            <span class="hidden sm:inline">New Item</span>
-            <span class="sm:hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                </svg>
-            </span>
-        </x-primary-button>
+            <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.item-modal' })" class="h-8 mr-2">
+                <span class="hidden sm:inline">New Item</span>
+                <span class="inline sm:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                </span>
+            </x-primary-button>
         
         <!-- Wrapping search and filter in a flex container -->
         <div class="flex items-center ml-auto"> <!-- ml-auto pushes it to the right -->

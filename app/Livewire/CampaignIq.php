@@ -19,6 +19,8 @@ class CampaignIq extends Component
     public string $filter = '';
     protected $listeners = ['refresh-list' => 'refresh'];
     protected $updatesQueryString = ['search', 'filter'];
+    public int $totalBarangayCaptains = 0;
+    public int $totalBarangays = 0;
 
     #[On('refresh-list')]
     public function refresh() {}
@@ -28,7 +30,6 @@ class CampaignIq extends Component
         $this->resetPage(); 
 
     }
-
 
     public function delete($id)
     {
@@ -55,12 +56,23 @@ class CampaignIq extends Component
             $query->where('barangay', $this->filter);
         }
 
+        $totalPeople = CampaignIqModel::count();
+        $totalLeaders = CampaignIqModel::where('designation', 'Leader')->count();
+        $totalCoordinators = CampaignIqModel::where('designation', 'Coordinator')->count();
+        $this->totalBarangayCaptains = CampaignIqModel::where('government_position', 'Barangay Captain')->count();
+        $this->totalBarangays = CampaignIqModel::distinct('barangay')->count('barangay');
+
         $campaignIqs = $query->paginate(10);
         $barangays = CampaignIqModel::select('barangay')->distinct()->pluck('barangay');
         
         return view('livewire.campaign-iq.listing', [
             'campaignIqs'=>$campaignIqs,
             'barangays' => $barangays,
+            'totalPeople' => $totalPeople,
+            'totalLeaders' => $totalLeaders,
+            'totalCoordinators' => $totalCoordinators,
+            'totalBarangayCaptains' => $this->totalBarangayCaptains,
+            'totalBarangays' => $this->totalBarangays,
         ]);
     }
 }
