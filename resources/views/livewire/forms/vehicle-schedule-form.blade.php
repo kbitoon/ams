@@ -17,7 +17,7 @@
 
             <div>
                 <x-input-label for="end" :value="__('End')" />
-                <x-input-datetime wire:model="form.end" id="end" class="mt-1 block w-full" type="text" />
+                <x-input-datetime wire:model.live.debounce.500ms="form.end" id="end" class="mt-1 block w-full" type="text" />
                 <x-input-error :messages="$errors->get('form.end')" class="mt-2" />
             </div>
             

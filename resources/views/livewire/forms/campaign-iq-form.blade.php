@@ -100,7 +100,7 @@
         </div>
         <div class="mt-4">
             <x-input-label for="upline" :value="__('Upline')" />
-            <input wire:model="form.uplineSearch" id="upline" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" type="text" placeholder="Search for Upline" />
+            <input wire:model.live.debounce.500ms="form.uplineSearch" id="upline" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" type="text" placeholder="Search for Upline" />
             <x-input-error :messages="$errors->get('form.upline')" class="mt-2" />
 
             @if ($form->uplineSearch && count($form->uplineOptions()))
