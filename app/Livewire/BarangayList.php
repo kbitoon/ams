@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\AnnouncementCategory as AnnouncementCategoryModel;
+use App\Models\BarangayList as BarangayListModel;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -11,7 +11,7 @@ use Livewire\Component;
 use Livewire\Features\SupportPagination\WithoutUrlPagination;
 use Livewire\WithPagination;
 
-class AnnouncementCategory extends Component
+class BarangayList extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
@@ -21,8 +21,8 @@ class AnnouncementCategory extends Component
     public function delete($id)
     {
         // Find the clearance type by id and delete it
-        $announcementCategory = AnnouncementCategoryModel::findOrFail($id);
-        $announcementCategory->delete();
+        $barangayList = BarangayListModel::findOrFail($id);
+        $barangayList->delete();
 
         // Refresh the component to update the list
         $this->dispatch('refresh-list');
@@ -33,8 +33,8 @@ class AnnouncementCategory extends Component
      */
     public function render(): Factory|\Illuminate\Foundation\Application|View|Application
     {
-        return view('livewire.announcement.category', [
-            'announcementCategories' => AnnouncementCategoryModel::paginate(10),
+        return view('livewire.campaign-iq.barangay-list', [
+            'barangayLists' => BarangayListModel::paginate(10),
         ]);
     }
 }
