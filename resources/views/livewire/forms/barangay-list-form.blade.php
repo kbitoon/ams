@@ -4,7 +4,6 @@
     </button>
 
     <form wire:submit="save">
-        <!-- Name input -->
         <div>
             <x-input-label for="barangay" :value="__('Barangay')" />
             <x-text-input wire:model="form.barangay" id="barangay" class="mt-1 block w-full" type="text" />
@@ -17,6 +16,7 @@
                 <option selected>Select your District</option>
                 <option value="North">North</option>
                 <option value="South">South</option>
+            </select> 
             <x-input-error :messages="$errors->get('form.district')" class="mt-2" />
         </div>
 

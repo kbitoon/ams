@@ -13,7 +13,7 @@ class ActivityForm extends Form
     public string $date = '';
     public string $description = '';
     public string $location = '';
-    public string $barangay = '';
+    public string $barangay_list_id = '';
     public string $district = '';
     public array $attachments = [];
 
@@ -22,16 +22,16 @@ class ActivityForm extends Form
      */
     public function setActivity(?Activity $activity = null): void
     {
-        $this->activity = $activity;
-        $this->date = $complaint->date;
-        $this->description = $complaint->description;
-        $this->location = $complaint->location;
-        $this->barangay = $complaint->barangay;
-        $this->district = $complaint->district;
+            $this->activity = $activity;
+            $this->date = $activity->date;
+            $this->description = $activity->description;
+            $this->location = $activity->location;
+            $this->barangay_list_id = $activity->barangay_list_id;
+            $this->district = $activity->district;
     }
 
     /**
-     * @return string[][]
+     * @return string[]
      */
     public function rules(): array
     {
@@ -39,7 +39,7 @@ class ActivityForm extends Form
             'date' => ['required'],
             'description' => ['required'],
             'location' => ['required'],
-            'barangay' => ['required'],
+            'barangay_list_id' => ['required'],
             'district' => ['required'],
         ];
     }
@@ -53,7 +53,7 @@ class ActivityForm extends Form
             'date' => 'date',
             'description' => 'description',
             'location' => 'location',
-            'barangay' => 'barangay',
+            'barangay_list_id' => 'barangay_list_id',
             'district' => 'district',
             'attachments' => 'attachment',
         ];
@@ -67,9 +67,9 @@ class ActivityForm extends Form
         $this->validate();
 
         if (!$this->activity) {
-            $this->activity = Activity::create($this->only(['date', 'description', 'location', 'barangay', 'district']));
+            $this->activity = Activity::create($this->only(['date', 'description', 'location', 'barangay_list_id', 'district']));
         } else {
-            $this->activity->update($this->only(['date', 'description', 'location', 'barangay', 'district']));
+            $this->activity->update($this->only(['date', 'description', 'location', 'barangay_list_id', 'district']));
         }
 
         foreach ($this->attachments as $attachment) {

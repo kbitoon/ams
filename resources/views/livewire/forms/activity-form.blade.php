@@ -24,14 +24,21 @@
         </div>
 
         <div class="mt-4">
-            <x-input-label for="barangay" :value="__('Barangay')" />
-            <x-text-input wire:model="form.barangay" id="barangay" class="mt-1 block w-full"/>
-            <x-input-error :messages="$errors->get('form.barangay')" class="mt-2" />
+            <x-input-label for="barangay_list_id" :value="__('Barangay')" />
+            <select wire:model.live.debounce.500ms="form.barangay_list_id" id="barangay_list_id" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                <option selected>Please select a Barangay</option>
+                @forelse($barangayLists as $barangayList)
+                    <option value="{{ $barangayList->id }}">{{ $barangayList->barangay }}</option>
+                @empty
+                    <option value="">No Barangays available</option>
+                @endforelse
+            </select>
+            <x-input-error :messages="$errors->get('form.barangay_list_id')" class="mt-2" />
         </div>
 
         <div class="mt-4">
             <x-input-label for="district" :value="__('District')" />
-            <x-text-input wire:model="form.district" id="district" class="mt-1 block w-full"/>
+            <x-text-input wire:model="form.district" id="district" class="mt-1 block w-full" />
             <x-input-error :messages="$errors->get('form.district')" class="mt-2" />
         </div>
         

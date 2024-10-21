@@ -15,15 +15,12 @@ class Activity extends Model
         'date',
         'description',
         'location',
-        'barangay',
+        'barangay_list_id',
         'district',
     ];
 
-    /**
-     * @return MorphMany
-     */
-    public function assets(): MorphMany
+    public function barangayList(): BelongsTo
     {
-        return $this->morphMany(Asset::class, 'assetable');
+        return $this->belongsTo(BarangayList::class);
     }
 }
