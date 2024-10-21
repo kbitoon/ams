@@ -68,10 +68,10 @@
                         {{ $activity->description }}
                     </td>
                     <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                        {{ $activity->barangay }}
+                        {{ $activity->location }}
                     </td>
                     <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                        {{ $activity->barangay }}
+                        {{ $activity->barangayList->barangay }}
                     </td>
                     <td class="px-6 py-4 text-sm leading-5 text-gray-900 flex space-x-2">
                         <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.activity-modal', arguments: { activity: {{ $activity }} }})">
