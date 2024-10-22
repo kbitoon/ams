@@ -89,6 +89,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::view('barangay-list', 'barangay-list')
         ->name('barangay-list');
+
+    Route::view('candidate', 'candidate')
+        ->name('candidate');
+
+    Route::view('survey', 'survey')
+        ->name('survey');
 });
 
 Route::middleware('guest')->group(function () {

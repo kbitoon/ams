@@ -23,7 +23,6 @@ class VehicleScheduleForm extends Form
      */
     public function setVehicleSchedule(?VehicleSchedule $vehicleSchedule = null): void
     {
-        if($vehicleSchedule){
         $this->vehicleSchedule = $vehicleSchedule;
         $this->destination = $vehicleSchedule->destination;
         $this->start = $vehicleSchedule->start;
@@ -31,7 +30,6 @@ class VehicleScheduleForm extends Form
         $this->vehicle_id = $vehicleSchedule->vehicle_id;
         $this->driver_id = $vehicleSchedule->driver_id;
         $this->status = $vehicleSchedule->status;
-        }
     }
 
     /**

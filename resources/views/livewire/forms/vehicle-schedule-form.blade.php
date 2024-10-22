@@ -23,10 +23,10 @@
             
             <div class="mt-4">
                 <x-input-label for="vehicle_id" :value="__('Vehicle')" />
-                <select wire:model.live.debounce.250ms="form.vehicle_id" id="vehicle_id" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                <select wire:model="form.vehicle_id" id="vehicle_id" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                     <option selected>Please select a vehicle</option>
                     @forelse($vehicles as $vehicle)
-                        <option value="{{ $vehicle->id }}">{{ $vehicle->name }}</option>
+                        <option value="{{ $vehicle->id }}">{{ $vehicle->name}}</option>
                     @empty
                         <option>No Vehicle available</option>
                     @endforelse
@@ -36,7 +36,7 @@
 
             <div class="mt-4">
                 <x-input-label for="driver_id" :value="__('Driver')" />
-                <select wire:model.live.debounce.250ms="form.driver_id" id="driver_id" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                <select wire:model="form.driver_id" id="driver_id" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                     <option selected>Please select a driver</option>
                     @forelse($drivers as $driver)
                         <option value="{{ $driver->id }}">{{ $driver->name }}</option>

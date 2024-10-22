@@ -9,7 +9,7 @@ use LivewireUI\Modal\ModalComponent;
 
 class BarangayListModal extends ModalComponent
 {
-    public ?BarangayList $announcementCategory = null;
+    public ?BarangayList $barangayList = null;
     public BarangayListForm $form;
 
     /**

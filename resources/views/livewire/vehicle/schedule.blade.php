@@ -95,8 +95,8 @@
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             <div class="flex items-center space-x-2">
-                                @if($vehicleSchedule->status !== 'Done')
-                                    @hasanyrole('superadmin|administrator')
+                                @if($vehicleSchedule->status === '')
+                                    @hasanyrole('superadmin|administrator|support')
                                         <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.vehicleSchedule-modal', arguments: { vehicleSchedule: {{ $vehicleSchedule }} }})">
                                             <i class="fas fa-pencil-alt"></i>
                                         </x-secondary-button>

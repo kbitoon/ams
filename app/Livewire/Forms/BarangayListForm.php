@@ -16,7 +16,7 @@ class BarangayListForm extends Form
     /**
      * @param BarangayList|null $barangayList
      */
-    public function setAnnouncement(?BarangayList $barangayList = null): void
+    public function setBarangayList(?BarangayList $barangayList = null): void
     {
         $this->barangayList = $barangayList;
         $this->barangay = $barangayList->barangay;

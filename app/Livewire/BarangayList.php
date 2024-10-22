@@ -20,11 +20,10 @@ class BarangayList extends Component
 
     public function delete($id)
     {
-        // Find the clearance type by id and delete it
         $barangayList = BarangayListModel::findOrFail($id);
         $barangayList->delete();
 
-        // Refresh the component to update the list
+  
         $this->dispatch('refresh-list');
     }
 
