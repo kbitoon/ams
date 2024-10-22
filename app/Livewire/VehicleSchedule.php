@@ -80,7 +80,7 @@ class VehicleSchedule extends Component
 
         $query = VehicleScheduleModel::query();
 
-        if (auth()->user()->hasRole('superadmin|administrator')) {
+        if (auth()->user()->hasRole('superadmin|administrator|support')) {
             if ($this->dateFilter) {
                 $query->whereDate('start', $this->dateFilter);
             }

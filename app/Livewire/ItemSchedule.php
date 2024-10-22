@@ -61,7 +61,7 @@ class ItemSchedule extends Component
     {
         $query = ItemScheduleModel::query();
 
-        if (auth()->user()->hasRole('superadmin|administrator')) {
+        if (auth()->user()->hasRole('superadmin|administrator|support')) {
             if ($this->dateFilter) {
                 $query->whereDate('start', $this->dateFilter);
             }
