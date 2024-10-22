@@ -208,6 +208,15 @@ new class extends Component
             <x-responsive-nav-link :href="route('complaint')" :active="request()->routeIs('complaint')" wire:navigate>
                 {{ __('Complaint') }}
             </x-responsive-nav-link>
+            @hasanyrole('support')
+                    <x-responsive-nav-link :href="route('vehicle-schedule')" :active="request()->routeIs('vehicle-schedule')" wire:navigate>
+                            {{ __('Vehicle Schedule') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('item-schedule')" :active="request()->routeIs('item-schedule')" wire:navigate>
+                            {{ __('Inventory Schedule') }}
+                    </x-responsive-nav-link>
+                @else
+            @endhasanyrole
             
         @hasanyrole('superadmin|administrator')
         <!-- Vehicle Dropdown -->
