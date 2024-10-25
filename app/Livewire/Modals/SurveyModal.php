@@ -30,6 +30,11 @@ class SurveyModal extends ModalComponent
         $this->form->save();
         $this->closeModal();
         $this->dispatch('refresh-list');
+
+        if (!auth()->user()) {
+            session()->flash('status', 'Thank you for answering the survey!');
+            $this->redirectRoute('answer-a-survey');
+        }
     }
 
     public function render(): View

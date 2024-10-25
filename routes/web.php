@@ -117,6 +117,9 @@ Route::middleware('guest')->group(function () {
     Route::view('new-supporter', 'campaign-iq')
         ->name('new-supporter');
 
+    Route::view('answer-a-survey', 'survey')
+        ->name('answer-a-survey');
+
      Route::get('/information/{id}', [PublicInformationController::class, 'show'])->name('information.public');
         
     
