@@ -20,6 +20,7 @@ class CandidateModal extends ModalComponent
         if ($candidate && $candidate->exists) {
             $this->form->setCandidate($candidate);
         }
+       
     }
 
     /**

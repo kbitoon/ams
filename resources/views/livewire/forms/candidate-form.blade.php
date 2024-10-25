@@ -15,7 +15,10 @@
             <select wire:model="form.position" id="position" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                 <option selected>Select your Position</option>
                 <option value="Mayor">Mayor</option>
+                <option value="Vice Mayor">Vice Mayor</option>
+                <option value="Congress">Congress</option>
                 <option value="Councilor">Councilor</option>
+                
             </select> 
             <x-input-error :messages="$errors->get('form.position')" class="mt-2" />
         </div>

@@ -15,4 +15,9 @@ class Candidate extends Model
         'position',
     ];
 
+    public function survey(): HasMany
+    {
+        return $this->hasMany(Clearance::class);
+    }
+    
 }

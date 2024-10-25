@@ -26,13 +26,20 @@ class Survey extends Component
         $this->dispatch('refresh-list');
     }
 
-    /**
-     * @return Factory|\Illuminate\Foundation\Application|View|Application
-     */
     public function render(): Factory|\Illuminate\Foundation\Application|View|Application
     {
-        return view('livewire.survey.result', [
-            'surverys' => SurveyModel::paginate(10),
+        // Fetch the candidate IDs and their survey counts
+        $surveys = SurveyModel::select('candidate_id')
+        ->selectRaw('count(*) as votes')
+        ->groupBy('candidate_id')
+        ->join('candidates', 'surveys.candidate_id', '=', 'candidates.id')
+        ->orderByRaw("CASE WHEN candidates.position = 'Mayor' THEN 1 ELSE 2 END")
+        ->with('candidate')
+        ->paginate(10);
+
+        return view('livewire.campaign-iq.survey', [
+            'surveys' => $surveys, // Pass survey data to the view
         ]);
     }
+
 }

@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('survey', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('candidate_id');
-            $table->foreign('candidate_id')->references('id')->on('candidates')->onDelete('cascade');
-            $table->date('date');
-            $table->timestamps();
+        Schema::table('survey', function (Blueprint $table) {
+            $table->dropColumn('date');
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('survey');
+        Schema::table('survey', function (Blueprint $table) {
+            $table->date('date');
+        });
     }
 };

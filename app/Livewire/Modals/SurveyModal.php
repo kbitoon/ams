@@ -4,27 +4,27 @@ namespace App\Livewire\Modals;
 
 use App\Livewire\Forms\SurveyForm;
 use App\Models\Survey;
+use App\Models\Candidate;
 use Illuminate\Contracts\View\View;
 use LivewireUI\Modal\ModalComponent;
+use Illuminate\Database\Eloquent\Collection;
 
 class SurveyModal extends ModalComponent
 {
     public ?Survey $survey = null;
     public SurveyForm $form;
+    public Collection $candidates;
 
-    /**
-     * @param Survey|null $survey
-     */
     public function mount(Survey $survey = null): void
     {
+        $this->candidates = Candidate::all();
+        $this->form->candidates = $this->candidates;
+
         if ($survey && $survey->exists) {
             $this->form->setSurvey($survey);
         }
     }
 
-    /**
-     * Save clearance
-     */
     public function save(): void
     {
         $this->form->save();
@@ -32,11 +32,11 @@ class SurveyModal extends ModalComponent
         $this->dispatch('refresh-list');
     }
 
-    /**
-     * @return View
-     */
-    public function render() : View
+    public function render(): View
     {
-        return view('livewire.forms.survey-form');
+        return view('livewire.forms.survey-form', [
+            'candidates' => $this->candidates,
+        ]);
     }
 }
+
