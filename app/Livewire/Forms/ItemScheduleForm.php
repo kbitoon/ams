@@ -25,8 +25,8 @@ class ItemScheduleForm extends Form
      */
     public function setItemSchedule(?ItemSchedule $itemSchedule = null): void
     {
-        $this->location = $itemSchedule->location;
         $this->itemSchedule = $itemSchedule;
+        $this->location = $itemSchedule->location;
         $this->start = $itemSchedule->start;
         $this->end = $itemSchedule->end;
         $this->quantity = $itemSchedule->quantity;

@@ -1,10 +1,34 @@
 <div class="min-w-full align-middle">
-    <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.survey-modal' })" class="mb-4">
-        New Survey
-    </x-primary-button>
-    <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.candidate-modal' })" class="mb-4">
-        New Candidate
-    </x-primary-button>
+    
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+        <!-- Left side with buttons -->
+        <div class="flex items-center gap-4">
+            <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.survey-modal' })">
+                New Survey
+            </x-primary-button>
+            <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.candidate-modal' })">
+                New Candidate
+            </x-primary-button>
+        </div>
+
+        <!-- Right side with date filter -->
+        <div class="flex flex-col items-start gap-2 md:items-end">
+            <div class="flex flex-col sm:flex-row items-start gap-4">
+                <div class="flex flex-col">
+                    <label for="start_date" class="text-sm font-medium text-gray-700">Start Date</label>
+                    <input type="date" id="start_date" wire:model="startDate" class="border-gray-300 rounded-md shadow-sm">
+                </div>
+                <div class="flex flex-col">
+                    <label for="end_date" class="text-sm font-medium text-gray-700">End Date</label>
+                    <input type="date" id="end_date" wire:model="endDate" class="border-gray-300 rounded-md shadow-sm">
+                </div>
+            </div>
+            <!-- Filter button below the date fields -->
+            <x-primary-button wire:click="filterByDate" class="mt-2 sm:mt-0">
+                Filter
+            </x-primary-button>
+        </div>
+    </div>
 
     <!-- Mayor Table -->
     <h2 class="text-lg font-semibold mt-6">Mayor Survey Result</h2>
