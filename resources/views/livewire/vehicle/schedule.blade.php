@@ -52,7 +52,7 @@
                     <th class="px-6 py-3 text-left bg-gray-50">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Start</span>
                     </th>
-                    <th class="px-6 py-3 text-left bg-gray-50 hidden md:table-cell">
+                    <th class="px-6 py-3 text-left bg-gray-50">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Vehicle</span>
                     </th>
                     <th class="px-6 py-3 text-left bg-gray-50">
@@ -61,7 +61,7 @@
                     <th class="px-6 py-3 text-left bg-gray-50">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Destination</span>
                     </th>
-                    <th class="px-6 py-3 text-left bg-gray-50 hidden md:table-cell">
+                    <th class="px-6 py-3 text-left bg-gray-50">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Driver</span>
                     </th>
                     <th class="px-6 py-3 text-left bg-gray-50">
@@ -77,17 +77,16 @@
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             {{ $vehicleSchedule->formatted_start }}
                         </td>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900 hidden md:table-cell">
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900 ">
                             {{ $vehicleSchedule->vehicle->name }}
                         </td>
-                        
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             {{ $vehicleSchedule->formatted_end }}
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             {{ $vehicleSchedule->destination }}
                         </td>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900 hidden md:table-cell">
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             {{ $vehicleSchedule->driver->name }}
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
