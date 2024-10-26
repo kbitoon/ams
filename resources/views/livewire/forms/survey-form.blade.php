@@ -1,4 +1,4 @@
-<div class="p-6">
+<div class="p-6 w-auto">
     <button class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 focus:outline-none text-3xl" wire:click="closeModal">
         &times;
     </button>
@@ -27,7 +27,7 @@
                         <div class="flex items-center mt-2">
                             <input type="radio" wire:model="form.viceMayor_id" value="{{ $candidate->id }}" id="ViceMayor_{{ $candidate->id }}" class="mr-2">
                             <label for="ViceMayor_{{ $candidate->id }}" class="text-gray-700">{{ $candidate->name }}</label>
-                        </div>
+                        </div> 
                     @endif
                 @endforeach
                 <x-input-error :messages="$errors->get('form.viceMayor_id')" class="mt-2" />

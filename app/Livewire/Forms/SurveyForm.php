@@ -10,23 +10,19 @@ use Illuminate\Database\Eloquent\Collection;
 class SurveyForm extends Form
 {
     public ?Survey $survey = null;
-    public string $mayor_id = ''; // Changed to mayor_id for clarity
-    public string $viceMayor_id = ''; // New property for Vice Mayor
-    public string $congress_id = ''; // New property for Congress
+    public string $mayor_id = '';
+    public string $viceMayor_id = '';
+    public string $congress_id = '';
     public array $selectedCouncilors = [];
-    public Collection $candidates;
-
-    public function __construct()
-    {
-        $this->candidates = new Collection();
-    }
 
     public function setSurvey(?Survey $survey = null): void
     {
         $this->survey = $survey;
         if ($survey) {
-            $this->mayor_id = $survey->candidate_id; // Set the mayor_id from survey
-            // Here you should load the vice mayor and congress IDs as well, if needed
+            $this->mayor_id = $survey->candidate_id;
+            $this->viceMayor_id = $survey->candidate_id;
+            $this->congress_id = $survey->candidate_id;
+            $this->selectedCouncilors = $survey->candidate_id;
         }
     }
 
@@ -34,9 +30,8 @@ class SurveyForm extends Form
     {
         return [
             'mayor_id' => ['required'],
-            'viceMayor_id' => ['required'], // Validation rule for Vice Mayor
-            'congress_id' => ['required'], // Validation rule for Congress
-            'selectedCouncilors' => ['array', 'max:8'],
+            'viceMayor_id' => ['required'],
+            'congress_id' => ['required'],
         ];
     }
 
@@ -55,7 +50,7 @@ class SurveyForm extends Form
      */
     public function save(): void
     {
-
+        $this->validate();
         if (count($this->selectedCouncilors) > 8) {
             throw ValidationException::withMessages([
                 'selectedCouncilors' => 'You can only select up to 8 councilors.',
@@ -74,11 +69,11 @@ class SurveyForm extends Form
             'candidate_id' => $this->congress_id,
         ]);
 
-        // Save selected Councilors
         foreach ($this->selectedCouncilors as $councilorId) {
             Survey::create([
                 'candidate_id' => $councilorId,
             ]);
         }
+        $this->reset();
     }
 }
