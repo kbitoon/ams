@@ -19,7 +19,7 @@ class ClearanceModal extends ModalComponent
     public Collection $clearanceTypes;
    
 
-    public string $requirement = ''; // Add a property to hold the requirement
+    public string $requirement = '';
 
     /**
      * @param Clearance|null $clearance
@@ -29,7 +29,7 @@ class ClearanceModal extends ModalComponent
         if ($clearance && $clearance->exists) {
             $this->form->setClearance($clearance);
         }
-
+  
         $this->clearanceTypes = ClearanceType::orderBy('name')->get();
     }
 
