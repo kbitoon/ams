@@ -16,6 +16,7 @@ class ClearanceModal extends ModalComponent
 
     public ?Clearance $clearance = null;
     public ClearanceForm $form;
+    public Collection $clearanceTypes;
    
 
     public string $requirement = ''; // Add a property to hold the requirement
