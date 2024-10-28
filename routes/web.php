@@ -11,9 +11,6 @@ use App\Http\Controllers\PublicInformationController;
 
 Route::get('/pending', Pending::class)->name('pending');
 
-
-   
-
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')
         ->name('dashboard');
@@ -98,7 +95,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::middleware('guest')->group(function () {
-    Route::view('/', 'welcome')->name('home');
+    Route::view('/', 'welcome')->name('home');  
 
     Route::view('get-a-clearance', 'clearance')
         ->name('get-a-clearance');
@@ -120,8 +117,7 @@ Route::middleware('guest')->group(function () {
     Route::view('answer-a-survey', 'survey')
         ->name('answer-a-survey');
 
-     Route::get('/information/{id}', [PublicInformationController::class, 'show'])->name('information.public');
-        
+    Route::get('/information/{id}', [PublicInformationController::class, 'show'])->name('information.public');
     
 
 });

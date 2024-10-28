@@ -1,8 +1,9 @@
 <div class="p-6 w-auto">
+    @auth
     <button class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 focus:outline-none text-3xl" wire:click="closeModal">
         &times;
     </button>
-
+    @endauth
     <form wire:submit.prevent="save">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <!-- Mayor selection -->

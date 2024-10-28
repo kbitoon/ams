@@ -1,8 +1,9 @@
 <div class="p-6">
+    @auth
     <button class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 focus:outline-none text-3xl" wire:click="closeModal">
         &times;
     </button>
-   
+   @endauth
     <form wire:submit="save">
         <!-- Name input -->
         <div class="mt-4">
