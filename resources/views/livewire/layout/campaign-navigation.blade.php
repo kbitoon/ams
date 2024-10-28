@@ -5,26 +5,30 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <div>
+                    <div class="font-semibold text-sm text-gray-800 dark:text-gray-200 leading-tight">
                         <img src="/storage/public/campaign_iq_logo.png"/>
                     </div>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('new-supporter')" :active="request()->routeIs('new-supporter')" wire:navigate>
-                        {{ __('New Supporter') }}
+                    <x-nav-link :href="route('campaign-iq')" :active="request()->routeIs('campaign-iq')" wire:navigate>
+                        {{ __('Supporter') }}
                     </x-nav-link>
-
-                    <x-nav-link :href="route('answer-a-survey')" :active="request()->routeIs('answer-a-survey')" wire:navigate>
+                    <x-nav-link :href="route('activity')" :active="request()->routeIs('activity')" wire:navigate>
+                        {{ __('Activity') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('survey')" :active="request()->routeIs('survey')" wire:navigate>
                         {{ __('Survey') }}
                     </x-nav-link>
                 </div>
             </div>
 
             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
-                    {{ __('Login') }}
-                </x-nav-link>
+                <button wire:click="logout" class="w-full text-start">
+                    <x-nav-link>
+                        {{ __('Log Out') }}
+                    </x-nav-link>
+                </button>
             </div>
 
             <!-- Hamburger -->
@@ -42,11 +46,15 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('new-supporter')" :active="request()->routeIs('new-supporter')" wire:navigate>
-                {{ __('New Supporter') }}
+            <x-responsive-nav-link :href="route('campaign-iq')" :active="request()->routeIs('campaign-iq')" wire:navigate>
+                {{ __('Supporter') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('answer-a-survey')" :active="request()->routeIs('answer-a-survey')" wire:navigate>
+            <x-responsive-nav-link :href="route('activity')" :active="request()->routeIs('activity')" wire:navigate>
+                {{ __('Activity') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('survey')" :active="request()->routeIs('survey')" wire:navigate>
                 {{ __('Survey') }}
             </x-responsive-nav-link>
         </div>
@@ -54,9 +62,11 @@
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('login')" wire:navigate>
-                    {{ __('Login') }}
-                </x-responsive-nav-link>
+                <button wire:click="logout" class="w-full text-start">
+                        <x-nav-link>
+                            {{ __('Log Out') }}
+                        </x-nav-link>
+                </button>
             </div>
         </div>
     </div>

@@ -35,11 +35,13 @@
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
 
-        @if (request()->is('pending') || request()->is('campaign-iq') ||  request()->is('activity') || request()->is('barangay-list')|| request()->is('survey'))
+        @if (request()->is('pending'))
         
             @elseif (request()->is('new-supporter') || request()->is('answer-a-survey') )
             <livewire:welcome.campaign-iq-navigation />
 
+            @elseif (request()->is('campaign-iq') ||  request()->is('activity') || request()->is('barangay-list')|| request()->is('survey'))
+            <livewire:layout.campaign-navigation />
             @else 
                 @auth
                     <livewire:layout.navigation />
