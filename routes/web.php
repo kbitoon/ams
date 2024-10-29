@@ -6,7 +6,6 @@ use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ComplaintTrackingController;
 use App\Http\Controllers\PublicInformationController;
-use App\Http\Controllers\Auth\CampaignLoginForm;
 
 
 
@@ -120,7 +119,6 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/information/{id}', [PublicInformationController::class, 'show'])->name('information.public');
 
-    Route::get('/campaign-login', CampaignLoginForm::class)->name('campaign.login');
 
 });
 
