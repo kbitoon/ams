@@ -39,7 +39,6 @@ class VehicleScheduleModal extends ModalComponent
         $start = Carbon::parse($this->form->start);
         $end = Carbon::parse($this->form->end);
 
-        // Find overlapping schedules
         $overlappingSchedules = VehicleSchedule::where(function ($query) use ($start, $end) {
             $query->where(function ($query) use ($start, $end) {
                 $query->whereBetween('start', [$start, $end])

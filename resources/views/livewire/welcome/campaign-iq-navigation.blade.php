@@ -22,7 +22,7 @@
             </div>
 
             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
+                <x-nav-link :href="route('campaign.login')" :active="request()->routeIs('campaign.login')">
                     {{ __('Login') }}
                 </x-nav-link>
             </div>
@@ -54,7 +54,7 @@
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('login')" wire:navigate>
+                <x-responsive-nav-link :href="route('campaign.login')" wire:navigate>
                     {{ __('Login') }}
                 </x-responsive-nav-link>
             </div>

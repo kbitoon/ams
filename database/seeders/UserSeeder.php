@@ -213,5 +213,13 @@ class UserSeeder extends Seeder
         ]);
 
         $aira->assignRole('administrator');
+
+        $campaignAdmin = User::factory()->create([
+            'name' => 'Campaign Admin',
+            'email' => 'admin@campaign.com',
+            'password' => Hash::make('campaign_admin'),
+        ]);
+
+        $campaignAdmin->assignRole('campaign');
     }
 }

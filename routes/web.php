@@ -5,9 +5,7 @@ use App\Livewire\Pending;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ComplaintTrackingController;
-use App\Http\Controllers\PublicInformationController;
-
-
+use App\Http\Controllers\PublicInformationController; 
 
 Route::get('/pending', Pending::class)->name('pending');
 
@@ -78,25 +76,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/complaints/{complaint}/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::get('/complaints/{complaint}', [ComplaintController::class, 'show'])->name('complaint.show');
 
-    Route::view('campaign-iq', 'campaign-iq')
-        ->name('campaign-iq');
-
-    Route::view('activity', 'activity')
-        ->name('activity');
-
-    Route::view('barangay-list', 'barangay-list')
-        ->name('barangay-list');
-
-    Route::view('candidate', 'candidate')
-        ->name('candidate');
-
-    Route::view('survey', 'survey')
-        ->name('survey');
+    
 });
 
 Route::middleware('guest')->group(function () {
     Route::view('/', 'welcome')->name('home');  
-
     Route::view('get-a-clearance', 'clearance')
         ->name('get-a-clearance');
 
@@ -120,6 +104,23 @@ Route::middleware('guest')->group(function () {
     Route::get('/information/{id}', [PublicInformationController::class, 'show'])->name('information.public');
 
 
+});
+
+Route::middleware(['auth','role:campaign'])->group(function () {
+    Route::view('campaign-iq', 'campaign-iq')
+        ->name('campaign-iq');
+
+    Route::view('activity', 'activity')
+        ->name('activity');
+
+    Route::view('barangay-list', 'barangay-list')
+        ->name('barangay-list');
+
+    Route::view('candidate', 'candidate')
+        ->name('candidate');
+
+    Route::view('survey', 'survey')
+        ->name('survey');
 });
 
 require __DIR__.'/auth.php';
