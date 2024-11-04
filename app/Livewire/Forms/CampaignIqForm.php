@@ -114,15 +114,17 @@ class CampaignIqForm extends Form
     {
         $this->validate();
 
-        $duplicate = CampaignIq::where('firstname', $this->firstname)
-        ->where('familyname', $this->familyname)
-        ->where('barangay', $this->barangay)
-        ->first();
-
-        if ($duplicate) {
-        throw ValidationException::withMessages([
-            'duplicate' => 'Supporter already exists.'
-        ]);
+        if (!$this->campaignIq) {
+            $duplicate = CampaignIq::where('firstname', $this->firstname)
+                ->where('familyname', $this->familyname)
+                ->where('barangay', $this->barangay)
+                ->first();
+    
+            if ($duplicate) {
+                throw ValidationException::withMessages([
+                    'duplicate' => 'Supporter already exists.'
+                ]);
+            }
         }
 
         $data = $this->only([
