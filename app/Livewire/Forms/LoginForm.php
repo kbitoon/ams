@@ -37,6 +37,13 @@ class LoginForm extends Form
                 'form.email' => trans('auth.failed'),
             ]);
         }
+        if (Auth::user()->hasRole('campaign')) {
+            Auth::logout();
+
+            throw ValidationException::withMessages([
+                'form.email' => 'You do not have access to this area.',
+            ]);
+        }
 
         RateLimiter::clear($this->throttleKey());
     }

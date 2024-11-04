@@ -36,9 +36,14 @@ class User extends Component
     {
         $query = UserModel::query();
 
+        // Exclude users with the 'campaign' role
+        $query->whereDoesntHave('roles', function ($q) {
+            $q->where('name', 'campaign');
+        });
+
         // Filter by selected role
         if ($this->selectedRole) {
-            $query->whereHas('roles', function($q) {
+            $query->whereHas('roles', function ($q) {
                 $q->where('name', $this->selectedRole);
             });
         }
@@ -49,12 +54,13 @@ class User extends Component
         }
 
         $users = $query->paginate(10);
-        
+
         $roles = Role::all(); // Fetch all roles
 
         return view('livewire.user-management.list', [
             'users' => $users,
-            'roles' => $roles, // Pass roles to the view
+            'roles' => $roles,
         ]);
     }
+
 }

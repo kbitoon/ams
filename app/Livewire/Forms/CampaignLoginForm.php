@@ -38,7 +38,7 @@ class CampaignLoginForm extends Form
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function authenticate()
+    public function authenticate() : void
     {
         $this->ensureIsNotRateLimited();
 
@@ -51,7 +51,7 @@ class CampaignLoginForm extends Form
             ]);
         }
 
-        RateLimiter::clear($this->throttleKey());
+
 
         $user = Auth::user();
 
@@ -62,8 +62,7 @@ class CampaignLoginForm extends Form
                 'form.email' => 'You do not have access to this area.',
             ]);
         }
-
-        return $user;
+        RateLimiter::clear($this->throttleKey());
     }
 
     /**
