@@ -32,7 +32,7 @@ class SurveyModal extends ModalComponent
         $this->dispatch('refresh-list');
 
         if (!auth()->user()) {
-            session()->flash('status', 'Thank you for answering the survey!');
+            session()->flash('status', 'Survey Submitted!');
             $this->redirectRoute('answer-a-survey');
         }
     }
