@@ -15,7 +15,7 @@ class VehicleScheduleForm extends Form
     public string $start = '';
     public string $end = '';
     public string $vehicle_id = '';
-    public string $driver_id = '';
+    public ?string $driver_id = null; 
     public string $status = '';
 
     /**
@@ -42,7 +42,7 @@ class VehicleScheduleForm extends Form
             'start' => ['required', 'date', 'after_or_equal:today'],
             'end' => ['required', 'date', 'after:start'],
             'vehicle_id' => ['required'],
-            'driver_id' => ['required'],
+            'driver_id' => ['nullable'],
         ];
     }
 
@@ -66,6 +66,8 @@ class VehicleScheduleForm extends Form
     public function save(): void
     {
         $this->validate();
+
+        $this->driver_id = $this->driver_id === '' ? null : $this->driver_id;
 
         if (!$this->vehicleSchedule) {
            VehicleSchedule::create($this->only(['destination', 'start', 'end', 'vehicle_id', 'driver_id', 'status']));

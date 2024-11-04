@@ -37,7 +37,7 @@
             <div class="mt-4">
                 <x-input-label for="driver_id" :value="__('Driver')" />
                 <select wire:model="form.driver_id" id="driver_id" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                    <option selected>Please select a driver</option>
+                    <option value="" selected>Please select a driver</option>
                     @forelse($drivers as $driver)
                         <option value="{{ $driver->id }}">{{ $driver->name }}</option>
                     @empty

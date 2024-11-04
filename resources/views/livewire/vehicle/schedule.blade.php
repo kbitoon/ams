@@ -87,7 +87,7 @@
                             {{ $vehicleSchedule->destination }}
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            {{ $vehicleSchedule->driver->name }}
+                        {{ $vehicleSchedule->driver->name ?? 'No Driver Assigned' }}
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             {{ $vehicleSchedule->status }}
