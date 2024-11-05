@@ -31,8 +31,5 @@ class RoleSeeder extends Seeder
         $anonymous = Role::create([
             'name' => 'anonymous',
         ]);
-        $campaign = Role::create([
-            'name' => 'campaign',
-        ]);
     }
 }

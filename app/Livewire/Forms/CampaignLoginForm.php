@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Models\CampaignUser;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
@@ -38,12 +39,12 @@ class CampaignLoginForm extends Form
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function authenticate() : void
+    public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
 
-        // Attempt to log in the user
-        if (! Auth::attempt($this->only(['email', 'password']), $this->remember)) {
+        // Attempt to log in the user using the 'campaign' guard
+        if (! Auth::guard('campaign')->attempt($this->only(['email', 'password']), $this->remember)) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
@@ -51,17 +52,6 @@ class CampaignLoginForm extends Form
             ]);
         }
 
-
-
-        $user = Auth::user();
-
-        if (!$user->hasRole('campaign')) {
-            Auth::logout();
-
-            throw ValidationException::withMessages([
-                'form.email' => 'You do not have access to this area.',
-            ]);
-        }
         RateLimiter::clear($this->throttleKey());
     }
 

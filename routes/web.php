@@ -106,7 +106,7 @@ Route::middleware('guest')->group(function () {
 
 });
 
-Route::middleware(['auth','role:campaign'])->group(function () {
+Route::middleware(['auth:campaign'])->group(function () {
     Route::view('campaign-iq', 'campaign-iq')
         ->name('campaign-iq');
 

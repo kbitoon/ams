@@ -16,21 +16,16 @@ new #[Layout('layouts.campaign-guest')] class extends Component
     public function login(): void
     {
         $this->validate();
-
         $this->form->authenticate();
 
-        if (auth()->user() && !auth()->user()->hasRole('campaign')) {
-            
-            throw ValidationException::withMessages([
-                'form.email' => 'You do not have access to this area.',
-            ]);
+        // Use the 'campaign' guard to check user status
+        if (Auth::guard('campaign')->user()) {
+            // If successfully authenticated, regenerate session and redirect
+            session()->regenerate();
+            $this->redirectIntended(route('campaign-iq', absolute: false), navigate: true);
         }
-
-        Session::regenerate();
-
-        $this->redirectIntended(route('campaign-iq', absolute: false), navigate: true);
     }
-}; ?>
+};?>
 
 <div>
     <!-- Session Status -->

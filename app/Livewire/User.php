@@ -36,11 +36,6 @@ class User extends Component
     {
         $query = UserModel::query();
 
-        // Exclude users with the 'campaign' role
-        $query->whereDoesntHave('roles', function ($q) {
-            $q->where('name', 'campaign');
-        });
-
         // Filter by selected role
         if ($this->selectedRole) {
             $query->whereHas('roles', function ($q) {
