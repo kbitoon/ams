@@ -24,43 +24,9 @@ class VehicleScheduleModal extends ModalComponent
             $this->form->setVehicleSchedule($vehicleSchedule);
         }
 
-        $this->filterAvailableOptions();
+        $this->vehicles = Vehicle::all();
+        $this->drivers = Driver::all();
     }
-
-    public function updated($propertyName)
-    {
-        if (in_array($propertyName, ['form.start', 'form.end'])) {
-            $this->filterAvailableOptions();
-        }
-    }
-
-    private function filterAvailableOptions()
-    {
-        $start = Carbon::parse($this->form->start);
-        $end = Carbon::parse($this->form->end);
-
-        $overlappingSchedules = VehicleSchedule::where(function ($query) use ($start, $end) {
-            $query->where(function ($query) use ($start, $end) {
-                $query->whereBetween('start', [$start, $end])
-                    ->orWhereBetween('end', [$start, $end])
-                    ->orWhere(function ($query) use ($start, $end) {
-                        $query->where('start', '<=', $start)
-                                ->where('end', '>=', $end);
-                    });
-            })
-            ->where('status', '!=', 'Done');
-        })->get();
-
-        // Extract used vehicle and driver IDs
-        $usedVehicleIds = $overlappingSchedules->pluck('vehicle_id')->unique();
-        $usedDriverIds = $overlappingSchedules->pluck('driver_id')->unique();
-
-
-        // Filter out used vehicles and drivers
-        $this->vehicles = Vehicle::whereNotIn('id', $usedVehicleIds)->get();
-        $this->drivers = Driver::whereNotIn('id', $usedDriverIds)->get();
-    }
-
 
     public function save(): void
     {

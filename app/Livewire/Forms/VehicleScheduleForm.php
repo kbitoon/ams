@@ -69,12 +69,34 @@ class VehicleScheduleForm extends Form
 
         $this->driver_id = $this->driver_id === '' ? null : $this->driver_id;
 
+        // Check for duplicate schedules for the same vehicle, excluding the current schedule if editing
+        $overlappingSchedules = VehicleSchedule::where('vehicle_id', $this->vehicle_id)
+            ->where(function ($query) {
+                $query->whereBetween('start', [$this->start, $this->end])
+                    ->orWhereBetween('end', [$this->start, $this->end])
+                    ->orWhere(function ($query) {
+                        $query->where('start', '<=', $this->start)
+                                ->where('end', '>=', $this->end);
+                    });
+            })
+            ->where('status', '!=', 'Done') // Exclude completed schedules
+            ->when($this->vehicleSchedule, function ($query) {
+                $query->where('id', '!=', $this->vehicleSchedule->id); // Exclude the current schedule
+            })
+            ->exists();
+
+        if ($overlappingSchedules) {
+            throw ValidationException::withMessages([
+                'vehicle_id' => ['The selected vehicle has an overlapping schedule.'],
+            ]);
+        }
+
         if (!$this->vehicleSchedule) {
-           VehicleSchedule::create($this->only(['destination', 'start', 'end', 'vehicle_id', 'driver_id', 'status']));
+            VehicleSchedule::create($this->only(['destination', 'start', 'end', 'vehicle_id', 'driver_id', 'status']));
         } else {
             $this->vehicleSchedule->update($this->only(['destination', 'start', 'end', 'vehicle_id', 'driver_id', 'status']));
         }
-        
+
         $this->reset();
     }
 }

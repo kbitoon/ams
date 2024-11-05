@@ -41,7 +41,7 @@ class DriverModal extends ModalComponent
     public function render(): View
     {
         return view('livewire.forms.driver-form', [
-            'drivers' => Driver::all(), // Pass collection to the view
+            'drivers' => Driver::all(),
         ]);
     }
 }
