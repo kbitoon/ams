@@ -77,6 +77,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/complaints/{complaint}', [ComplaintController::class, 'show'])->name('complaint.show');
 
     
+
+    
 });
 
 Route::middleware('guest')->group(function () {
@@ -101,13 +103,7 @@ Route::middleware('guest')->group(function () {
     Route::view('answer-a-survey', 'survey')
         ->name('answer-a-survey');
 
-    Route::get('/information/{id}', [PublicInformationController::class, 'show'])->name('information.public');
-
-
-});
-
-Route::middleware(['auth:campaign'])->group(function () {
-    Route::view('campaign-iq', 'campaign-iq')
+        Route::view('campaign-iq', 'campaign-iq')
         ->name('campaign-iq');
 
     Route::view('activity', 'activity')
@@ -121,6 +117,14 @@ Route::middleware(['auth:campaign'])->group(function () {
 
     Route::view('survey', 'survey')
         ->name('survey');
+        
+    Route::get('/information/{id}', [PublicInformationController::class, 'show'])->name('information.public');
+
+
+});
+
+Route::middleware(['auth:campaign'])->group(function () {
+   
 });
 
 require __DIR__.'/auth.php';
