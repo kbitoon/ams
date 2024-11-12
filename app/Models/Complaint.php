@@ -21,10 +21,11 @@ class Complaint extends Model
         'is_pinned',
         'name',
         'contact_number',
+        'approved_by',
         'status',
     ];
 
-     
+    
 
     /**
      * @return BelongsTo
@@ -33,6 +34,15 @@ class Complaint extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * @return BelongsTo
+     */
+    public function approvedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
     /**
      * @return HasMany
      */

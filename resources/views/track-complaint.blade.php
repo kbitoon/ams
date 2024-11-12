@@ -51,7 +51,7 @@
                                     </span></p>
                                     <p>{{ strip_tags($complaint->content) }}</p>
                                     @if ($complaint->status === 'Done')
-                                        <p><span class="font-semibold">Approved By: </span> {{ $complaint->user->name }}</p>
+                                        <p><span class="font-semibold">Approved By: </span> {{ $complaint->approvedBy->name }}</p>
                                     @endif
                                 </div>
 
