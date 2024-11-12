@@ -18,9 +18,11 @@ class CampaignIq extends Component
     public string $search = '';
     public string $filter = '';
     protected $listeners = ['refresh-list' => 'refresh'];
-    protected $updatesQueryString = ['search', 'filter'];
+    protected $updatesQueryString = ['search', 'filter','sortField', 'sortDirection'];
     public int $totalBarangayCaptains = 0;
     public int $totalBarangays = 0;
+    public $sortField = 'familyname';
+    public $sortDirection = 'asc';
 
     #[On('refresh-list')]
     public function refresh() {}
@@ -47,6 +49,16 @@ class CampaignIq extends Component
         }
     }
 
+    public function sortBy($field)
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortField = $field;
+            $this->sortDirection = 'asc';
+        }
+    }
+
     /**
      * @return Factory|\Illuminate\Foundation\Application|View|Application
      */
@@ -64,7 +76,9 @@ class CampaignIq extends Component
             $query->where('barangay', $this->filter);
         }
 
-        $totalPeople = CampaignIqModel::count();
+        $query->orderBy($this->sortField, $this->sortDirection);
+
+        $totalSupporter = CampaignIqModel::count();
         $totalLeaders = CampaignIqModel::where('designation', 'Leader')->count();
         $totalCoordinators = CampaignIqModel::where('designation', 'Coordinator')->count();
         $this->totalBarangayCaptains = CampaignIqModel::where('government_position', 'Barangay Captain')->count();
@@ -76,7 +90,7 @@ class CampaignIq extends Component
         return view('livewire.campaign.listing', [
             'campaignIqs'=>$campaignIqs,
             'barangays' => $barangays,
-            'totalPeople' => $totalPeople,
+            'totalSupporter' => $totalSupporter,
             'totalLeaders' => $totalLeaders,
             'totalCoordinators' => $totalCoordinators,
             'totalBarangayCaptains' => $this->totalBarangayCaptains,

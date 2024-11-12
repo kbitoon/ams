@@ -27,8 +27,9 @@ class CampaignIqModal extends ModalComponent
      */
     public function render()
     {
-        return view('livewire.campaign-iq.view', [
+        return view('livewire.campaign.view', [
             'campaignIq' => $this->campaignIq,
         ]);
     }
 }
+ 

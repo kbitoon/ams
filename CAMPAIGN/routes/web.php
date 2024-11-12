@@ -20,6 +20,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::view('campaign-iq', 'campaign-iq')
        ->name('campaign-iq');
+    Route::view('settings', 'settings')
+       ->name('settings');
 });
 
 Route::middleware('guest')->group(function () {

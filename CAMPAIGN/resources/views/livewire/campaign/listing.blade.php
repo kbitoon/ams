@@ -2,8 +2,8 @@
 <div class="min-w-full align-middle">
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
             <div class="bg-white shadow-md rounded-md p-4 border border-gray-200">
-                <p class="text-lg font-semibold text-black dark:text-white">Total People</p>
-                <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $totalPeople }}</span>
+                <p class="text-lg font-semibold text-black dark:text-white">Total Supporter</p>
+                <span class="text-2xl font-extrabold text-[#FF2D20]">{{ $totalSupporter }}</span>
             </div>
 
             <div class="bg-white shadow-md rounded-md p-4 border border-gray-200">
@@ -63,19 +63,28 @@
             <!-- Table Header -->
             <thead>
                 <tr>
-                    <th class="px-6 py-3 text-left bg-gray-50">
+                    <th class="px-6 py-3 text-left bg-gray-50 cursor-pointer">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">First Name</span>
                     </th>
-                    <th class="px-6 py-3 text-left bg-gray-50">
+                    <th class="px-6 py-3 text-left bg-gray-50 cursor-pointer" wire:click="sortBy('familyname')">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Last Name</span>
+                        @if($sortField == 'familyname')
+                            <span>{{ $sortDirection == 'asc' ? '↑' : '↓' }}</span>
+                        @endif
                     </th>
-                    <th class="px-6 py-3 text-left bg-gray-50">
+                    <th class="px-6 py-3 text-left bg-gray-50 cursor-pointer" wire:click="sortBy('barangay')">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Barangay</span>
+                        @if($sortField == 'barangay')
+                            <span>{{ $sortDirection == 'asc' ? '↑' : '↓' }}</span>
+                        @endif
                     </th>
-                    <th class="px-6 py-3 text-left bg-gray-50">
+                    <th class="px-6 py-3 text-left bg-gray-50 cursor-pointer" wire:click="sortBy('designation')">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Designation</span>
+                        @if($sortField == 'designation')
+                            <span>{{ $sortDirection == 'asc' ? '↑' : '↓' }}</span>
+                        @endif
                     </th>
-                    <th class="px-6 py-3 text-left bg-gray-50"></th>
+                        <th class="px-6 py-3 text-left bg-gray-50"></th>
                 </tr>
             </thead>
             <!-- Table Body -->
