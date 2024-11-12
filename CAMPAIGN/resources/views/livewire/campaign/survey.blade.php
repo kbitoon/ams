@@ -32,15 +32,15 @@
 
     <!-- Mayor Table -->
     <h2 class="text-lg font-semibold mt-6">Mayor Survey Result</h2>
-    <div class="overflow-x-auto">
+    <div class="overflow-x-auto mt-4">
         <table class="min-w-full border divide-y divide-gray-200">
             <!-- Table Header -->
             <thead>
                 <tr>
-                    <th class="px-6 py-3 text-left bg-gray-50">
+                    <th class="px-6 py-3 text-left bg-gray-50 w-1/2">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Candidate</span>
                     </th>
-                    <th class="px-6 py-3 text-left bg-gray-50">
+                    <th class="px-6 py-3 text-left bg-gray-50 w-1/4">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Votes</span>
                     </th>
                 </tr>
@@ -49,11 +49,11 @@
             <tbody class="bg-white divide-y divide-gray-200 divide-solid">
                 @forelse($surveys->where('candidate.position', 'Mayor') as $survey)
                     <tr>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            {{ $survey->candidate->name }} <!-- Candidate Name -->
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900 w-1/2">
+                            {{ $survey->candidate->name }}
                         </td>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            {{ $survey->votes }} <!-- Displays vote count -->
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900 w-1/4">
+                            {{ $survey->votes }}
                         </td>
                     </tr>
                 @empty
@@ -74,10 +74,10 @@
             <!-- Table Header -->
             <thead>
                 <tr>
-                    <th class="px-6 py-3 text-left bg-gray-50">
+                    <th class="px-6 py-3 text-left bg-gray-50 w-1/2">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Candidate</span>
                     </th>
-                    <th class="px-6 py-3 text-left bg-gray-50">
+                    <th class="px-6 py-3 text-left bg-gray-50 w-1/4">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Votes</span>
                     </th>
                 </tr>
@@ -86,10 +86,10 @@
             <tbody class="bg-white divide-y divide-gray-200 divide-solid">
                 @forelse($surveys->where('candidate.position', 'Vice Mayor') as $survey)
                     <tr>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900 w-1/2">
                             {{ $survey->candidate->name }}
                         </td>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900 w-1/4">
                             {{ $survey->votes }}
                         </td>
                     </tr>
@@ -111,10 +111,10 @@
             <!-- Table Header -->
             <thead>
                 <tr>
-                    <th class="px-6 py-3 text-left bg-gray-50">
+                    <th class="px-6 py-3 text-left bg-gray-50 w-1/2">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Candidate</span>
                     </th>
-                    <th class="px-6 py-3 text-left bg-gray-50">
+                    <th class="px-6 py-3 text-left bg-gray-50 w-1/4">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Votes</span>
                     </th>
                 </tr>
@@ -123,10 +123,10 @@
             <tbody class="bg-white divide-y divide-gray-200 divide-solid">
                 @forelse($surveys->where('candidate.position', 'Congress') as $survey)
                     <tr>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900 w-1/2">
                             {{ $survey->candidate->name }}
                         </td>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900 w-1/4">
                             {{ $survey->votes }}
                         </td>
                     </tr>
@@ -147,10 +147,10 @@
             <!-- Table Header -->
             <thead>
                 <tr>
-                    <th class="px-6 py-3 text-left bg-gray-50">
+                    <th class="px-6 py-3 text-left bg-gray-50 w-1/2">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Candidate</span>
                     </th>
-                    <th class="px-6 py-3 text-left bg-gray-50">
+                    <th class="px-6 py-3 text-left bg-gray-50 w-1/4">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Votes</span>
                     </th>
                 </tr>
@@ -159,10 +159,10 @@
             <tbody class="bg-white divide-y divide-gray-200 divide-solid">
                 @forelse($surveys->where('candidate.position', 'Councilor') as $survey)
                     <tr>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900 w-1/2">
                             {{ $survey->candidate->name }}
                         </td>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900 w-1/4">
                             {{ $survey->votes }}
                         </td>
                     </tr>
