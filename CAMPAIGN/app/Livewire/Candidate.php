@@ -31,7 +31,7 @@ class Candidate extends Component
      */
     public function render(): Factory|\Illuminate\Foundation\Application|View|Application
     {
-        return view('livewire.survey.candidate', [
+        return view('livewire.campaign.candidate', [
             'candidates' => CandidateModel::paginate(10),
         ]);
     }

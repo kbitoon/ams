@@ -9,9 +9,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('activity', 'activity')
         ->name('activity');
 
-    Route::view('barangay-list', 'barangay-list')
-        ->name('barangay-list');
-
     Route::view('candidate', 'candidate')
         ->name('candidate');
 
@@ -20,6 +17,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::view('campaign-iq', 'campaign-iq')
        ->name('campaign-iq');
+
     Route::view('settings', 'settings')
        ->name('settings');
 });
