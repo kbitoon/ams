@@ -9,12 +9,13 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Str;
 use JetBrains\PhpStorm\Pure;
 
-class BISActivity extends Model
+class Activity extends Model
 {
     use HasFactory;
 
-
+    protected $table = 'bis_activities';
     protected $fillable = [
+        'title',
         'start',
         'end',
         'description',

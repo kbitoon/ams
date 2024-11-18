@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\BISActivity as BISActivityModel;
+use App\Models\Activity as ActivityModel;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -11,7 +11,7 @@ use Livewire\Component;
 use Livewire\Features\SupportPagination\WithoutUrlPagination;
 use Livewire\WithPagination;
 
-class BISActivity extends Component
+class Activity extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
@@ -24,7 +24,7 @@ class BISActivity extends Component
     public function render(): Factory|\Illuminate\Foundation\Application|View|Application
     {
         return view('livewire.activity.list', [
-            'bisActivities' => BISActivityModel::paginate(10),
+            'activities' => ActivityModel::paginate(10),
         ]);
     }
 }

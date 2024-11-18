@@ -27,7 +27,7 @@
         <!-- Quantity Input -->
         <div class="mt-4">
             <x-input-label for="quantity" :value="__('Quantity')" />
-            <x-text-input wire:model.live.debounce.500ms="form.quantity" id="quantity" class="mt-1 block w-full" type="text" />
+            <x-text-input wire:model="form.quantity" id="quantity" class="mt-1 block w-full" type="text" />
             <x-input-error :messages="$errors->get('form.quantity')" class="mt-2" />
         </div>
 

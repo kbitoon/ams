@@ -14,7 +14,7 @@ class ItemScheduleForm extends Form
     public string $location = '';
     public string $start = '';
     public string $end = '';
-    public int $quantity = 0;
+    public string $quantity = '';
     public string $item_id = '';
     public string $status = '';
     public string $purpose = '';
@@ -29,7 +29,7 @@ class ItemScheduleForm extends Form
         $this->location = $itemSchedule->location;
         $this->start = $itemSchedule->start;
         $this->end = $itemSchedule->end;
-        $this->quantity = $itemSchedule->quantity ?? 0;
+        $this->quantity = $itemSchedule->quantity;
         $this->item_id = $itemSchedule->item_id;
         $this->purpose = $itemSchedule->purpose;
         $this->status = $itemSchedule->status;
@@ -46,7 +46,7 @@ class ItemScheduleForm extends Form
             'location' => ['required'],
             'start' => ['required', 'date', 'after_or_equal:today'],
             'end' => ['required', 'date', 'after:start'],
-            'quantity' => ['required','integer', 'max:'.$this->getQuantityLeft()],
+            'quantity' => ['required','numeric', 'min: 1' ,'max:'.$this->getQuantityLeft()],
             'item_id' => ['required'],
             'purpose' => ['required'],
             'assigned' => ['required'],

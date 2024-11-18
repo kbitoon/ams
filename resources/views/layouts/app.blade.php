@@ -18,6 +18,9 @@
 
         <!-- Include Flatpickr JS -->
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <!-- FullCalendar CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.2.0/dist/fullcalendar.min.css" rel="stylesheet" />
+
         
 
         <!-- Icon -->
@@ -35,20 +38,13 @@
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
 
-        @if (request()->is('pending'))
-        
-            @elseif (request()->is('new-supporter') || request()->is('answer-a-survey') )
-            <livewire:welcome.campaign-iq-navigation />
-
-            @elseif (request()->is('campaign-iq') ||  request()->is('activity') || request()->is('barangay-list')|| request()->is('survey'))
-            <livewire:layout.campaign-navigation />
-            @else 
-                @auth
-                    <livewire:layout.navigation />
-                @else
-                    <livewire:welcome.navigation />
-                @endauth
-            @endif
+        @if (!request()->is('pending'))
+            @auth
+                <livewire:layout.navigation />
+            @else
+                <livewire:welcome.navigation />
+            @endauth
+        @endif
             <!-- Page Heading -->
             @if (isset($header))
                 <header class="bg-white dark:bg-gray-800 shadow">
@@ -64,6 +60,9 @@
                 {{ $slot }}
             </main>
         </div>
+         <!-- FullCalendar JS -->
+        <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.2.0/dist/fullcalendar.min.js"></script>
     </body>
     <script>
         Trix.config.blockAttributes.default.tagName = "p"

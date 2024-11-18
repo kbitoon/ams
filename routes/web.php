@@ -5,7 +5,8 @@ use App\Livewire\Pending;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ComplaintTrackingController;
-use App\Http\Controllers\PublicInformationController; 
+use App\Http\Controllers\PublicInformationController;
+use App\Http\Controllers\FullCalendarController;
 
 Route::get('/pending', Pending::class)->name('pending');
 
@@ -66,6 +67,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         
     Route::view('settings', 'settings')
         ->name('settings');
+
+    Route::view('activity', 'activity')
+        ->name('activity');
 
     Route::get('/clearancepurposemodal', [App\Http\Controllers\AmsController::class, 'clearancepurposemodal'])->name('clearancepurposemodal');
 
