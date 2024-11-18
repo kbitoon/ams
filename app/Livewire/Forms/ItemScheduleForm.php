@@ -44,7 +44,7 @@ class ItemScheduleForm extends Form
     {
         return [
             'location' => ['required'],
-            'start' => ['required', 'date', 'after_or_equal:today'],
+            'start' => ['required', 'date'],
             'end' => ['required', 'date', 'after:start'],
             'quantity' => ['required','numeric', 'min: 1' ,'max:'.$this->getQuantityLeft()],
             'item_id' => ['required'],

@@ -9,7 +9,15 @@
             header: {
                 left: 'prev,next today',
                 center: 'title',
-                right: 'month,agendaWeek,agendaDay'
+                right: 'month,list'
+            },
+            eventLimit: 5,
+        
+            dayRender: function(date, cell) {
+                var eventCount = cell.find('.fc-event').length;
+                if (eventCount > 5) {
+                    cell.addClass('has-more-events');
+                }
             }
         });
     });

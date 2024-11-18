@@ -50,7 +50,7 @@ new class extends Component
 
                     <!-- Announcement Dropdown -->
                         <x-nav-link :href="route('announcement')" :active="request()->routeIs('announcement')" wire:navigate>
-                            {{ __('Announcement') }}
+                            {{ __('Announcements') }}
                         </x-nav-link>
 
 
@@ -61,24 +61,15 @@ new class extends Component
 
                     <!-- Complaint Dropdown -->
                         <x-nav-link :href="route('complaint')" :active="request()->routeIs('complaint')" wire:navigate>
-                            {{ __('Complaint') }}
+                            {{ __('Complaints') }}
                         </x-nav-link>
-                 @hasanyrole('support')
-                        <x-nav-link :href="route('vehicle-schedule')" :active="request()->routeIs('vehicle-schedule')" wire:navigate>
-                            {{ __('Vehicle Schedule') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('item-schedule')" :active="request()->routeIs('item-schedule')" wire:navigate>
-                            {{ __('Inventory Schedule') }}
-                        </x-nav-link>
-                    @else
-                @endhasanyrole
 
-                @hasanyrole('superadmin|administrator')
+                @hasanyrole('superadmin|administrator|support')
                     <div class="hidden sm:flex sm:items-center sm:ml-6 pt-1 ">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
                                 <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                                    <div>Vehicle</div>
+                                    <div>Schedules</div>
 
                                     <div class="ml-1">
                                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -89,15 +80,19 @@ new class extends Component
                             </x-slot>
 
                             <x-slot name="content">
-                            <x-dropdown-link :href="route('vehicle-listing')" :active="request()->routeIs('vehicle-listing')" wire:navigate>
-                                    {{ __('Listing') }}
-                                </x-dropdown-link>
-                                <x-dropdown-link :href="route('driver')" :active="request()->routeIs('driver')" wire:navigate>
-                                    {{ __('Driver') }}
+                                <x-dropdown-link :href="route('activity')" :active="request()->routeIs('activity')" wire:navigate>
+                                    {{ __('Activities') }}
                                 </x-dropdown-link>
                                 <x-dropdown-link :href="route('vehicle-schedule')" :active="request()->routeIs('vehicle-schedule')" wire:navigate>
-                                    {{ __('Assignment Schedule') }}
+                                        {{ __('Vehicles') }}
                                 </x-dropdown-link>
+                                <x-dropdown-link :href="route('item-schedule')" :active="request()->routeIs('item-schedule')" wire:navigate>
+                                    {{ __('Equipments') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('vehicle-schedule')" :active="request()->routeIs('vehicle-schedule')" wire:navigate>
+                                    {{ __('Facilities') }}
+                                </x-dropdown-link>
+                                
                             </x-slot>
                         </x-dropdown>
                     </div>
@@ -119,12 +114,17 @@ new class extends Component
                                 </x-slot>
 
                                 <x-slot name="content">
+                                    <x-dropdown-link :href="route('driver')" :active="request()->routeIs('driver')" wire:navigate>
+                                        {{ __('Driver') }}
+                                    </x-dropdown-link>
+                                    <x-dropdown-link :href="route('vehicle-listing')" :active="request()->routeIs('vehicle-listing')" wire:navigate>
+                                        {{ __('Vehicle') }}
+                                    </x-dropdown-link>
+
                                     <x-dropdown-link :href="route('item')" :active="request()->routeIs('item')" wire:navigate>
-                                        {{ __('Listing') }}
+                                        {{ __('Equipment') }}
                                     </x-dropdown-link>
-                                    <x-dropdown-link :href="route('item-schedule')" :active="request()->routeIs('item-schedule')" wire:navigate>
-                                        {{ __('Assignment Schedule') }}
-                                    </x-dropdown-link>
+                                    
                                 </x-slot>
                             </x-dropdown>
                         </div>
@@ -197,16 +197,16 @@ new class extends Component
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('clearance')" :active="request()->routeIs('clearance')" wire:navigate>
-                {{ __('Clearance') }}
+                {{ __('Clearances') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('announcement')" :active="request()->routeIs('announcement')" wire:navigate>
-                {{ __('Announcement') }}
+                {{ __('Announcements') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('information')" :active="request()->routeIs('information')" wire:navigate>
                 {{ __('Information') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('complaint')" :active="request()->routeIs('complaint')" wire:navigate>
-                {{ __('Complaint') }}
+                {{ __('Complaints') }}
             </x-responsive-nav-link>
             @hasanyrole('support')
             <x-responsive-nav-link :href="route('vehicle-schedule')" :active="request()->routeIs('vehicle-schedule')" wire:navigate>

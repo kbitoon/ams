@@ -29,7 +29,7 @@
         </div>
         <div class="mt-4">
             <x-input-label for="description" :value="__('Description')" />
-            <x-text-input wire:model="form.description" id="description" class="mt-1 block w-full"/>
+            <textarea wire:model="form.description" id="description" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
             <x-input-error :messages="$errors->get('form.description')" class="mt-2" />
         </div>
 

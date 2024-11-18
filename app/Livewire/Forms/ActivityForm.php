@@ -36,8 +36,8 @@ class ActivityForm extends Form
     {
         return [
             'title' => ['required'],
-            'start' => ['required', 'date',],
-            'end' => ['required', 'date',],
+            'start' => ['required', 'date','after_or_equal:today'],
+            'end' => ['required', 'date','after:start' ],
             'description' => ['nullable'],
             'location' => ['nullable'],
         ];

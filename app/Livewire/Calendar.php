@@ -24,6 +24,7 @@ class Calendar extends Component
 
     public function render()
     {
-        return view('livewire.calendar');
+        return view('livewire.calendar', ['activities' => $this->activities]);
     }
+
 }
