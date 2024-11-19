@@ -94,23 +94,24 @@
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             <div class="flex items-center space-x-2">
-                                @if($vehicleSchedule->status === '')
-                                    @hasanyrole('superadmin|administrator|support')
+                                @hasanyrole('superadmin|administrator|support')
                                         <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.vehicleSchedule-modal', arguments: { vehicleSchedule: {{ $vehicleSchedule }} }})">
                                             <i class="fas fa-pencil-alt"></i>
                                         </x-secondary-button>
-                                    @endhasanyrole
-
-                                    @if($vehicleSchedule->status === 'Ongoing')
-                                        <x-secondary-button wire:click="markAsDone({{ $vehicleSchedule->id }})">
-                                            <i class="fas fa-check mr-1"></i>
-                                        </x-secondary-button>
-                                    @else
-                                        <x-secondary-button wire:click="markAsOngoing({{ $vehicleSchedule->id }})">
-                                            <i class="fas fa-hourglass-half mr-1"></i>
-                                        </x-secondary-button>
-                                    @endif
+                                @endhasanyrole
+                                @if(is_null($vehicleSchedule->status) || $vehicleSchedule->status === '')
+                                    <x-secondary-button wire:click="markAsOngoing({{ $vehicleSchedule->id }})">
+                                        <i class="fas fa-hourglass-half mr-1"></i>
+                                    </x-secondary-button>
+                                @elseif($vehicleSchedule->status === 'Ongoing')
+                                    <x-secondary-button wire:click="markAsDone({{ $vehicleSchedule->id }})">
+                                        <i class="fas fa-check mr-1"></i>
+                                    </x-secondary-button>
                                 @endif
+
+                               
+                            </div>
+
                             </div>
                         </td>
                     </tr>
