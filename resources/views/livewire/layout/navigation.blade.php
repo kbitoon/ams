@@ -114,9 +114,7 @@ new class extends Component
                                 </x-slot>
 
                                 <x-slot name="content">
-                                    <x-dropdown-link :href="route('driver')" :active="request()->routeIs('driver')" wire:navigate>
-                                        {{ __('Driver') }}
-                                    </x-dropdown-link>
+                                    
                                     <x-dropdown-link :href="route('vehicle-listing')" :active="request()->routeIs('vehicle-listing')" wire:navigate>
                                         {{ __('Vehicle') }}
                                     </x-dropdown-link>
@@ -159,6 +157,9 @@ new class extends Component
                         <button wire:click="" class="w-full text-start">
                         <x-dropdown-link :href="route('user-management')" wire:navigate>
                             {{ __('User Management') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('driver')" :active="request()->routeIs('driver')" wire:navigate>
+                            {{ __('Driver') }}
                         </x-dropdown-link>
 
                         <x-dropdown-link :href="route('settings')" wire:navigate>
