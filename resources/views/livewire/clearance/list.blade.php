@@ -74,6 +74,11 @@
                         </div>
                     @endhasanyrole
                 @endif
+                @if($clearance->status === "Done")
+                    <span class="text-xs text-gray-500 mt-1">
+                        {{ $clearance->created_at->format('F j, Y')}}
+                    </span>
+                    @endif
             </td>
         </tr>
         @empty
