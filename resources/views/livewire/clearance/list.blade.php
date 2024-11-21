@@ -42,7 +42,7 @@
         <tr class="hover:bg-gray-100 cursor-pointer"
             wire:click="$dispatch('openModal', { component: 'modals.show.clearance-modal', arguments: { clearance: {{ $clearance }} }})">
             <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                {{ $clearance->name }}
+            {{ \Illuminate\Support\Str::title($clearance->name) }}
             </td>
             <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                 {{ $clearance->type->name }}
