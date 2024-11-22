@@ -47,7 +47,7 @@
             <tr class="hover:bg-gray-100 cursor-pointer"
                 wire:click="$dispatch('openModal', { component: 'modals.show.complaint-modal', arguments: { complaint: {{ $complaint }} }})">
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                    {{ $complaint->name }}
+                  {{ \Illuminate\Support\Str::title($complaint->name ) }}
                 </td>
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                     {{ $complaint->title }}
@@ -73,6 +73,12 @@
                         {{ $this->getTimeAgo($complaint->created_at) }}
                     </span>
                     @endif
+                    @if($complaint->status === "Done")
+                    <span class="text-xs text-gray-500 mt-1">
+                        {{ $complaint->created_at->format('F j, Y')}}
+                    </span>
+                    @endif
+
                 </td>
                 
             </tr>
