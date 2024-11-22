@@ -84,6 +84,15 @@ class User extends Authenticatable
     /**
      * @return HasMany
      */
+    public function incidentReports(): HasMany
+    {
+        return $this->hasMany(incidentReport::class);
+    }
+
+
+    /**
+     * @return HasMany
+     */
     public function announcements(): HasMany
     {
         return $this->hasMany(Announcement::class);
