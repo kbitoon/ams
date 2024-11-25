@@ -89,6 +89,14 @@ class User extends Authenticatable
         return $this->hasMany(incidentReport::class);
     }
 
+    /**
+     * @return HasMany
+     */
+    public function blotters(): HasMany
+    {
+        return $this->hasMany(Blotter::class);
+    }
+
 
     /**
      * @return HasMany

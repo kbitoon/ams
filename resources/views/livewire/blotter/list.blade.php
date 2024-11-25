@@ -1,8 +1,8 @@
 <div class="p-6">
     <!-- Table Section -->
     <div class="flex justify-between items-center mb-4 mr-2">
-        <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.activity-modal' })" class="h-8 mr-2">
-            <span class="hidden sm:inline">New Activity</span>
+        <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.blotter-modal' })" class="h-8 mr-2">
+            <span class="hidden sm:inline">New Blotter</span>
             <span class="inline sm:hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -15,42 +15,48 @@
             <thead>
                 <tr>
                     <th class="px-6 py-3 text-left bg-gray-50">
-                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Title</span>
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Date of Incident</span>
                     </th>
                     <th class="px-6 py-3 text-left bg-gray-50">
-                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Start</span>
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Date of Reported</span>
                     </th>
                     <th class="px-6 py-3 text-left bg-gray-50">
-                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">End</span>
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Complainant</span>
+                    </th>
+                    <th class="px-6 py-3 text-left bg-gray-50">
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Complainee</span>
                     </th>
                     <th class="px-6 py-3 bg-gray-50"></th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-                @forelse($activities as $activity)
+                @forelse($blotters as $blotter)
                 <tr class="hover:bg-gray-100 cursor-pointer"
-                wire:click="$dispatch('openModal', { component: 'modals.show.activity-modal', arguments: { activity: {{ $activity }} }})">
+                wire:click="$dispatch('openModal', { component: 'modals.show.blotter-modal', arguments: { blotter: {{ $blotter }} }})">
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            {{ $activity->title }}
+                            {{ $blotter->incident }}
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                        {{ \Carbon\Carbon::parse($activity->start)->format('F j, Y g:i A') }}
+                            {{ $blotter->reported }}
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                        {{ \Carbon\Carbon::parse($activity->start)->format('F j, Y g:i A') }}
+                        {{ trim("{$blotter->firstname} {$blotter->lastname}") }}
+                        </td>
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                        {{ trim("{$blotter->firstname} {$blotter->lastname}") }}
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             @hasanyrole('superadmin|administrator')
-                                <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.activity-modal', arguments: { activity: {{ $activity->id }} }})">
+                                <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.blotter-modal', arguments: { blotter: {{ $blotter->id }} }})">
                                     <i class="fas fa-pencil-alt"></i>
                                 </x-secondary-button>
-                            @endhasanyrole
+                            @endhasanyrole 
                         </td>
                     </tr>
                 @empty
                     <tr>
                         <td colspan="5" class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            No activities found.
+                            No blotters found.
                         </td>
                     </tr>
                 @endforelse
@@ -60,7 +66,7 @@
 
     <div class="mt-5">
         {{-- Pagination links --}}
-        {{ $activities->links() }}
+        {{ $blotters->links() }}
     </div>
 
     
