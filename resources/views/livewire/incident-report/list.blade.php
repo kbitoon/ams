@@ -37,7 +37,7 @@
                             {{$incidentReport->name}}
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                        {{ \Carbon\Carbon::parse($incidentReport->date)->format('F j, Y') }}
+                        {{ \Carbon\Carbon::parse($incidentReport->date)->format('M j, Y') }}
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             @hasanyrole('superadmin|administrator')
