@@ -41,12 +41,11 @@
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             @hasanyrole('superadmin|administrator')
-                                <x-secondary-button wire:click.stop ="$dispatch('openModal', { component: 'modals.incident-report-modal', arguments: { incidentReport: {{ $incidentReport->id }} }})">
+                                <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.incident-report-modal', arguments: { incidentReport: {{ $incidentReport->id }} }})">
                                     <i class="fas fa-pencil-alt"></i>
-                                </x-secondary-button>
+                                </x-secondary-button> 
                             @endhasanyrole
                         </td>
-                    </tr>
                 @empty
                     <tr>
                         <td colspan="5" class="px-6 py-4 text-sm leading-5 text-gray-900">

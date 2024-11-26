@@ -7,7 +7,7 @@
         <h2 class="text-xl font-semibold text-black dark:text-white">
             {{ $incidentReport->title }}
             <span class="block text-gray-500 dark:text-gray-400" style="font-size: 0.65rem;">
-                {{ \Carbon\Carbon::parse($incidentReport->date)->format('F j, Y') }}
+                {{$incidentReport->name}} | {{ \Carbon\Carbon::parse($incidentReport->date)->format('F j, Y') }}
             </span>
         </h2>
 
