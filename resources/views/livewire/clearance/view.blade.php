@@ -69,7 +69,7 @@
 
         @if ($clearance->status === 'Done')
             <div class="flex justify-between">
-                <span class="font-semibold">Approved By:</span> 
+                <span class="font-semibold mr-2">Approved By:</span> 
                 <span class="flex-grow">
                     {!!$clearance->approvedBy->name!!}
                 </span>

@@ -23,7 +23,7 @@ class BlotterForm extends Form
     public string $place_of_birth = '';
     public string $occupation = '';
     public string $narration = '';
-
+    public ?int $complainee_id = null;
 
     /**
      * @param Blotter|null $blotter
@@ -64,6 +64,7 @@ class BlotterForm extends Form
             'address' => ['required'],
             'place_of_birth'=>['nullable'],
             'narration' => ['required'],
+            'complainee_id' => ['nullable', 'exists:complainees,id'],
         ];
     }
 
@@ -83,6 +84,7 @@ class BlotterForm extends Form
             'civil' => 'civil',
             'date_of_birth' => 'date_of_birth',
             'address' => 'address',
+            'place_of_birth' => 'place_of_birth',
             'occupation' => 'occupation',
             'narration' => 'narration',
         ];
@@ -96,9 +98,9 @@ class BlotterForm extends Form
         $this->validate();
         if (!$this->blotter) {
             if (auth()->user()) {
-            $this->blotter = auth()->user()->blotters()->create($this->only(['user_id','reported','incident','place','lastname', 'firstname', 'middle','contact','civil','date_of_birth','address','occupation','narration']));
+            $this->blotter = auth()->user()->blotters()->create($this->only(['user_id','reported','incident','place','lastname', 'firstname', 'middle','contact','civil','date_of_birth','address','place_of_birth','occupation','narration','complainee_id']));
         } else {
-            $this->blotter->update($this->only(['reported','incident','place','lastname', 'firstname', 'middle','contact','civil','date_of_birth','address','occupation','narration','complainee_id']));
+            $this->blotter->update($this->only(['reported','incident','place','lastname', 'firstname', 'middle','contact','civil','date_of_birth','address','place_of_birth','occupation','narration','complainee_id']));
         }
         $this->reset();
         }

@@ -26,7 +26,6 @@ class Blotter extends Model
         'place_of_birth',
         'occupation',
         'narration',
-        'recorded_by',
         'complainee_id',
     ];
 

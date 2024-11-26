@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Activity') }}
+            {{ __('Activities') }}
         </h2>
     </x-slot>
 
@@ -17,13 +17,13 @@
                                 :class="openTab === 1 ? 'border-b-2 font-medium text-blue-500' : 'text-gray-500'" 
                                 @click="openTab = 1" 
                                 class="py-2 px-4">
-                                Calendar
+                                Calendar View
                             </button>
                             <button 
                                 :class="openTab === 2 ? 'border-b-2 font-medium text-blue-500' : 'text-gray-500'" 
                                 @click="openTab = 2" 
                                 class="py-2 px-4">
-                                Activity
+                                List View
                             </button>
                         </div>
                         

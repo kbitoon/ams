@@ -168,11 +168,11 @@ new class extends Component
                                 <x-slot name="content">
                                     
                                     <x-dropdown-link :href="route('vehicle-listing')" :active="request()->routeIs('vehicle-listing')" wire:navigate>
-                                        {{ __('Vehicle') }}
+                                        {{ __('Vehicles') }}
                                     </x-dropdown-link>
 
                                     <x-dropdown-link :href="route('item')" :active="request()->routeIs('item')" wire:navigate>
-                                        {{ __('Equipment') }}
+                                        {{ __('Equipments') }}
                                     </x-dropdown-link>
                                     
                                 </x-slot>
@@ -272,20 +272,26 @@ new class extends Component
             @endhasanyrole
             
         @hasanyrole('superadmin|administrator')
-        <!-- Vehicle Dropdown -->
+        <!-- Schedule Dropdown -->
         <div x-data="{ open: false }">
             <button @click="open = !open" class="w-full text-left px-4 py-2 rounded-md bg-white dark:bg-zinc-900">
-                {{ __('Vehicle') }}
+                {{ __('Schedule') }}
                 <svg class="inline w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                 </svg>
             </button>
             <div x-show="open" @click.away="open = false" class="mt-2 space-y-1">
-                <x-responsive-nav-link :href="route('vehicle-listing')" :active="request()->routeIs('vehicle-listing')" wire:navigate>
-                    {{ __('Listing') }}
+                 <x-responsive-nav-link :href="route('activity')" :active="request()->routeIs('activity')" wire:navigate>
+                    {{ __('Activities') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('vehicle-schedule')" :active="request()->routeIs('vehicle-schedule')" wire:navigate>
-                    {{ __('Schedule') }}
+                    {{ __('Vehicles') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('item-schedule')" :active="request()->routeIs('item-schedule')" wire:navigate>
+                    {{ __('Equipments') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('activity')" :active="request()->routeIs('activity')" wire:navigate>
+                    {{ __('Facilities') }}
                 </x-responsive-nav-link>
             </div>
         </div>
@@ -299,11 +305,11 @@ new class extends Component
                 </svg>
             </button>
             <div x-show="open" @click.away="open = false" class="mt-2 space-y-1">
-                <x-responsive-nav-link :href="route('item')" :active="request()->routeIs('item')" wire:navigate>
-                    {{ __('Listing') }}
+                <x-responsive-nav-link :href="route('vehicle-listing')" :active="request()->routeIs('vehicle-listing')" wire:navigate>
+                    {{ __('Vehicles') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('item-schedule')" :active="request()->routeIs('item-schedule')" wire:navigate>
-                    {{ __('Schedule') }}
+                <x-responsive-nav-link :href="route('item')" :active="request()->routeIs('item')" wire:navigate>
+                    {{ __('Equipments') }}
                 </x-responsive-nav-link>
             </div>
         </div>

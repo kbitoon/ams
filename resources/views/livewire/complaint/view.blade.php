@@ -14,7 +14,7 @@
                 </span>
             <p>{!! $complaint->content !!}</p>
             @if ($complaint->status === 'Done')
-                <p><span class="font-semibold">Approved By: </span> {!! $complaint->approvedBy->name !!}</p>
+                <p><span class="font-semibold mr-2">Approved By: </span> {!! $complaint->approvedBy->name !!}</p>
             @endif
         </div>
         <!-- Attachments Section -->        

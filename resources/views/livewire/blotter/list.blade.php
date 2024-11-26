@@ -34,21 +34,24 @@
                 <tr class="hover:bg-gray-100 cursor-pointer"
                 wire:click="$dispatch('openModal', { component: 'modals.show.blotter-modal', arguments: { blotter: {{ $blotter }} }})">
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            {{ $blotter->incident }}
+                        {{ \Carbon\Carbon::parse($blotter->incident)->format('M j, Y g:i A') }}
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            {{ $blotter->reported }}
-                        </td>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                        {{ trim("{$blotter->firstname} {$blotter->lastname}") }}
+                        {{ \Carbon\Carbon::parse($blotter->reported)->format('M j, Y g:i A') }}
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                         {{ trim("{$blotter->firstname} {$blotter->lastname}") }}
+                        </td>
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                        {{ optional($blotter->complainee)->first ?? 'N/A' }} {{ optional($blotter->complainee)->last ?? '' }}
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             @hasanyrole('superadmin|administrator')
                                 <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.blotter-modal', arguments: { blotter: {{ $blotter->id }} }})">
                                     <i class="fas fa-pencil-alt"></i>
+                                </x-secondary-button>
+                                <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.complainee-modal', arguments: { blotter: {{ $blotter->id }} }})">
+                                    <i class="fas fa-user-plus"></i>
                                 </x-secondary-button>
                             @endhasanyrole 
                         </td>

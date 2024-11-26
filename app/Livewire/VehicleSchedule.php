@@ -28,6 +28,13 @@ class VehicleSchedule extends Component
     public function refresh(){
         $this->resetPage(); 
     }
+    public function delete($id)
+    {
+        $vehicleSchedule = VehicleScheduleModel::findOrFail($id);
+        $vehicleSchedule->delete();
+
+        $this->dispatch('refresh-list');
+    }
 
     public function markAsDone($scheduleId){
 

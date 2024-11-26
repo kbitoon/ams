@@ -7,14 +7,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 
-class Blotter extends Model
+class Complainee extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id ',
-        'lastname',
-        'firstname',
+        'last',
+        'first',
         'middle',
         'contact',
         'civil_status',

@@ -85,13 +85,9 @@ class ComplaineeForm extends Form
     {
         $this->validate();
         if (!$this->complainee) {
-            if (auth()->user()) {
-            $this->complainee = auth()->user()->complainees()->create($this->only(['user_id','reported','incident','place','lastname', 'firstname', 'middle','contact','civil','date_of_birth','occupation','narration','recorded_by']));
-            } else {
-            $complainee = Complainee::create($this->only(['user_id','reported','incident','place','lastname', 'firstname', 'middle','contact','civil','date_of_birth','occupation','narration','recorded_by']));
-            }
+            $complainee = Complainee::create($this->only(['last', 'first', 'middle','contact','civil_status','date_of_birth','address','occupation','place_of_birth','influence']));
         } else {
-            $this->complainee->update($this->only(['reported','incident','place','lastname', 'firstname', 'middle','contact','civil','date_of_birth','occupation','narration','recorded_by','complainee_id']));
+            $this->complainee->update($this->only(['last', 'first', 'middle','contact','civil_status','date_of_birth','address','occupation','place_of_birth','influence']));
         }
         $this->reset();
     }
