@@ -41,8 +41,8 @@ class BlotterForm extends Form
         $this->civil = $blotter->civil;
         $this->date_of_birth = $blotter->date_of_birth;
         $this->address = $blotter->address;
-        $this->place_of_birth = $blotter->place_of_birth;
-        $this->occupation = $blotter->occupation;
+        $this->place_of_birth = empty($blotter->place_of_birth) ? '' : $blotter->place_of_birth;
+        $this->occupation = empty($blotter->occupation) ? '' : $blotter->occupation;
         $this->narration = $blotter->narration;
     }
 
@@ -62,6 +62,7 @@ class BlotterForm extends Form
             'civil' => ['required'],
             'date_of_birth' => ['required', ],
             'address' => ['required'],
+            'place_of_birth'=>['nullable'],
             'narration' => ['required'],
         ];
     }

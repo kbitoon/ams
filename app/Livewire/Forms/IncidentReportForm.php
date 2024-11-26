@@ -23,7 +23,7 @@ class IncidentReportForm extends Form
     {
         $this->incidentReport = $incidentReport;
         $this->title = $incidentReport->title;
-        $this->name = $incidentReport->start;
+        $this->name = $incidentReport->name;
         $this->narration = $incidentReport->narration;
         $this->date = $incidentReport->date;
     }

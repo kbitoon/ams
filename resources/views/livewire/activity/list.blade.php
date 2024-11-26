@@ -29,32 +29,34 @@
             <tbody class="bg-white divide-y divide-gray-200">
                 @forelse($activities as $activity)
                 <tr class="hover:bg-gray-100 cursor-pointer"
-                wire:click="$dispatch('openModal', { component: 'modals.show.activity-modal', arguments: { activity: {{ $activity }} }})">
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            {{ $activity->title }}
-                        </td>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                    wire:click="$dispatch('openModal', { component: 'modals.show.activity-modal', arguments: { activity: {{ $activity }} }})">
+                    <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                        {{ $activity->title }}
+                    </td>
+                    <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                         {{ \Carbon\Carbon::parse($activity->start)->format('F j, Y g:i A') }}
-                        </td>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                        {{ \Carbon\Carbon::parse($activity->start)->format('F j, Y g:i A') }}
-                        </td>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            @hasanyrole('superadmin|administrator')
-                                <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.activity-modal', arguments: { activity: {{ $activity->id }} }})">
-                                    <i class="fas fa-pencil-alt"></i>
-                                </x-secondary-button>
-                            @endhasanyrole
-                        </td>
-                    </tr>
+                    </td>
+                    <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                        {{ \Carbon\Carbon::parse($activity->end)->format('F j, Y g:i A') }}
+                    </td>
+                    <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                        @hasanyrole('superadmin|administrator')
+                            <x-secondary-button 
+                                wire:click.stop="$dispatch('openModal', { component: 'modals.activity-modal', arguments: { activity: {{ $activity->id }} }})">
+                                <i class="fas fa-pencil-alt"></i>
+                            </x-secondary-button>
+                        @endhasanyrole
+                    </td>
+                </tr>
                 @empty
-                    <tr>
-                        <td colspan="5" class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            No activities found.
-                        </td>
-                    </tr>
+                <tr>
+                    <td colspan="5" class="px-6 py-4 text-sm leading-5 text-gray-900">
+                        No activities found.
+                    </td>
+                </tr>
                 @endforelse
             </tbody>
+
         </table>
     </div>
 
