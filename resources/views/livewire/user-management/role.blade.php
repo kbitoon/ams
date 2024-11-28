@@ -5,21 +5,6 @@
             <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.role-modal', arguments: [] })" class="mr-2">
                 Add New Role
             </x-primary-button>
-
-            <!-- Spacer to push the search and filter to the right -->
-            <div class="flex-grow"></div>
-
-            <!-- Search and Role Filter moved to the right -->
-            <select wire:model="selectedRole" class="border p-1 rounded mr-2">
-                <option value="">All Roles</option>
-                @foreach($roles as $role)
-                    <option value="{{ $role->name }}">{{ ucfirst($role->name) }}</option> <!-- Display role name -->
-                @endforeach
-            </select>
-            <input type="text" wire:model="search" class="border p-1 rounded mr-2" placeholder="Search roles...">
-            <x-primary-button wire:click="searchRoles" class="ml-2">
-                Search
-            </x-primary-button>
         </div>
     </div>
 

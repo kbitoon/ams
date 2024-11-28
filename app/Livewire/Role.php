@@ -15,9 +15,6 @@ class Role extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
-    public string $search = '';
-    public string $selectedColor = '';
-
     #[On('refresh-list')]
     public function refresh() {}
 
@@ -30,16 +27,6 @@ class Role extends Component
     {
         $query = Roles::query();
 
-        // Filter by color (if needed)
-        if ($this->selectedColor) {
-            $query->where('color', 'like', '%' . $this->selectedColor . '%');
-        }
-
-        // Search by role name
-        if ($this->search) {
-            $query->where('name', 'like', '%' . $this->search . '%');
-        }
-
         $roles = $query->paginate(10);
 
         return view('livewire.user-management.role', [
@@ -47,11 +34,4 @@ class Role extends Component
         ]);
     }
 
-    /**
-     * Method to trigger refresh.
-     */
-    public function searchRoles()
-    {
-        $this->resetPage();
-    }
 }
