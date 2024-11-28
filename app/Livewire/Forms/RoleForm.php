@@ -39,6 +39,8 @@ class RoleForm extends Form
     {
         $this->validate();
 
+        $this->name = strtolower($this->name);
+
         if (!$this->role) {
             $role = Role::create($this->only(['name', 'color']));
         } else {

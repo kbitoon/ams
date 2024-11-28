@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('User Management') }}
+            {{ __('User and Role Management') }}
         </h2>
     </x-slot>
 
@@ -29,10 +29,10 @@
                         
                         <!-- Tab Content -->
                         <div x-show="openTab === 1" class="mt-4">
-                            @livewire('user') <!-- User management content -->
+                            @livewire('user')
                         </div>
                         <div x-show="openTab === 2" class="mt-4">
-                            @livewire('role') <!-- Role management content -->
+                            @livewire('role')
                         </div>
                     </div>
                 </div>
