@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use Illuminate\Validation\ValidationException;
 use Livewire\Form;
 
@@ -12,6 +13,7 @@ class UserForm extends Form
 
     public string $name = '';
     public string $email = '';
+    public ?string $roles = null;
 
     /**
      * Set the user data into the form.
@@ -20,9 +22,10 @@ class UserForm extends Form
      */
     public function setUser(?User $user = null): void
     {
-            $this->user = $user;
-            $this->name = $user->name;
-            $this->email = $user->email;
+        $this->user = $user;
+        $this->name = $user->name;
+        $this->email = $user->email;
+        $this->roles = $user->roles->first()?->name;
     }
 
     /**
@@ -32,18 +35,8 @@ class UserForm extends Form
     {
         return [
             'name' => ['required'],
-            'email' => ['required'],
-        ];
-    }
-
-    /**
-     * @return string[]
-     */
-    public function validationAttributes(): array
-    {
-        return [
-            'name' => 'name',
-            'email' => 'email',
+            'email' => ['required', 'email'],
+            'roles' => ['nullable', 'exists:roles,name'],
         ];
     }
 
@@ -55,9 +48,16 @@ class UserForm extends Form
         $this->validate();
 
         if (!$this->user) {
-            User::create($this->only(['name', 'email']));
+            $user = User::create($this->only(['name', 'email']));
         } else {
             $this->user->update($this->only(['name', 'email']));
+            $user = $this->user;
+        }
+
+        if ($this->roles) {
+            $user->syncRoles([$this->roles]);
+        } else {
+            $user->syncRoles([]);
         }
 
         $this->reset();

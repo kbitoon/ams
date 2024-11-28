@@ -50,9 +50,11 @@
                                 <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.blotter-modal', arguments: { blotter: {{ $blotter->id }} }})">
                                     <i class="fas fa-pencil-alt"></i>
                                 </x-secondary-button>
-                                <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.complainee-modal', arguments: { blotter: {{ $blotter->id }} }})">
-                                    <i class="fas fa-user-plus"></i>
-                                </x-secondary-button>
+                                @if (is_null($blotter->complainee_id))
+                                    <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.complainee-modal', arguments: { blotter: {{ $blotter->id }} }})">
+                                        <i class="fas fa-user-plus"></i>
+                                    </x-secondary-button>
+                                @endif
                             @endhasanyrole 
                         </td>
                     </tr>

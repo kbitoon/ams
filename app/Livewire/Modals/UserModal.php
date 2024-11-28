@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use LivewireUI\Modal\ModalComponent;
 use App\Livewire\Forms\UserForm;
+use Spatie\Permission\Models\Role;
 
 class UserModal extends ModalComponent
 {
@@ -38,8 +39,10 @@ class UserModal extends ModalComponent
      */
     public function render(): View
     {
+        $roles = Role::all();
         return view('livewire.forms.user-form', [
-            'users' => User::all(), // Pass collection to the view
+            'users' => User::all(),
+            'roles' => $roles,
         ]);
     }
 }

@@ -24,11 +24,6 @@
                     <th class="px-6 py-3 text-left bg-gray-50">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Email</span>
                     </th>
-                    <!-- 
-                    <th class="px-6 py-3 text-left bg-gray-50">
-                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Created At</span>
-                    </th>
-                    -->
                     <th class="px-6 py-3 text-left bg-gray-50">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Role</span>
                     </th>
@@ -44,26 +39,12 @@
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             {{ $user->email }}
                         </td>
-                        <!--
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            {{ $user->created_at }}
-                        </td>
-                        -->
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            {{-- Displaying user roles with color coding --}}
+                            {{-- Displaying user roles with dynamic color coding --}}
                             @if($user->roles->isNotEmpty())
                                 @foreach($user->roles as $role)
-                                    @php
-                                        // Assigning classes based on role names
-                                        $roleClass = match($role->name) {
-                                            'superadmin' => 'bg-red-300 text-red-800',
-                                            'administrator' => 'bg-blue-300 text-blue-800',
-                                            'support' => 'bg-green-300 text-green-800',
-                                            'user' => 'bg-yellow-300 text-yellow-800',
-                                            default => 'bg-gray-300 text-gray-800', // Fallback for undefined roles
-                                        };
-                                    @endphp
-                                    <span class="inline-block {{ $roleClass }} text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
+                                    <span class="inline-block text-xs font-semibold mr-2 px-2.5 py-0.5 rounded"
+                                          style="background-color: {{ $role->color ?? '#e2e8f0' }}; color: {{ $role->color && !str_starts_with($role->color, '#') ? 'black' : 'white' }};">
                                         {{ $role->name }}
                                     </span>
                                 @endforeach
@@ -74,7 +55,7 @@
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             @hasanyrole('superadmin|admin')
                                 <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.user-modal', arguments: { user: {{ $user }} }})">
-                                <i class="fas fa-pencil-alt"></i>
+                                    <i class="fas fa-pencil-alt"></i>
                                 </x-secondary-button>
                             @endhasanyrole
                         </td>
