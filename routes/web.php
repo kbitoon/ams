@@ -85,10 +85,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('/complaints/{complaint}/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::get('/complaints/{complaint}', [ComplaintController::class, 'show'])->name('complaint.show');
-
-    
-
-    
 });
 
 Route::middleware('guest')->group(function () {
