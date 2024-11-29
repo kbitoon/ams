@@ -15,7 +15,7 @@ class ComplaineeForm extends Form
     public string $middle = '';
     public string $contact = '';
     public string $civil_status = '';
-    public string $date_of_birth = '';
+    public ?string $date_of_birth = null;
     public string $address = '';
     public string $place_of_birth = '';
     public string $occupation = '';
@@ -48,13 +48,13 @@ class ComplaineeForm extends Form
         return [
             'last' => ['required'],
             'first' => ['required'],
-            'middle' => ['required'],
-            'contact' => ['required'],
-            'civil_status' => ['required'],
-            'date_of_birth' => ['required', ],
-            'address' => ['required'],
-            'place_of_birth' => ['required'],
-            'occupation' => ['required'],
+            'middle' => ['nullable'],
+            'contact' => ['nullable'],
+            'civil_status' => ['nullable'],
+            'date_of_birth' => ['nullable', ],
+            'address' => ['nullable'],
+            'place_of_birth' => ['nullable'],
+            'occupation' => ['nullable'],
             'influence' => ['required'],
         ];
     }
@@ -84,6 +84,11 @@ class ComplaineeForm extends Form
     public function save(): void
     {
         $this->validate();
+
+        if ($this->date_of_birth === '') {
+            $this->date_of_birth = null;
+        }
+    
         if (!$this->complainee) {
             $complainee = Complainee::create($this->only(['last', 'first', 'middle','contact','civil_status','date_of_birth','address','occupation','place_of_birth','influence']));
         } else {

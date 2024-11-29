@@ -5,13 +5,13 @@
 
     <form wire:submit="save" class="grid grid-cols-2 gap-4">
         <div>
-            <x-input-label for="first" :value="__('First Name')" />
+            <x-input-label for="first" :value="__('First Name *')" />
             <x-text-input wire:model="form.first" id="first" class="mt-1 block w-full" type="text" />
             <x-input-error :messages="$errors->get('form.first')" class="mt-2" />
         </div>
 
         <div>
-            <x-input-label for="last" :value="__('Last Name')" />
+            <x-input-label for="last" :value="__('Last Name *')" />
             <x-text-input wire:model="form.last" id="last" class="mt-1 block w-full" type="text" />
             <x-input-error :messages="$errors->get('form.last')" class="mt-2" />
         </div>
