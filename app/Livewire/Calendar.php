@@ -15,6 +15,7 @@ class Calendar extends Component
     {
         $this->activities = Activity::all()->map(function ($activity) {
             return [
+                'id' => $activity->id,
                 'title' => $activity->title,
                 'start' => \Carbon\Carbon::parse($activity->start)->toISOString(),
                 'end' => \Carbon\Carbon::parse($activity->end)->toISOString(),
@@ -26,5 +27,4 @@ class Calendar extends Component
     {
         return view('livewire.calendar', ['activities' => $this->activities]);
     }
-
 }
