@@ -19,6 +19,8 @@ class Calendar extends Component
                 'title' => $activity->title,
                 'start' => \Carbon\Carbon::parse($activity->start)->toISOString(),
                 'end' => \Carbon\Carbon::parse($activity->end)->toISOString(),
+                'description' => $activity->description,
+                'location' => $activity->location,
             ];
         });
     }
