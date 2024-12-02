@@ -68,7 +68,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
         <!-- FullCalendar JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
-
     </body>
     <script>
         Trix.config.blockAttributes.default.tagName = "p"
