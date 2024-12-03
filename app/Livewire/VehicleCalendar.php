@@ -16,7 +16,7 @@ class VehicleCalendar extends Component
         $this->vehicleSchedules = VehicleSchedule::all()->map(function ($vehicleSchedule) {
             return [
                 'title' => $vehicleSchedule->destination,
-                'driver' => $vehicleSchedule->driver->name,
+                'driver' => empty($vehicleSchedule->driver->name) ? $vehicleSchedule->driver->name : '', 
                 'vehicle' => $vehicleSchedule->vehicle->name,
                 'start' => \Carbon\Carbon::parse($vehicleSchedule->start)->toISOString(),
                 'end' => \Carbon\Carbon::parse($vehicleSchedule->end)->toISOString(),
