@@ -72,6 +72,14 @@ class User extends Authenticatable
         return $this->hasOne(PersonalInformation::class);
     }
 
+    /**
+     * @return HasMany
+     */
+    public function todo(): HasMany
+    {
+        return $this->hasOne(Todo::class);
+    }
+
 
     /**
      * @return HasMany

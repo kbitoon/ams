@@ -4,10 +4,30 @@
         <x-input-error :messages="$errors->get('todo')" class="mt-2" />
     </div>
 
-    <!-- Todo Form -->
-    <form class="flex items-center space-x-4" method="POST" wire:submit.prevent='addTodo'>
+     <!-- Todo Form -->
+     <form class="flex flex-col space-y-4" method="POST" wire:submit.prevent='addTodo'>
         <x-text-input wire:model="todo" class="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500" placeholder="Enter your task..." />
-        <x-primary-button class="px-6 py-2 rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        
+        <!-- Assign Dropdowns with Modern Design -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Assign to User -->
+            <select wire:model="assigned_user_id" id="assignedUser"  class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                <option value="">Assign to User (Optional)</option>
+                @foreach($users as $user)
+                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                @endforeach
+            </select>
+            
+            <!-- Assign to Role -->
+            <select wire:model="role_id" id="assignedRole" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                <option value="">Assign to Role (Optional)</option>
+                @foreach($roles as $role)
+                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <x-primary-button class="px-6 py-2 rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 flex justify-center items-center">
             Add
         </x-primary-button>
     </form>
@@ -32,6 +52,22 @@
                             {{ $todo->todo }}
                         </span>
                     @endif
+                </div>
+
+                <!-- Assigned User or Role Display -->
+                <div class="flex items-center space-x-2">
+                    <span class="text-sm text-gray-600">
+                        Assigned to: 
+                        @if($todo->assignedUser && $todo->role)
+                            {{ $todo->assignedUser->name }} & {{ ucfirst($todo->role->name) }} role 
+                        @elseif($todo->assignedUser)
+                            {{ $todo->assignedUser->name }}
+                        @elseif($todo->role)
+                            {{ ucfirst($todo->role->name) }}
+                        @else
+                            Not Assigned
+                        @endif
+                    </span>
                 </div>
 
                 <!-- Action Buttons (Simple Icons) -->
