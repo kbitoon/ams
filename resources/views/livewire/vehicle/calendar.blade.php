@@ -32,13 +32,13 @@
                 var formattedStart = (startDate.getUTCMonth() + 1) + '/' + startDate.getUTCDate() + '/' + startDate.getUTCFullYear() + ' ' + formatUTCDate(startDate);
                 var formattedEnd = endDate ? (endDate.getUTCMonth() + 1) + '/' + endDate.getUTCDate() + '/' + endDate.getUTCFullYear() + ' ' + formatUTCDate(endDate) : 'N/A';
 
-                var details = `
-                    Destination: ${event.title || 'N/A'}\n
-                    Vehicle: ${event.vehicle || 'N/A'}\n
-                    Driver: ${event.driver || 'N/A'}\n
-                    Schedule Start: ${formattedStart}\n
-                    Schedule End: ${formattedEnd}\n
-                `;
+                var details = 
+                    `Destination: ${event.title || 'N/A'}\n` +
+                    `Vehicle: ${event.vehicle || 'N/A'}\n` +
+                    `Driver: ${event.driver || 'N/A'}\n` +
+                    `Schedule Start: ${formattedStart}\n` +
+                    `Schedule End: ${formattedEnd}`;
+                
                 alert(details);
             },
 
