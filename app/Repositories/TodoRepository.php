@@ -46,7 +46,9 @@ class TodoRepository
     {
         // Check if the user has the 'superadmin' role
         if (auth()->user()->hasRole('superadmin')) {
-            return Todo::latest()->paginate(10); // Fetch all tasks for superadmin
+            return Todo::orderBy('is_completed', 'asc')
+            ->latest()
+            ->paginate(10);; // Fetch all tasks for superadmin
         }
 
         // Regular user query
@@ -59,6 +61,7 @@ class TodoRepository
                 // Tasks assigned to any of the current user's roles
                 ->orWhereIn('role_id', $roleIds);
         })
+        ->orderBy('is_completed', 'asc') // Incomplete tasks first
         ->latest()
         ->paginate(10);
     }
@@ -75,7 +78,8 @@ class TodoRepository
     public function completed($todoId)
     {
         $todo = $this->getTodo($todoId);
-        return ($todo->is_completed) ? $todo->update(['is_completed' => false]) : $todo->update(['is_completed' => true]);
+    
+        $todo->update(['is_completed' => !$todo->is_completed]);
     }
 
     public function delete($todoId)

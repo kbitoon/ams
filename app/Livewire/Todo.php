@@ -15,6 +15,7 @@ class Todo extends Component
     use WithPagination;
 
     protected $repository;
+    protected $listeners = ['todosUpdated' => '$refresh'];
 
     #[Validate('required|min:3')]
 
@@ -74,6 +75,7 @@ class Todo extends Component
     public function markCompleted($todoId)
     {
         return $this->repository->completed($todoId);
+        $this->emit('todosUpdated');
     }
 
     public function render()
