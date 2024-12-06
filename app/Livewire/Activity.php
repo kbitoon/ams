@@ -18,6 +18,14 @@ class Activity extends Component
     #[On('refresh-list')]
     public function refresh() {}
 
+    public function delete($id)
+    {
+        $activity = ActivityModel::findOrFail($id);
+        $activity->delete();
+
+        $this->dispatch('refresh-list');
+    }
+
     /**
      * @return Factory|\Illuminate\Foundation\Application|View|Application
      */

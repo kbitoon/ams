@@ -45,6 +45,9 @@
                                 wire:click.stop="$dispatch('openModal', { component: 'modals.activity-modal', arguments: { activity: {{ $activity->id }} }})">
                                 <i class="fas fa-pencil-alt"></i>
                             </x-secondary-button>
+                            <x-danger-button wire:click.stop="delete({{ $activity->id }})" onclick="return confirm('Are you sure you want to delete this?')">
+                                <i class="fas fa-trash-alt"></i>
+                            </x-danger-button>
                         @endhasanyrole
                     </td>
                 </tr>
