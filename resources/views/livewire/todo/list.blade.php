@@ -7,8 +7,8 @@
      <!-- Todo Form -->
      <form class="flex flex-col space-y-4" method="POST" wire:submit.prevent='addTodo'>
         <x-text-input wire:model="todo" class="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500" placeholder="Enter your task..." />
-        
-        <!-- Assign Dropdowns with Modern Design -->
+    
+      @hasanyrole('superadmin')  
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <!-- Assign to User -->
             <select wire:model="assigned_user_id" id="assignedUser"  class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
@@ -26,6 +26,7 @@
                 @endforeach
             </select>
         </div>
+        @endhasanyrole
 
         <x-primary-button class="px-6 py-2 rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 flex justify-center items-center">
             Add
