@@ -77,7 +77,7 @@ class User extends Authenticatable
      */
     public function todo(): HasMany
     {
-        return $this->hasOne(Todo::class);
+        return $this->hasMany(Todo::class);
     }
 
 

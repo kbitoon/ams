@@ -1,104 +1,97 @@
-<div class="container mx-auto p-5">
-    <!-- Error Message -->
-    <div class="flex justify-center mb-4">
-        <x-input-error :messages="$errors->get('todo')" class="mt-2" />
-    </div>
-
-     <!-- Todo Form -->
-     <form class="flex flex-col space-y-4" method="POST" wire:submit.prevent='addTodo'>
-        <x-text-input wire:model="todo" class="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500" placeholder="Enter your task..." />
-    
-      @hasanyrole('superadmin')  
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <!-- Assign to User -->
-            <select wire:model="assigned_user_id" id="assignedUser"  class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                <option value="">Assign to User (Optional)</option>
-                @foreach($users as $user)
-                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                @endforeach
-            </select>
-            
-            <!-- Assign to Role -->
-            <select wire:model="role_id" id="assignedRole" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                <option value="">Assign to Role (Optional)</option>
-                @foreach($roles as $role)
-                    <option value="{{ $role->id }}">{{ $role->name }}</option>
-                @endforeach
-            </select>
-        </div>
-        @endhasanyrole
-
-        <x-primary-button class="px-6 py-2 rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 flex justify-center items-center">
-            Add
+<div class="p-6">
+    <div class="flex justify-between items-center mb-4 mr-2">
+        <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.todo-modal' })" class="h-8 mr-2">
+            <span class="hidden sm:inline">New Task</span>
+            <span class="inline sm:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+            </span>
         </x-primary-button>
-    </form>
-
-    <!-- Todo List -->
-    <div class="mt-8">
-    @forelse($todos as $todo)
-        <div class="flex items-center justify-between p-4 mt-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-all" wire:key="todo-{{ $todo->id }}">
-            <!-- Checkbox -->
-            <div>
-                <input type="checkbox" 
-                    wire:click="markCompleted({{ $todo->id }})" 
-                    @if($todo->is_completed) checked @endif 
-                    class="w-5 h-5 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-2 focus:ring-green-500">
-            </div>
-
-            <!-- Todo Text or Edit Field -->
-            <div class="flex-1 ml-4">
-                @if ($edit == $todo->id)
-                    <x-text-input wire:model="editedTodo" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500" />
-                @else
-                    <span @if($todo->is_completed) class="line-through text-green-600" @endif class="text-lg font-medium text-gray-800">
-                        {{ $todo->todo }}
-                    </span>
-                @endif
-            </div>
-
-            <!-- Assigned User or Role Display -->
-            <div class="flex items-center space-x-2">
-                <span class="text-sm text-gray-600">
-                    Assigned to: 
-                    @if($todo->assignedUser && $todo->role)
-                        {{ $todo->assignedUser->name }} & {{ ucfirst($todo->role->name) }} role 
-                    @elseif($todo->assignedUser)
-                        {{ $todo->assignedUser->name }}
-                    @elseif($todo->role)
-                        {{ ucfirst($todo->role->name) }}
-                    @else
-                        Not Assigned
-                    @endif
-                </span>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="flex space-x-2">
-                @if($edit == $todo->id)
-                    <button wire:click='updateTodo({{ $todo->id }})' class="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 ml-3">
-                        <i class="fas fa-check mr-1"></i>
-                    </button>
-                    <button wire:click='cancelEdit' class="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 ml-3">
-                        <i class="fas fa-times mr-1"></i>
-                    </button>
-                @else
-                    <button wire:click='editTodo({{ $todo->id }})' class="p-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 ml-3">
-                        <i class="fas fa-pencil-alt"></i>
-                    </button>
-                    <button wire:click='deleteTodo({{ $todo->id }})' class="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 ml-3">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                @endif
-            </div>
-        </div>
-    @empty
-        <div class="text-center text-gray-500">No tasks found!</div>
-    @endforelse
-
     </div>
 
-    <!-- Pagination Links -->
-    <div class="mt-8 text-center">
+    <div class="overflow-x-auto">
+        <table class="min-w-full border divide-y divide-gray-200">
+            <thead>
+                <tr>
+                    <th class="px-6 py-3 text-left bg-gray-50">
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Task</span>
+                    </th>
+                    <th class="px-6 py-3 text-left bg-gray-50">
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Assigned To</span>
+                    </th>
+                    <th class="px-6 py-3 text-left bg-gray-50">
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Due Date</span>
+                    </th>
+                    <th class="px-6 py-3 text-left bg-gray-50">
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Completed</span>
+                    </th>
+                    <th class="px-6 py-3 bg-gray-50"></th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                @forelse($todos as $todo)
+                    <tr>
+                        <td class="px-6 py-4 text-sm leading-5 
+                            {{ $todo->is_completed 
+                                ? 'text-green-600' 
+                                : ($todo->due_date && $todo->due_date < now() ? 'text-red-600' : 'text-gray-900') }}">
+                            {{ $todo->task }}
+                        </td>
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                            {{ ($todo->assignedUser->name ?? '') . (($todo->assignedUser && $todo->role) ? ' & ' : '') . ($todo->role->name ?? '') ?: 'N/A' }}
+                        </td>
+                       
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                            {{ $todo->due_date ? $todo->due_date->format('Y-m-d') : 'No Due Date' }}
+                        </td>
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                            @if ($todo->is_completed)
+                                <span class="text-sm text-gray-500">
+                                    {{ \Carbon\Carbon::parse($todo->updated_at)->subHours(4)->format('Y-m-d') }}
+                                </span>
+                            @else
+                                <span class="text-sm text-gray-500">Not completed</span>
+                            @endif
+                        </td>
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900 flex gap-2">
+                            @hasanyrole('superadmin|administrator')
+                                <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.todo-modal', arguments: { todo: {{ $todo->id }} }})">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </x-secondary-button>
+
+                                <x-danger-button wire:click="delete({{ $todo->id }})"  onclick="return confirm('Are you sure you want to delete this?') ">
+                                    <i class="fas fa-trash-alt"></i>
+                                </x-danger-button>
+
+                            @endhasanyrole
+                                <x-secondary-button wire:click="toggleComplete({{ $todo->id }})">
+                                    @if ($todo->is_completed)
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    @else
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    @endif
+                                </x-secondary-button>
+                            
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="5" class="px-6 py-4 text-sm leading-5 text-gray-900">
+                            No Task found.
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-5">
+        {{-- Pagination links --}}
         {{ $todos->links() }}
     </div>
 </div>

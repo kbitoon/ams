@@ -35,12 +35,13 @@ new class extends Component
                 </div>
 
 
-
+                @unlessrole('user')
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('todo')" :active="request()->routeIs('todo')" wire:navigate>
-                            {{ __('ToDo')}}
+                            {{ __('Task')}}
                     </x-nav-link>
+                @endunlessrole
 
                     <!-- Clearance Dropdown -->
                         <x-nav-link :href="route('clearance')" :active="request()->routeIs('clearance')" wire:navigate>

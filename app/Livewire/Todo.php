@@ -2,88 +2,74 @@
 
 namespace App\Livewire;
 
-use App\Repositories\TodoRepository;
+use App\Models\Todo as TodoModel;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
-use App\Models\User;
-use Spatie\Permission\Models\Role;
-use Livewire\Attributes\Validate;
+use Livewire\Features\SupportPagination\WithoutUrlPagination;
 use Livewire\WithPagination;
-
+use Illuminate\Support\Facades\Auth;
 
 class Todo extends Component
 {
-    use WithPagination;
+    use WithPagination, WithoutUrlPagination;
 
-    protected $repository;
-    protected $listeners = ['todosUpdated' => '$refresh'];
+    protected $listeners = ['refreshTodoList' => 'refresh'];
 
-    #[Validate('required|min:3')]
-
-    public $todo = '';
-
-    #[Validate('required|min:3')]
-    public $editedTodo;
-
-    public $edit;
-    public $users;
-    public $roles;
-    public $assigned_user_id;
-    public $role_id;
-
-    public function boot(TodoRepository $respository)
-    {
-        $this->repository = $respository;
-    }
-
-    public function addTodo()
-    {
-        $validated = $this->validateOnly('todo');
         
-        $validated['assigned_user_id'] = $this->assigned_user_id;
-        $validated['role_id'] = $this->role_id;
+    #[On('refresh-list')]
+    public function refresh()
+    {
+        $this->resetPage();
+    }
+    public function delete(int $id): void
+    {
+        $todo = TodoModel::findOrFail($id);
 
-        $this->repository->save($validated);
-        
-        $this->todo = '';
-        $this->assigned_user_id = null;
-        $this->role_id = null; 
+        $todo->delete();
+
+        $this->resetPage();
     }
 
-    public function editTodo($todoId)
+    /**
+     * Toggle the completion status of a todo.
+     */
+    public function toggleComplete(int $id): void
     {
-        $this->edit = $todoId;
-        $this->editedTodo = $this->repository->getTodo($todoId)->todo;
+        $todo = TodoModel::findOrFail($id);
+        $todo->update(['is_completed' => !$todo->is_completed]);
+        $this->resetPage();
     }
 
-    public function updateTodo($todoId)
+    /**
+     * @return Factory|\Illuminate\Foundation\Application|View|Application
+     */
+    public function render(): Factory|\Illuminate\Foundation\Application|View|Application
     {
-        $validated = $this->validateOnly('editedTodo');
-        $this->repository->update($todoId, $validated['editedTodo']);
-        $this->cancelEdit();
-    }
+        $user = Auth::user();
 
-    public function cancelEdit()
-    {
-        $this->edit = '';
-    }
+        $query = TodoModel::query();
 
-    public function deleteTodo($todoId)
-    {
-        $this->repository->delete($todoId);
-    }
+        if ($user->hasAnyRole(['superadmin', 'administrator'])) {
+            $todos = $query
+                ->orderBy('is_completed', 'asc')
+                ->paginate(10);
+        } else {
+            $todos = $query
+                ->where(function ($q) use ($user) {
+                    $q->where('assigned_user_id', $user->id)
+                    ->orWhere('user_id', $user->id);
+                })
+                ->orWhereHas('role', function ($q) use ($user) {
+                    $q->whereIn('id', $user->roles->pluck('id'));
+                })
+                ->orderBy('is_completed', 'asc')
+                ->paginate(10);
+        }
 
-    public function markCompleted($todoId)
-    {
-        return $this->repository->completed($todoId);
-        $this->emit('todosUpdated');
-    }
-
-    public function render()
-    {
-        $this->users = User::all();
-        $this->roles = Role::all();
-        
-        $todos = $this->repository->fetchAll();
-        return view('livewire.todo.list', compact('todos'));
+        return view('livewire.todo.list', [
+            'todos' => $todos,
+        ]);
     }
 }
