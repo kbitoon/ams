@@ -11,7 +11,7 @@ class FacilitySchedule extends Model
     use HasFactory;
 
     protected $fillable = [
-        'activity_id',
+        'facility_id',
         'name',
         'start',
         'end',
@@ -26,7 +26,7 @@ class FacilitySchedule extends Model
 
     public function facility(): BelongsTo
     {
-        return $this->belongsTo(Activity::class);
+        return $this->belongsTo(Facility::class);
     }
 }
  

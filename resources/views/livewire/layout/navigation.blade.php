@@ -142,7 +142,7 @@ new class extends Component
                                 <x-dropdown-link :href="route('item-schedule')" :active="request()->routeIs('item-schedule')" wire:navigate>
                                     {{ __('Equipments') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link :href="route('vehicle-schedule')" :active="request()->routeIs('vehicle-schedule')" wire:navigate>
+                                <x-dropdown-link :href="route('facility-schedule')" :active="request()->routeIs('facility-schedule')" wire:navigate>
                                     {{ __('Facilities') }}
                                 </x-dropdown-link>
                                 
@@ -172,6 +172,10 @@ new class extends Component
 
                                     <x-dropdown-link :href="route('item')" :active="request()->routeIs('item')" wire:navigate>
                                         {{ __('Equipments') }}
+                                    </x-dropdown-link>
+
+                                    <x-dropdown-link :href="route('facility')" :active="request()->routeIs('facility')" wire:navigate>
+                                        {{ __('Facilities') }}
                                     </x-dropdown-link>
                                     
                                 </x-slot>

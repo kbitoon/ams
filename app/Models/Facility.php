@@ -12,7 +12,7 @@ class Facility extends Model
     use HasFactory;
 
     protected $fillable = [
-        'facility',
+        'name',
         'location',
         'status',
     ];
