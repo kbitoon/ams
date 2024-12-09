@@ -42,6 +42,29 @@ class FacilitySchedule extends Component
 
         $this->dispatch('refresh-list');
     }
+    public function markAsOngoing($scheduleId){
+        $schedule = FacilityScheduleModel::find($scheduleId);
+
+        if ($schedule) {
+            $schedule->status = 'Ongoing';
+            $schedule->save();
+            if ($schedule->facility) {
+            $schedule->facility->update(['status' => 'Unavailable']);
+            }
+        }
+    }
+    public function markAsDone($scheduleId){
+
+        $schedule = FacilityScheduleModel::find($scheduleId);
+        if ($schedule) {
+            $schedule->status = 'Done';
+            $schedule->save();
+
+            if ($schedule->facility) {
+                $schedule->facility->update(['status' => 'Available']);
+            }
+        }
+    }
 
     /**
      * @return Factory|\Illuminate\Foundation\Application|View|Application

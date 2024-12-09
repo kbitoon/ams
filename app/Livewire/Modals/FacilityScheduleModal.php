@@ -4,7 +4,7 @@ namespace App\Livewire\Modals;
 
 use App\Livewire\Forms\FacilityScheduleForm;
 use App\Models\FacilitySchedule;
-use App\Models\Facility;
+use App\Models\Facility ;
 use Illuminate\Contracts\View\View;
 use LivewireUI\Modal\ModalComponent;
 
