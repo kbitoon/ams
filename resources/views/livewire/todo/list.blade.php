@@ -32,13 +32,9 @@
                         <td class="px-6 py-4 text-sm leading-5 
                             {{ $todo->is_completed 
                                 ? 'text-green-600' 
-                                : ($todo-4>due_date && $todo->due_date < now() ? 'text-red-600' : 'text-gray-900') }}">
+                                : ($todo->due_date && $todo->due_date < now() ? 'text-red-600' : 'text-gray-900') }}">
                             {{ $todo->task }}
                         </td>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            {{ ($todo->assignedUser->name ?? '') . (($todo->assignedUser && $todo->role) ? ' & ' : '') . ($todo->role->name ?? '') ?: 'N/A' }}
-                        </td>
-                       
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             {{ $todo->due_date ? $todo->due_date->format('Y-m-d') : 'Open' }}
                         </td>

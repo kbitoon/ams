@@ -76,7 +76,7 @@
                 @endif
                 @if($clearance->status === "Done")
                     <span class="text-xs text-gray-500 mt-1">
-                        {{ $clearance->date->format('F j, Y')}}
+                    {{ \Carbon\Carbon::parse($clearance->date)->format('F j, Y') }}
                     </span>
                     @endif
             </td>
