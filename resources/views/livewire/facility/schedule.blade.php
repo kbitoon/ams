@@ -76,10 +76,10 @@
                         {{ $facilitySchedule->facility->name }}
                     </td>
                     <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                        {{ $facilitySchedule->start }}
+                    {{ \Carbon\Carbon::parse($facility->start)->format('M j, Y g:i A') }}
                     </td>
                     <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                        {{ $facilitySchedule->end }}
+                    {{ \Carbon\Carbon::parse($facility->end)->format('M j, Y g:i A') }}
                     </td>
                     <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                         {{ $facilitySchedule->name }}

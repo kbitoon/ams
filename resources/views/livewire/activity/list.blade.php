@@ -34,10 +34,10 @@
                         {{ $activity->title }}
                     </td>
                     <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                        {{ \Carbon\Carbon::parse($activity->start)->format('F j, Y g:i A') }}
+                        {{ \Carbon\Carbon::parse($activity->start)->format('M j, Y g:i A') }}
                     </td>
                     <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                        {{ \Carbon\Carbon::parse($activity->end)->format('F j, Y g:i A') }}
+                        {{ \Carbon\Carbon::parse($activity->end)->format('M j, Y g:i A') }}
                     </td>
                     <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                         @hasanyrole('superadmin|administrator')
