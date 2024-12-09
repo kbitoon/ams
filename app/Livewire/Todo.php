@@ -53,7 +53,9 @@ class Todo extends Component
 
         if ($user->hasAnyRole(['superadmin', 'administrator'])) {
             $todos = $query
-                ->orderBy('is_completed', 'asc')
+                ->orderBy('is_completed', 'asc') // Incomplete tasks first
+                ->orderByRaw('CASE WHEN is_completed = 0 THEN due_date END DESC') // Sort incomplete by due_date
+                ->orderByRaw('CASE WHEN is_completed = 1 THEN due_date END DESC') // Completed tasks sorted by due_date
                 ->paginate(10);
         } else {
             $todos = $query
@@ -64,7 +66,9 @@ class Todo extends Component
                 ->orWhereHas('role', function ($q) use ($user) {
                     $q->whereIn('id', $user->roles->pluck('id'));
                 })
-                ->orderBy('is_completed', 'asc')
+                ->orderBy('is_completed', 'asc') // Incomplete tasks first
+                ->orderByRaw('CASE WHEN is_completed = 0 THEN due_date END DESC') // Sort incomplete by due_date
+                ->orderByRaw('CASE WHEN is_completed = 1 THEN due_date END DESC') // Completed tasks sorted by due_date
                 ->paginate(10);
         }
 

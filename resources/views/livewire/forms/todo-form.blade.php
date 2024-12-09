@@ -38,7 +38,7 @@
 
          <div class="mt-4">
                 <x-input-label for="due_date" :value="__('Due Date')" />
-                <x-input-datetime wire:model="form.due_date" id="due_date" class="mt-1 block w-full" type="text" />
+                <x-input-date wire:model="form.due_date" id="due_date" class="mt-1 block w-full" type="text" />
                 <x-input-error :messages="$errors->get('form.due_date')" class="mt-2" />
         </div>
 

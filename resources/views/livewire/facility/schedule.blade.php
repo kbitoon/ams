@@ -1,4 +1,38 @@
 <div class="p-6">
+
+    <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">
+                <!-- Date Filter -->
+                <div>
+                    <label for="dateFilter" class="block text-sm font-medium text-gray-700">Filter by Date</label>
+                    <input type="date" id="dateFilter" wire:model.defer="tempDateFilter" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+
+                <!-- Facility Filter -->
+                <div>
+                    <label for="facilityFilter" class="block text-sm font-medium text-gray-700">Filter by Facility</label>
+                    <select id="facilityFilter" wire:model.defer="tempFacilityFilter" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="">All Facilities</option>
+                        @foreach($facilities as $facility)
+                            <option value="{{ $facility->id }}">{{ $facility->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Status Filter -->
+                <div>
+                    <label for="statusFilter" class="block text-sm font-medium text-gray-700">Filter by Status</label>
+                    <select id="statusFilter" wire:model.defer="tempStatusFilter" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="">All Statuses</option>
+                        <option value="Ongoing">Ongoing</option>
+                        <option value="Done">Done</option>
+                    </select>
+                </div>
+            </div>
+        <div class="mb-4 flex justify-center md:justify-end space-x-2">
+            <x-primary-button wire:click="applyFilters">
+                Apply Filters
+            </x-primary-button>
+    </div>
     <!-- Table Section -->
     <div class="flex justify-between items-center mb-4 mr-2">
         <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.facilitySchedule-modal' })" class="h-8 mr-2">

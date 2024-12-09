@@ -59,13 +59,13 @@
                                     <i class="fas fa-check mr-1"></i>
                                 </x-secondary-button>
                             </div>
-                            <span class="text-xs text-gray-500 ml-2 block sm:hidden"> <!-- Hidden on desktop -->
+                            <span class="text-xs text-gray-500 ml-2 block sm:hidden">
                                 @php
                                     $daysAgo = $this->getDaysAgo($clearance->date);
                                 @endphp
                                 {{ $daysAgo === 1 ? "$daysAgo day ago" : "$daysAgo days ago" }}
                             </span>
-                            <span class="text-xs text-gray-500 ml-2 hidden sm:block"> <!-- Hidden on mobile -->
+                            <span class="text-xs text-gray-500 ml-2 hidden sm:block">
                                 @php
                                     $daysAgo = $this->getDaysAgo($clearance->date);
                                 @endphp
@@ -76,7 +76,7 @@
                 @endif
                 @if($clearance->status === "Done")
                     <span class="text-xs text-gray-500 mt-1">
-                        {{ $clearance->created_at->format('F j, Y')}}
+                        {{ $clearance->date->format('F j, Y')}}
                     </span>
                     @endif
             </td>

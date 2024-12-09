@@ -4,6 +4,7 @@ namespace App\Livewire\Modals;
 
 use App\Livewire\Forms\FacilityScheduleForm;
 use App\Models\FacilitySchedule;
+use App\Models\Facility;
 use Illuminate\Contracts\View\View;
 use LivewireUI\Modal\ModalComponent;
 
@@ -29,7 +30,7 @@ class FacilityScheduleModal extends ModalComponent
     public function render(): View
     {
         return view('livewire.forms.facility-schedule-form', [
-            'facilitySchedules' => FacilitySchedule::all(),
+            'facilities' => Facility::all(),
         ]);
     }
 }
