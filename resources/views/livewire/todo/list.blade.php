@@ -18,9 +18,6 @@
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Task</span>
                     </th>
                     <th class="px-6 py-3 text-left bg-gray-50">
-                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Assigned To</span>
-                    </th>
-                    <th class="px-6 py-3 text-left bg-gray-50">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Due Date</span>
                     </th>
                     <th class="px-6 py-3 text-left bg-gray-50">
@@ -43,7 +40,7 @@
                         </td>
                        
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            {{ $todo->due_date ? $todo->due_date->format('Y-m-d') : 'No Due Date' }}
+                            {{ $todo->due_date ? $todo->due_date->format('Y-m-d') : 'Open' }}
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             @if ($todo->is_completed)
@@ -51,7 +48,7 @@
                                     {{ \Carbon\Carbon::parse($todo->updated_at)->subHours(4)->format('Y-m-d') }}
                                 </span>
                             @else
-                                <span class="text-sm text-gray-500">Not completed</span>
+                                <span class="text-sm text-gray-500">Pending</span>
                             @endif
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900 flex gap-2">

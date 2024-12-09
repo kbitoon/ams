@@ -39,13 +39,13 @@ new class extends Component
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('todo')" :active="request()->routeIs('todo')" wire:navigate>
-                            {{ __('Task')}}
+                            {{ __('Tasks')}}
                     </x-nav-link>
                 @endunlessrole
 
                     <!-- Clearance Dropdown -->
                         <x-nav-link :href="route('clearance')" :active="request()->routeIs('clearance')" wire:navigate>
-                            {{ __('Clearance') }}
+                            {{ __('Clearances') }}
                         </x-nav-link>
 
 
@@ -252,6 +252,9 @@ new class extends Component
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('todo')" :active="request()->routeIs('todo')" wire:navigate>
+                {{ __('Tasks') }}
+            </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('clearance')" :active="request()->routeIs('clearance')" wire:navigate>
                 {{ __('Clearances') }}
             </x-responsive-nav-link>
@@ -323,7 +326,7 @@ new class extends Component
                 <x-responsive-nav-link :href="route('item-schedule')" :active="request()->routeIs('item-schedule')" wire:navigate>
                     {{ __('Equipments') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('activity')" :active="request()->routeIs('activity')" wire:navigate>
+                <x-responsive-nav-link :href="route('facility-schedule')" :active="request()->routeIs('facility-schedule')" wire:navigate>
                     {{ __('Facilities') }}
                 </x-responsive-nav-link>
             </div>
@@ -343,6 +346,9 @@ new class extends Component
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('item')" :active="request()->routeIs('item')" wire:navigate>
                     {{ __('Equipments') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('facility')" :active="request()->routeIs('facility')" wire:navigate>
+                    {{ __('Facilities') }}
                 </x-responsive-nav-link>
             </div>
         </div>
