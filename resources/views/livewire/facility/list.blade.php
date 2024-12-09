@@ -18,10 +18,10 @@
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Facility Name</span>
                     </th>
                     <th class="px-6 py-3 text-left bg-gray-50">
-                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Start</span>
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Location</span>
                     </th>
                     <th class="px-6 py-3 text-left bg-gray-50">
-                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">End</span>
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Status</span>
                     </th>
                     <th class="px-6 py-3 bg-gray-50"></th>
                 </tr>
