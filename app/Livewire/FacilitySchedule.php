@@ -73,7 +73,6 @@ class FacilitySchedule extends Component
     {
         $query = FacilityScheduleModel::query();
 
-        // Apply filters based on the user's role
         if (auth()->user()->hasRole('superadmin|administrator|support')) {
             if ($this->dateFilter) {
                 $query->whereDate('start', $this->dateFilter);
@@ -107,7 +106,7 @@ class FacilitySchedule extends Component
         }
 
         // Fetch facilities for dropdown or other use in the view
-        $facilities = \App\Models\Facility::all(); // Adjust the model and query if needed
+        $facilities = \App\Models\Facility::all();
 
         return view('livewire.facility.schedule', [
             'facilitySchedules' => $facilitySchedules,
