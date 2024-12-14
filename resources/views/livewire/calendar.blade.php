@@ -13,6 +13,8 @@
             },
             eventLimit: 5,
 
+            eventColor: '#536493',
+
             eventClick: function(event) {
                 var startDate = new Date(event.start);
                 var endDate = event.end ? new Date(event.end) : null;

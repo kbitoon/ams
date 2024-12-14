@@ -41,8 +41,8 @@
         @forelse($clearances as $clearance)
         <tr class="hover:bg-gray-100 cursor-pointer"
             wire:click="$dispatch('openModal', { component: 'modals.show.clearance-modal', arguments: { clearance: {{ $clearance }} }})">
-            <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-            {{ \Illuminate\Support\Str::title($clearance->name) }}
+            <td class="px-6 py-4 text-sm leading-5 text-gray-900 flex items-center space-x-2">
+                {{ \Illuminate\Support\Str::title($clearance->name) }}
             </td>
             <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                 {{ $clearance->type->name }}
@@ -50,7 +50,7 @@
             <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                 @if($clearance->status <> 'Done')
                     @hasanyrole('superadmin|administrator|support')
-                        <div class="flex items-center space-x-2 flex-wrap"> <!-- Added flex-wrap for responsiveness -->
+                        <div class="flex items-center space-x-2 flex-wrap">
                             <div class="flex items-center">
                                 <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.clearance-modal', arguments: { clearance: {{ $clearance }} }})" class="flex items-center mr-2">
                                     <i class="fas fa-pencil-alt"></i>
@@ -59,35 +59,22 @@
                                     <i class="fas fa-check mr-1"></i>
                                 </x-secondary-button>
                             </div>
-                            <span class="text-xs text-gray-500 ml-2 block sm:hidden">
-                                @php
-                                    $daysAgo = $this->getDaysAgo($clearance->date);
-                                @endphp
-                                {{ $daysAgo === 1 ? "$daysAgo day ago" : "$daysAgo days ago" }}
-                            </span>
-                            <span class="text-xs text-gray-500 ml-2 hidden sm:block">
-                                @php
-                                    $daysAgo = $this->getDaysAgo($clearance->date);
-                                @endphp
-                                {{ $daysAgo === 1 ? "$daysAgo day ago" : "$daysAgo days ago" }}
-                            </span>
+                            @if(optional($clearance->user)->hasRole('user') || optional($clearance->user)->hasRole('anonymous'))
+                                <i class="fas fa-flag ml-2 text-red-500"></i>
+                            @endif
                         </div>
                     @endhasanyrole
                 @endif
-                @if($clearance->status === "Done")
-                    <span class="text-xs text-gray-500 mt-1">
-                    {{ \Carbon\Carbon::parse($clearance->date)->format('F j, Y') }}
-                    </span>
-                    @endif
             </td>
         </tr>
         @empty
-            <tr>
-                <td colspan="3" class="px-6 py-4 text-sm leading-5 text-gray-900">
-                    No clearance available.
-                </td>
-            </tr>
+        <tr>
+            <td colspan="3" class="px-6 py-4 text-sm leading-5 text-gray-900">
+                No clearance available.
+            </td>
+        </tr>
         @endforelse
+
         </tbody>
     </table>
     <div class="mt-5">

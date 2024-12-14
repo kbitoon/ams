@@ -35,9 +35,10 @@ new class extends Component
                 </div>
 
 
-                @unlessrole('user')
+                
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                @unlessrole('user|anonymous')
                     <x-nav-link :href="route('todo')" :active="request()->routeIs('todo')" wire:navigate>
                             {{ __('Tasks')}}
                     </x-nav-link>
@@ -307,7 +308,7 @@ new class extends Component
         @else
         @endhasanyrole
             
-        @hasanyrole('superadmin|administrator|support')
+        @hasanyrole('superadmin|administrator|support|user')
         <!-- Schedule Dropdown -->
         <div x-data="{ open: false }">
             <button @click="open = !open" class="w-full text-left px-4 py-2 rounded-md bg-white dark:bg-zinc-900">

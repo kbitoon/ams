@@ -12,6 +12,7 @@
                 right: 'month,list'
             },
             eventLimit: 5,
+            eventColor: '#AB886D',
 
             eventClick: function(event) {
                 var startDate = new Date(event.start);
