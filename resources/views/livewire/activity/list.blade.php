@@ -1,15 +1,40 @@
-<div class="p-6">
+<div class="bg-white overflow-hidden sm:rounded-lg">
+    <div class="flex justify-between items-center mb-4 mr-2 mt-2 ml-2">
+            <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.activity-modal' })" class="h-8 mr-2">
+                <span class="hidden sm:inline">New Activity</span>
+                <span class="inline sm:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                </span>
+            </x-primary-button>
+        </div>
+    <div class="p-6 text-gray-900">
+        <div x-data="{ openTab: 1 }">
+            <!-- Tab Buttons -->
+            <div class="flex space-x-4 border-b">
+                <button 
+                    :class="openTab === 1 ? 'border-b-2 font-medium text-blue-500' : 'text-gray-500'" 
+                    @click="openTab = 1" 
+                    class="py-2 px-4">
+                    Calendar View
+                </button>
+                <button 
+                    :class="openTab === 2 ? 'border-b-2 font-medium text-blue-500' : 'text-gray-500'" 
+                    @click="openTab = 2" 
+                    class="py-2 px-4">
+                    List View
+                </button>
+            </div>
+            
+            <!-- Tab Content -->
+            <div x-show="openTab === 1" class="mt-4">
+                <livewire:calendar />
+            </div>
+            <div x-show="openTab === 2" class="mt-4">
+    <div class="p-6">
     <!-- Table Section -->
-    <div class="flex justify-between items-center mb-4 mr-2">
-        <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.activity-modal' })" class="h-8 mr-2">
-            <span class="hidden sm:inline">New Activity</span>
-            <span class="inline sm:hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                </svg>
-            </span>
-        </x-primary-button>
-    </div>
+   
     <div class="overflow-x-auto">
         <table class="min-w-full border divide-y divide-gray-200">
             <thead>

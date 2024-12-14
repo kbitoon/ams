@@ -1,10 +1,15 @@
 <!-- Tabs Container -->
 <div class="bg-white overflow-hidden sm:rounded-lg">
-    <div class="mb-4 flex md:justify-start space-x-2 mt-2 ml-2">
-            <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.vehicleSchedule-modal' })">
-                  New Vehicle Schedule
+        <div class="flex justify-between items-center mb-4 mr-2 mt-2 ml-2">
+            <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.vehicleSchedule-modal' })" class="h-8 mr-2">
+                <span class="hidden sm:inline">New Vehicle Schedule</span>
+                <span class="inline sm:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                </span>
             </x-primary-button>
-     </div>  
+        </div>
     <div class="p-6 text-gray-900">
         <div x-data="{ openTab: 1 }">
             <!-- Tab Buttons -->
