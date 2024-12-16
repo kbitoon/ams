@@ -48,24 +48,43 @@
                 {{ $clearance->type->name }}
             </td>
             <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-            @hasanyrole('superadmin|administrator|support')
-            <div class="flex items-center space-x-2 flex-wrap">
-                <div class="flex items-center">
-                                <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.clearance-modal', arguments: { clearance: {{ $clearance }} }})" class="flex items-center mr-2">
-                                    <i class="fas fa-pencil-alt"></i>
-                                </x-secondary-button>
-                @if($clearance->status <> 'Done') 
-                                <x-secondary-button wire:click.stop="markAsDone({{ $clearance->id }})" class="flex items-center">
-                                    <i class="fas fa-check mr-1"></i>
-                                </x-secondary-button>
-                            </div>
-                            @if(optional($clearance->user)->hasRole('user') || optional($clearance->user)->hasRole('anonymous'))
-                                <i class="fas fa-flag ml-2 text-red-500"></i>
-                            @endif
-                        </div>
-                    @endhasanyrole
-                @endif
-            </td>
+    @hasanyrole('superadmin|administrator|support')
+    <div class="flex items-center justify-between">
+        <!-- Action Buttons and Flag -->
+        <div class="flex items-center space-x-2">
+            <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.clearance-modal', arguments: { clearance: {{ $clearance }} }})" class="flex items-center mr-2">
+                <i class="fas fa-pencil-alt"></i>
+            </x-secondary-button>
+            
+            @if($clearance->status <> 'Done')
+                <x-secondary-button wire:click.stop="markAsDone({{ $clearance->id }})" class="flex items-center">
+                    <i class="fas fa-check mr-1"></i>
+                </x-secondary-button>
+            @endif
+            
+            @if (optional($clearance->user)->hasRole('user') || optional($clearance->user)->hasRole('anonymous'))
+                <i class="fas fa-flag text-red-500"></i>
+            @endif
+        </div>
+
+        <!-- Time Ago Section -->
+        <div class="flex items-center">
+            @if($clearance->status <> 'Done')
+                <span class="text-xs text-gray-500">
+                    {{ $this->getTimeAgo($clearance->created_at) }}
+                </span>
+            @endif
+            
+            @if($clearance->status === "Done")
+                <span class="text-xs text-gray-500">
+                    {{ $clearance->created_at->format('F j, Y') }}
+                </span>
+            @endif
+        </div>
+    </div>
+    @endhasanyrole
+</td>
+
         </tr>
         @empty
         <tr>

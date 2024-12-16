@@ -40,12 +40,23 @@ class Clearance extends Component
         $this->resetPage(); // Reset pagination to the first page
     }
 
-    public function getDaysAgo($clearanceDate)
+    public function getTimeAgo($clearanceDate)
     {
-        $createdDate = Carbon::parse($clearanceDate);
+        $clearanceDate = Carbon::parse($clearanceDate);
         $now = Carbon::now();
+    
+        $diffInSeconds = $clearanceDate->diffInSeconds($now);
 
-        return (int) $createdDate->diffInDays($now);
+        if ($diffInSeconds < 3600) {
+            $minutes = floor($clearanceDate->diffInMinutes($now));
+            return $minutes . ' minute' . ($minutes > 1 ? 's' : '') . ' ago';
+        }
+        if ($diffInSeconds < 86400) {
+            $hours = floor($clearanceDate->diffInHours($now));
+            return $hours . ' hour' . ($hours > 1 ? 's' : '') . ' ago';
+        }
+        $days = floor($clearanceDate->diffInDays($now));
+        return $days . ' day' . ($days > 1 ? 's' : '') . ' ago';
     }
 
     /**

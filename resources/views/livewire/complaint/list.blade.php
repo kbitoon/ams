@@ -56,8 +56,10 @@
                     {{ $complaint->status }}
                 </td>
                 <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                    <div class="flex items-center space-x-2"> <!-- Keeping the buttons inline -->
-                        @if($complaint->status !== 'Done')
+    <div class="flex items-center justify-between"> <!-- Align buttons and time inline -->
+        <!-- Action Buttons -->
+        <div class="flex items-center space-x-2">
+                    @if($complaint->status !== 'Done')
                         @hasanyrole('superadmin|administrator|support')
                         <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.complaint-modal', arguments: { complaint: {{ $complaint }} }})" class="flex items-center">
                             <i class="fas fa-pencil-alt"></i>
@@ -67,19 +69,26 @@
                         <x-secondary-button wire:click.stop="markAsDone({{ $complaint->id }})" class="flex items-center">
                             <i class="fas fa-check mr-1"></i>
                         </x-secondary-button>
-                       
-                    </div>
-                    <span class="text-xs text-gray-500 mt-1"> <!-- Time ago directly below the buttons -->
-                        {{ $this->getTimeAgo($complaint->created_at) }}
-                    </span>
                     @endif
-                    @if($complaint->status === "Done")
-                    <span class="text-xs text-gray-500 mt-1">
-                        {{ $complaint->created_at->format('F j, Y')}}
-                    </span>
+                </div>
+
+                <!-- Time Ago -->
+                <div>
+                    @if($complaint->status !== 'Done')
+                        <span class="text-xs text-gray-500">
+                            {{ $this->getTimeAgo($complaint->created_at) }}
+                        </span>
                     @endif
 
-                </td>
+                    @if($complaint->status === "Done")
+                        <span class="text-xs text-gray-500">
+                            {{ $complaint->created_at->format('F j, Y') }}
+                        </span>
+                    @endif
+                </div>
+            </div>
+        </td>
+
                 
             </tr>
             @empty
