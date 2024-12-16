@@ -48,13 +48,16 @@
                 {{ $clearance->type->name }}
             </td>
             <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                @if($clearance->status <> 'Done')
-                    @hasanyrole('superadmin|administrator|support')
-                        <div class="flex items-center space-x-2 flex-wrap">
-                            <div class="flex items-center">
+            @hasanyrole('superadmin|administrator|support')
+            <div class="flex items-center space-x-2 flex-wrap">
+                <div class="flex items-center">
                                 <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.clearance-modal', arguments: { clearance: {{ $clearance }} }})" class="flex items-center mr-2">
                                     <i class="fas fa-pencil-alt"></i>
                                 </x-secondary-button>
+                @if($clearance->status <> 'Done')
+                   
+                        
+                                
                                 <x-secondary-button wire:click.stop="markAsDone({{ $clearance->id }})" class="flex items-center">
                                     <i class="fas fa-check mr-1"></i>
                                 </x-secondary-button>
