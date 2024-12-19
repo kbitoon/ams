@@ -17,6 +17,7 @@ class VehicleCalendar extends Component
             return [
                 'title' => $vehicleSchedule->destination,
                 'driver' => empty($vehicleSchedule->driver->name) ? '' : $vehicleSchedule->driver->name, 
+                'contact_number' => empty($vehicleSchedule->driver->contact_number) ? '' : $vehicleSchedule->driver->contact_number, 
                 'vehicle' => $vehicleSchedule->vehicle->name,
                 'start' => \Carbon\Carbon::parse($vehicleSchedule->start)->toISOString(),
                 'end' => \Carbon\Carbon::parse($vehicleSchedule->end)->toISOString(),

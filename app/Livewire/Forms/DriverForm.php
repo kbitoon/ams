@@ -11,6 +11,7 @@ class DriverForm extends Form
     public ?Driver $driver = null;
 
     public string $name = '';
+    public string $contact_number = '';
     public string $status = '';
 
     /**
@@ -20,6 +21,7 @@ class DriverForm extends Form
     {
         $this->driver = $driver;
         $this->name = $driver->name;
+        $this->contact_number = empty($driver->contact_number) ? '' : $driver->contact_number;
         $this->status = $driver->status;
     }
 
@@ -30,6 +32,7 @@ class DriverForm extends Form
     {
         return [
             'name' => ['required'],
+            'contact_number' => ['nullable'],
             'status' => ['required'],
         ];
     }
@@ -41,6 +44,7 @@ class DriverForm extends Form
     {
         return [
             'name' => 'name',
+            'contact_number' => 'contact_number',
             'status' => 'status',
         ]; 
     }
@@ -52,9 +56,9 @@ class DriverForm extends Form
     {
         $this->validate();
         if (!$this->driver) {
-            Driver::create($this->only(['name', 'status']));
+            Driver::create($this->only(['name', 'contact_number', 'status']));
         } else {
-            $this->driver->update($this->only(['name', 'status']));
+            $this->driver->update($this->only(['name','contact_number', 'status']));
         }
         $this->reset();
     } 

@@ -12,6 +12,7 @@ class Driver extends Model
 
     protected $fillable = [
         'name',
+        'contact_number',
         'status',
     ];
 

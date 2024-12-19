@@ -37,6 +37,7 @@
                     `Destination: ${event.title || 'N/A'}\n` +
                     `Vehicle: ${event.vehicle || 'N/A'}\n` +
                     `Driver: ${event.driver || 'N/A'}\n` +
+                    `Driver's Contact #: ${event.contact_number || 'N/A'}\n` +
                     `Schedule Start: ${formattedStart}\n` +
                     `Schedule End: ${formattedEnd}`;
                 

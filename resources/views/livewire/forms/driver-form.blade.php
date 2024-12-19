@@ -10,6 +10,11 @@
             <x-input-error :messages="$errors->get('form.name')" class="mt-2" />
         </div>
 
+        <div>
+            <x-input-label for="contact_number" :value="__('Contact Number')" />
+            <x-text-input wire:model="form.contact_number" id="contact_number" class="mt-1 block w-full" type="text" />
+            <x-input-error :messages="$errors->get('form.contact_number')" class="mt-2" />
+        </div> 
         <!-- Status input -->
         <div class="mt-4">
             <x-input-label for="status" :value="__('Status')" />
