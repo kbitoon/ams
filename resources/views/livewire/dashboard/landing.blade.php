@@ -246,9 +246,9 @@
         @unlessrole('user|anonymous')
         @if($todos->isNotEmpty())
                 <div>
+                    <h2 class="text-lg font-semibold text-black dark:text-white">Pending Tasks</h2>
                     @foreach($todos as $todo)
                         <div class="mt-4">
-                            <h2 class="text-lg font-semibold text-black dark:text-white">Pending Tasks</h2>
                             <a href="{{ route('todo') }}" class="flex items-start gap-4 rounded-lg bg-white p-6 shadow-md ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] dark:bg-zinc-900 dark:ring-zinc-800">
                                 <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#FF2D20]/10">
                                     <svg class="size-5 sm:size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#FF2D20">
