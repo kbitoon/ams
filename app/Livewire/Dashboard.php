@@ -7,7 +7,9 @@ use App\Models\Complaint as ComplaintModel;
 use App\Models\User as UserModel;
 use App\Models\UserStatistics as UserStatisticsModel;
 use App\Models\Clearance as ClearanceModel;
+use App\Models\Activity as ActivityModel;
 use Livewire\Component;
+use Carbon\Carbon;
 
 class Dashboard extends Component
 {
@@ -27,6 +29,8 @@ class Dashboard extends Component
 
         $pending_complaints = ComplaintModel::where('status', 'Pending')->count();
 
+        $activities = ActivityModel::whereDate('created_at', Carbon::today())->orderByDesc('created_at')->paginate(5);
+
 
         return view('livewire.dashboard.landing', [
             'pinned_announcement' => AnnouncementModel::where('is_pinned', 1)->orderByDesc('created_at')->first(),
@@ -40,6 +44,7 @@ class Dashboard extends Component
             'total_single_parents' => ['total' => $total_single_parents, 'group' => 'Single Parent'],
             'pending_clearances' => $pending_clearances,
             'pending_complaints' => $pending_complaints,
+            'activities' => $activities,
         ]);
     }
 }

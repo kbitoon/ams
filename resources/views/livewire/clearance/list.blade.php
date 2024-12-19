@@ -52,11 +52,12 @@
     <div class="flex items-center justify-between">
         <!-- Action Buttons and Flag -->
         <div class="flex items-center space-x-2">
-            <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.clearance-modal', arguments: { clearance: {{ $clearance }} }})" class="flex items-center mr-2">
-                <i class="fas fa-pencil-alt"></i>
-            </x-secondary-button>
+          
             
             @if($clearance->status <> 'Done')
+                <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.clearance-modal', arguments: { clearance: {{ $clearance }} }})" class="flex items-center mr-2">
+                    <i class="fas fa-pencil-alt"></i>
+                </x-secondary-button>
                 <x-secondary-button wire:click.stop="markAsDone({{ $clearance->id }})" class="flex items-center">
                     <i class="fas fa-check mr-1"></i>
                 </x-secondary-button>

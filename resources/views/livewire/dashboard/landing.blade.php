@@ -219,5 +219,29 @@
                     </div>
                 @endforelse
         </div>
+        
+        @unlessrole('user|anonymous')
+        @if($activities->isNotEmpty())
+            <div>
+                <h2 class="text-lg font-semibold text-black dark:text-white">Today's Activities</h2>
+                @foreach($activities as $activity)
+                    <div class="mt-4"> <!-- Added margin to the wrapper div -->
+                        <a href="#" class="flex items-start gap-4 rounded-lg bg-white p-6 shadow-md ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] dark:bg-zinc-900 dark:ring-zinc-800">
+                            <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#FF2D20]/10">
+                                <svg class="size-5 sm:size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#FF2D20">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M3 9h18M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <div class="pt-3">
+                                <h2 class="text-xl font-semibold text-black dark:text-white">{{ $activity->title }}</h2>
+                                <p class="mt-4 text-sm/relaxed">{{ $activity->description }}</p>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+        @endunlessrole
+
     </div>
 </div>
