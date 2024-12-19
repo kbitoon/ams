@@ -8,8 +8,10 @@ use App\Models\User as UserModel;
 use App\Models\UserStatistics as UserStatisticsModel;
 use App\Models\Clearance as ClearanceModel;
 use App\Models\Activity as ActivityModel;
+use App\Models\Todo as TodoModel;
 use Livewire\Component;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class Dashboard extends Component
 {
@@ -31,6 +33,17 @@ class Dashboard extends Component
 
         $activities = ActivityModel::whereDate('created_at', Carbon::today())->orderByDesc('created_at')->paginate(5);
 
+        $todos = TodoModel::where(function ($query) {
+            $user = Auth::user();
+            $query->where('assigned_user_id', $user->id)
+                  ->orWhereHas('role', function ($q) use ($user) {
+                      $q->whereIn('id', $user->roles->pluck('id'));
+                  });
+        })
+        ->where('is_completed', 0)
+        ->orderByDesc('created_at')
+        ->paginate(5);
+
 
         return view('livewire.dashboard.landing', [
             'pinned_announcement' => AnnouncementModel::where('is_pinned', 1)->orderByDesc('created_at')->first(),
@@ -45,6 +58,7 @@ class Dashboard extends Component
             'pending_clearances' => $pending_clearances,
             'pending_complaints' => $pending_complaints,
             'activities' => $activities,
+            'todos' => $todos,
         ]);
     }
 }

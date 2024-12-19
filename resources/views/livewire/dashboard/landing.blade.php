@@ -225,7 +225,7 @@
             <div>
                 <h2 class="text-lg font-semibold text-black dark:text-white">Today's Activities</h2>
                 @foreach($activities as $activity)
-                    <div class="mt-4"> <!-- Added margin to the wrapper div -->
+                    <div class="mt-4">
                         <a href="#" class="flex items-start gap-4 rounded-lg bg-white p-6 shadow-md ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] dark:bg-zinc-900 dark:ring-zinc-800">
                             <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#FF2D20]/10">
                                 <svg class="size-5 sm:size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#FF2D20">
@@ -241,6 +241,32 @@
                 @endforeach
             </div>
         @endif
+        @endunlessrole
+
+        @unlessrole('user|anonymous')
+        @if($todos->isNotEmpty())
+                <div>
+                    @foreach($todos as $todo)
+                        <div class="mt-4">
+                            <h2 class="text-lg font-semibold text-black dark:text-white">Pending Tasks</h2>
+                            <a href="{{ route('todo') }}" class="flex items-start gap-4 rounded-lg bg-white p-6 shadow-md ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] dark:bg-zinc-900 dark:ring-zinc-800">
+                                <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#FF2D20]/10">
+                                    <svg class="size-5 sm:size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#FF2D20">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v6h6" />
+                                    </svg>
+                                </div>
+                                <div class="pt-3">
+                                    <h2 class="text-xl font-semibold text-black dark:text-white">{{ $todo->task }}</h2>
+                                    @if($todo->due_date)
+                                        <p class="mt-4 text-sm/relaxed">Due Date: {{ $todo->due_date->format('F j, Y') }}</p>
+                                    @endif
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
         @endunlessrole
 
     </div>
