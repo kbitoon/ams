@@ -72,7 +72,7 @@ class VehicleScheduleForm extends Form
 
         // Determine the role of the user
         $userRole = auth()->user()->getRoleNames()->first();
-        $isAdminRole = in_array($userRole, ['admin', 'superadmin', 'support']);
+        $isAdminRole = in_array($userRole, ['administrator', 'superadmin', 'support']);
 
         // Automatically set is_approved
         $this->is_approved = $isAdminRole ? '1' : '0';
