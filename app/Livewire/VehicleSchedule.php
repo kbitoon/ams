@@ -69,6 +69,18 @@ class VehicleSchedule extends Component
         }
     }
 
+    public function approve($scheduleId)
+    {
+        $schedule = VehicleScheduleModel::find($scheduleId);
+        if ($schedule) {
+            $schedule->is_approved = 1; // Set is_approved to 1
+            $schedule->save();
+
+            session()->flash('message', 'Schedule approved successfully.');
+            $this->refresh(); // Refresh the list
+        }
+    }
+
 
     public function applyFilters()
     {
@@ -82,44 +94,47 @@ class VehicleSchedule extends Component
 
     public function render(): Application|View|Factory|\Illuminate\Contracts\Foundation\Application
     {
-
-        $vehicles = Vehicle::all();
-
-        $query = VehicleScheduleModel::query();
-
-        if (auth()->user()->hasRole('superadmin|administrator|support')) {
-            if ($this->dateFilter) {
-                $query->whereDate('start', $this->dateFilter);
+            $vehicles = Vehicle::all();
+        
+            $query = VehicleScheduleModel::query();
+        
+            // Role-based filtering
+            if (auth()->user()->hasRole('superadmin|administrator|support')) {
+                // Can view all schedules
+                if ($this->dateFilter) {
+                    $query->whereDate('start', $this->dateFilter);
+                }
+                if ($this->vehicleFilter) {
+                    $query->where('vehicle_id', $this->vehicleFilter);
+                }
+                if ($this->statusFilter) {
+                    $query->where('status', $this->statusFilter);
+                }
+            } else {
+                // Non-admin/support users can only view their own schedules
+                $query->where('user_id', auth()->user()->id);
+                if ($this->dateFilter) {
+                    $query->whereDate('start', $this->dateFilter);
+                }
+                if ($this->vehicleFilter) {
+                    $query->where('vehicle_id', $this->vehicleFilter);
+                }
+                if ($this->statusFilter) {
+                    $query->where('status', $this->statusFilter);
+                }
             }
-            if ($this->vehicleFilter) {
-                $query->where('vehicle_id', $this->vehicleFilter);
+        
+            $vehicleSchedules = $query->orderBy('start', 'desc')->paginate(10);
+        
+            foreach ($vehicleSchedules as $schedule) {
+                $schedule->formatted_start = Carbon::parse($schedule->start)->format('M. j,  g:iA');
+                $schedule->formatted_end = Carbon::parse($schedule->end)->format('M. j,  g:iA');
             }
-            if ($this->statusFilter) {
-                $query->where('status', $this->statusFilter);
-            }
-        } else {
-            $query->where('user_id', auth()->user()->id);
-            if ($this->dateFilter) {
-                $query->whereDate('start', $this->dateFilter);
-            }
-            if ($this->vehicleFilter) {
-                $query->where('vehicle_id', $this->vehicleFilter);
-            }
-            if ($this->statusFilter) {
-                $query->where('status', $this->statusFilter);
-            }
-        }
-
-        $vehicleSchedules = $query->orderBy('start', 'desc')->paginate(10);
-
-        foreach ($vehicleSchedules as $schedule) {
-            $schedule->formatted_start = Carbon::parse($schedule->start)->format('M. j,  g:iA');
-            $schedule->formatted_end = Carbon::parse($schedule->end)->format('M. j,  g:iA');
-        }
-
-        return view('livewire.vehicle.schedule', [
-            'vehicleSchedules' => $vehicleSchedules,
-            'vehicles' => $vehicles,
-        ]);
+        
+            return view('livewire.vehicle.schedule', [
+                'vehicleSchedules' => $vehicleSchedules,
+                'vehicles' => $vehicles,
+            ]);
     }
-}
+ }
+

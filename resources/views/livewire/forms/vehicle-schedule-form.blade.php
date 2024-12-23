@@ -12,13 +12,13 @@
             <x-text-input wire:model="form.destination" id="destination" class="mt-1 block w-full" type="text" />
             <x-input-error :messages="$errors->get('form.destination')" class="mt-2" />
         </div>
-        <div>
+        <div class="mt-4">
             <x-input-label for="start" :value="__('Start')" />
             <x-input-datetime wire:model="form.start" id="start" class="mt-1 block w-full" type="text" />
             <x-input-error :messages="$errors->get('form.start')" class="mt-2" />
         </div>
 
-        <div>
+        <div class="mt-4">
             <x-input-label for="end" :value="__('End')" />
             <x-input-datetime wire:model="form.end" id="end" class="mt-1 block w-full" type="text" />
             <x-input-error :messages="$errors->get('form.end')" class="mt-2" />
@@ -37,6 +37,7 @@
             <x-input-error :messages="$errors->get('form.vehicle_id')" class="mt-2" />
         </div>
 
+        @hasanyrole('superadmin|administrator|support')
         <div class="mt-4">
             <x-input-label for="driver_id" :value="__('Driver')" />
             <select wire:model="form.driver_id" id="driver_id" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
@@ -49,7 +50,7 @@
             </select>
             <x-input-error :messages="$errors->get('form.driver_id')" class="mt-2" />
         </div>
-
+        @endhasanyrole
         <!-- Save button -->
         <div class="mt-4">
             <x-primary-button>

@@ -17,6 +17,7 @@ class VehicleScheduleForm extends Form
     public string $vehicle_id = '';
     public ?string $driver_id = null; 
     public string $status = '';
+    public string $is_approved = '';
 
     /**
      * @param VehicleSchedule|null $vehicle
@@ -69,10 +70,20 @@ class VehicleScheduleForm extends Form
 
         $this->driver_id = $this->driver_id === '' ? null : $this->driver_id;
 
+        // Determine the role of the user
+        $userRole = auth()->user()->getRoleNames()->first();
+        $isAdminRole = in_array($userRole, ['admin', 'superadmin', 'support']);
+
+        // Automatically set is_approved
+        $this->is_approved = $isAdminRole ? '1' : '0';
+
+        $data = $this->only(['destination', 'start', 'end', 'vehicle_id', 'driver_id', 'status', 'is_approved']);
+        $data['user_id'] = auth()->user()->id;
+
         if (!$this->vehicleSchedule) {
-            VehicleSchedule::create($this->only(['destination', 'start', 'end', 'vehicle_id', 'driver_id', 'status']));
+            VehicleSchedule::create($data);
         } else {
-            $this->vehicleSchedule->update($this->only(['destination', 'start', 'end', 'vehicle_id', 'driver_id', 'status']));
+            $this->vehicleSchedule->update($data);
         }
 
         $this->reset();

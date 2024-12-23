@@ -118,7 +118,6 @@ new class extends Component
                     </div>        
                     @endhasanyrole
 
-                @hasanyrole('superadmin|administrator|support')
                     <div class="hidden sm:flex sm:items-center sm:ml-6 pt-1 ">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
@@ -134,23 +133,28 @@ new class extends Component
                             </x-slot>
 
                             <x-slot name="content">
-                                <x-dropdown-link :href="route('activity')" :active="request()->routeIs('activity')" wire:navigate>
-                                    {{ __('Activities') }}
-                                </x-dropdown-link>
                                 <x-dropdown-link :href="route('vehicle-schedule')" :active="request()->routeIs('vehicle-schedule')" wire:navigate>
                                         {{ __('Vehicles') }}
-                                </x-dropdown-link>
-                                <x-dropdown-link :href="route('item-schedule')" :active="request()->routeIs('item-schedule')" wire:navigate>
-                                    {{ __('Equipments') }}
                                 </x-dropdown-link>
                                 <x-dropdown-link :href="route('facility-schedule')" :active="request()->routeIs('facility-schedule')" wire:navigate>
                                     {{ __('Facilities') }}
                                 </x-dropdown-link>
+                                @hasanyrole('superadmin|administrator|support')
+                                <x-dropdown-link :href="route('activity')" :active="request()->routeIs('activity')" wire:navigate>
+                                    {{ __('Activities') }}
+                                </x-dropdown-link>
+                                
+                                <x-dropdown-link :href="route('item-schedule')" :active="request()->routeIs('item-schedule')" wire:navigate>
+                                    {{ __('Equipments') }}
+                                </x-dropdown-link>
+                                @else
+                                @endhasanyrole
                                 
                             </x-slot>
                         </x-dropdown>
                     </div>
-
+                    
+                    @hasanyrole('superadmin|administrator|support')
                         <div class="hidden sm:flex sm:items-center sm:ml-6 pt-1 ">
                             <x-dropdown align="right" width="48">
                                 <x-slot name="trigger">

@@ -13,12 +13,14 @@ class VehicleSchedule extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'start',
         'end',
         'destination',
         'vehicle_id',
         'driver_id',
         'status',
+        'is_approved',
     ];
 
     public function user(): BelongsTo

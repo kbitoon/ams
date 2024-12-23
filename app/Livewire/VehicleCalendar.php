@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\VehicleSchedule;
 use Livewire\Component;
+use Carbon\Carbon;
 
 class VehicleCalendar extends Component
 {
@@ -13,24 +14,24 @@ class VehicleCalendar extends Component
 
     public function mount()
     {
-        $this->vehicleSchedules = VehicleSchedule::all()->map(function ($vehicleSchedule) {
+        // Fetch only approved vehicle schedules
+        $this->vehicleSchedules = VehicleSchedule::where('is_approved', 1)->get()->map(function ($vehicleSchedule) {
             return [
                 'title' => $vehicleSchedule->destination,
-                'driver' => empty($vehicleSchedule->driver->name) ? '' : $vehicleSchedule->driver->name, 
-                'contact_number' => empty($vehicleSchedule->driver->contact_number) ? '' : $vehicleSchedule->driver->contact_number, 
-                'vehicle' => $vehicleSchedule->vehicle->name,
-                'start' => \Carbon\Carbon::parse($vehicleSchedule->start)->toISOString(),
-                'end' => \Carbon\Carbon::parse($vehicleSchedule->end)->toISOString(),
-                
+                'driver' => $vehicleSchedule->driver->name ?? '',
+                'contact_number' => $vehicleSchedule->driver->contact_number ?? '',
+                'vehicle' => $vehicleSchedule->vehicle->name ?? '',
+                'start' => Carbon::parse($vehicleSchedule->start)->toISOString(),
+                'end' => Carbon::parse($vehicleSchedule->end)->toISOString(),
             ];
         });
     }
 
-   public function render()
-{
-    return view('livewire.vehicle.calendar', [
-        'vehicleSchedules' => $this->vehicleSchedules
-    ]);
+    public function render()
+    {
+        return view('livewire.vehicle.calendar', [
+            'vehicleSchedules' => $this->vehicleSchedules
+        ]);
+    }
 }
 
-}

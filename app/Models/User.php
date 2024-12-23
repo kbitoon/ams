@@ -147,6 +147,14 @@ class User extends Authenticatable
     }
 
 
+    /**
+     * @return HasMany
+     */
+    public function vehicleSchedules(): HasMany
+    {
+        return $this->hasMany(VehicleSchedule::class);
+    }
+
 
     public function photoUrl()
     {
