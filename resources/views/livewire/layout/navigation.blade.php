@@ -136,11 +136,12 @@ new class extends Component
                                 <x-dropdown-link :href="route('vehicle-schedule')" :active="request()->routeIs('vehicle-schedule')" wire:navigate>
                                         {{ __('Vehicles') }}
                                 </x-dropdown-link>
-                               
-                                @hasanyrole('superadmin|administrator|support')
                                 <x-dropdown-link :href="route('facility-schedule')" :active="request()->routeIs('facility-schedule')" wire:navigate>
                                     {{ __('Facilities') }}
                                 </x-dropdown-link>
+                               
+                                @hasanyrole('superadmin|administrator|support')
+                                
                                 <x-dropdown-link :href="route('activity')" :active="request()->routeIs('activity')" wire:navigate>
                                     {{ __('Activities') }}
                                 </x-dropdown-link>

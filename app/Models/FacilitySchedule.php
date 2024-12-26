@@ -11,12 +11,14 @@ class FacilitySchedule extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'facility_id',
         'name',
         'start',
         'end',
         'purpose',
         'status',
+        'is_approved',
     ];
 
     public function user(): BelongsTo

@@ -65,7 +65,18 @@ class FacilitySchedule extends Component
             }
         }
     }
+    
+    public function approve($scheduleId)
+    {
+        $schedule = FacilityScheduleModel::find($scheduleId);
+        if ($schedule) {
+            $schedule->is_approved = 1; // Set is_approved to 1
+            $schedule->save();
 
+            session()->flash('message', 'Schedule approved successfully.');
+            $this->refresh(); // Refresh the list
+        }
+    }
     /**
      * @return Factory|\Illuminate\Foundation\Application|View|Application
      */
@@ -96,16 +107,13 @@ class FacilitySchedule extends Component
             }
         }
 
-        // Fetch filtered facility schedules
         $facilitySchedules = $query->orderBy('start', 'desc')->paginate(10);
 
-        // Format start and end dates for display
         foreach ($facilitySchedules as $schedule) {
             $schedule->formatted_start = \Carbon\Carbon::parse($schedule->start)->format('M. j, g:iA');
             $schedule->formatted_end = \Carbon\Carbon::parse($schedule->end)->format('M. j, g:iA');
         }
 
-        // Fetch facilities for dropdown or other use in the view
         $facilities = \App\Models\Facility::all();
 
         return view('livewire.facility.schedule', [

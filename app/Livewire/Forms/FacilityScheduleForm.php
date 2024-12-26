@@ -17,6 +17,7 @@ class FacilityScheduleForm extends Form
     public string $end = '';
     public string $purpose = '';
     public string $status = ''; 
+    public string $is_approved = '';
 
     /**
      * @param FacilitySchedule|null $facilitySchedule
@@ -69,10 +70,20 @@ class FacilityScheduleForm extends Form
 
         $this->validate();
 
-        if (!$this->facilitySchedule) {
-            FacilitySchedule::create($this->only(['facility_id', 'start', 'end',  'name','purpose', 'status']));
+         // Determine the role of the user
+         $userRole = auth()->user()->getRoleNames()->first();
+         $isAdminRole = in_array($userRole, ['administrator', 'superadmin', 'support']);
+ 
+         // Automatically set is_approved
+         $this->is_approved = $isAdminRole ? '1' : '0';
+ 
+         $data = $this->only(['facility_id', 'start', 'end',  'name','purpose', 'status','is_approved']);
+         $data['user_id'] = auth()->user()->id;
+
+         if (!$this->facilitySchedule) {
+            FacilitySchedule::create($data);
         } else {
-            $this->facilitySchedule->update($this->only(['facility_id', 'start', 'end',  'name','purpose', 'status']));
+            $this->facilitySchedule->update($data);
         }
         
         $this->reset();

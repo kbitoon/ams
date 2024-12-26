@@ -155,6 +155,14 @@ class User extends Authenticatable
         return $this->hasMany(VehicleSchedule::class);
     }
 
+    /**
+     * @return HasMany
+     */
+    public function facilitySchedules(): HasMany
+    {
+        return $this->hasMany(FacilitySchedule::class);
+    }
+
 
     public function photoUrl()
     {

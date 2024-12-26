@@ -72,22 +72,22 @@
             <tbody class="bg-white divide-y divide-gray-200">
                 @forelse($facilitySchedules as $facilitySchedule)
                 <tr class="hover:bg-gray-100 cursor-pointer">
-                    <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                    <td class="px-6 py-4 text-sm leading-5 {{ $facilitySchedule->is_approved ? 'text-gray-900' : 'text-red-500' }}">
                         {{ $facilitySchedule->facility->name }}
                     </td>
-                    <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                    <td class="px-6 py-4 text-sm leading-5 {{ $facilitySchedule->is_approved ? 'text-gray-900' : 'text-red-500' }}">
                     {{ \Carbon\Carbon::parse($facility->start)->format('M j, Y g:i A') }}
                     </td>
-                    <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                    <td class="px-6 py-4 text-sm leading-5 {{ $facilitySchedule->is_approved ? 'text-gray-900' : 'text-red-500' }}">
                     {{ \Carbon\Carbon::parse($facility->end)->format('M j, Y g:i A') }}
                     </td>
-                    <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                    <td class="px-6 py-4 text-sm leading-5 {{ $facilitySchedule->is_approved ? 'text-gray-900' : 'text-red-500' }}">
                         {{ $facilitySchedule->name }}
                     </td>
-                    <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                    <td class="px-6 py-4 text-sm leading-5 {{ $facilitySchedule->is_approved ? 'text-gray-900' : 'text-red-500' }}">
                         {{ $facilitySchedule->purpose }}
                     </td>
-                    <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                    <td class="px-6 py-4 text-sm leading-5 {{ $facilitySchedule->is_approved ? 'text-gray-900' : 'text-red-500' }}">
                         {{ $facilitySchedule->status }}
                     </td>
                     </td>
@@ -100,7 +100,8 @@
                                         <x-danger-button wire:click.stop="delete({{ $facilitySchedule->id }})" onclick="return confirm('Are you sure you want to delete this?')">
                                             <i class="fas fa-trash-alt"></i>
                                         </x-danger-button>
-                                @endhasanyrole
+                                       
+                               
                                 @if(is_null($facilitySchedule->status) || $facilitySchedule->status === '')
                                     <x-secondary-button wire:click="markAsOngoing({{ $facilitySchedule->id }})">
                                         <i class="fas fa-hourglass-half mr-1"></i>
@@ -110,8 +111,12 @@
                                         <i class="fas fa-check mr-1"></i>
                                     </x-secondary-button>
                                 @endif
-
-                               
+                                @if(!$facilitySchedule->is_approved)
+                                    <x-primary-button wire:click="approve({{ $facilitySchedule->id }})">
+                                        Approve
+                                    </x-primary-button>
+                                        @endif
+                                @endhasanyrole
                             </div>
 
                             </div>
