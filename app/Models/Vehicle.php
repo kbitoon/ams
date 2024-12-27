@@ -15,6 +15,7 @@ class Vehicle extends Model
         'name',
         'description',
         'status',
+        'calendar_color',
     ];
 
      /**

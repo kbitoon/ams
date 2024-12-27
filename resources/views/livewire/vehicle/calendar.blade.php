@@ -1,49 +1,55 @@
 <div id="calendar" class="w-full h-full"></div>
-
 <script>
-    $(document).ready(function() {
+     $(document).ready(function() {
         var vehicleSchedules = @json($vehicleSchedules);
 
         $('#calendar').fullCalendar({
-            events: vehicleSchedules,
+            events: vehicleSchedules.map(function(event) {
+                return {
+                    title: event.title,
+                    start: event.start,
+                    end: event.end,
+                    vehicle: event.vehicle,
+                    driver: event.driver,
+                    contact_number: event.contact_number,
+                    backgroundColor: event.calendar_color,
+                    borderColor: event.calendar_color,
+                };
+            }),
             header: {
                 left: 'prev,next today',
                 center: 'title',
                 right: 'month,list'
             },
             eventLimit: 5,
-            eventColor: '#AB886D',
 
-            eventClick: function(event) {
+            eventClick: function (event) {
                 var startDate = new Date(event.start);
                 var endDate = event.end ? new Date(event.end) : null;
 
-                // Function to format the time as 12-hour AM/PM in UTC
                 function formatUTCDate(date) {
                     var hours = date.getUTCHours();
                     var minutes = date.getUTCMinutes();
                     var ampm = hours >= 12 ? 'PM' : 'AM';
                     hours = hours % 12;
-                    hours = hours ? hours : 12; // The hour '0' should be '12'
+                    hours = hours ? hours : 12;
                     minutes = minutes < 10 ? '0' + minutes : minutes;
                     return hours + ':' + minutes + ' ' + ampm;
                 }
 
-                // Format start and end dates in UTC without timezone conversion
                 var formattedStart = (startDate.getUTCMonth() + 1) + '/' + startDate.getUTCDate() + '/' + startDate.getUTCFullYear() + ' ' + formatUTCDate(startDate);
                 var formattedEnd = endDate ? (endDate.getUTCMonth() + 1) + '/' + endDate.getUTCDate() + '/' + endDate.getUTCFullYear() + ' ' + formatUTCDate(endDate) : 'N/A';
 
-                var details = 
+                var details =
                     `Destination: ${event.title || 'N/A'}\n` +
                     `Vehicle: ${event.vehicle || 'N/A'}\n` +
                     `Driver: ${event.driver || 'N/A'}\n` +
                     `Driver's Contact #: ${event.contact_number || 'N/A'}\n` +
                     `Schedule Start: ${formattedStart}\n` +
                     `Schedule End: ${formattedEnd}`;
-                
+
                 alert(details);
             },
-
             dayRender: function(date, cell) {
                 var eventCount = cell.find('.fc-event').length;
                 if (eventCount > 5) {

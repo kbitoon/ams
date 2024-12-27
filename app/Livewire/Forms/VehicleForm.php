@@ -13,6 +13,7 @@ class VehicleForm extends Form
     public string $name = '';
     public string $description = '';
     public string $status = '';
+    public string $calendar_color = '';
 
     /**
      * Set the vehicle data into the form.
@@ -25,6 +26,7 @@ class VehicleForm extends Form
             $this->name = $vehicle->name;
             $this->description = $vehicle->description;
             $this->status = $vehicle->status;
+            $this->calendar_color = $vehicle->calendar_color ?? '#ffffff';
     }
 
     /**
@@ -36,6 +38,7 @@ class VehicleForm extends Form
             'name' => ['required'],
             'description' => ['required'],
             'status' => ['required'],
+            'calendar_color' => ['nullable', 'string', 'regex:/^#[a-fA-F0-9]{6}$/'],
         ];
     }
 
@@ -48,6 +51,7 @@ class VehicleForm extends Form
             'name' => 'name',
             'description' => 'description',
             'status' => 'status',
+            'calendar_color' => 'calendar_color',
         ];
     }
 
@@ -59,9 +63,9 @@ class VehicleForm extends Form
         $this->validate();
 
         if (!$this->vehicle) {
-            Vehicle::create($this->only(['name', 'description', 'status']));
+            Vehicle::create($this->only(['name', 'description', 'status', 'calendar_color']));
         } else {
-            $this->vehicle->update($this->only(['name', 'description', 'status']));
+            $this->vehicle->update($this->only(['name', 'description', 'status', 'calendar_color']));
         }
 
         $this->reset();

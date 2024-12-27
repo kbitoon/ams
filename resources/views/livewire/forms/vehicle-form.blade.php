@@ -28,6 +28,13 @@
             <x-input-error :messages="$errors->get('form.status')" class="mt-2" />
         </div>
 
+        <div class="mt-4">
+            <x-input-label for="calendar_color" :value="__('Color')" />
+            <input wire:model="form.calendar_color" id="calendar_color" class="mt-1 block w-full h-10 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" type="color" />
+            <x-input-error :messages="$errors->get('form.calendar_color')" class="mt-2" />
+        </div>
+
+
         <!-- Save button -->
         <div class="mt-4">
             <x-primary-button>
