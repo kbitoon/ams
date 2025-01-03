@@ -53,8 +53,7 @@
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
                 @forelse($activities as $activity)
-                <tr class="hover:bg-gray-100 cursor-pointer"
-                    wire:click="$dispatch('openModal', { component: 'modals.show.activity-modal', arguments: { activity: {{ $activity }} }})">
+                <tr >
                     <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                         {{ $activity->title }}
                     </td>
