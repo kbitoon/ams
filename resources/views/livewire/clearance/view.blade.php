@@ -15,40 +15,40 @@
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Date of Birth:</td>
                         <td style="font-size: 14px;">{!! $clearance->date_of_birth !!}</td>
                     </tr>
-                    <tr>
+                    <tr style="background: #eeeeee">
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Age:</td>
                         <td style="font-size: 14px;">{!! $clearance->age !!}</td>
                     </tr>
 
-                    <tr style="background: #eeeeee">
+                    <tr>
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Gender:</td>
                         <td style="font-size: 14px;">{!! $clearance->sex !!}</td>
                     </tr>
-                    <tr>
+                    <tr style="background: #eeeeee">
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Civil Status:</td>
                         <td style="font-size: 14px;">{!! $clearance->civil_status !!}</td>
                     </tr>
-                    <tr style="background: #eeeeee">
+                    <tr>
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Precinct No.:</td>
                         <td style="font-size: 14px;">{!! $clearance->precinct_no !!}</td>
                     </tr>
-                    <tr>
+                    <tr style="background: #eeeeee">
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Date:</td>
                         <td style="font-size: 14px;">{!! $clearance->date !!}</td>
                     </tr>
-                    <tr style="background: #eeeeee">
+                    <tr>
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Amount:</td>
                         <td style="font-size: 14px;">{!! $clearance->amount !!}</td>
                     </tr>
-                    <tr>
+                    <tr style="background: #eeeeee">
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Notes:</td>
                         <td style="font-size: 14px;">{!! $clearance->notes !!}</td>
                     </tr>
-                    <tr style="background: #eeeeee">
+                    <tr>
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Complete Address:</td>
                         <td style="font-size: 14px;">{!! $clearance->address !!}</td>
                     </tr>
-                    <tr>
+                    <tr style="background: #eeeeee">
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Purpose:</td>
                         <td style="font-size: 14px;">{!! $clearance->purpose !!}</td>
                     </tr>
