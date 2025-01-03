@@ -22,6 +22,7 @@
                 right: 'month,list'
             },
             eventLimit: 5,
+            firstDay: 1,
 
             eventClick: function (event) {
                 var startDate = new Date(event.start);
