@@ -19,6 +19,7 @@
         </div>
         <!-- Attachments Section -->        
         <div class="mt-4 text-sm/relaxed text-gray-800 dark:text-gray-300 space-y-2">
+        @if($complaint->assets && $complaint->assets->isNotEmpty())
             <h3 class="font-semibold">Attachments:</h3>
             <ul class="list-disc list-inside space-y-2">
                 @foreach($complaint->assets as $attachment)
@@ -29,6 +30,7 @@
                     </li>
                 @endforeach
             </ul>
+        @endif
         </div>        
         <div class="mt-4 text-sm/relaxed text-gray-800 dark:text-gray-300 space-y-2">
             <h3 class="font-bold" style="background: #eeeeee; padding: 5px;">Comments</h3>
