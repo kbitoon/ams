@@ -3,6 +3,7 @@
 namespace App\Livewire\Modals\Show;
 
 use App\Models\Clearance;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -19,6 +20,10 @@ class ClearanceModal extends ModalComponent
     {
         if ($clearance && $clearance->exists) {
             $this->clearance = $clearance;
+
+            $this->clearance->age = $clearance->date_of_birth 
+                ? Carbon::parse($clearance->date_of_birth)->age 
+                : null;
         }
     }
 

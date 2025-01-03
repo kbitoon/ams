@@ -15,6 +15,11 @@
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Date of Birth:</td>
                         <td style="font-size: 14px;">{!! $clearance->date_of_birth !!}</td>
                     </tr>
+                    <tr>
+                        <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Age:</td>
+                        <td style="font-size: 14px;">{!! $clearance->age !!}</td>
+                    </tr>
+
                     <tr style="background: #eeeeee">
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Gender:</td>
                         <td style="font-size: 14px;">{!! $clearance->sex !!}</td>
