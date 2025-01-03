@@ -70,11 +70,11 @@ class FacilitySchedule extends Component
     {
         $schedule = FacilityScheduleModel::find($scheduleId);
         if ($schedule) {
-            $schedule->is_approved = 1; // Set is_approved to 1
+            $schedule->is_approved = 1;
             $schedule->save();
 
             session()->flash('message', 'Schedule approved successfully.');
-            $this->refresh(); // Refresh the list
+            $this->refresh(); 
         }
     }
     /**
