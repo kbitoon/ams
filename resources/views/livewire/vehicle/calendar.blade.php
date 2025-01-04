@@ -6,6 +6,7 @@
         $('#calendar').fullCalendar({
             events: vehicleSchedules.map(function(event) {
                 return {
+                    name: event.name,
                     title: event.title,
                     start: event.start,
                     end: event.end,
@@ -42,6 +43,7 @@
                 var formattedEnd = endDate ? (endDate.getUTCMonth() + 1) + '/' + endDate.getUTCDate() + '/' + endDate.getUTCFullYear() + ' ' + formatUTCDate(endDate) : 'N/A';
 
                 var details =
+                    `Name: ${event.name || 'N/A'}\n` +
                     `Destination: ${event.title || 'N/A'}\n` +
                     `Vehicle: ${event.vehicle || 'N/A'}\n` +
                     `Driver: ${event.driver || 'N/A'}\n` +

@@ -16,15 +16,16 @@ class VehicleCalendar extends Component
     {
         $this->vehicleSchedules = VehicleSchedule::where('is_approved', 1)->get()->map(function ($vehicleSchedule) {
             return [
+                'name' => $vehicleSchedule->name,
                 'title' => $vehicleSchedule->destination,
                 'driver' => $vehicleSchedule->driver->name ?? '',
                 'contact_number' => $vehicleSchedule->driver->contact_number ?? '',
                 'vehicle' => $vehicleSchedule->vehicle->name ?? '',
-                'calendar_color' => $vehicleSchedule->vehicle->calendar_color ?? '#AB886D', // Fallback color
+                'calendar_color' => $vehicleSchedule->vehicle->calendar_color ?? '#AB886D',
                 'start' => Carbon::parse($vehicleSchedule->start)->toISOString(),
                 'end' => Carbon::parse($vehicleSchedule->end)->toISOString(),
             ];
-        })->toArray(); // Ensure it's an array for JSON encoding.
+        })->toArray();
     }
     public function render()
     {

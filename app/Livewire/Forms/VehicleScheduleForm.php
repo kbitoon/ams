@@ -29,7 +29,7 @@ class VehicleScheduleForm extends Form
         $this->destination = $vehicleSchedule->destination;
         $this->start = $vehicleSchedule->start;
         $this->end = $vehicleSchedule->end;
-        $this->name = $vehicleSchedule->name;
+        $this->name = empty($vehicleSchedule->name) ? : $vehicleSchedule->name;
         $this->vehicle_id = $vehicleSchedule->vehicle_id;
         $this->driver_id = $vehicleSchedule->driver_id;
         $this->status = $vehicleSchedule->status;
