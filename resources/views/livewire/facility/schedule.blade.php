@@ -76,10 +76,12 @@
                         {{ $facilitySchedule->facility->name }}
                     </td>
                     <td class="px-6 py-4 text-sm leading-5 {{ $facilitySchedule->is_approved ? 'text-gray-900' : 'text-red-500' }}">
-                    {{ \Carbon\Carbon::parse($facilitySchedule->start)->format('M j, Y g:i A') }}
+                    {{ \Carbon\Carbon::parse($facilitySchedule->start)->format('M j,') }}<br>
+                    {{ \Carbon\Carbon::parse($facilitySchedule->start)->format('g:iA') }}
                     </td>
                     <td class="px-6 py-4 text-sm leading-5 {{ $facilitySchedule->is_approved ? 'text-gray-900' : 'text-red-500' }}">
-                    {{ \Carbon\Carbon::parse($facilitySchedule->end)->format('M j, Y g:i A') }}
+                    {{ \Carbon\Carbon::parse($facilitySchedule->end)->format('M j,') }}<br>
+                    {{ \Carbon\Carbon::parse($facilitySchedule->end)->format('g:iA') }}
                     </td>
                     <td class="px-6 py-4 text-sm leading-5 {{ $facilitySchedule->is_approved ? 'text-gray-900' : 'text-red-500' }}">
                         {{ $facilitySchedule->name }}

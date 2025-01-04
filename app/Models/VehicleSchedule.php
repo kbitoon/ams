@@ -16,6 +16,7 @@ class VehicleSchedule extends Model
         'user_id',
         'start',
         'end',
+        'name',
         'destination',
         'vehicle_id',
         'driver_id',

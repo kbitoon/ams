@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('survey', function (Blueprint $table) {
-            $table->dropColumn('date');
+        Schema::table('vehicle_schedules', function (Blueprint $table) {
+            $table->string('name')->nullable()->after('end');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('survey', function (Blueprint $table) {
-            $table->date('date');
+        Schema::table('vehicle_schedules', function (Blueprint $table) {
+            $table->dropColumn(['name']);
         });
     }
 };
