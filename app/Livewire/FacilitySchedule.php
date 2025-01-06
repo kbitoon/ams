@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\FacilitySchedule as FacilityScheduleModel;
+use App\Models\Facility;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -114,7 +115,7 @@ class FacilitySchedule extends Component
             $schedule->formatted_end = \Carbon\Carbon::parse($schedule->end)->format('M. j, g:iA');
         }
 
-        $facilities = \App\Models\Facility::all();
+        $facilities = Facility::all();
 
         return view('livewire.facility.schedule', [
             'facilitySchedules' => $facilitySchedules,

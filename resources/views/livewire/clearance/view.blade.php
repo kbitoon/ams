@@ -7,7 +7,7 @@
         
         <div class="mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">
             <p>
-                <span class="font-bold">{!! $clearance->name !!} | {!! $clearance->contact_number !!}</span>
+                <span class="font-bold uppercase">{!! $clearance->name !!} | {!! $clearance->contact_number !!}</span>
             </p>
             <table width="100%">
                 <tbody>
@@ -46,7 +46,7 @@
                     </tr>
                     <tr>
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Complete Address:</td>
-                        <td style="font-size: 14px;">{!! $clearance->address !!}</td>
+                        <td class="uppercase font-bold" style="font-size: 14px;">{!! $clearance->address !!}</td>
                     </tr>
                     <tr style="background: #eeeeee">
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Purpose:</td>
