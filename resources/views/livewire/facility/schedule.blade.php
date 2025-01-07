@@ -99,9 +99,12 @@
                                         <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.facilitySchedule-modal', arguments: { facilitySchedule: {{ $facilitySchedule }} }})">
                                             <i class="fas fa-pencil-alt"></i>
                                         </x-secondary-button>
+
+                                        @hasanyrole('superadmin')
                                         <x-danger-button wire:click.stop="delete({{ $facilitySchedule->id }})" onclick="return confirm('Are you sure you want to delete this?')">
                                             <i class="fas fa-trash-alt"></i>
                                         </x-danger-button>
+                                        @endhasanyrole
                                        
                                
                                 @if(is_null($facilitySchedule->status) || $facilitySchedule->status === '')

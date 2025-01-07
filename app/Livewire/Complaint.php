@@ -67,15 +67,17 @@ class Complaint extends Component
                   ->orWhere('title', 'like', '%' . $this->search . '%');
         }
 
-        // If the user is a superadmin/administrator/support, show all complaints, else filter by user
         if (auth()->user()->hasRole('superadmin|administrator|support')) {
-            $complaints = $query->orderBy('created_at', 'desc')->paginate(10);
+            $complaints = $query->orderByRaw("CASE WHEN status = 'Pending' THEN 0 ELSE 1 END")
+                                ->orderBy('created_at', 'desc')
+                                ->paginate(10);
         } else {
             $complaints = $query->where('user_id', auth()->user()->id)
+                                ->orderByRaw("CASE WHEN status = 'Pending' THEN 0 ELSE 1 END")
                                 ->orderBy('created_at', 'desc')
                                 ->paginate(10);
         }
-
+    
         return view('livewire.complaint.list', [
             'complaints' => $complaints,
         ]);

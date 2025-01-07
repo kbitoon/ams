@@ -139,12 +139,12 @@
                                                 <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.vehicleSchedule-modal', arguments: { vehicleSchedule: {{ $vehicleSchedule }} }})">
                                                     <i class="fas fa-pencil-alt"></i>
                                                 </x-secondary-button>
-                                                @hasanyrole('superadmin|administrator|support')
+                                                @hasanyrole('superadmin')
                                                     <x-danger-button wire:click.stop="delete({{ $vehicleSchedule->id }})" onclick="return confirm('Are you sure you want to delete this?')">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </x-danger-button>
-                                                   
-                                               
+                                                @endhasanyrole  
+                                                @hasanyrole('superadmin|administrator|support')
                                                 @if(is_null($vehicleSchedule->status) || $vehicleSchedule->status === '')
                                                     <x-secondary-button wire:click="markAsOngoing({{ $vehicleSchedule->id }})">
                                                         <i class="fas fa-hourglass-half mr-1"></i>
