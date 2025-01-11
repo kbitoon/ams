@@ -104,8 +104,7 @@
                                         <x-danger-button wire:click.stop="delete({{ $facilitySchedule->id }})" onclick="return confirm('Are you sure you want to delete this?')">
                                             <i class="fas fa-trash-alt"></i>
                                         </x-danger-button>
-                                        @endhasanyrole
-                                       
+                                        @endhasanyrole  
                                
                                 @if(is_null($facilitySchedule->status) || $facilitySchedule->status === '')
                                     <x-secondary-button wire:click="markAsOngoing({{ $facilitySchedule->id }})">

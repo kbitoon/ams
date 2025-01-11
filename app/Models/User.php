@@ -163,6 +163,14 @@ class User extends Authenticatable
         return $this->hasMany(FacilitySchedule::class);
     }
 
+    /**
+     * @return HasMany
+     */
+    public function luponHearingComments(): HasMany
+    {
+        return $this->hasMany(LuponHearingComment::class);
+    }
+
 
     public function photoUrl()
     {

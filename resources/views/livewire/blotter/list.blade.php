@@ -15,6 +15,9 @@
             <thead>
                 <tr>
                     <th class="px-6 py-3 text-left bg-gray-50">
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Id</span>
+                    </th>
+                    <th class="px-6 py-3 text-left bg-gray-50">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Date of Incident</span>
                     </th>
                     <th class="px-6 py-3 text-left bg-gray-50">
@@ -34,6 +37,9 @@
                 <tr class="hover:bg-gray-100 cursor-pointer"
                 wire:click="$dispatch('openModal', { component: 'modals.show.blotter-modal', arguments: { blotter: {{ $blotter }} }})">
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                            {{$blotter->id }}
+                        </td>
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                         {{ \Carbon\Carbon::parse($blotter->incident)->format('M j, Y g:i A') }}
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
@@ -50,6 +56,11 @@
                                 <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.blotter-modal', arguments: { blotter: {{ $blotter->id }} }})">
                                     <i class="fas fa-pencil-alt"></i>
                                 </x-secondary-button>
+                                @hasanyrole('superadmin')
+                                    <x-danger-button wire:click.stop="delete({{ $blotter->id }})" onclick="return confirm('Are you sure you want to delete this?')">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </x-danger-button>
+                                @endhasanyrole  
                                 @if (is_null($blotter->complainee_id))
                                     <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.complainee-modal', arguments: { blotter: {{ $blotter->id }} }})">
                                         <i class="fas fa-user-plus"></i>
