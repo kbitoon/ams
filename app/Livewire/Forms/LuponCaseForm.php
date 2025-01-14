@@ -44,7 +44,6 @@ class LuponCaseForm extends Form
             'complaint' => ['required'],
             'prayer' => ['required'],
             'status' => ['required'],
-            'blotter_id' => ['required'],
         ];
     }
 

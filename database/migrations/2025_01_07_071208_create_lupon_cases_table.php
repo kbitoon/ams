@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('complaint');
             $table->text('prayer');
             $table->string('status');
-            $table->unsignedBigInteger('blotter_id');
+            $table->unsignedBigInteger('blotter_id')->nullable();
             $table->foreign('blotter_id')->references('id')->on('blotters');
             $table->timestamps();
         });

@@ -58,7 +58,7 @@
                     <option value="dismissed">Dismissed</option>
                     <option value="unsolved">Unsolved</option>
                     <option value="rejected">Rejected</option>
-                    <option value="withdrawn">withdrawn</option>
+                    <option value="withdrawn">Withdrawn</option>
                     <option value="solved">Solved</option>
             </select>
             <x-input-error :messages="$errors->get('form.status')" class="mt-2" />
