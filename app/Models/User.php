@@ -166,9 +166,9 @@ class User extends Authenticatable
     /**
      * @return HasMany
      */
-    public function luponHearingComments(): HasMany
+    public function luponCaseComments(): HasMany
     {
-        return $this->hasMany(LuponHearingComment::class);
+        return $this->hasMany(LuponCaseComment::class);
     }
 
 

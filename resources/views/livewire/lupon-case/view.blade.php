@@ -11,9 +11,13 @@
             </p>
             <table width="100%">
                 <tbody>
-                    <tr>
+                    <tr style="background: #eeeeee">
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Case #:</td>
                         <td style="font-size: 14px;">{!! $luponCase->case_no !!}</td>
+                    </tr>
+                    <tr >
+                        <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Complaint:</td>
+                        <td style="font-size: 14px;">{!! $luponCase->complaint !!}</td>
                     </tr>
                     <tr style="background: #eeeeee">
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Prayer:</td>
@@ -32,6 +36,32 @@
                     </li>
                 @endforeach
             </ul>
+            @endif
+        </div>
+        <div class="mt-4 text-sm/relaxed text-gray-800 dark:text-gray-300 space-y-2">
+        <h3 class="font-bold" style="background: #eeeeee; padding: 5px;">Comments</h3>
+        @if($luponCaseComments && $luponCaseComments->isNotEmpty())
+            <div class="text-sm/relaxed text-gray-800 dark:text-gray-300 space-y-2">
+                @foreach($luponCase->luponCaseComments as $luponCaseComment)
+                    <div class="border-b py-2">
+                        <span class='font-semibold'>{{ $luponCaseComment->user->name }}:</span>
+                        <p class="block text-gray-500 dark:text-gray-400" style="font-size: 0.65rem;">
+                            {{ $luponCaseComment->created_at->format('F j, Y') }}
+                        </p>
+                        <p>{{ $luponCaseComment->comment }}</p>
+                    </div>
+                @endforeach
+                    @else
+                        <p>No comments available.</p>
+                    @endif
+            </div>
+
+            @if(auth()->user()->hasRole('superadmin|administrator|lupon'))
+                <form action="{{ route('luponCaseComments.store', ['luponCase' => $luponCase->id]) }}" method="POST">
+                    @csrf
+                    <textarea name="luponCaseComment" placeholder="Add a comment..." class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+                    <x-primary-button type="submit">Submit Comment</x-primary-button>
+                </form>
             @endif
         </div>
 

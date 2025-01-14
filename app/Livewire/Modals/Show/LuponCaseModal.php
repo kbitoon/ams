@@ -12,13 +12,10 @@ class LuponCaseModal extends ModalComponent
 {
     public ?LuponCase $luponCase = null;
 
-    /**
-     * @param LuponCase|null $luponCase
-     */
     public function mount(LuponCase $luponCase = null): void
     {
         if ($luponCase && $luponCase->exists) {
-            $this->luponCase = $luponCase;
+            $this->luponCase = $luponCase->load('luponCaseComments.user');
         }
     }
 

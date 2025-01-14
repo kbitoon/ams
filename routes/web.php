@@ -7,6 +7,8 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ComplaintTrackingController;
 use App\Http\Controllers\PublicInformationController;
 use App\Http\Controllers\FullCalendarController;
+use App\Http\Controllers\LuponCaseCommentController;
+
 
 Route::get('/pending', Pending::class)->name('pending');
 
@@ -91,6 +93,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/clearancepurpose', [App\Http\Controllers\AmsController::class, 'clearancepurpose'])->name('clearancepurpose');
    
     Route::post('/photo/upload', [PhotoController::class, 'upload'])->name('photo.upload');
+
+    Route::post('/luponCases/{luponCase}/luponCaseComments', [LuponCaseCommentController::class, 'store'])->name('luponCaseComments.store');
 
     Route::post('/complaints/{complaint}/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::get('/complaints/{complaint}', [ComplaintController::class, 'show'])->name('complaint.show');

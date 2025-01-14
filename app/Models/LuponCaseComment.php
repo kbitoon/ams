@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-class LuponCase extends Model
+class LuponCaseComment extends Model
 {
     use HasFactory;
 
     protected $fillable = [   
-        'date',
         'user_id',
+        'lupon_case_id',
         'comment',
     ];
 
@@ -25,9 +25,9 @@ class LuponCase extends Model
     /**
      * @return BelongsTo
      */
-    public function blotter(): BelongsTo
+    public function luponCase(): BelongsTo
     {
-        return $this->belongsTo(Blotter::class);
+        return $this->belongsTo(LuponCase::class);
     }
 
     /**

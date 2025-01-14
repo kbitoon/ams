@@ -18,9 +18,6 @@
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Date</span>
                     </th>
                     <th class="px-6 py-3 text-left bg-gray-50">
-                        <span class="text-xs font-medium leading-4  tracking-wider text-gray-500 uppercase">Complaint</span>
-                    </th>
-                    <th class="px-6 py-3 text-left bg-gray-50">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Status</span>
                     </th>
                     <th class="px-6 py-3 bg-gray-50"></th>
@@ -32,9 +29,6 @@
                     wire:click="$dispatch('openModal', { component: 'modals.show.luponCase-modal', arguments: { luponCase: {{ $luponCase }} }})">
                     <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                         {{ $luponCase->date }}
-                    </td>
-                    <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                        {{ $luponCase->complaint }}
                     </td>
                     <td class="px-6 py-4 text-sm leading-5 text-gray-900 capitalize">
                         {{ $luponCase->status }}
