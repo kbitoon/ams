@@ -15,7 +15,7 @@ class ItemForm extends Form
     public int $TotalQuantity = 0;
     public int $QuantityLeft = 0;
     public string $description = '';
-    public float $AcquisitionCost = 0;
+    public string $AcquisitionCost = '';
     public string $category_id = '';
 
     /**
@@ -44,7 +44,7 @@ class ItemForm extends Form
             'TotalQuantity' => ['required', 'integer', 'min:1'],
             'QuantityLeft' => ['required','integer', 'min:0', 'lte:TotalQuantity'],
             'description'=>['required'],
-            'AcquisitionCost'=>['required'],
+            'AcquisitionCost' => ['required', 'numeric', 'min:0'],
             'category_id' => ['required'],
         ];
     }
@@ -65,12 +65,21 @@ class ItemForm extends Form
         ];
     }
 
+    protected function cleanAcquisitionCost(): void
+    {
+        // Remove all commas and ensure the value is numeric
+        $this->AcquisitionCost = str_replace(',', '', $this->AcquisitionCost);
+    }
+
     /**
      * @throws ValidationException
      */
     public function save(): void
     {
+
+        $this->cleanAcquisitionCost();
         $this->validate();
+        
         if (!$this->item) {
             Item::create($this->only(['acquired','name', 'TotalQuantity', 'QuantityLeft', 'description', 'AcquisitionCost', 'category_id']));
         } else {
