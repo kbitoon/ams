@@ -25,7 +25,6 @@ class LuponCaseComplainantModal extends ModalComponent
         if ($luponCaseComplainant && $luponCaseComplainant->exists) {
             $this->form->setLuponCaseComplainant($luponCaseComplainant);
         }
-
     }
 
     /**
@@ -44,7 +43,7 @@ class LuponCaseComplainantModal extends ModalComponent
     public function render() : View
     {
         return view('livewire.forms.lupon-case-complainant-form',  [
-            'luponCaseComplainants' => this -> luponCaseComplainants
+            'luponCaseComplainants' => $this -> luponCaseComplainants
         ]);
     }
 }   
