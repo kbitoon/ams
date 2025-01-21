@@ -31,6 +31,11 @@ class LuponCaseRespondentForm extends Form
         $this->lupon_case_id = $luponCaseRespondent->lupon_case_id;
         
     }
+
+    public function setLuponCaseId($luponCaseId): void
+    {
+        $this->lupon_case_id = $luponCaseId;
+    }
     /**
      * @return string[][]
      */

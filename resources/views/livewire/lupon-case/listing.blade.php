@@ -42,6 +42,16 @@
                             <x-danger-button wire:click.stop="delete({{ $luponCase->id }})" onclick="return confirm('Are you sure you want to delete this?')">
                                 <i class="fas fa-trash-alt"></i>
                             </x-danger-button>
+                            @if(is_null($luponCase->blotter_id))
+                            <x-secondary-button 
+                                wire:click.stop="$dispatch('openModal', { component: 'modals.lupon-case-complainant-modal', arguments: { 'lupon_case_id': {{ $luponCase->id }} }})">
+                                <i class="fas fa-user"></i> Complainant
+                            </x-secondary-button>
+                            <x-secondary-button 
+                                wire:click.stop="$dispatch('openModal', { component: 'modals.lupon-case-respondent-modal', arguments: { lupon_case_id: {{ $luponCase->id }} }})">
+                                <i class="fas fa-user"></i> Respondent
+                            </x-secondary-button>
+                            @endif
                         @endhasanyrole
                     </td>
                 </tr>

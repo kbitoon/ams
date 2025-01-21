@@ -2,9 +2,7 @@
     <button class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 focus:outline-none text-3xl" wire:click="closeModal">
         &times;
     </button>
-    <div class="pt-3 sm:pt-5">
-        <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100"></h3>
-        
+    <div>
         <div class="mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">
             <p>
                 <span class="font-bold uppercase">{!! $luponCase->date !!}</span>
@@ -23,8 +21,98 @@
                         <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300">Prayer:</td>
                         <td style="font-size: 14px;">{!! $luponCase->prayer !!}</td>
                     </tr>
+
                 </tbody>
             </table>
+            
+            @if($luponCase->blotter_id)
+            <div>
+                <h3 class="text-lg font-semibold text-black dark:text-white mt-3">Complainant</h3>
+                <table  width="100%">
+                <tbody>   
+                        <tr style="background: #eeeeee">
+                            <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300"><span class="font-semibold">Full Name:</span></td>
+                            <td style="font-size: 14px;">{{ trim("{$luponCase->blotter->firstname} {$luponCase->blotter->middle} {$luponCase->blotter->lastname}") }}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300"><span class="font-semibold">Contact:</span></td>
+                            <td style="font-size: 14px;">{{$luponCase->blotter->contact}}</td>
+                        </tr>
+                        <tr style="background: #eeeeee">
+                            <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300"><span class="font-semibold">Address:</span></td>
+                            <td style="font-size: 14px;">{{$luponCase->blotter->address}}</td>
+                        </tr>
+                        </tbody>
+                </table>
+            </div>
+
+            @if($luponCase->blotter->complainee_id)
+            <div>
+                <h3 class="text-lg font-semibold text-black dark:text-white mt-3">Respondent</h3>
+                <table  width="100%">
+                <tbody>   
+                        <tr style="background: #eeeeee">
+                            <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300"><span class="font-semibold">Full Name:</span></td>
+                            <td style="font-size: 14px;">{{ trim("{$luponCase->blotter->complainee->firstname} {$luponCase->blotter->complainee->middle} {$luponCase->blotter->complainee->lastname}") }}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300"><span class="font-semibold">Contact:</span></td>
+                            <td style="font-size: 14px;">{{$luponCase->blotter->complainee->contact}}</td>
+                        </tr>
+                        <tr style="background: #eeeeee">
+                            <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300"><span class="font-semibold">Address:</span></td>
+                            <td style="font-size: 14px;">{{$luponCase->blotter->complainee->address}}</td>
+                        </tr>
+                        </tbody>
+                </table>
+            </div>
+            @endif
+            @else
+            <div>
+                <h3 class="text-lg font-semibold text-black dark:text-white mt-3">Complainant</h3>
+                <table  width="100%">
+                <tbody>   
+                @foreach($luponCase->luponCaseComplainants as $complainant)
+                        <tr style="background: #eeeeee">
+                            <td style="font-size: 14px; white-space: nowrap"><span class="font-semibold">Full Name:</span></td>
+                            <td style="font-size: 14px;">{{ trim("{$complainant->firstname} {$complainant->middlename} {$complainant->lastname}") }}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300"><span class="font-semibold">Contact:</span></td>
+                            <td style="font-size: 14px;">{{$complainant->contact_number}}</td>
+                        </tr>
+                        <tr style="background: #eeeeee">
+                            <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300"><span class="font-semibold">Address:</span></td>
+                            <td style="font-size: 14px;">{{$complainant->address}}</td>
+                        </tr>
+                     </tbody>
+                        @endforeach
+                </table>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-semibold text-black dark:text-white mt-3">Respondent</h3>
+                <table  width="100%">
+                <tbody>  
+                @foreach($luponCase->luponCaseRespondents as $respondent) 
+                        <tr style="background: #eeeeee">
+                            <td style="font-size: 14px; white-space: nowrap"><span class="font-semibold">Full Name:</span></td>
+                            <td style="font-size: 14px;">{{ trim("{$respondent->firstname} {$respondent->middlename} {$respondent->lastname}") }}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300"><span class="font-semibold">Contact:</span></td>
+                            <td style="font-size: 14px;">{{$respondent->contact_number}}</td>
+                        </tr>
+                        <tr style="background: #eeeeee">
+                            <td class="font-semibold mt-4 text-sm relaxed text-gray-800 dark:text-gray-300"><span class="font-semibold">Address:</span></td>
+                            <td style="font-size: 14px;">{{$respondent->address}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            @endif
+            
             @if(!$luponCase->assets->isEmpty())
             <h3 class="font-semibold">Resolution Form:</h3>
             <ul class="list-disc list-inside space-y-2">

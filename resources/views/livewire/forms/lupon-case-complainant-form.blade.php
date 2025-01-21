@@ -4,7 +4,7 @@
             &times;
         </button>
     @endauth
-    <form wire:submit="save">
+    <form wire:submit.prevent="save">
         <!-- Name input -->
 
         <div>

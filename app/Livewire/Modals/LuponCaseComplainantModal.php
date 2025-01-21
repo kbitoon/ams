@@ -20,13 +20,19 @@ class LuponCaseComplainantModal extends ModalComponent
     /**
      * @param LuponCaseComplainant|null $luponCaseComplainant
      */
-    public function mount(LuponCaseComplainant $luponCaseComplainant = null): void
+    public function mount(?LuponCaseComplainant $luponCaseComplainant = null, $lupon_case_id = null): void
     {
         if ($luponCaseComplainant && $luponCaseComplainant->exists) {
             $this->form->setLuponCaseComplainant($luponCaseComplainant);
         }
+
+        if ($lupon_case_id) {
+            $this->form->setLuponCaseId($lupon_case_id);
+        }
     }
 
+
+    
     /**
      * Save luponCase
      */
@@ -42,8 +48,6 @@ class LuponCaseComplainantModal extends ModalComponent
      */
     public function render() : View
     {
-        return view('livewire.forms.lupon-case-complainant-form',  [
-            'luponCaseComplainants' => $this -> luponCaseComplainants
-        ]);
+        return view('livewire.forms.lupon-case-complainant-form');
     }
 }   

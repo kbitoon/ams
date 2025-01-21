@@ -31,6 +31,12 @@ class LuponCaseComplainantForm extends Form
         $this->lupon_case_id = $luponCaseComplainant->lupon_case_id;
         
     }
+
+    public function setLuponCaseId($luponCaseId): void
+    {
+        $this->lupon_case_id = $luponCaseId;
+    }
+
     /**
      * @return string[][]
      */
@@ -66,15 +72,18 @@ class LuponCaseComplainantForm extends Form
      */
     public function save(): void
     {
-
         $this->validate();
 
         if (!$this->luponCaseComplainant) {
-            LuponCaseComplainant::create($this->only(['firstname', 'middlename', 'lastname',  'contact_number','address', 'lupon_case_id']));
+            LuponCaseComplainant::create($this->only([
+                'firstname', 'middlename', 'lastname', 'contact_number', 'address', 'lupon_case_id'
+            ]));
         } else {
-            $this->luponCaseComplainant->update($this->only(['firstname', 'middlename', 'lastname',  'contact_number','address', 'lupon_case_id']));
+            $this->luponCaseComplainant->update($this->only([
+                'firstname', 'middlename', 'lastname', 'contact_number', 'address', 'lupon_case_id'
+            ]));
         }
-        
+
         $this->reset();
     }
 }

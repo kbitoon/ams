@@ -44,6 +44,7 @@ class LuponCaseForm extends Form
             'complaint' => ['required'],
             'prayer' => ['required'],
             'status' => ['required'],
+            'blotter_id' => ['nullable', 'integer'],
         ];
     }
 
@@ -69,14 +70,18 @@ class LuponCaseForm extends Form
     public function save(): void
     {
         $this->validate();
-        if (!$this->luponCase) {
-                $this->luponCase = LuponCase::create($this->only(['date', 'case_no', 'complaint', 'prayer', 'status', 'blotter_id']));
-        } else {
-            $this->luponCase->update($this->only(['date', 'case_no', 'complaint', 'prayer', 'status', 'blotter_id']));
 
+        // Ensure blotter_id is properly handled if it's empty
+        $data = $this->only(['date', 'case_no', 'complaint', 'prayer', 'status', 'blotter_id']);
+        $data['blotter_id'] = $this->blotter_id ?: null;
+
+        if (!$this->luponCase) {
+            $this->luponCase = LuponCase::create($data);
+        } else {
+            $this->luponCase->update($data);
         }
 
-        // handle file uploads, possible convert this to traits to be re-used on other entities
+        // Handle file uploads
         foreach ($this->resolution_form as $resolution_form) {
             $id = auth()->id() ?? 1;
             $path = $resolution_form->storePubliclyAs('resolution_forms/' . $id, time() . '-' . $resolution_form->getClientOriginalName());

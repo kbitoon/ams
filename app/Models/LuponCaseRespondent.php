@@ -12,6 +12,7 @@ class LuponCaseRespondent extends Model
 {
     use HasFactory;
 
+    protected $table = 'lupon_cases_respondents';
     protected $fillable = [   
         'lupon_case_id',
         'firstname',
@@ -20,6 +21,11 @@ class LuponCaseRespondent extends Model
         'contact_number',
         'address',
     ];
+
+    public function luponCase(): BelongsTo
+    {
+        return $this->belongsTo(LuponCase::class);
+    }
 
 
     /**

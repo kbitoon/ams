@@ -30,11 +30,22 @@ class LuponCase extends Model
         return $this->belongsTo(Blotter::class);
     }
 
+   
+
     public function luponCaseComments(): HasMany
     {
         return $this->hasMany(LuponCaseComment::class);
     }
 
+    public function luponCaseComplainants(): HasMany
+    {
+        return $this->hasMany(LuponCaseComplainant::class);
+    }
+
+    public function luponCaseRespondents(): HasMany
+    {
+        return $this->hasMany(LuponCaseRespondent::class);
+    }
     /**
      * @return MorphMany
      */
