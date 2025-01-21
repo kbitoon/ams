@@ -17,8 +17,7 @@ class LuponCaseModal extends ModalComponent
     public ?LuponCase $luponCase = null;
     public LuponCaseForm $form;
     public Collection $blotters;
-   
-
+    public string $search = '';
     public string $resolution_form = '';
 
     /**
@@ -31,6 +30,39 @@ class LuponCaseModal extends ModalComponent
         }
   
         $this->blotters = Blotter::orderBy('id')->get();
+    }
+
+    /**
+     * Get filtered blotters based on search
+     */
+    public function getFilteredBlottersProperty()
+    {
+        return Blotter::query()
+            ->when($this->search, function ($query) {
+                $query->where(function ($query) {
+                    $query->where('id', 'like', '%' . $this->search . '%')
+                          ->orWhere('firstname', 'like', '%' . $this->search . '%')
+                          ->orWhere('lastname', 'like', '%' . $this->search . '%');
+                });
+            })
+            ->orderBy('id')
+            ->get();
+    }
+
+    /**
+     * Select a blotter
+     */
+    public function selectBlotter($blotterId): void
+    {
+        $this->form->blotter_id = $blotterId;
+        
+        // Get the blotter and populate the complaint field with its narration
+        $blotter = Blotter::find($blotterId);
+        if ($blotter && $blotter->narration) {
+            $this->form->complaint = $blotter->narration;
+        }
+        
+        $this->search = ''; // Clear search after selection
     }
 
     /**
@@ -49,7 +81,7 @@ class LuponCaseModal extends ModalComponent
     public function render() : View
     {
         return view('livewire.forms.lupon-case-form',  [
-            'blotters' => $this->blotters,
+            'filteredBlotters' => $this->filteredBlotters,
             'resolution_form' => $this->resolution_form,
         ]);
     }

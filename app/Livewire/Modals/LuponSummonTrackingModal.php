@@ -7,7 +7,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\WithFileUploads;
 use LivewireUI\Modal\ModalComponent;
-use App\Livewire\Forms\LuponCaseForm;
+use App\Livewire\Forms\LuponSummonTrackingForm;
 
 class LuponSummonTrackingModal extends ModalComponent
 {
