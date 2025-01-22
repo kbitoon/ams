@@ -15,7 +15,8 @@ class LuponCaseModal extends ModalComponent
     public function mount(LuponCase $luponCase = null): void
     {
          if ($luponCase && $luponCase->exists) {
-            $this->luponCase = $luponCase->load('luponCaseComments.user', 'luponCaseComplainants', 'luponCaseRespondents');
+            $this->luponCase = $luponCase->load('luponCaseComments.user', 'luponCaseComplainants', 'luponCaseRespondents',
+                                                'luponSummonTrackings', 'luponHearingTrackings');
         }
     }
 
@@ -26,8 +27,10 @@ class LuponCaseModal extends ModalComponent
     {
         return view('livewire.lupon-case.view', [
             'luponCase' => $this->luponCase,
+            'luponSummonTrackings' => $this->luponCase->luponSummonTrackings ?? [],
+            'luponHearingTrackings' => $this->luponCase->luponHearingTrackings ?? [],
             'luponCaseComplainants' => $this->luponCase->luponCaseComplainants ?? [],
-        'luponCaseRespondents' => $this->luponCase->luponCaseRespondents ?? [],
+            'luponCaseRespondents' => $this->luponCase->luponCaseRespondents ?? [],
             'luponCaseComments' => $this->luponCase->luponCaseComments ?? [],
         ]);
     }

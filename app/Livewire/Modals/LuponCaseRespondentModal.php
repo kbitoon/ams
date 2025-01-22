@@ -20,7 +20,7 @@ class LuponCaseRespondentModal extends ModalComponent
     /**
      * @param LuponCaseRespondent|null $luponCaseRespondent
      */
-    public function mount(LuponCaseRespondent $luponCaseRespondent, $lupon_case_id = null): void
+    public function mount(LuponCaseRespondent $luponCaseRespondent = null, $lupon_case_id = null): void
     {
         if ($luponCaseRespondent && $luponCaseRespondent->exists) {
             $this->form->setLuponCaseRespondent($luponCaseRespondent);

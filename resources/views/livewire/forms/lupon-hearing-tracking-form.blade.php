@@ -9,7 +9,7 @@
 
         <div>
             <x-input-label for="date_time" :value="__('Date and Time')" />
-            <input type="datetime" wire:model="form.date_time" id="date_time" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" type="text" ></nput>
+            <input type="datetime-local" wire:model="form.date_time" id="date_time" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" type="text" ></nput>
             <x-input-error :messages="$errors->get('form.date_time')" class="mt-2" />
         </div>
 
@@ -28,7 +28,7 @@
         <div class="mt-4">
             <x-input-label for="remarks" :value="__('Remarks')" />
             <textarea wire:model="form.remarks" id="remarks" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" type="text" ></textarea>
-            <x-input-error:messages="$errors->get('form.remarks')" class="mt-2" />
+            <x-input-error :messages="$errors->get('form.remarks')" class="mt-2" />
         </div>
 
         <!-- Save button -->

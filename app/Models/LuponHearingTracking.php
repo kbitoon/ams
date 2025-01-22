@@ -12,12 +12,18 @@ class LuponHearingTracking extends Model
 {
     use HasFactory;
 
+    protected $table = 'lupon_hearing_tracking';
     protected $fillable = [   
         'lupon_case_id',
         'date_time',
         'type',
         'remarks',
     ];
+
+    public function luponCase(): BelongsTo
+    {
+        return $this->belongsTo(LuponCase::class);
+    }
 
 
     /**

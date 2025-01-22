@@ -20,10 +20,14 @@ class LuponSummonTrackingModal extends ModalComponent
     /**
      * @param LuponSummonTracking|null $luponSummonTracking
      */
-    public function mount(LuponSummonTracking $luponSummonTracking = null): void
+    public function mount(LuponSummonTracking $luponSummonTracking = null, $lupon_case_id = null): void
     {
         if ($luponSummonTracking && $luponSummonTracking->exists) {
             $this->form->setLuponSummonTracking($luponSummonTracking);
+        }
+
+        if ($lupon_case_id) {
+            $this->form->setLuponCaseId($lupon_case_id);
         }
 
     }
@@ -43,8 +47,6 @@ class LuponSummonTrackingModal extends ModalComponent
      */
     public function render() : View
     {
-        return view('livewire.forms.lupon-summon-tracking-form',  [
-            'luponSummonTrackings' => $this -> luponSummonTrackings
-        ]);
+        return view('livewire.forms.lupon-summon-tracking-form');
     }
 }   

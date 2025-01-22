@@ -20,10 +20,14 @@ class LuponHearingTrackingModal extends ModalComponent
     /**
      * @param LuponHearingTracking|null $luponHearingTracking
      */
-    public function mount(LuponHearingTracking $luponHearingTracking = null): void
+    public function mount(LuponHearingTracking $luponHearingTracking = null, $lupon_case_id = null): void
     {
         if ($luponHearingTracking && $luponHearingTracking->exists) {
             $this->form->setLuponHearingTracking($luponHearingTracking);
+        }
+
+        if ($lupon_case_id) {
+            $this->form->setLuponCaseId($lupon_case_id);
         }
 
     }
@@ -43,8 +47,6 @@ class LuponHearingTrackingModal extends ModalComponent
      */
     public function render() : View
     {
-        return view('livewire.forms.lupon-hearing-tracking-form',  [
-            'luponHearingTrackings' => $this -> luponHearingTrackings
-        ]);
+        return view('livewire.forms.lupon-hearing-tracking-form');
     }
 }   

@@ -29,6 +29,12 @@ class LuponSummonTrackingForm extends Form
         $this->lupon_case_id = $luponSummonTracking->lupon_case_id;
         
     }
+
+    public function setLuponCaseId($luponCaseId): void
+    {
+        $this->lupon_case_id = $luponCaseId;
+    }
+
     /**
      * @return string[][]
      */
@@ -38,7 +44,7 @@ class LuponSummonTrackingForm extends Form
             'date_time' => ['required'],
             'received_by' => ['required'],
             'served_by' => ['required'],
-            'remarks' => ['required','numeric'],
+            'remarks' => ['required'],
             'lupon_case_id' => ['required'],
         ];
     }

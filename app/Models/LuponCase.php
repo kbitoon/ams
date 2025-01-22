@@ -46,6 +46,16 @@ class LuponCase extends Model
     {
         return $this->hasMany(LuponCaseRespondent::class);
     }
+
+    public function luponSummonTrackings(): HasMany
+    {
+        return $this->hasMany(LuponSummonTracking::class);
+    }
+
+    public function luponHearingTrackings(): HasMany
+    {
+        return $this->hasMany(LuponHearingTracking::class);
+    }
     /**
      * @return MorphMany
      */

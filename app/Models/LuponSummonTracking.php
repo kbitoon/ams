@@ -12,14 +12,21 @@ class LuponSummonTracking extends Model
 {
     use HasFactory;
 
+    protected $table = 'lupon_summon_tracking';
+
     protected $fillable = [   
         'lupon_case_id',
         'date_time',
         'received_by',
         'served_by',
         'remarks',
-        'address',
     ];
+
+
+    public function luponCase(): BelongsTo
+    {
+        return $this->belongsTo(LuponCase::class);
+    }
 
 
     /**
