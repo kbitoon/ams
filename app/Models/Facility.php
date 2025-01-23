@@ -15,6 +15,7 @@ class Facility extends Model
         'name',
         'location',
         'status',
+        'calendar_color',
     ];
 
     public function user(): BelongsTo

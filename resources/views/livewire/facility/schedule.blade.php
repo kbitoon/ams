@@ -1,38 +1,6 @@
 <div class="p-6">
 
-    <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">
-                <!-- Date Filter -->
-                <div>
-                    <label for="dateFilter" class="block text-sm font-medium text-gray-700">Filter by Date</label>
-                    <input type="date" id="dateFilter" wire:model.defer="tempDateFilter" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                </div>
-
-                <!-- Facility Filter -->
-                <div>
-                    <label for="facilityFilter" class="block text-sm font-medium text-gray-700">Filter by Facility</label>
-                    <select id="facilityFilter" wire:model.defer="tempFacilityFilter" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                        <option value="">All Facilities</option>
-                        @foreach($facilities as $facility)
-                            <option value="{{ $facility->id }}">{{ $facility->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <!-- Status Filter -->
-                <div>
-                    <label for="statusFilter" class="block text-sm font-medium text-gray-700">Filter by Status</label>
-                    <select id="statusFilter" wire:model.defer="tempStatusFilter" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                        <option value="">All Statuses</option>
-                        <option value="Ongoing">Ongoing</option>
-                        <option value="Done">Done</option>
-                    </select>
-                </div>
-            </div>
-        <div class="mb-4 flex justify-center md:justify-end space-x-2">
-            <x-primary-button wire:click="applyFilters">
-                Apply Filters
-            </x-primary-button>
-    </div>
+   
     <!-- Table Section -->
     <div class="flex justify-between items-center mb-4 mr-2">
         <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.facilitySchedule-modal' })" class="h-8 mr-2">
@@ -44,6 +12,68 @@
             </span>
         </x-primary-button>
     </div>
+    
+    <div class="p-6 text-gray-900">
+        <div x-data="{ openTab: 1 }">
+                <!-- Conditionally Render Tab Buttons -->
+                @hasanyrole('superadmin|administrator|support')
+                <div class="flex space-x-4 border-b">
+                    <button 
+                        :class="openTab === 1 ? 'border-b-2 font-medium text-blue-500' : 'text-gray-500'" 
+                        @click="openTab = 1" 
+                        class="py-2 px-4">
+                        Calendar View
+                    </button>
+                    <button 
+                        :class="openTab === 2 ? 'border-b-2 font-medium text-blue-500' : 'text-gray-500'" 
+                        @click="openTab = 2" 
+                        class="py-2 px-4">
+                        List View
+                    </button>
+                </div>
+                @endhasanyrole
+
+                <div x-show="openTab === 1 && @json(auth()->user()->hasAnyRole(['superadmin', 'administrator', 'support']))" class="mt-4">
+                    <livewire:facility-calendar />
+                </div>
+                <div x-show="openTab === 2 || !@json(auth()->user()->hasAnyRole(['superadmin', 'administrator', 'support']))" class="mt-4">
+               <!-- Filters Section -->
+                <div class="mb-4 md:flex md:items-end md:space-x-4">
+                    <!-- Date Filter -->
+                    <div class="flex-1">
+                        <label for="dateFilter" class="block text-sm font-medium text-gray-700">Filter by Date</label>
+                        <input type="date" id="dateFilter" wire:model.defer="tempDateFilter" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+
+                    <!-- Facility Filter -->
+                    <div class="flex-1">
+                        <label for="facilityFilter" class="block text-sm font-medium text-gray-700">Filter by Facility</label>
+                        <select id="facilityFilter" wire:model.defer="tempFacilityFilter" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <option value="">All Facilities</option>
+                            @foreach($facilities as $facility)
+                                <option value="{{ $facility->id }}">{{ $facility->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- Status Filter -->
+                    <div class="flex-1">
+                        <label for="statusFilter" class="block text-sm font-medium text-gray-700">Filter by Status</label>
+                        <select id="statusFilter" wire:model.defer="tempStatusFilter" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <option value="">All Statuses</option>
+                            <option value="Ongoing">Ongoing</option>
+                            <option value="Done">Done</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Filter Button -->
+                <div class="mb-4 flex justify-center md:justify-end">
+                    <x-primary-button wire:click="applyFilters">
+                        Apply Filters
+                    </x-primary-button>
+                </div>
+
     <div class="overflow-x-auto">
         <table class="min-w-full border divide-y divide-gray-200">
             <thead>

@@ -13,6 +13,7 @@ class FacilityForm extends Form
     public string $name  = '';
     public string $location = '';
     public string $status = '';
+    public string $calendar_color = '';
 
     /**
      * @param Facility|null $facility
@@ -21,8 +22,9 @@ class FacilityForm extends Form
     {
         $this->facility = $facility;
         $this->name = $facility->name;
-        $this->location = $activity->location;
+        $this->location = $facility->location;
         $this->status = $facility->status;
+        $this->calendar_color = $facility->calendar_color ?? '#ffffff';
     }
 
     /**
@@ -34,6 +36,7 @@ class FacilityForm extends Form
             'name' => ['required'],
             'location' => ['required'],
             'status' => ['required'],
+            'calendar_color' => ['nullable'],
         ];
     }
 
@@ -46,6 +49,7 @@ class FacilityForm extends Form
             'name' => 'name',
             'location' => 'location',
             'status' => 'status',
+            'calendar_color' => 'calendar_color',
         ];
     }
 
@@ -56,9 +60,9 @@ class FacilityForm extends Form
     {
         $this->validate();
         if (!$this->facility) {
-            $facility = Facility::create($this->only(['name','location', 'status']));
+            $facility = Facility::create($this->only(['name','location', 'status', 'calendar_color']));
         } else {
-            $this->facility->update($this->only(['name','location', 'status']));
+            $this->facility->update($this->only(['name','location', 'status', 'calendar_color']));
         }
         $this->reset();
     }

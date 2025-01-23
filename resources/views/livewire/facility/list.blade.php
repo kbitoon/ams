@@ -21,6 +21,9 @@
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Location</span>
                     </th>
                     <th class="px-6 py-3 text-left bg-gray-50">
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Color</span>
+                    </th>
+                    <th class="px-6 py-3 text-left bg-gray-50">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Status</span>
                     </th>
                     <th class="px-6 py-3 bg-gray-50"></th>
@@ -34,6 +37,9 @@
                     </td>
                     <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                         {{ $facility->location }}
+                    </td>
+                    <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                    <span class="inline-block w-4 h-4 rounded-full" style="background-color: {{ $facility->calendar_color }};"></span>
                     </td>
                     <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                         {{ $facility->status }}
