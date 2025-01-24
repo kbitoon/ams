@@ -88,7 +88,7 @@
                         <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.item-schedule-modal', arguments: { itemSchedule: {{ $itemSchedule }} }})">
                         <i class="fas fa-pencil-alt"></i>
                         </x-secondary-button>
-                    @if($itemSchedule->status === '')
+                    @if($itemSchedule->status === 'Pending')
                         <x-secondary-button wire:click.stop="updateStatus({{ $itemSchedule->id }}, 'Ongoing')">
                         <i class="fas fa-hourglass-half mr-1"></i>
                         </x-secondary-button>

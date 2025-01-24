@@ -29,6 +29,13 @@ class ItemScheduleModal extends ModalComponent
 
     }
 
+    public function addItem()
+    {
+        // Add a new item to the form's items array
+        $this->form->items[] = ['item_id' => '', 'quantity' => ''];
+    }
+
+
     /**
      * Save item
      */
@@ -45,6 +52,7 @@ class ItemScheduleModal extends ModalComponent
     public function render(): View
     {
         return view('livewire.forms.item-schedule-form', [
+            'itemsList' => Item::all(),
             'items' => $this->items
         ]);
     }
