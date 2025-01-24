@@ -16,21 +16,25 @@ class ItemScheduleForm extends Form
     public string $end = '';
     public array $items = [['item_id' => '', 'quantity' => '']];
     public string $purpose = '';
-
     public string $status = 'Pending';
     public string $assigned = '';
 
-
-
     public function setItemSchedule(?ItemSchedule $itemSchedule = null): void
     {
-        $this->itemSchedule = $itemSchedule;
-        $this->location = $itemSchedule->location;
-        $this->start = $itemSchedule->start;
-        $this->end = $itemSchedule->end;
-        $this->purpose = $itemSchedule->purpose;
-        $this->status = $itemSchedule->status;
-        $this->assigned = $itemSchedule->assigned;
+        if ($itemSchedule) {
+            $this->itemSchedule = $itemSchedule;
+            $this->location = $itemSchedule->location;
+            $this->start = $itemSchedule->start;
+            $this->end = $itemSchedule->end;
+            $this->purpose = $itemSchedule->purpose;
+            $this->status = $itemSchedule->status;
+            $this->assigned = $itemSchedule->assigned;
+            // Set the items array with the current item
+            $this->items = [[
+                'item_id' => $itemSchedule->item_id,
+                'quantity' => $itemSchedule->quantity
+            ]];
+        }
     }
 
     public function rules(): array
@@ -60,23 +64,36 @@ class ItemScheduleForm extends Form
         ];
     }
 
-    
-
     public function save(): void
     {
         $this->validate();
 
         foreach ($this->items as $item) {
-            ItemSchedule::create([
-                'location' => $this->location,
-                'start' => $this->start,
-                'end' => $this->end,
-                'quantity' => $item['quantity'],
-                'item_id' => $item['item_id'],
-                'purpose' => $this->purpose,
-                'status' => $this->status,
-                'assigned' => $this->assigned,
-            ]);
+            if ($this->itemSchedule) {
+                // Update existing record
+                $this->itemSchedule->update([
+                    'location' => $this->location,
+                    'start' => $this->start,
+                    'end' => $this->end,
+                    'quantity' => $item['quantity'],
+                    'item_id' => $item['item_id'],
+                    'purpose' => $this->purpose,
+                    'status' => $this->status,
+                    'assigned' => $this->assigned,
+                ]);
+            } else {
+                // Create new record
+                ItemSchedule::create([
+                    'location' => $this->location,
+                    'start' => $this->start,
+                    'end' => $this->end,
+                    'quantity' => $item['quantity'],
+                    'item_id' => $item['item_id'],
+                    'purpose' => $this->purpose,
+                    'status' => $this->status,
+                    'assigned' => $this->assigned,
+                ]);
+            }
         }
 
         $this->reset();
