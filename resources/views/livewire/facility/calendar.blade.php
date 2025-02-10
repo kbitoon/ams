@@ -6,7 +6,7 @@
         $('#calendar').fullCalendar({
             events: facilitySchedules.map(function(event) {
                 return {
-                    name: event.name,
+                    title: event.name,
                     purpose: event.purpose,
                     start: event.start,
                     end: event.end,
