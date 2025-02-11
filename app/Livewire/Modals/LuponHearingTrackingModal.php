@@ -47,6 +47,8 @@ class LuponHearingTrackingModal extends ModalComponent
      */
     public function render() : View
     {
-        return view('livewire.forms.lupon-hearing-tracking-form');
+        return view('livewire.forms.lupon-hearing-tracking-form', [
+
+        ]);
     }
 }   

@@ -219,9 +219,24 @@
                                     <td class="font-semibold">Remarks:</td>
                                     <td class="text-sm">{{ $hearingTracking->remarks }}</td>
                                 </tr>
-                        
                         </tbody>
                     </table>
+                    @if(!$hearingTracking->assets->isEmpty())
+                                <div class="mt-"4>
+                                    <h3 class="font-semibold">Images:</h3>
+                                    <ul class="list-disc list-inside space-y-2">
+                                        @foreach($hearingTracking->assets as $attachements)
+                                            <li>
+                                                <a href="{{ Storage::url($attachements->path) }}" 
+                                                target="_blank" 
+                                                class="text-blue-500 hover:underline">
+                                                    {{ basename($attachements->path) }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                     <hr class="my-4 border-t-2 border-gray-300 dark:border-gray-700">
                     @endforeach
                 @else

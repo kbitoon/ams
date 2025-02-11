@@ -3,7 +3,6 @@
 namespace App\Livewire\Forms;
 
 use App\Models\LuponHearingTracking;
-use App\Models\LuponCase;
 use Illuminate\Validation\ValidationException;
 use Livewire\Form;
 
@@ -15,6 +14,8 @@ class LuponHearingTrackingForm extends Form
     public string $type = '';
     public string $remarks = '';
     public string $lupon_case_id = '';
+
+    public array $attachments = [];
     /**
      * @param LuponHearingTracking|null $luponHearingTracking
      */
@@ -56,6 +57,7 @@ class LuponHearingTrackingForm extends Form
             'type' => 'type',
             'remarks' => 'remarks',
             'lupon_case_id' => 'lupon_case_id',
+            'attachments' => 'attachment',
         ];
     }
 
@@ -64,15 +66,37 @@ class LuponHearingTrackingForm extends Form
      */
     public function save(): void
     {
-
         $this->validate();
-
+    
         if (!$this->luponHearingTracking) {
-            LuponHearingTracking::create($this->only(['date_time', 'type',  'remarks', 'lupon_case_id']));
+            $this->luponHearingTracking = LuponHearingTracking::create($this->only(['date_time', 'type', 'remarks', 'lupon_case_id']));
         } else {
             $this->luponHearingTracking->update($this->only(['date_time', 'type', 'remarks', 'lupon_case_id']));
         }
-        
+    
+        // 🔹 Ensure the instance is fresh from the database
+        $this->luponHearingTracking = LuponHearingTracking::find($this->luponHearingTracking->id);
+    
+        // 🔹 Debugging: Check if the model exists
+        if (!$this->luponHearingTracking) {
+            throw new \Exception("LuponHearingTracking instance is null after saving.");
+        }
+    
+        // 🔹 Handle Attachments
+        foreach ($this->attachments as $attachment) {
+            $id = auth()->id() ?? 1;
+            $path = $attachment->storePubliclyAs('attachments/' . $id, time() . '-' . $attachment->getClientOriginalName());
+    
+            // 🔹 Ensure relationship exists before calling assets()
+            if (method_exists($this->luponHearingTracking, 'assets')) {
+                $this->luponHearingTracking->assets()->create([
+                    'path' => $path,
+                ]);
+            } else {
+                throw new \Exception("Method 'assets' does not exist on LuponHearingTracking model.");
+            }
+        }
+    
         $this->reset();
     }
-}
+}    

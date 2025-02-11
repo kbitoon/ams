@@ -24,13 +24,11 @@ class LuponHearingTracking extends Model
     {
         return $this->belongsTo(LuponCase::class);
     }
-
-
-    /**
+ /**
      * @return MorphMany
      */
     public function assets(): MorphMany
-    {                       
+    {
         return $this->morphMany(Asset::class, 'assetable');
     }
 }
