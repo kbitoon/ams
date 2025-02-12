@@ -34,7 +34,7 @@ class LuponCase extends Component
     public function render(): Factory|\Illuminate\Foundation\Application|View|Application
     {
         return view('livewire.lupon-case.listing', [
-            'luponCases' => LuponCaseModel::paginate(10),
+            'luponCases' => LuponCaseModel::orderBy('date', 'desc')->paginate(10),
         ]);
     }
 }
