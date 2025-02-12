@@ -4,9 +4,9 @@
             &times;
         </button>
     @endauth
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Hearing Form</h2>
     <form wire:submit="save">
         <!-- Name input -->
-
         <div>
             <x-input-label for="date_time" :value="__('Date and Time')" />
             <input type="datetime-local" wire:model="form.date_time" id="date_time" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" type="text" ></nput>

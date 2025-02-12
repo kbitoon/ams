@@ -4,6 +4,7 @@
             &times;
         </button>
     @endauth
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Complainant Form</h2>
     <form wire:submit.prevent="save">
         <!-- Name input -->
 

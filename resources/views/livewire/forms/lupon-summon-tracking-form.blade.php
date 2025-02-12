@@ -4,6 +4,8 @@
             &times;
         </button>
     @endauth
+
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Summon Form</h2>
     <form wire:submit="save">
         <!-- Name input -->
 
