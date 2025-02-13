@@ -62,6 +62,18 @@
         </div>
 
         <div class="mt-4">
+            <x-input-label for="title" :value="__('Title')" />
+            <x-text-input wire:model="form.title" id="title" class="mt-1 block w-full" type="text" />
+            <x-input-error :messages="$errors->get('form.title')" class="mt-2" />
+        </div>
+
+        <div class="mt-4">
+            <x-input-label for="nature" :value="__('Nature')" />
+            <x-text-input wire:model="form.nature" id="nature" class="mt-1 block w-full" type="text" />
+            <x-input-error :messages="$errors->get('form.nature')" class="mt-2" />
+        </div>
+
+        <div class="mt-4">
             <x-input-label for="complaint" :value="__('Complaint')" />
             <textarea wire:model="form.complaint" id="complaint" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" type="text"></textarea>
             <x-input-error :messages="$errors->get('form.complaint')" class="mt-2" />
@@ -93,6 +105,14 @@
             </select>
             <x-input-error :messages="$errors->get('form.status')" class="mt-2" />
         </div>
+
+        @if($form->luponCase)
+            <div class="mt-4">
+                <x-input-label for="end" :value="__('Date Closed')" />
+                <input type="date" wire:model="form.end" id="end" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                <x-input-error :messages="$errors->get('form.end')" class="mt-2" />
+            </div>
+        @endif
 
         <!-- Save button -->
         <div class="mt-4">

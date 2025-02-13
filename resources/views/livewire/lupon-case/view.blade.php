@@ -40,12 +40,24 @@
                                 <td class="text-sm">{!! $luponCase->case_no !!}</td>
                             </tr>
                             <tr>
+                                <td class="font-semibold">Title:</td>
+                                <td class="text-sm">{!! $luponCase->title !!}</td>
+                            </tr>
+                            <tr class="bg-gray-200">
+                                <td class="font-semibold">Nature:</td>
+                                <td class="text-sm">{!! $luponCase->nature !!}</td>
+                            </tr>
+                            <tr>
                                 <td class="font-semibold">Complaint:</td>
                                 <td class="text-sm">{!! $luponCase->complaint !!}</td>
                             </tr>
                             <tr class="bg-gray-200">
                                 <td class="font-semibold">Prayer:</td>
                                 <td class="text-sm">{!! $luponCase->prayer !!}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Date Closed:</td>
+                                <td class="text-sm">{{ \Carbon\Carbon::parse($luponCase->end)->format('M j, Y') }}</td>
                             </tr>
                         </tbody>
                     </table>

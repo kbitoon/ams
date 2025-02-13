@@ -22,6 +22,9 @@
                     <th class="px-6 py-3 text-left bg-gray-50">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Status</span>
                     </th>
+                    <th class="px-6 py-3 text-left bg-gray-50">
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Closed</span>
+                    </th>
                     <th class="px-6 py-3 bg-gray-50"></th>
                 </tr>
             </thead>
@@ -34,6 +37,9 @@
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900 capitalize">
                             {{ $luponCase->status }}
+                        </td>
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900 capitalize">
+                        {{ \Carbon\Carbon::parse($luponCase->end)->format('M j, Y') }}
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                            

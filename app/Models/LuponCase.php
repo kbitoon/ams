@@ -15,10 +15,13 @@ class LuponCase extends Model
     protected $fillable = [   
         'date',
         'case_no',
+        'title',
+        'nature',
         'complaint',
         'prayer',
         'status',
         'blotter_id',
+        'end',
     ];
 
 
