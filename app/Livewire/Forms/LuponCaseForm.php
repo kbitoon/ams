@@ -30,7 +30,7 @@ class LuponCaseForm extends Form
         $this->complaint = $luponCase->complaint;
         $this->prayer = $luponCase->prayer;
         $this->status = $luponCase->status;
-        $this->blotter_id = $luponCase->blotter_id;
+        $this->blotter_id = empty($luponCase->blotter_id) ? '':$luponCase->blotter_id;
     }
 
     /**
