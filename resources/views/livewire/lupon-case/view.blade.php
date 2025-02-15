@@ -31,33 +31,37 @@
             <!-- Tab Contents -->
             <div class="mt-4 text-sm text-gray-800 dark:text-gray-300">
                 <div x-show="openTab === 1">
-                    <p><span class="font-bold uppercase">{{ \Carbon\Carbon::parse($luponCase->date)->format('M j, Y') }}</span></p>
+                    <p><span class="font-bold uppercase">{!! $luponCase->title !!}</span></p>
 
                     <table width="100%" class="mt-4">
                         <tbody>
-                            <tr class="bg-gray-200">
-                                <td class="font-semibold">Case #:</td>
-                                <td class="text-sm">{!! $luponCase->case_no !!}</td>
-                            </tr>
                             <tr>
-                                <td class="font-semibold">Title:</td>
-                                <td class="text-sm">{!! $luponCase->title !!}</td>
+                                <td class="font-semibold py-2">Date Filed:</td>
+                                <td class="text-sm py-2">{{ \Carbon\Carbon::parse($luponCase->date)->format('M j, Y') }}</td>
                             </tr>
                             <tr class="bg-gray-200">
-                                <td class="font-semibold">Nature:</td>
-                                <td class="text-sm">{!! $luponCase->nature !!}</td>
+                                <td class="font-semibold py-2">Case #:</td>
+                                <td class="text-sm py-2">{!! $luponCase->case_no !!}</td>
                             </tr>
                             <tr>
-                                <td class="font-semibold">Complaint:</td>
-                                <td class="text-sm">{!! $luponCase->complaint !!}</td>
+                                <td class="font-semibold py-2">Status:</td>
+                                <td class="text-sm py-2">{!! $luponCase->status !!}</td>
+
+                            <tr class="bg-gray-200">
+                                <td class="font-semibold py-2">Nature Of Case:</td>
+                                <td class="text-sm py-2">{!! $luponCase->nature !!}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold py-2">Complaint:</td>
+                                <td class="text-sm py-2">{!! $luponCase->complaint !!}</td>
                             </tr>
                             <tr class="bg-gray-200">
-                                <td class="font-semibold">Prayer:</td>
-                                <td class="text-sm">{!! $luponCase->prayer !!}</td>
+                                <td class="font-semibold py-2">Prayer:</td>
+                                <td class="text-sm py-2">{!! $luponCase->prayer !!}</td>
                             </tr>
                             <tr>
-                                <td class="font-semibold">Date Closed:</td>
-                                <td class="text-sm">{{ \Carbon\Carbon::parse($luponCase->end)->format('M j, Y') }}</td>
+                                <td class="font-semibold py-2">Date Closed:</td>
+                                <td class="text-sm py-2">{{ \Carbon\Carbon::parse($luponCase->end)->format('M j, Y') }}</td>
                             </tr>
                         </tbody>
                     </table>

@@ -113,9 +113,11 @@ new class extends Component
                                         <x-dropdown-link :href="route('blotter')" :active="request()->routeIs('blotter')" wire:navigate>
                                             {{ __('Blotter Report') }}
                                         </x-dropdown-link>
+                                        @hasanyrole('superadmin|administrator|lupon')
                                         <x-dropdown-link :href="route('lupon-case')" :active="request()->routeIs('lupon-case')" wire:navigate>
                                             {{ __('Lupon Cases') }}
                                         </x-dropdown-link>
+                                        @endhasanyrole
                                 </x-slot>
                             </x-dropdown>
                     </div>        
@@ -312,9 +314,11 @@ new class extends Component
                 <x-responsive-nav-link :href="route('blotter')" :active="request()->routeIs('blotter')" wire:navigate>
                     {{ __('Blotter Report') }}
                 </x-responsive-nav-link>
+                @hasanyrole('superadmin|administrator|lupon')
                 <x-responsive-nav-link :href="route('lupon-case')" :active="request()->routeIs('lupon-case')" wire:navigate>
                     {{ __('Lupon Cases') }}
                 </x-responsive-nav-link>
+                @endhasanyrole
             </div>
         </div>
         @else

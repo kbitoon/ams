@@ -17,7 +17,13 @@
             <thead>
                 <tr>
                     <th class="px-6 py-3 text-left bg-gray-50">
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Case No.</span>
+                    </th>
+                    <th class="px-6 py-3 text-left bg-gray-50">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Date</span>
+                    </th>
+                    <th class="px-6 py-3 text-left bg-gray-50">
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Title</span>
                     </th>
                     <th class="px-6 py-3 text-left bg-gray-50">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Status</span>
@@ -33,7 +39,13 @@
                     <tr class="hover:bg-gray-100 cursor-pointer"
                         wire:click="$dispatch('openModal', { component: 'modals.show.luponCase-modal', arguments: { luponCase: {{ $luponCase }} }})">
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            {{ $luponCase->date }}
+                            {{ $luponCase->case_no }}
+                        </td>
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                        {{ \Carbon\Carbon::parse($luponCase->date)->format('M j, Y ') }}
+                        </td>
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900 capitalize">
+                            {{ $luponCase->title }}
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900 capitalize">
                             {{ $luponCase->status }}
