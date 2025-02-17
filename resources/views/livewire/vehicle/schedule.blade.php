@@ -140,9 +140,9 @@
                                                     <i class="fas fa-pencil-alt"></i>
                                                 </x-secondary-button>
                                                 @hasanyrole('superadmin')
-                                                    <x-danger-button wire:click.stop="delete({{ $vehicleSchedule->id }})" onclick="return confirm('Are you sure you want to delete this?')">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </x-danger-button>
+                                                <x-danger-button x-data @click="if (confirm('Are you sure you want to delete this?')) { $wire.call('delete', {{ $vehicleSchedule->id }}) }">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </x-danger-button>
                                                 @endhasanyrole  
                                                 @hasanyrole('superadmin|administrator|support')
                                                 @if(is_null($vehicleSchedule->status) || $vehicleSchedule->status === '')

@@ -57,9 +57,9 @@
                                     <i class="fas fa-pencil-alt"></i>
                                 </x-secondary-button>
                                 @hasanyrole('superadmin')
-                                    <x-danger-button wire:click.stop="delete({{ $blotter->id }})" onclick="return confirm('Are you sure you want to delete this?')">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </x-danger-button>
+                                <x-danger-button x-data @click="if (confirm('Are you sure you want to delete this?')) { $wire.call('delete', {{ $blotter->id }}) }">
+                                    <i class="fas fa-trash-alt"></i>
+                                </x-danger-button>
                                 @endhasanyrole  
                                 @if (is_null($blotter->complainee_id))
                                     <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.complainee-modal', arguments: { blotter: {{ $blotter->id }} }})">

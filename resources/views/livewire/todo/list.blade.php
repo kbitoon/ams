@@ -53,7 +53,7 @@
                                     <i class="fas fa-pencil-alt"></i>
                                 </x-secondary-button>
 
-                                <x-danger-button wire:click="delete({{ $todo->id }})"  onclick="return confirm('Are you sure you want to delete this?') ">
+                                <x-danger-button x-data @click="if (confirm('Are you sure you want to delete this?')) { $wire.call('delete', {{ $todo->id }}) }">
                                     <i class="fas fa-trash-alt"></i>
                                 </x-danger-button>
 

@@ -131,7 +131,7 @@
                                         </x-secondary-button>
 
                                         @hasanyrole('superadmin')
-                                        <x-danger-button wire:click.stop="delete({{ $facilitySchedule->id }})" onclick="return confirm('Are you sure you want to delete this?')">
+                                        <x-danger-button x-data @click="if (confirm('Are you sure you want to delete this?')) { $wire.call('delete', {{ $facilitySchedule->id }}) }">
                                             <i class="fas fa-trash-alt"></i>
                                         </x-danger-button>
                                         @endhasanyrole  

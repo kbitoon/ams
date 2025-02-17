@@ -18,7 +18,7 @@
 
         <div>
             <x-input-label for="end" :value="__('End')" />
-            <<input type="datetime-local" wire:model="form.end" id="end" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" type="text" />
+            <input type="datetime-local" wire:model="form.end" id="end" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" type="text" />
             <x-input-error :messages="$errors->get('form.end')" class="mt-2" />
         </div>
 
