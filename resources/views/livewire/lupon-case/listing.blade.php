@@ -97,8 +97,9 @@
                                     wire:click.stop="$dispatch('openModal', { component: 'modals.luponCase-modal', arguments: { luponCase: {{ $luponCase->id }} }})">
                                     <i class="fas fa-pencil-alt"></i>
                                 </x-secondary-button>
-                                <x-danger-button wire:click.stop="delete({{ $luponCase->id }})"
-                                    onclick="return confirm('Are you sure you want to delete this?')">
+                                <x-danger-button 
+                                    @click="if (confirm('Are you sure you want to delete this?')) { $wire.call('delete', {{ $luponCase->id }}) }"
+                                    wire:click.stop>
                                     <i class="fas fa-trash-alt"></i>
                                 </x-danger-button>
                         </td>
