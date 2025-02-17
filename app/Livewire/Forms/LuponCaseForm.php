@@ -19,7 +19,7 @@ class LuponCaseForm extends Form
     public string $status = '';
     public int|string $blotter_id = '';
     public string $end = '';
-    public array $resolution_form = [];
+    public array $resolution_forms = [];
 
 
     /**
@@ -72,7 +72,7 @@ class LuponCaseForm extends Form
             'status' => 'status',
             'blotter_id' => 'blotter_id',
             'end' => 'end',
-            'resolution_form' => 'resolution_form',
+            'resolution_forms' => 'resolution_form',
         ];
     }
 
@@ -95,12 +95,17 @@ class LuponCaseForm extends Form
         }
 
         // Handle file uploads
-        foreach ($this->resolution_form as $resolution_form) {
-            $id = auth()->id() ?? 1;
-            $path = $resolution_form->storePubliclyAs('resolution_forms/' . $id, time() . '-' . $resolution_form->getClientOriginalName());
-            $this->luponCase->assets()->create([
-                'path' => $path,
-            ]);
+        foreach ($this->resolution_forms as $resolution_form) {
+            if ($resolution_form instanceof \Illuminate\Http\UploadedFile) {
+                $id = auth()->id() ?? 1;
+                $path = $resolution_form->storePubliclyAs('resolution_forms/' . $id, time() . '-' . $resolution_form->getClientOriginalName());
+                $this->luponCase->assets()->create([
+                    'path' => $path,
+                ]);
+            } else {
+                // Handle invalid file type or data here
+                throw new \Exception('Invalid file data.');
+            }
         }
 
         $this->reset();

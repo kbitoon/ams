@@ -68,7 +68,7 @@
         </div>
 
         <div class="mt-4">
-            <x-input-label for="nature" :value="__('Nature')" />
+            <x-input-label for="nature" :value="__('Nature of Case')" />
             <x-text-input wire:model="form.nature" id="nature" class="mt-1 block w-full" type="text" />
             <x-input-error :messages="$errors->get('form.nature')" class="mt-2" />
         </div>
@@ -86,9 +86,9 @@
         </div>
 
         <div class="mt-4">
-            <x-input-label for="resolution_form" :value="__('Resolution Form')" />
-            <x-text-input wire:model="form.resolution_form" id="resolution_form" class="mt-1 block w-full rounded-none" type="file" multiple />
-            <x-input-error :messages="$errors->get('form.resolution_form')" class="mt-2" />
+            <x-input-label for="resolution_forms" :value="__('Resolution Form')" />
+            <x-text-input wire:model="form.resolution_forms" id="resolution_forms" class="mt-1 block w-full rounded-none" type="file" multiple />
+            <x-input-error :messages="$errors->get('form.resolution_forms')" class="mt-2" />
         </div>
 
         <div class="mt-4">

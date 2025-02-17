@@ -20,12 +20,30 @@ class LuponCase extends Component
 
     public function delete($id)
     {
+        $luponCase = LuponCaseModel::find($id);
         
-        $luponCase = LuponCaseModel::findOrFail($id);
-        $luponCase->delete();
-
-        $this->dispatch('refresh-list');
+        if ($luponCase) {
+            // Check if there are any associated assets (resolution files)
+            foreach ($luponCase->assets as $asset) {
+                if (file_exists(storage_path('app/public/' . $asset->path))) {
+                    // Delete the resolution file from storage
+                    unlink(storage_path('app/public/' . $asset->path));
+                }
+            }
+            
+            // Delete the associated assets from the database
+            $luponCase->assets()->delete();  // Delete related assets records
+            
+            // Now delete the case
+            $luponCase->delete();  // Delete the LuponCase record itself
+            
+            session()->flash('message', 'Case deleted successfully.');
+        } else {
+            session()->flash('error', 'Case not found.');
+        }
     }
+    
+
 
 
     /**

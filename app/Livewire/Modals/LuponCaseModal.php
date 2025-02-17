@@ -18,8 +18,6 @@ class LuponCaseModal extends ModalComponent
     public LuponCaseForm $form;
     public Collection $blotters;
     public string $search = '';
-    public string $resolution_form = '';
-
     /**
      * @param LuponCase|null $luponCase
      */
@@ -82,7 +80,6 @@ class LuponCaseModal extends ModalComponent
     {
         return view('livewire.forms.lupon-case-form',  [
             'filteredBlotters' => $this->filteredBlotters,
-            'resolution_form' => $this->resolution_form,
         ]);
     }
 }
