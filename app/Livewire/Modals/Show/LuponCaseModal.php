@@ -19,7 +19,6 @@ class LuponCaseModal extends ModalComponent
                                                 'luponSummonTrackings', 'luponHearingTrackings');
         }
     }
-
     /**
      * @return \Illuminate\Contracts\Foundation\Application|Factory|View|Application
      */

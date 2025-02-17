@@ -1,5 +1,5 @@
 <div>
-    <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 relative">
+    <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-10 relative">
         <button class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 focus:outline-none text-3xl" 
                 wire:click="closeModal">
             &times;
@@ -31,64 +31,128 @@
             <!-- Tab Contents -->
             <div class="mt-4 text-sm text-gray-800 dark:text-gray-300">
                 <div x-show="openTab === 1">
-                    <p><span class="font-bold uppercase">{!! $luponCase->title !!}</span></p>
-
-                    <table width="100%" class="mt-4">
+                  <div>  
+                    <p><span class="font-bold text-xl uppercase">{!! $luponCase->title !!}</span></p>
+                    <table style=" width: 100%; border-collapse: collapse; table-layout: fixed;" >
                         <tbody>
                             <tr>
-                                <td class="font-semibold py-2">Date Filed:</td>
-                                <td class="text-sm py-2">{{ \Carbon\Carbon::parse($luponCase->date)->format('M j, Y') }}</td>
+                                <td class="font-semibold">Date Filed:</td>
+                                <td class="text-sm">{{ \Carbon\Carbon::parse($luponCase->date)->format('M j, Y') }}</td>
                             </tr>
                             <tr class="bg-gray-200">
-                                <td class="font-semibold py-2">Case #:</td>
-                                <td class="text-sm py-2">{!! $luponCase->case_no !!}</td>
+                                <td class="font-semibold">Case #:</td>
+                                <td class="text-sm">{!! $luponCase->case_no !!}</td>
                             </tr>
                             <tr>
-                                <td class="font-semibold py-2">Status:</td>
-                                <td class="text-sm py-2">{!! $luponCase->status !!}</td>
+                                <td class="font-semibold">Status:</td>
+                                <td class="text-sm">{!! $luponCase->status !!}</td>
 
                             <tr class="bg-gray-200">
-                                <td class="font-semibold py-2">Nature Of Case:</td>
-                                <td class="text-sm py-2">{!! $luponCase->nature !!}</td>
+                                <td class="font-semibold">Nature Of Case:</td>
+                                <td class="text-sm">{!! $luponCase->nature !!}</td>
                             </tr>
                             <tr>
-                                <td class="font-semibold py-2">Complaint:</td>
-                                <td class="text-sm py-2">{!! $luponCase->complaint !!}</td>
+                                <td class="font-semibold">Complaint:</td>
+                                <td class="text-sm">{!! $luponCase->complaint !!}</td>
                             </tr>
                             <tr class="bg-gray-200">
-                                <td class="font-semibold py-2">Prayer:</td>
-                                <td class="text-sm py-2">{!! $luponCase->prayer !!}</td>
+                                <td class="font-semibold">Prayer:</td>
+                                <td class="text-sm">{!! $luponCase->prayer !!}</td>
                             </tr>
                             <tr>
-                                <td class="font-semibold py-2">Date Closed:</td>
-                                <td class="text-sm py-2">{{ \Carbon\Carbon::parse($luponCase->end)->format('M j, Y') }}</td>
+                                <td class="font-semibold">Date Closed:</td>
+                                <td class="text-sm">{{ \Carbon\Carbon::parse($luponCase->end)->format('M j, Y') }}</td>
                             </tr>
                         </tbody>
                     </table>
-
-                    @if($luponCase->blotter_id)
-                        <div class="mt-6">
-                            <h3 class="text-lg font-semibold text-black dark:text-white">Complainant</h3>
-                            <table width="100%">
-                                <tbody>
-                                    <tr class="bg-gray-200">
-                                        <td class="font-semibold">Full Name:</td>
-                                        <td class="text-sm">
-                                            {{ trim("{$luponCase->blotter->firstname} {$luponCase->blotter->middle} {$luponCase->blotter->lastname}") }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-semibold">Contact:</td>
-                                        <td class="text-sm">{{ $luponCase->blotter->contact }}</td>
-                                    </tr>
-                                    <tr class="bg-gray-200">
-                                        <td class="font-semibold">Address:</td>
-                                        <td class="text-sm">{{ $luponCase->blotter->address }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    @endif
+                    </div>
+            @if($luponCase->blotter_id)
+            <div>
+                <h3 class="text-lg font-semibold text-black dark:text-white mt-3">Complainant</h3>
+                <table  style=" width: 100%; border-collapse: collapse; table-layout: fixed;" >
+                <tbody>   
+                        <tr>
+                            <td class="font-semibold">Full Name:</td>
+                            <td class="text-sm">{{ trim("{$luponCase->blotter->firstname} {$luponCase->blotter->middle} {$luponCase->blotter->lastname}") }}</td>
+                        </tr>
+                        <tr class="bg-gray-200">
+                            <td class="font-semibold">Contact:</td>
+                            <td class="text-sm">{{$luponCase->blotter->contact}}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">Address:</td>
+                            <td class="text-sm">{{$luponCase->blotter->address}}</td>
+                        </tr>
+                        </tbody>
+                </table>
+            </div>
+            @if($luponCase->blotter->complainee_id)
+            <div>
+                <h3 class="text-lg font-semibold text-black dark:text-white mt-3">Respondent</h3>
+                <table style=" width: 100%; border-collapse: collapse; table-layout: fixed;" >>
+                <tbody>   
+                        <tr>
+                            <td class="font-semibold">Full Name:</td>
+                            <td class="text-sm">{{ trim("{$luponCase->blotter->complainee->firstname} {$luponCase->blotter->complainee->middle} {$luponCase->blotter->complainee->lastname}") }}</td>
+                        </tr>
+                        <tr class="bg-gray-200">
+                            <td class="font-semibold">Contact:</td>
+                            <td class="text-sm">{{$luponCase->blotter->complainee->contact}}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">Address:</td>
+                            <td class="text-sm">{{$luponCase->blotter->complainee->address}}</td>
+                        </tr>
+                        </tbody>
+                </table>
+            </div>
+            @endif
+            @else
+            
+            @foreach($luponCase->luponCaseComplainants as $complainant)
+            <div>
+                <h3 class="text-lg font-semibold text-black dark:text-white mt-3">Complainant</h3>
+                <table style=" width: 100%; border-collapse: collapse; table-layout: fixed;" >
+                <tbody>   
+                        <tr>
+                            <td class="font-semibold">Full Name:</td>
+                            <td class="text-sm">{{ trim("{$complainant->firstname} {$complainant->middlename} {$complainant->lastname}") }}</td>
+                        </tr>
+                        <tr class="bg-gray-200">
+                            <td class="font-semibold">Contact:</td>
+                            <td class="text-sm">{{$complainant->contact_number}}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">Address:</td>
+                            <td class="text-sm">{{$complainant->address}}</td>
+                        </tr>
+                     </tbody>
+                        @endforeach
+                </table>
+            </div>
+            
+            <div>
+            @foreach($luponCase->luponCaseRespondents as $respondent)
+                <h3 class="text-lg font-semibold text-black dark:text-white mt-3">Respondent</h3>
+                <table style=" width: 100%; border-collapse: collapse; table-layout: fixed;" >
+                <tbody>   
+                        <tr>
+                            <td class="font-semibold">Full Name:</td>
+                            <td class="text-sm">{{ trim("{$respondent->firstname} {$respondent->middlename} {$respondent->lastname}") }}</td>
+                        </tr>
+                        <tr class="bg-gray-200">
+                            <td class="font-semibold">Contact:</td>
+                            <td class="text-sm">{{$respondent->contact_number}}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">Address:</td>
+                            <td class="text-sm">{{$respondent->address}}</td>
+                        </tr>
+                @endforeach
+                    </tbody>
+                </table>
+            </div>
+            @endif
 
                     @if(!$luponCase->assets->isEmpty())
                         <div class="mt-6">
