@@ -18,6 +18,8 @@ class LuponHearingTracking extends Model
         'date_time',
         'type',
         'remarks',
+        'secretary',
+        'presider',
     ];
 
     public function luponCase(): BelongsTo

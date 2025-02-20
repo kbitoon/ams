@@ -14,6 +14,8 @@ class LuponHearingTrackingForm extends Form
     public string $type = '';
     public string $remarks = '';
     public string $lupon_case_id = '';
+    public string $secretary = '';
+    public string $presider = '';
 
     public array $attachments = [];
     /**
@@ -25,6 +27,8 @@ class LuponHearingTrackingForm extends Form
         $this->date_time = $luponHearingTracking->date_time;
         $this->type = $luponHearingTracking->type;
         $this->remarks = $luponHearingTracking->remarks;
+        $this->secretary = empty($luponHearingTracking->secretary) ? '' : $luponHearingTracking->secretary;
+        $this->presider = empty($luponHearingTracking->presider) ? '' : $luponHearingTracking->presider;
         $this->lupon_case_id = $luponHearingTracking->lupon_case_id;
         
     }
@@ -44,6 +48,8 @@ class LuponHearingTrackingForm extends Form
             'type' => ['required'],
             'remarks' => ['required'],
             'lupon_case_id' => ['required'],
+            'secretary' => ['nullable'],
+            'presider' => ['nullable'],
         ];
     }
 
@@ -56,6 +62,8 @@ class LuponHearingTrackingForm extends Form
             'date_time' => 'date_time',
             'type' => 'type',
             'remarks' => 'remarks',
+            'secretary' => 'secretary',
+            'presider' => 'presider',
             'lupon_case_id' => 'lupon_case_id',
             'attachments' => 'attachment',
         ];
@@ -69,9 +77,9 @@ class LuponHearingTrackingForm extends Form
         $this->validate();
     
         if (!$this->luponHearingTracking) {
-            $this->luponHearingTracking = LuponHearingTracking::create($this->only(['date_time', 'type', 'remarks', 'lupon_case_id']));
+            $this->luponHearingTracking = LuponHearingTracking::create($this->only(['date_time', 'type', 'remarks', 'secretary', 'presider', 'lupon_case_id']));
         } else {
-            $this->luponHearingTracking->update($this->only(['date_time', 'type', 'remarks', 'lupon_case_id']));
+            $this->luponHearingTracking->update($this->only(['date_time', 'type', 'remarks', 'secretary', 'presider', 'lupon_case_id']));
         }
     
         // 🔹 Ensure the instance is fresh from the database

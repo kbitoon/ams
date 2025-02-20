@@ -26,6 +26,18 @@
         </div>
 
         <div class="mt-4">
+            <x-input-label for="secretary" :value="__('Secretary')" />
+            <x-text-input wire:model="form.secretary" id="secretary" class="mt-1 block w-full" type="text" />
+            <x-input-error :messages="$errors->get('form.secretary')" class="mt-2" />
+        </div>
+
+        <div class="mt-4">
+            <x-input-label for="presider" :value="__('Presider')" />
+            <x-text-input wire:model="form.presider" id="presider" class="mt-1 block w-full" type="text" />
+            <x-input-error :messages="$errors->get('form.presider')" class="mt-2" />
+        </div>
+
+        <div class="mt-4">
             <x-input-label for="remarks" :value="__('Remarks')" />
             <textarea wire:model="form.remarks" id="remarks" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" type="text" ></textarea>
             <x-input-error :messages="$errors->get('form.remarks')" class="mt-2" />

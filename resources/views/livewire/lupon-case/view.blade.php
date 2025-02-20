@@ -107,7 +107,6 @@
                 </table>
             </div>
             @endif
-            @else
             
             @foreach($luponCase->luponCaseComplainants as $complainant)
             <div>
@@ -131,8 +130,9 @@
                 </table>
             </div>
             
-            <div>
+            
             @foreach($luponCase->luponCaseRespondents as $respondent)
+            <div>
                 <h3 class="text-lg font-semibold text-black dark:text-white mt-3">Respondent</h3>
                 <table style=" width: 100%; border-collapse: collapse; table-layout: fixed;" >
                 <tbody>   
@@ -170,7 +170,7 @@
                             </ul>
                         </div>
                     @endif
-
+                    
                     <div class="mt-6">
                         <h3 class="font-bold bg-gray-200 p-2">Comments</h3>
                         @if($luponCaseComments && $luponCaseComments->isNotEmpty())
@@ -200,7 +200,7 @@
                     @endif
                 </div>
 
-                <div x-show="openTab === 2">
+                <div x-show="openTab === 3">
                          
                     @if($luponHearingTrackings && $luponHearingTrackings->isNotEmpty())
                                 @foreach($luponHearingTrackings as $hearingTracking)
@@ -214,6 +214,14 @@
                                                 <tr>
                                                     <td class="font-semibold">Type:</td>
                                                     <td class="text-sm">{{ ucfirst($hearingTracking->type) }}</td>
+                                                </tr>
+                                                <tr class="bg-gray-200">
+                                                    <td class="font-semibold">Secretary:</td>
+                                                    <td class="text-sm">{{ $hearingTracking->secretary }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="font-semibold">Presider:</td>
+                                                    <td class="text-sm">{{ $hearingTracking->presider }}</td>
                                                 </tr>
                                                 <tr class="bg-gray-200">
                                                     <td class="font-semibold">Remarks:</td>
@@ -245,7 +253,7 @@
                                 </div>
                 </div>
 
-                <div x-show="openTab === 3">
+                <div x-show="openTab === 2">
                     @if($luponSummonTrackings && $luponSummonTrackings->isNotEmpty())
                         @foreach($luponSummonTrackings as $summonTracking)
                         <div class="mb-10">
