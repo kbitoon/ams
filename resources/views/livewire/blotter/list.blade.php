@@ -53,6 +53,15 @@
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             @hasanyrole('superadmin|administrator')
+                                @if (is_null($blotter->complainee_id))
+                                        <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.complainee-modal', arguments: { blotter: {{ $blotter->id }} }})"
+                                        class="relative group">
+                                        <i class="fas fa-user-friends"></i>
+                                        <span
+                                            class="absolute -top-8 left-1/2 -translate-x-1/2 scale-0 transition-all group-hover:scale-100 bg-gray-700 text-white text-xs rounded py-1 px-2">
+                                            Add a Respondent
+                                        </x-secondary-button>
+                                    @endif
                                 <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.blotter-modal', arguments: { blotter: {{ $blotter->id }} }})">
                                     <i class="fas fa-pencil-alt"></i>
                                 </x-secondary-button>
@@ -61,11 +70,6 @@
                                     <i class="fas fa-trash-alt"></i>
                                 </x-danger-button>
                                 @endhasanyrole  
-                                @if (is_null($blotter->complainee_id))
-                                    <x-secondary-button wire:click.stop="$dispatch('openModal', { component: 'modals.complainee-modal', arguments: { blotter: {{ $blotter->id }} }})">
-                                        <i class="fas fa-user-plus"></i>
-                                    </x-secondary-button>
-                                @endif
                             @endhasanyrole 
                         </td>
                     </tr>

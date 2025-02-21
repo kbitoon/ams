@@ -1,22 +1,82 @@
 <div class="p-6">
-    <!-- Table Section -->
-        <div class="flex justify-end space-x-2">
-                <p>From</p><input type="date" wire:model="startDate" class="border px-3 py-2 rounded">
-                <p>To</p><input type="date" wire:model="endDate" class="border px-3 py-2 rounded">
-                <input type="text" wire:model.debounce.500ms="search" placeholder="Search..." class="border px-3 py-2 rounded">
-                <select wire:model="status" class="border px-3 py-2 rounded">
-                    <option value="">All Status</option>
-                    <option value="pending">Pending</option>
-                    <option value="resolved">Resolved</option>
-                    <option value="dismissed">Dismissed</option>
-                    <option value="unsolved">Unsolved</option>
-                    <option value="rejected">Rejected</option>
-                    <option value="withdrawn">Withdrawn</option>
-                    <option value="solved">Solved</option>
-                </select>
-                    
+     <!-- Info Box Section -->
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 mb-4">
+        <div class="bg-blue-100 p-3 rounded shadow">
+            <p class="text-sm font-semibold text-blue-600">Pending</p>
+            <p class="text-lg font-bold">{{ $pendingCount }}</p>
         </div>
-        
+        <div class="bg-green-100 p-3 rounded shadow">
+            <p class="text-sm font-semibold text-green-600">Resolved</p>
+            <p class="text-lg font-bold">{{ $resolvedCount }}</p>
+        </div>
+        <div class="bg-yellow-100 p-3 rounded shadow">
+            <p class="text-sm font-semibold text-yellow-600">Solved</p>
+            <p class="text-lg font-bold">{{ $solvedCount }}</p>
+        </div>
+        <div class="bg-red-100 p-3 rounded shadow">
+            <p class="text-sm font-semibold text-red-600">Dismissed</p>
+            <p class="text-lg font-bold">{{ $dismissedCount }}</p>
+        </div>
+        <div class="bg-gray-100 p-3 rounded shadow">
+            <p class="text-sm font-semibold text-gray-600">Rejected</p>
+            <p class="text-lg font-bold">{{ $rejectedCount }}</p>
+        </div>
+        <div class="bg-purple-100 p-3 rounded shadow">
+            <p class="text-sm font-semibold text-purple-600">Withdrawn</p>
+            <p class="text-lg font-bold">{{ $withdrawnCount }}</p>
+        </div>
+        <div class="bg-orange-100 p-3 rounded shadow">
+            <p class="text-sm font-semibold text-orange-600">Unsolved</p>
+            <p class="text-lg font-bold">{{ $unsolvedCount }}</p>
+        </div>
+    </div>
+    
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 bg-white shadow-md rounded-md">
+    <!-- Date Filters -->
+        <div class="flex flex-col sm:flex-row gap-3">
+            <div class="flex items-center gap-2">
+                <label class="text-sm font-semibold text-gray-600">From:</label>
+                <input type="date" wire:model="startDate" 
+                    class="border border-gray-300 px-3 py-2 rounded-md focus:ring focus:ring-blue-300 w-full sm:w-auto">
+            </div>
+
+            <div class="flex items-center gap-2">
+                <label class="text-sm font-semibold text-gray-600">To:</label>
+                <input type="date" wire:model="endDate" 
+                    class="border border-gray-300 px-3 py-2 rounded-md focus:ring focus:ring-blue-300 w-full sm:w-auto">
+            </div>
+        </div>
+
+        <!-- Search & Status Filters -->
+        <div class="flex flex-col sm:flex-row gap-3 items-center">
+            <input type="text" wire:model.debounce.500ms="search" placeholder="Search..."
+                class="border border-gray-300 px-3 py-2 rounded-md focus:ring focus:ring-blue-300 w-full sm:w-64">
+            
+            <select wire:model="status" 
+                class="border border-gray-300 px-3 py-2 rounded-md focus:ring focus:ring-blue-300 w-full sm:w-auto">
+                <option value="">All Status</option>
+                <option value="pending">Pending</option>
+                <option value="resolved">Resolved</option>
+                <option value="dismissed">Dismissed</option>
+                <option value="unsolved">Unsolved</option>
+                <option value="rejected">Rejected</option>
+                <option value="withdrawn">Withdrawn</option>
+                <option value="solved">Solved</option>
+            </select>
+
+            <!-- Search Button -->
+            <x-primary-button wire:click="searchCase" class="h-10 flex items-center gap-2 px-4">
+                <span class="hidden sm:inline">Search</span>
+                <span class="inline sm:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
+                        <path fill-rule="evenodd" d="M12.9 14.32a8 8 0 111.41-1.41l3.9 3.9a1 1 0 11-1.42 1.42l-3.9-3.9zM8 14A6 6 0 108 2a6 6 0 000 12z" clip-rule="evenodd"/>
+                    </svg>
+                </span>
+            </x-primary-button>
+        </div>
+    </div>
+
+
         <div class="flex justify-between items-center mb-4 mr-2 mt-4">
         <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.lupon-case-modal' })"
             class="h-8 mr-2">
@@ -28,15 +88,9 @@
                 </svg>
             </span>
         </x-primary-button>
-        <x-primary-button wire:click="searchCase" class="ml-1 h-8"> 
-                        <span class="hidden sm:inline">Search</span>
-                        <span class="sm:hidden">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-                                <path fill-rule="evenodd" d="M12.9 14.32a8 8 0 111.41-1.41l3.9 3.9a1 1 0 11-1.42 1.42l-3.9-3.9zM8 14A6 6 0 108 2a6 6 0 000 12z" clip-rule="evenodd" />
-                            </svg>
-                        </span>
-        </x-primary-button>
+       
         </div>
+        <!-- Table Section -->
     <div class="overflow-x-auto">
         <table class="min-w-full border divide-y divide-gray-200">
             <thead>

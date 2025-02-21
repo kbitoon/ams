@@ -22,32 +22,69 @@ class LuponCase extends Component
     public $startDate = '';
     public $endDate = '';
 
+    public $pendingCount, $resolvedCount, $solvedCount, $dismissedCount, $rejectedCount, $withdrawnCount, $unsolvedCount;
+
+    public function mount()
+    {
+        $this->pendingCount = LuponCaseModel::where('status', 'pending')->count();
+        $this->resolvedCount = LuponCaseModel::where('status', 'resolved')->count();
+        $this->solvedCount = LuponCaseModel::where('status', 'solved')->count();
+        $this->dismissedCount = LuponCaseModel::where('status', 'dismissed')->count();
+        $this->rejectedCount = LuponCaseModel::where('status', 'rejected')->count();
+        $this->withdrawnCount = LuponCaseModel::where('status', 'withdrawn')->count();
+        $this->unsolvedCount = LuponCaseModel::where('status', 'unsolved')->count();
+    }
+
+    public function updated($propertyName)
+    {
+        if (in_array($propertyName, ['startDate', 'endDate'])) {
+            $this->updateCounts();
+        }
+    }
+
+    public function updateCounts()
+    {
+        $query = LuponCaseModel::query();
+
+        if ($this->startDate && $this->endDate) {
+            $query->whereBetween('date', [$this->startDate, $this->endDate]);
+        }
+
+        $this->pendingCount = $query->where('status', 'pending')->count();
+        $this->resolvedCount = $query->where('status', 'resolved')->count();
+        $this->solvedCount = $query->where('status', 'solved')->count();
+        $this->dismissedCount = $query->where('status', 'dismissed')->count();
+        $this->rejectedCount = $query->where('status', 'rejected')->count();
+        $this->withdrawnCount = $query->where('status', 'withdrawn')->count();
+        $this->unsolvedCount = $query->where('status', 'unsolved')->count();
+    }
+
     #[On('refresh-list')]
     public function refresh() {}
-
-    public function updatingSearch()
-    {
-        $this->resetPage();
-    }
 
     public function searchCase()
     {
         $this->resetPage();
     }
 
-    public function updatingStatus()
+    public function getPendingCountProperty()
     {
-        $this->resetPage();
+        return LuponCase::where('status', 'pending')->count();
     }
 
-    public function updatingStartDate()
+    public function getResolvedCountProperty()
     {
-        $this->resetPage();
+        return LuponCase::where('status', 'resolved')->count();
     }
 
-    public function updatingEndDate()
+    public function getSolvedCountProperty()
     {
-        $this->resetPage();
+        return LuponCase::where('status', 'solved')->count();
+    }
+
+    public function getDismissedCountProperty()
+    {
+        return LuponCase::where('status', 'dismissed')->count();
     }
 
     public function delete($id)
