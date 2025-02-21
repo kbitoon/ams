@@ -3,6 +3,9 @@
 namespace App\Livewire\Forms;
 
 use App\Models\LuponCase;
+use App\Models\Blotter;
+use App\Models\LuponCaseComplainant;
+use App\Models\LuponCaseRespondent;
 use Illuminate\Validation\ValidationException;
 use Livewire\Form;
 
@@ -94,6 +97,38 @@ class LuponCaseForm extends Form
             $this->luponCase->update($data);
         }
 
+        // If there's a blotter_id, fetch complainant and respondents
+        if (!empty($this->blotter_id)) {
+            $blotter = Blotter::with('complainee')->find($this->blotter_id);
+            
+            if ($blotter) {
+                // Save the complainant details to `lupon_cases_complainants`
+                LuponCaseComplainant::updateOrCreate(
+                    ['lupon_case_id' => $this->luponCase->id], // Match by LuponCase ID
+                    [
+                        'firstname'      => $blotter->firstname,
+                        'middlename'     => $blotter->middle,
+                        'lastname'       => $blotter->lastname,
+                        'contact_number' => $blotter->contact,
+                        'address'        => $blotter->address,
+                    ]
+                );
+
+                // Save the respondent details to `lupon_cases_respondents`
+                if ($blotter->complainee) {
+                    LuponCaseRespondent::updateOrCreate(
+                        ['lupon_case_id' => $this->luponCase->id], // Match by LuponCase ID
+                        [
+                            'firstname'      => $blotter->complainee->first,
+                            'middlename'     => $blotter->complainee->middle,
+                            'lastname'       => $blotter->complainee->last,
+                            'contact_number' => $blotter->complainee->contact,
+                            'address'        => $blotter->complainee->address,
+                        ]
+                    );
+                }
+            }
+        }
         // Handle file uploads
         foreach ($this->resolution_forms as $resolution_form) {
             if ($resolution_form instanceof \Illuminate\Http\UploadedFile) {

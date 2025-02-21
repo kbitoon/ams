@@ -1,6 +1,23 @@
 <div class="p-6">
     <!-- Table Section -->
-    <div class="flex justify-between items-center mb-4 mr-2">
+        <div class="flex justify-end space-x-2">
+                <p>From</p><input type="date" wire:model="startDate" class="border px-3 py-2 rounded">
+                <p>To</p><input type="date" wire:model="endDate" class="border px-3 py-2 rounded">
+                <input type="text" wire:model.debounce.500ms="search" placeholder="Search..." class="border px-3 py-2 rounded">
+                <select wire:model="status" class="border px-3 py-2 rounded">
+                    <option value="">All Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="resolved">Resolved</option>
+                    <option value="dismissed">Dismissed</option>
+                    <option value="unsolved">Unsolved</option>
+                    <option value="rejected">Rejected</option>
+                    <option value="withdrawn">Withdrawn</option>
+                    <option value="solved">Solved</option>
+                </select>
+                    
+        </div>
+        
+        <div class="flex justify-between items-center mb-4 mr-2 mt-4">
         <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.lupon-case-modal' })"
             class="h-8 mr-2">
             <span class="hidden sm:inline">New Case</span>
@@ -11,7 +28,15 @@
                 </svg>
             </span>
         </x-primary-button>
-    </div>
+        <x-primary-button wire:click="searchCase" class="ml-1 h-8"> 
+                        <span class="hidden sm:inline">Search</span>
+                        <span class="sm:hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
+                                <path fill-rule="evenodd" d="M12.9 14.32a8 8 0 111.41-1.41l3.9 3.9a1 1 0 11-1.42 1.42l-3.9-3.9zM8 14A6 6 0 108 2a6 6 0 000 12z" clip-rule="evenodd" />
+                            </svg>
+                        </span>
+        </x-primary-button>
+        </div>
     <div class="overflow-x-auto">
         <table class="min-w-full border divide-y divide-gray-200">
             <thead>
@@ -55,7 +80,6 @@
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                            
-                            @if(is_null($luponCase->blotter_id))
                                 <x-secondary-button
                                     wire:click.stop="$dispatch('openModal', { component: 'modals.lupon-case-complainant-modal', arguments: { 'lupon_case_id': {{ $luponCase->id }} }})"
                                     class="relative group">
@@ -74,7 +98,6 @@
                                         Add a Respondent
                                     </span>
                                 </x-secondary-button>
-                            @endif
                                 <x-secondary-button
                                     wire:click.stop="$dispatch('openModal', { component: 'modals.lupon-summon-tracking-modal', arguments: { lupon_case_id: {{ $luponCase->id }} }})"
                                     class="relative group">

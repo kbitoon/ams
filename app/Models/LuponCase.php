@@ -33,8 +33,6 @@ class LuponCase extends Model
         return $this->belongsTo(Blotter::class);
     }
 
-   
-
     public function luponCaseComments(): HasMany
     {
         return $this->hasMany(LuponCaseComment::class);
