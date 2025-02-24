@@ -22,6 +22,8 @@ class LuponCase extends Component
     public $startDate = '';
     public $endDate = '';
 
+    public $chartData = [];
+
     public $pendingCount, $resolvedCount, $solvedCount, $dismissedCount, $rejectedCount, $withdrawnCount, $unsolvedCount;
 
     public function mount()
@@ -33,6 +35,16 @@ class LuponCase extends Component
         $this->rejectedCount = LuponCaseModel::where('status', 'rejected')->count();
         $this->withdrawnCount = LuponCaseModel::where('status', 'withdrawn')->count();
         $this->unsolvedCount = LuponCaseModel::where('status', 'unsolved')->count();
+
+        $this->loadChartData();
+    }
+
+    public function loadChartData()
+    {
+        $this->chartData = LuponCaseModel::selectRaw("DATE_FORMAT(date, '%Y-%m') as month, COUNT(*) as total_cases, SUM(CASE WHEN status = 'unsolved' THEN 1 ELSE 0 END) as unsolved_cases")
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
     }
 
     public function updated($propertyName)

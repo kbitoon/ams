@@ -1,24 +1,43 @@
 <div class="p-6">
-     <!-- Info Box Section -->
-     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 mb-4">
-        <div class="bg-blue-100 p-3 rounded shadow">
-            <p class="text-sm font-semibold text-blue-600">Pending</p>
-            <p class="text-lg font-bold">{{ $pendingCount }}</p>
+    <div class="flex flex-col md:flex-row gap-4">
+        <!-- Info Box Section -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 mb-4 flex-1">
+            <div class="bg-blue-100 p-3 rounded shadow">
+                <p class="text-sm font-semibold text-blue-600">Pending</p>
+                <p class="text-lg font-bold">{{ $pendingCount }}</p>
+            </div>
+            <div class="bg-green-100 p-3 rounded shadow">
+                <p class="text-sm font-semibold text-green-600">Solved</p>
+                <p class="text-lg font-bold">{{ $solvedCount }}</p>
+            </div>
+            <div class="bg-red-100 p-3 rounded shadow">
+                <p class="text-sm font-semibold text-red-600">Withdrawn</p>
+                <p class="text-lg font-bold">{{ $withdrawnCount }}</p>
+            </div>
+            <div class="bg-orange-100 p-3 rounded shadow">
+                <p class="text-sm font-semibold text-orange-600">Unsolved</p>
+                <p class="text-lg font-bold">{{ $unsolvedCount }}</p>
+            </div>   
         </div>
-        <div class="bg-green-100 p-3 rounded shadow">
-            <p class="text-sm font-semibold text-green-600">Solved</p>
-            <p class="text-lg font-bold">{{ $solvedCount }}</p>
+         <!-- Chart Section -->
+    <div class="bg-white rounded shadow p-4 flex flex-col items-center">
+        <!-- Select Month Dropdown -->
+        <div class="w-full mb-3">
+            <label class="text-sm font-semibold text-gray-600">Select Month:</label>
+            <select id="monthSelector" class="w-full border border-gray-300 px-2 py-1 rounded-md">
+                @foreach ($chartData as $data)
+                    <option value="{{ $data['month'] }}">{{ \Carbon\Carbon::createFromFormat('Y-m', $data['month'])->format('F-Y') }}</option>
+                @endforeach
+            </select>
         </div>
-        <div class="bg-red-100 p-3 rounded shadow">
-            <p class="text-sm font-semibold text-red-600">Withdrawn</p>
-            <p class="text-lg font-bold">{{ $withdrawnCount }}</p>
-        </div>
-        <div class="bg-orange-100 p-3 rounded shadow">
-            <p class="text-sm font-semibold text-orange-600">Unsolved</p>
-            <p class="text-lg font-bold">{{ $unsolvedCount }}</p>
+
+        <!-- Chart -->
+        <div class="w-full max-w-sm">
+            <canvas id="casesChart"></canvas>
         </div>
     </div>
-    
+    </div>
+
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 bg-white shadow-md rounded-md">
     <!-- Date Filters -->
         <div class="flex flex-col sm:flex-row gap-3">
@@ -117,7 +136,11 @@
                             {{ $luponCase->status }}
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900 capitalize">
-                        {{ \Carbon\Carbon::parse($luponCase->end)->format('M j, Y') }}
+                        @if ($luponCase->end)
+                            {{ \Carbon\Carbon::parse($luponCase->end)->format('M j, Y') }}
+                        @else
+                            
+                        @endif
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                            
@@ -185,3 +208,61 @@
         {{-- Pagination links --}}
         {{ $luponCases->links() }}
     </div>
+
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+    let chartData = @json($chartData);
+
+    let ctx = document.getElementById('casesChart').getContext('2d');
+    let casesChart;
+
+    function updateChart(selectedMonth) {
+        let filteredData = chartData.find(data => data.month === selectedMonth);
+        
+        if (!filteredData) return;
+
+        let dataset = {
+            labels: [selectedMonth],
+            datasets: [
+                {
+                    label: 'Total Cases',
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    data: [filteredData.total_cases],
+                },
+                {
+                    label: 'Unsolved Cases',
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    data: [filteredData.unsolved_cases],
+                }
+            ]
+        };
+
+        if (casesChart) {
+            casesChart.destroy();
+        }
+
+        casesChart = new Chart(ctx, {
+            type: 'bar',
+            data: dataset,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    }
+
+    // Initialize chart with first month in dataset
+    let initialMonth = chartData.length > 0 ? chartData[0].month : null;
+    if (initialMonth) updateChart(initialMonth);
+
+    // Handle dropdown change
+    document.getElementById('monthSelector').addEventListener('change', function () {
+        updateChart(this.value);
+    });
+});
+</script>
