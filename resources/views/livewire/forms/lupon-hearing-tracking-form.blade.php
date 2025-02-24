@@ -18,7 +18,7 @@
             <select wire:model="form.type" id="type" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                 <option selected>Please select a type</option>
                     <option value="premediation">Premediation</option>
-                    <option value="mediation">Meditation</option>
+                    <option value="mediation">Mediation</option>
                     <option value="conciliation">Conciliation</option>
                     <option value="arbitration">Arbitration</option>
             </select>
