@@ -23,8 +23,6 @@ class LuponCaseForm extends Form
     public int|string $blotter_id = '';
     public string $end = '';
     public array $resolution_forms = [];
-
-
     /**
      * @param LuponCase|null $luponCase
      */
@@ -32,7 +30,6 @@ class LuponCaseForm extends Form
     {
         $this->luponCase = $luponCase;
         $this->date = $luponCase->date;
-        $this->case_no = $luponCase->case_no;
         $this->title = empty($luponCase->title) ? '': $luponCase->title;
         $this->nature = empty($luponCase->nature) ? '': $luponCase->nature;
         $this->complaint = $luponCase->complaint;
@@ -91,9 +88,16 @@ class LuponCaseForm extends Form
         $data['blotter_id'] = $this->blotter_id ?: null;
         $data['end'] = empty($this->end) ? null : $this->end;
 
+         // Get the last case ID for case_no generation
+        $latestCase = LuponCase::latest('id')->first();
+        $lastId = $latestCase ? $latestCase->id : 0;
+    
         if (!$this->luponCase) {
+            $data['case_no'] = now()->format('Y-m') . '-' . ($lastId + 1);
             $this->luponCase = LuponCase::create($data);
+            
         } else {
+            $data['case_no'] = $this->luponCase->case_no;
             $this->luponCase->update($data);
         }
 

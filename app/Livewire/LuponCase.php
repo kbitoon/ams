@@ -51,10 +51,7 @@ class LuponCase extends Component
         }
 
         $this->pendingCount = $query->where('status', 'pending')->count();
-        $this->resolvedCount = $query->where('status', 'resolved')->count();
         $this->solvedCount = $query->where('status', 'solved')->count();
-        $this->dismissedCount = $query->where('status', 'dismissed')->count();
-        $this->rejectedCount = $query->where('status', 'rejected')->count();
         $this->withdrawnCount = $query->where('status', 'withdrawn')->count();
         $this->unsolvedCount = $query->where('status', 'unsolved')->count();
     }
@@ -65,26 +62,6 @@ class LuponCase extends Component
     public function searchCase()
     {
         $this->resetPage();
-    }
-
-    public function getPendingCountProperty()
-    {
-        return LuponCase::where('status', 'pending')->count();
-    }
-
-    public function getResolvedCountProperty()
-    {
-        return LuponCase::where('status', 'resolved')->count();
-    }
-
-    public function getSolvedCountProperty()
-    {
-        return LuponCase::where('status', 'solved')->count();
-    }
-
-    public function getDismissedCountProperty()
-    {
-        return LuponCase::where('status', 'dismissed')->count();
     }
 
     public function delete($id)
@@ -111,9 +88,6 @@ class LuponCase extends Component
             session()->flash('error', 'Case not found.');
         }
     }
-    
-
-
 
     /**
      * @return Factory|\Illuminate\Foundation\Application|View|Application

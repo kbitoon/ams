@@ -6,23 +6,11 @@
             <p class="text-lg font-bold">{{ $pendingCount }}</p>
         </div>
         <div class="bg-green-100 p-3 rounded shadow">
-            <p class="text-sm font-semibold text-green-600">Resolved</p>
-            <p class="text-lg font-bold">{{ $resolvedCount }}</p>
-        </div>
-        <div class="bg-yellow-100 p-3 rounded shadow">
-            <p class="text-sm font-semibold text-yellow-600">Solved</p>
+            <p class="text-sm font-semibold text-green-600">Solved</p>
             <p class="text-lg font-bold">{{ $solvedCount }}</p>
         </div>
         <div class="bg-red-100 p-3 rounded shadow">
-            <p class="text-sm font-semibold text-red-600">Dismissed</p>
-            <p class="text-lg font-bold">{{ $dismissedCount }}</p>
-        </div>
-        <div class="bg-gray-100 p-3 rounded shadow">
-            <p class="text-sm font-semibold text-gray-600">Rejected</p>
-            <p class="text-lg font-bold">{{ $rejectedCount }}</p>
-        </div>
-        <div class="bg-purple-100 p-3 rounded shadow">
-            <p class="text-sm font-semibold text-purple-600">Withdrawn</p>
+            <p class="text-sm font-semibold text-red-600">Withdrawn</p>
             <p class="text-lg font-bold">{{ $withdrawnCount }}</p>
         </div>
         <div class="bg-orange-100 p-3 rounded shadow">
@@ -56,7 +44,6 @@
                 class="border border-gray-300 px-3 py-2 rounded-md focus:ring focus:ring-blue-300 w-full sm:w-auto">
                 <option value="">All Status</option>
                 <option value="pending">Pending</option>
-                <option value="resolved">Resolved</option>
                 <option value="dismissed">Dismissed</option>
                 <option value="unsolved">Unsolved</option>
                 <option value="rejected">Rejected</option>

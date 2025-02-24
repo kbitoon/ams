@@ -56,12 +56,6 @@
         </div>
 
         <div class="mt-4">
-            <x-input-label for="case_no" :value="__('Case Number')" />
-            <x-text-input wire:model="form.case_no" id="case_no" class="mt-1 block w-full" type="text" />
-            <x-input-error :messages="$errors->get('form.case_no')" class="mt-2" />
-        </div>
-
-        <div class="mt-4">
             <x-input-label for="title" :value="__('Title')" />
             <x-text-input wire:model="form.title" id="title" class="mt-1 block w-full" type="text" />
             <x-input-error :messages="$errors->get('form.title')" class="mt-2" />
@@ -96,7 +90,6 @@
             <select wire:model="form.status" id="status" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                 <option value="">Please select a status</option>
                 <option value="pending">Pending</option>
-                <option value="resolved">Resolved</option>
                 <option value="dismissed">Dismissed</option>
                 <option value="unsolved">Unsolved</option>
                 <option value="rejected">Rejected</option>
