@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Models\LuponCase;
+use App\Models\LuponEventTracking;
 use App\Models\Blotter;
 use App\Models\LuponCaseComplainant;
 use App\Models\LuponCaseRespondent;
@@ -91,6 +92,10 @@ class LuponCaseForm extends Form
          // Get the last case ID for case_no generation
         $latestCase = LuponCase::latest('id')->first();
         $lastId = $latestCase ? $latestCase->id : 0;
+
+        // Check if it's an update (edit) or create
+        $isUpdate = $this->luponCase ? true : false;
+
     
         if (!$this->luponCase) {
             $data['case_no'] = now()->format('Y-m') . '-' . ($lastId + 1);
@@ -99,6 +104,15 @@ class LuponCaseForm extends Form
         } else {
             $data['case_no'] = $this->luponCase->case_no;
             $this->luponCase->update($data);
+
+            // Track the event if it's an update (edit)
+            if ($isUpdate) {
+                LuponEventTracking::create([
+                    'user_id' => auth()->id() ?? 1, // Replace with actual user ID logic
+                    'lupon_case_id' => $this->luponCase->id,
+                    'event_description' => 'Updated Case No: ' . $data['case_no'],
+                ]);
+            }
         }
 
         // If there's a blotter_id, fetch complainant and respondents

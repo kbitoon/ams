@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\LuponEventTracking;
 use App\Models\LuponCase as LuponCaseModel;
 use App\Models\LuponCaseComplainant as LuponCaseComplainantModel;
 use App\Models\LuponCaseRespondent as LuponCaseRespondentModel;
@@ -81,6 +82,11 @@ class LuponCase extends Component
         $luponCase = LuponCaseModel::find($id);
         
         if ($luponCase) {
+                // Store the event tracking before deletion
+                LuponEventTracking::create([
+                    'user_id' => auth()->id(),  // Get the current authenticated user ID
+                    'event_description' => 'Deleted Lupon Case with Case Number: ' . $luponCase->case_no,  // Event description for deletion
+                ]);
             // Check if there are any associated assets (resolution files)
             foreach ($luponCase->assets as $asset) {
                 if (file_exists(storage_path('app/public/' . $asset->path))) {

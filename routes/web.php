@@ -8,7 +8,7 @@ use App\Http\Controllers\ComplaintTrackingController;
 use App\Http\Controllers\PublicInformationController;
 use App\Http\Controllers\FullCalendarController;
 use App\Http\Controllers\LuponCaseCommentController;
-
+use App\Http\Controllers\LuponEventTrackingController;
 
 Route::get('/pending', Pending::class)->name('pending');
 
@@ -87,6 +87,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::view('lupon-case', 'lupon-case')
         ->name('lupon-case');
+
+
+    Route::get('/lupon-event-trackings', [LuponEventTrackingController::class, 'index']);
+    Route::get('/lupon-event-trackings/{id}', [LuponEventTrackingController::class, 'getEventDetails']);
 
     Route::get('/clearancepurposemodal', [App\Http\Controllers\AmsController::class, 'clearancepurposemodal'])->name('clearancepurposemodal');
 

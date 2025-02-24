@@ -170,6 +170,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(LuponCaseComment::class);
     }
+    /**
+     * @return HasMany
+     */
+    public function luponEventTrackings(): HasMany
+    {
+        return $this->hasMany(Vehicle::class);
+    }
 
 
     public function photoUrl()
