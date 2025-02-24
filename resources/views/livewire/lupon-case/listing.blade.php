@@ -1,42 +1,43 @@
 <div class="p-6">
-    <div class="flex flex-col md:flex-row gap-4">
-        <!-- Info Box Section -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 mb-4 flex-1">
-            <div class="bg-blue-100 p-3 rounded shadow">
-                <p class="text-sm font-semibold text-blue-600">Pending</p>
-                <p class="text-lg font-bold">{{ $pendingCount }}</p>
-            </div>
-            <div class="bg-green-100 p-3 rounded shadow">
-                <p class="text-sm font-semibold text-green-600">Solved</p>
-                <p class="text-lg font-bold">{{ $solvedCount }}</p>
-            </div>
-            <div class="bg-red-100 p-3 rounded shadow">
-                <p class="text-sm font-semibold text-red-600">Withdrawn</p>
-                <p class="text-lg font-bold">{{ $withdrawnCount }}</p>
-            </div>
-            <div class="bg-orange-100 p-3 rounded shadow">
-                <p class="text-sm font-semibold text-orange-600">Unsolved</p>
-                <p class="text-lg font-bold">{{ $unsolvedCount }}</p>
-            </div>   
+<div class="flex flex-col md:flex-row gap-6">
+    <!-- Info Box Section -->
+    <div class="grid grid-cols-2 md:grid-cols-2 gap-4 p-4 flex-1">
+        <div class="bg-blue-100 p-4 rounded-lg shadow-md text-center">
+            <p class="text-sm font-semibold text-blue-600">Pending</p>
+            <p class="text-xl font-bold">{{ $pendingCount }}</p>
         </div>
-         <!-- Chart Section -->
-    <div class="bg-white rounded shadow p-4 flex flex-col items-center">
+        <div class="bg-green-100 p-4 rounded-lg shadow-md text-center">
+            <p class="text-sm font-semibold text-green-600">Solved</p>
+            <p class="text-xl font-bold">{{ $solvedCount }}</p>
+        </div>
+        <div class="bg-red-100 p-4 rounded-lg shadow-md text-center">
+            <p class="text-sm font-semibold text-red-600">Withdrawn</p>
+            <p class="text-xl font-bold">{{ $withdrawnCount }}</p>
+        </div>
+        <div class="bg-orange-100 p-4 rounded-lg shadow-md text-center">
+            <p class="text-sm font-semibold text-orange-600">Unsolved</p>
+            <p class="text-xl font-bold">{{ $unsolvedCount }}</p>
+        </div>
+    </div>
+
+    <!-- Chart Section -->
+    <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full md:w-2/3 lg:w-1/2">
         <!-- Select Month Dropdown -->
-        <div class="w-full mb-3">
+        <div class="w-full mb-4">
             <label class="text-sm font-semibold text-gray-600">Select Month:</label>
-            <select id="monthSelector" class="w-full border border-gray-300 px-2 py-1 rounded-md">
+            <select id="monthSelector" class="w-full border border-gray-300 px-3 py-2 rounded-md focus:ring focus:ring-blue-300">
                 @foreach ($chartData as $data)
-                    <option value="{{ $data['month'] }}">{{ \Carbon\Carbon::createFromFormat('Y-m', $data['month'])->format('F-Y') }}</option>
+                    <option value="{{ $data['month'] }}">{{ \Carbon\Carbon::createFromFormat('Y-m', $data['month'])->format('F Y') }}</option>
                 @endforeach
             </select>
         </div>
 
         <!-- Chart -->
-        <div class="w-full max-w-sm">
+        <div class="w-full">
             <canvas id="casesChart"></canvas>
         </div>
     </div>
-    </div>
+</div>
 
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 bg-white shadow-md rounded-md">
     <!-- Date Filters -->
