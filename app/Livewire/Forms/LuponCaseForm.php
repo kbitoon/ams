@@ -31,6 +31,7 @@ class LuponCaseForm extends Form
     {
         $this->luponCase = $luponCase;
         $this->date = $luponCase->date;
+        $this->case_no = $luponCase->case_no;
         $this->title = empty($luponCase->title) ? '': $luponCase->title;
         $this->nature = empty($luponCase->nature) ? '': $luponCase->nature;
         $this->complaint = $luponCase->complaint;
@@ -98,7 +99,6 @@ class LuponCaseForm extends Form
 
     
         if (!$this->luponCase) {
-            $data['case_no'] = now()->format('Y-m') . '-' . ($lastId + 1);
             $this->luponCase = LuponCase::create($data);
             
         } else {
