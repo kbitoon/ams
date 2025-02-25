@@ -19,25 +19,21 @@
             <p class="text-xl font-bold">{{ $unsolvedCount }}</p>
         </div>
     </div>
-
-    <!-- Chart Section -->
     <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full md:w-2/3 lg:w-1/2">
-        <!-- Select Month Dropdown -->
         <div class="w-full mb-4">
-            <label class="text-sm font-semibold text-gray-600">Select Month:</label>
-            <select id="monthSelector" class="w-full border border-gray-300 px-3 py-2 rounded-md focus:ring focus:ring-blue-300">
-                @foreach ($chartData as $data)
-                    <option value="{{ $data['month'] }}">{{ \Carbon\Carbon::createFromFormat('Y-m', $data['month'])->format('F Y') }}</option>
-                @endforeach
-            </select>
+        <select id="selectedYear" wire:model="selectedYear" wire:key="yearSelect"  class="border border-gray-300 px-3 py-2 rounded-md focus:ring focus:ring-blue-300">
+            <option value="">Select Year</option>
+            @foreach($availableYears as $year)
+                <option value="{{ $year }}">{{ $year }}</option>
+            @endforeach
+        </select>
         </div>
-
-        <!-- Chart -->
-        <div class="w-full">
-            <canvas id="casesChart"></canvas>
+        <div class="w-full" wire:ignore>
+                <canvas id="casesChart"></canvas>
+            </div>
         </div>
-    </div>
 </div>
+
 
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 bg-white shadow-md rounded-md">
     <!-- Date Filters -->
@@ -219,36 +215,19 @@
         {{-- Pagination links --}}
         {{ $luponCases->links() }}
     </div>
-
     <script>
-document.addEventListener('DOMContentLoaded', function () {
-    let chartData = @json($chartData);
-
-    let ctx = document.getElementById('casesChart').getContext('2d');
     let casesChart;
 
-    function updateChart(selectedMonth) {
-        let filteredData = chartData.find(data => data.month === selectedMonth);
-        
-        if (!filteredData) return;
+    document.addEventListener('DOMContentLoaded', function () {
+        renderChart(@json($chartData));
+    });
 
-        let dataset = {
-            labels: [selectedMonth],
-            datasets: [
-                {
-                    label: 'Total Cases',
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    data: [filteredData.total_cases],
-                },
-                {
-                    label: 'Unsolved Cases',
-                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    data: [filteredData.unsolved_cases],
-                }
-            ]
-        };
+    function renderChart(chartData) {
+        let months = chartData.map(data => data.month);
+        let totalCases = chartData.map(data => data.total_cases);
+        let unsolvedCases = chartData.map(data => data.unsolved_cases);
+
+        let ctx = document.getElementById('casesChart').getContext('2d');
 
         if (casesChart) {
             casesChart.destroy();
@@ -256,24 +235,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
         casesChart = new Chart(ctx, {
             type: 'bar',
-            data: dataset,
+            data: {
+                labels: months,
+                datasets: [
+                    {
+                        label: 'Cases Filed',
+                        data: totalCases,
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    },
+                    {
+                        label: 'Unsolved Cases',
+                        data: unsolvedCases,
+                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                    }
+                ]
+            },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: {
-                    y: { beginAtZero: true }
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
         });
     }
-
-    // Initialize chart with first month in dataset
-    let initialMonth = chartData.length > 0 ? chartData[0].month : null;
-    if (initialMonth) updateChart(initialMonth);
-
-    // Handle dropdown change
-    document.getElementById('monthSelector').addEventListener('change', function () {
-        updateChart(this.value);
+    document.addEventListener('livewire:load', function () {
+        Livewire.on('updateChart', (chartData) => {
+            renderChart(chartData);
+        });
     });
-});
 </script>

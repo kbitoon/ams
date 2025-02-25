@@ -24,6 +24,9 @@ class LuponCase extends Component
     public $endDate = '';
 
     public $chartData = [];
+    public $selectedYear;
+    public $availableYears = [];
+
 
     public $pendingCount, $resolvedCount, $solvedCount, $dismissedCount, $rejectedCount, $withdrawnCount, $unsolvedCount;
 
@@ -36,17 +39,46 @@ class LuponCase extends Component
         $this->rejectedCount = LuponCaseModel::where('status', 'rejected')->count();
         $this->withdrawnCount = LuponCaseModel::where('status', 'withdrawn')->count();
         $this->unsolvedCount = LuponCaseModel::where('status', 'unsolved')->count();
+       // Get distinct years from LuponCaseModel based on the 'date' column
+        $this->availableYears = LuponCaseModel::selectRaw('YEAR(date) as year')
+        ->distinct()
+        ->orderByDesc('year')
+        ->pluck('year')
+        ->toArray();
+
+        $this->selectedYear = date('Y');
 
         $this->loadChartData();
+        
     }
-
+    public function updatedSelectedYear()
+    {
+        $this->loadChartData();
+    }
+    
     public function loadChartData()
     {
-        $this->chartData = LuponCaseModel::selectRaw("DATE_FORMAT(date, '%Y-%m') as month, COUNT(*) as total_cases, SUM(CASE WHEN status = 'unsolved' THEN 1 ELSE 0 END) as unsolved_cases")
+
+        $chartData = LuponCaseModel::selectRaw("
+                DATE_FORMAT(date, '%Y-%m') as month, 
+                COUNT(*) as total_cases, 
+                SUM(CASE WHEN status = 'unsolved' THEN 1 ELSE 0 END) as unsolved_cases
+            ")
+            ->whereYear('date', $this->selectedYear)
             ->groupBy('month')
             ->orderBy('month')
             ->get();
+
+        $this->chartData = $chartData;
+
+        $this->dispatch('updateChart', [
+            'labels' => $chartData->pluck('month'),
+            'total_cases' => $chartData->pluck('total_cases'),
+            'unsolved_cases' => $chartData->pluck('unsolved_cases'),
+        ]);
     }
+
+   
 
     public function updated($propertyName)
     {
