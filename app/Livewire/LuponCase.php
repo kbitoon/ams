@@ -46,7 +46,7 @@ class LuponCase extends Component
         ->pluck('year')
         ->toArray();
 
-        $this->selectedYear = date('Y');
+        $this->selectedYear = !empty($this->availableYears) ? $this->availableYears[0] : date('Y');
 
         $this->loadChartData();
         

@@ -27,11 +27,14 @@
             class="border border-gray-300 px-3 py-2 rounded-md focus:ring focus:ring-blue-300"
         >
             @foreach($availableYears as $year)
-                <option value="{{ $year }}">{{ $year }}</option>
+                <option value="{{ $year }}"> {{ $year }}  </option>
             @endforeach
         </select>
     </div>
-    <div class="w-full h-[400px]" wire:ignore>
+    <h2 class="text-xl font-semibold text-gray-700 text-center mb-4 border-b-2 border-blue-500 pb-2">
+         Lupon Cases ({{ $selectedYear }})
+    </h2>
+    <div class="w-full h-full" wire:ignore>
         <canvas id="casesChart"></canvas>
     </div>
 </div>
@@ -236,10 +239,7 @@
             data: {
                 labels: data.labels.map(date => {
                     const [year, month] = date.split('-');
-                    return new Date(year, month - 1).toLocaleDateString('en-US', { 
-                        month: 'long',
-                        year: 'numeric'
-                    });
+                    return new Date(year, month - 1).toLocaleString('en-US', { month: 'short' }); 
                 }),
                 datasets: [
                     {
