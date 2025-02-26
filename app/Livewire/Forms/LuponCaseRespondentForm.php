@@ -43,7 +43,7 @@ class LuponCaseRespondentForm extends Form
     {
         return [
             'firstname' => ['required'],
-            'middlename' => ['required'],
+            'middlename' => ['nullable'],
             'lastname' => ['required'],
             'contact_number' => ['required','numeric'],
             'address' => ['required'],
