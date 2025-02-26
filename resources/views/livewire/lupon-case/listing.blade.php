@@ -20,18 +20,21 @@
         </div>
     </div>
     <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full md:w-2/3 lg:w-1/2">
-        <div class="w-full mb-4">
-        <select id="selectedYear" wire:model="selectedYear" wire:key="yearSelect"  class="border border-gray-300 px-3 py-2 rounded-md focus:ring focus:ring-blue-300">
-            <option value="">Select Year</option>
+    <div class="w-full mb-4">
+        <select 
+            id="selectedYear" 
+            wire:model.live="selectedYear" 
+            class="border border-gray-300 px-3 py-2 rounded-md focus:ring focus:ring-blue-300"
+        >
             @foreach($availableYears as $year)
                 <option value="{{ $year }}">{{ $year }}</option>
             @endforeach
         </select>
-        </div>
-        <div class="w-full" wire:ignore>
-                <canvas id="casesChart"></canvas>
-            </div>
-        </div>
+    </div>
+    <div class="w-full h-[400px]" wire:ignore>
+        <canvas id="casesChart"></canvas>
+    </div>
+</div>
 </div>
 
 
@@ -215,38 +218,43 @@
         {{-- Pagination links --}}
         {{ $luponCases->links() }}
     </div>
-    <script>
-    let casesChart;
+<script>
+    let casesChart = null;
 
-    document.addEventListener('DOMContentLoaded', function () {
-        renderChart(@json($chartData));
-    });
-
-    function renderChart(chartData) {
-        let months = chartData.map(data => data.month);
-        let totalCases = chartData.map(data => data.total_cases);
-        let unsolvedCases = chartData.map(data => data.unsolved_cases);
-
-        let ctx = document.getElementById('casesChart').getContext('2d');
-
+    // Initialize the chart with data
+    function initChart(data) {
+        const ctx = document.getElementById('casesChart').getContext('2d');
+        
+        // Destroy existing chart if it exists
         if (casesChart) {
             casesChart.destroy();
         }
 
+        // Create new chart
         casesChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: months,
+                labels: data.labels.map(date => {
+                    const [year, month] = date.split('-');
+                    return new Date(year, month - 1).toLocaleDateString('en-US', { 
+                        month: 'long',
+                        year: 'numeric'
+                    });
+                }),
                 datasets: [
                     {
                         label: 'Cases Filed',
-                        data: totalCases,
+                        data: data.total_cases,
                         backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
                     },
                     {
                         label: 'Unsolved Cases',
-                        data: unsolvedCases,
+                        data: data.unsolved_cases,
                         backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
                     }
                 ]
             },
@@ -255,15 +263,32 @@
                 maintainAspectRatio: false,
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top'
                     }
                 }
             }
         });
     }
-    document.addEventListener('livewire:load', function () {
-        Livewire.on('updateChart', (chartData) => {
-            renderChart(chartData);
+
+    // Listen for Livewire events
+    document.addEventListener('livewire:initialized', () => {
+        Livewire.on('updateChart', (data) => {
+            initChart(data[0]); // data is passed as an array
+        });
+    });
+
+    // Initial chart render
+    document.addEventListener('DOMContentLoaded', () => {
+        @this.loadChartData().then(() => {
+            // The chart will be updated via the Livewire event
         });
     });
 </script>

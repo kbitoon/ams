@@ -58,8 +58,14 @@ class LuponCase extends Component
     
     public function loadChartData()
     {
+        // Get all months for the selected year
+        $months = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $months[] = $this->selectedYear . '-' . str_pad($i, 2, '0', STR_PAD_LEFT);
+        }
 
-        $chartData = LuponCaseModel::selectRaw("
+        // Get the actual data
+        $data = LuponCaseModel::selectRaw("
                 DATE_FORMAT(date, '%Y-%m') as month, 
                 COUNT(*) as total_cases, 
                 SUM(CASE WHEN status = 'unsolved' THEN 1 ELSE 0 END) as unsolved_cases
@@ -67,16 +73,26 @@ class LuponCase extends Component
             ->whereYear('date', $this->selectedYear)
             ->groupBy('month')
             ->orderBy('month')
-            ->get();
+            ->get()
+            ->keyBy('month');
 
-        $this->chartData = $chartData;
+        // Prepare the data arrays
+        $chartData = [
+            'labels' => $months,
+            'total_cases' => [],
+            'unsolved_cases' => []
+        ];
 
-        $this->dispatch('updateChart', [
-            'labels' => $chartData->pluck('month'),
-            'total_cases' => $chartData->pluck('total_cases'),
-            'unsolved_cases' => $chartData->pluck('unsolved_cases'),
-        ]);
+        // Fill in the data arrays, using 0 for missing months
+        foreach ($months as $month) {
+            $chartData['total_cases'][] = $data[$month]->total_cases ?? 0;
+            $chartData['unsolved_cases'][] = $data[$month]->unsolved_cases ?? 0;
+        }
+
+        // Dispatch the event with the chart data
+        $this->dispatch('updateChart', $chartData);
     }
+
 
    
 
