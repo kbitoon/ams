@@ -5,9 +5,11 @@ namespace App\Livewire\Forms;
 use App\Models\LuponHearingTracking;
 use Illuminate\Validation\ValidationException;
 use Livewire\Form;
+use Livewire\WithFileUploads;
 
 class LuponHearingTrackingForm extends Form
 {
+    use WithFileUploads;
     public ?LuponHearingTracking $luponHearingTracking = null;
 
     public string $date_time = '';

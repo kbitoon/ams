@@ -3,6 +3,8 @@
 namespace App\Livewire\Modals\Show;
 
 use App\Models\LuponCase;
+use App\Models\LuponHearingTracking;
+use App\Models\LuponSummonTracking;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -12,6 +14,8 @@ use LivewireUI\Modal\ModalComponent;
 class LuponCaseModal extends ModalComponent
 {
     public ?LuponCase $luponCase = null;
+
+    protected $listeners = ['refresh-list' => '$refresh'];
 
     public function mount(LuponCase $luponCase = null): void
     {
@@ -33,6 +37,40 @@ class LuponCaseModal extends ModalComponent
             $this->luponCase = $this->luponCase->refresh();
 
             $this->dispatch('attachmentDeleted');
+        }
+    }
+
+    public function deleteHearing($id)
+    {
+        $hearingTracking = LuponHearingTracking::find($id);
+    
+        if ($hearingTracking) {
+            // Delete related assets first
+            if (method_exists($hearingTracking, 'assets')) {
+                foreach ($hearingTracking->assets as $asset) {
+                    // Delete the file from storage
+                    \Storage::delete($asset->path);
+                    
+                    // Delete the asset record from the database
+                    $asset->delete();
+                }
+            }
+    
+            // Delete the main hearing tracking record
+            $hearingTracking->delete();
+    
+            // Dispatch event to refresh the list
+            $this->dispatch('refresh-list');
+        }
+    }
+
+    public function deleteSummon($id)
+    {
+        $summonTracking = LuponSummonTracking::find($id);
+
+        if ($summonTracking) {
+            $summonTracking->delete();
+            $this->dispatch('refresh-list');
         }
     }
     /**
