@@ -1,5 +1,5 @@
 <div>
-    <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-10 relative" style="max-width: 120%;">
+    <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-10 relative">
         <button class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 focus:outline-none text-3xl" 
                 wire:click="closeModal">
             &times;
