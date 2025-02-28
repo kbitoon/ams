@@ -1,5 +1,5 @@
 <div>
-    <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-10 relative">
+    <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-10 relative" style="max-width: 120%;">
         <button class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 focus:outline-none text-3xl" 
                 wire:click="closeModal">
             &times;
@@ -58,14 +58,6 @@
                                     <td class="font-semibold">Nature Of Case:</td>
                                     <td class="text-sm">{!! $luponCase->nature !!}</td>
                                 </tr>
-                                <tr>
-                                    <td class="font-semibold">Complaint:</td>
-                                    <td class="text-sm">{!! $luponCase->complaint !!}</td>
-                                </tr>
-                                <tr class="bg-gray-200">
-                                    <td class="font-semibold">Prayer:</td>
-                                    <td class="text-sm">{!! $luponCase->prayer !!}</td>
-                                </tr>
                                 @if ($luponCase->end)
                                 <tr>
                                     <td class="font-semibold">Date Closed:</td>
@@ -74,51 +66,45 @@
                                 @endif
                             </tbody>
                         </table>
-                    </div>
+
+                        <!-- Complaint and Prayer as Separate Divs -->
+                        <div class="mt-4 p-4 border rounded ">
+                            <p class="font-semibold">Complaint:</p>
+                            <p class="text-sm">{!! $luponCase->complaint !!}</p>
+                        </div>
+
+                        <div class="mt-2 p-4 border rounded bg-gray-100">
+                            <p class="font-semibold">Prayer:</p>
+                            <p class="text-sm">{!! $luponCase->prayer !!}</p>
+                        </div>
+
                     
-                    @foreach($luponCase->luponCaseComplainants as $complainant)
-                    <div>
-                        <h3 class="text-lg font-semibold text-black dark:text-white mt-3">Complainant</h3>
-                        <table style="width: 100%; border-collapse: collapse; table-layout: fixed;">
-                            <tbody>   
-                                <tr>
-                                    <td class="font-semibold">Full Name:</td>
-                                    <td class="text-sm">{{ trim("{$complainant->firstname} {$complainant->middlename} {$complainant->lastname}") }}</td>
-                                </tr>
-                                <tr class="bg-gray-200">
-                                    <td class="font-semibold">Contact:</td>
-                                    <td class="text-sm">{{$complainant->contact_number}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-semibold">Address:</td>
-                                    <td class="text-sm">{{$complainant->address}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    @endforeach
-                    
-                    @foreach($luponCase->luponCaseRespondents as $respondent)
-                    <div>
-                        <h3 class="text-lg font-semibold text-black dark:text-white mt-3">Respondent</h3>
-                        <table style="width: 100%; border-collapse: collapse; table-layout: fixed;">
-                            <tbody>   
-                                <tr>
-                                    <td class="font-semibold">Full Name:</td>
-                                    <td class="text-sm">{{ trim("{$respondent->firstname} {$respondent->middlename} {$respondent->lastname}") }}</td>
-                                </tr>
-                                <tr class="bg-gray-200">
-                                    <td class="font-semibold">Contact:</td>
-                                    <td class="text-sm">{{$respondent->contact_number}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-semibold">Address:</td>
-                                    <td class="text-sm">{{$respondent->address}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>      
-                    @endforeach
+                        <div class="mt-4">
+                        <!-- Complainants -->
+                        @if($luponCase->luponCaseComplainants->isNotEmpty())
+                        <details class="bg-white shadow-md rounded-lg p-4 mt-2">
+                            <summary class="cursor-pointer font-semibold text-blue-500">Complainants</summary>
+                            @foreach($luponCase->luponCaseComplainants as $complainant)
+                            <div class="border-t mt-2 pt-2">
+                                <p><strong>Name:</strong> {{ "{$complainant->firstname} {$complainant->middlename} {$complainant->lastname}" }}</p>
+                                <p><strong>Contact:</strong> {{$complainant->contact_number}}</p>
+                                <p><strong>Address:</strong> {{$complainant->address}}</p>
+                            </div>
+                            @endforeach
+                        </details>
+                        @endif
+                        @if($luponCase->luponCaseRespondents->isNotEmpty())
+                        <details class="bg-white shadow-md rounded-lg p-4 mt-2">
+                            <summary class="cursor-pointer font-semibold text-blue-500">Respondents</summary>
+                            @foreach($luponCase->luponCaseRespondents as $respondent)
+                            <div class="border-t mt-2 pt-2">
+                                <p><strong>Name:</strong> {{ "{$respondent->firstname} {$respondent->middlename} {$respondent->lastname}" }}</p>
+                                <p><strong>Contact:</strong> {{$respondent->contact_number}}</p>
+                                <p><strong>Address:</strong> {{$respondent->address}}</p>
+                            </div>
+                            @endforeach
+                        </details>
+                        @endif
                     
                     @if(!$luponCase->assets->isEmpty())
                     <div class="mt-6">
