@@ -86,7 +86,11 @@
                             <summary class="cursor-pointer font-semibold text-blue-500">Complainants</summary>
                             @foreach($luponCase->luponCaseComplainants as $complainant)
                             <div class="border-t mt-2 pt-2">
-                                <p><strong>Name:</strong> {{ "{$complainant->firstname} {$complainant->middlename} {$complainant->lastname}" }}</p>
+                                <p><strong>Name:</strong> {{ "{$complainant->firstname} " }} 
+                                                        @if($complainant->middlename !== 'N/A') 
+                                                            {{ "{$complainant->middlename} " }} 
+                                                        @endif 
+                                                        {{ "{$complainant->lastname}" }}</p>
                                 <p><strong>Contact:</strong> {{$complainant->contact_number}}</p>
                                 <p><strong>Address:</strong> {{$complainant->address}}</p>
                             </div>
@@ -98,7 +102,11 @@
                             <summary class="cursor-pointer font-semibold text-blue-500">Respondents</summary>
                             @foreach($luponCase->luponCaseRespondents as $respondent)
                             <div class="border-t mt-2 pt-2">
-                                <p><strong>Name:</strong> {{ "{$respondent->firstname} {$respondent->middlename} {$respondent->lastname}" }}</p>
+                                <p><strong>Name:</strong>{{ "{$respondent->firstname} " }} 
+                                                        @if($respondent->middlename !== 'N/A') 
+                                                            {{ "{$respondent->middlename} " }} 
+                                                        @endif 
+                                                        {{ "{$respondent->lastname}" }}</p>
                                 <p><strong>Contact:</strong> {{$respondent->contact_number}}</p>
                                 <p><strong>Address:</strong> {{$respondent->address}}</p>
                             </div>
