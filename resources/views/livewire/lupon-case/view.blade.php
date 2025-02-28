@@ -117,22 +117,24 @@
                 </table>
             </div>
 
-                    @if(!$luponCase->assets->isEmpty())
-                        <div class="mt-6">
-                            <h3 class="font-semibold">Resolution Form:</h3>
-                            <ul class="list-disc list-inside space-y-2">
-                                @foreach($luponCase->assets as $resolution_form)
-                                    <li>
-                                        <a href="{{ Storage::url($resolution_form->path) }}" 
-                                        target="_blank" 
-                                        class="text-blue-500 hover:underline">
-                                            {{ basename($resolution_form->path) }}
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+                        @if(!$luponCase->assets->isEmpty())
+                            <div class="mt-6">
+                                <h3 class="font-semibold">Resolution Form:</h3>
+                                <ul class="list-disc list-inside space-y-2">
+                                    @foreach($luponCase->assets as $resolution_form)
+                                        <li class="flex items-center justify-between">
+                                            <a href="{{ Storage::url($resolution_form->path) }}" target="_blank" class="text-blue-500 hover:underline">
+                                                {{ basename($resolution_form->path) }}
+                                            </a>
+                                            <button wire:click="deleteAttachment({{ $resolution_form->id }})"
+                                                    class="ml-2 px-2 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-700">
+                                                    <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                     
                     <div class="mt-6">
                         <h3 class="font-bold bg-gray-200 p-2">Comments</h3>
@@ -210,8 +212,6 @@
                                             @endif
                                     <hr class="my-4 border-t-2 border-gray-300 dark:border-gray-700">
                                     @endforeach
-                                @else
-                                    <p>No Hearing Details Available.</p>
                                 @endif
                                 </div>
                 </div>
@@ -243,8 +243,6 @@
                             </table>
                             <hr class="my-4 border-t-2 border-gray-300 dark:border-gray-700">
                             @endforeach
-                        @else
-                            <p>No Summon Details Available.</p>
                         @endif
                     </div>
                 </div>

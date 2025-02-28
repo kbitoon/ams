@@ -6,6 +6,7 @@ use App\Models\LuponCase;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Storage;
 use LivewireUI\Modal\ModalComponent;
 
 class LuponCaseModal extends ModalComponent
@@ -17,6 +18,21 @@ class LuponCaseModal extends ModalComponent
          if ($luponCase && $luponCase->exists) {
             $this->luponCase = $luponCase->load('luponCaseComments.user', 'luponCaseComplainants', 'luponCaseRespondents',
                                                 'luponSummonTrackings', 'luponHearingTrackings');
+        }
+    }
+    public function deleteAttachment($attachmentId)
+    {
+        $attachment = $this->luponCase->assets()->find($attachmentId);
+
+        if ($attachment) {
+            Storage::delete($attachment->path);
+
+
+            $attachment->delete();
+
+            $this->luponCase = $this->luponCase->refresh();
+
+            $this->dispatch('attachmentDeleted');
         }
     }
     /**
