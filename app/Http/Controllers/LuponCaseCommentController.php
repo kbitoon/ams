@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\LuponCaseComment;
 use App\Models\LuponCase;
+use App\Models\LuponCaseComplainant;
+use App\Models\LuponCaseRespondent;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,5 +25,13 @@ class LuponCaseCommentController extends Controller
         ]);
 
         return redirect()->back()->with('message', 'Comment uploaded successfully!');
+    }
+    public function downloadPdf($id)
+    {
+        $luponCase = LuponCase::with(['luponCaseComplainants', 'luponCaseRespondents', 'assets', 'luponCaseComments'])->findOrFail($id);
+        
+        $pdf = Pdf::loadView('pdf.lupon_case', compact('luponCase'));
+        
+        return $pdf->download("lupon_case_{$luponCase->case_no}.pdf");
     }
 }

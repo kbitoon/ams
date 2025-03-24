@@ -69,4 +69,5 @@ class AmsController extends Controller
 
         // return response()->json($formattedPurposes);
     }
+
 }

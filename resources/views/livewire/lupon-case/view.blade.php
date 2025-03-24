@@ -32,8 +32,17 @@
             <div class="mt-4 text-sm text-gray-800 dark:text-gray-300">
                 <!-- Details Tab Content -->
                 <div x-show="openTab === 1">
-                    <div>  
+                    <div> 
+                    <div class="flex justify-between items-center mb-4">
                         <p><span class="font-bold text-xl uppercase">{!! $luponCase->title !!}</span></p>
+                        <a href="{{ route('lupon-case.download', $luponCase->id) }}" 
+                            class="relative bg-red-500 text-white p-2 rounded ml-auto flex items-center justify-center group">
+                            <i class="fas fa-file-download text-lg"></i>
+                            <span class="absolute bottom-full mb-2 hidden group-hover:block bg-gray-700 text-white text-xs px-2 py-1 rounded">
+                                Download Lupon Case PDF
+                            </span>
+                        </a>
+                    </div>
                         <table style="width: 100%; border-collapse: collapse; table-layout: fixed;">
                             <tbody>
                             @if(!empty($luponCase->blotter_id))
