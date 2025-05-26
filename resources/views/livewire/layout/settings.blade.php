@@ -56,6 +56,26 @@
         >
             {{ __('Item Category') }}
         </x-nav-link>
+         <x-nav-link
+            @click.prevent="showSection('pdf-content-section')"
+            :active="request()->routeIs('pdf-content')"
+            onmouseover="this.style.backgroundColor='#e0e0e0'; this.style.color='#000';"
+            onmouseout="if (!this.classList.contains('active')) { this.style.backgroundColor='#f0f0f0'; this.style.color='#333'; }"
+            onclick="setActive(this)"
+            class="nav-link"
+        >
+            {{ __('PDF Content') }}
+        </x-nav-link>
+        <x-nav-link
+            @click.prevent="showSection('user-statistics-section')"
+            :active="request()->routeIs('user-statistics')"
+            onmouseover="this.style.backgroundColor='#e0e0e0'; this.style.color='#000';"
+            onmouseout="if (!this.classList.contains('active')) { this.style.backgroundColor='#f0f0f0'; this.style.color='#333'; }"
+            onclick="setActive(this)"
+            class="nav-link"
+        >
+            {{ __('User Statistics') }}
+        </x-nav-link>
     </div>
 
     <!-- Livewire Components Sections -->
@@ -74,6 +94,12 @@
         </div>
         <div class="p-6 text-gray-900 dark:text-gray-100 hidden" id="item-category-section">
             @livewire('item-category')
+        </div>
+        <div class="p-6 text-gray-900 dark:text-gray-100 hidden" id="pdf-content-section">
+            @livewire('pdf-content')
+        </div>
+        <div class="p-6 text-gray-900 dark:text-gray-100 hidden" id="user-statistics-section">
+            @livewire('user-statistics')
         </div>
     </div>
 </div>

@@ -29,9 +29,12 @@ class LuponCaseCommentController extends Controller
     public function downloadPdf($id)
     {
         $luponCase = LuponCase::with(['luponCaseComplainants', 'luponCaseRespondents', 'assets', 'luponCaseComments'])->findOrFail($id);
-        
-        $pdf = Pdf::loadView('pdf.lupon_case', compact('luponCase'));
-        
+
+        // Fetch the latest or relevant PdfContent record
+        $pdfContent = \App\Models\PdfContent::latest()->first();
+
+        $pdf = Pdf::loadView('pdf.lupon_case', compact('luponCase', 'pdfContent'));
+
         return $pdf->download("lupon_case_{$luponCase->case_no}.pdf");
     }
 }

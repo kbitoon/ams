@@ -1,0 +1,69 @@
+
+<div class="min-w-full align-middle">
+     @if($pdfContents->count() === 0)
+        <x-primary-button wire:click="$dispatch('openModal', { component: 'modals.pdf-content-modal' })" class="mb-4">
+            Add PDF Content
+        </x-primary-button>
+
+    @endif
+
+
+    <div class="overflow-x-auto">
+        <table class="min-w-full border divide-y divide-gray-200">
+            <!-- Table Header -->
+            <thead>
+                <tr>
+                    <th class="px-6 py-3 text-left bg-gray-50">
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Right Logo</span>
+                    </th>
+                    <th class="px-6 py-3 text-left bg-gray-50">
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Left Logo</span>
+                    </th>
+                    <th class="px-6 py-3 text-left bg-gray-50">
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Barangay Captain</span>
+                    </th>
+                    <th class="px-6 py-3 text-left bg-gray-50"></th>
+                </tr>
+            </thead>
+            <!-- Table Body -->
+            <tbody class="bg-white divide-y divide-gray-200 divide-solid">
+                @forelse($pdfContents as $pdfContent)
+                    <tr>
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                            @if($pdfContent->right_logo)
+                                <img src="{{ asset('storage/' . $pdfContent->right_logo) }}" alt="Right Logo" class="h-8">
+                            @endif
+                        </td>
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                            @if($pdfContent->left_logo)
+                                <img src="{{ asset('storage/' . $pdfContent->left_logo) }}" alt="Left Logo" class="h-8">
+                            @endif
+                        </td>
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                            {{ $pdfContent->captain }}
+                        </td>
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900 flex space-x-2">
+                            <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.pdf-content-modal', arguments: { pdfContent: {{ $pdfContent->id }} }})">
+                                <i class="fas fa-pencil-alt"></i>
+                            </x-secondary-button>
+                            <x-danger-button x-data @click="if (confirm('Are you sure you want to delete this?')) { $wire.call('delete', {{ $pdfContent->id }}) }">
+                                <i class="fas fa-trash-alt"></i>
+                            </x-danger-button>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="5" class="px-6 py-4 text-sm leading-5 text-gray-900">
+                            No PDF content added.
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="mt-5">
+        {{-- Pagination links --}}
+        {{ $pdfContents->links() }}
+    </div>
+</div>
