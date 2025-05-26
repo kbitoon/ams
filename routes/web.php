@@ -89,8 +89,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('lupon-case');
 
 
-    Route::get('/lupon-event-trackings', [LuponEventTrackingController::class, 'index']);
-    Route::get('/lupon-event-trackings/{id}', [LuponEventTrackingController::class, 'getEventDetails']);
+    // Route::get('/lupon-event-trackings', [LuponEventTrackingController::class, 'index']);
+    // Route::get('/lupon-event-trackings/{id}', [LuponEventTrackingController::class, 'getEventDetails']);
 
     Route::get('/clearancepurposemodal', [App\Http\Controllers\AmsController::class, 'clearancepurposemodal'])->name('clearancepurposemodal');
 
@@ -101,7 +101,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/luponCases/{luponCase}/luponCaseComments', [LuponCaseCommentController::class, 'store'])->name('luponCaseComments.store');
 
     Route::post('/complaints/{complaint}/comments', [CommentController::class, 'store'])->name('comments.store');
-    Route::get('/complaints/{complaint}', [ComplaintController::class, 'show'])->name('complaint.show');
+    // Route::get('/complaints/{complaint}', [ComplaintController::class, 'show'])->name('complaint.show');
 
     Route::get('/lupon-case/{id}/download', [LuponCaseCommentController::class, 'downloadPdf'])->name('lupon-case.download');
 });
