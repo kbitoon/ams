@@ -52,7 +52,8 @@
     <table width="100%">
         <tr>
             <td width="100%" align="center">
-                <img src="{{ public_path('storage/' . $pdfContent->header) }}" alt="Header" style="width: 100%; height: auto;">
+                <img src="{{ public_path('storage/' . $pdfContent->header) }}" alt="Header"
+                    style="width: 100%; height: auto;">
             </td>
         </tr>
     </table>
@@ -71,13 +72,15 @@
                 @if($luponCase->luponCaseComplainants->isNotEmpty())
                     @foreach ($luponCase->luponCaseComplainants as $complainant)
                         <span>
-                            <u>
-                                {{ "{$complainant->firstname} " }}
-                                @if($complainant->middlename !== 'N/A')
-                                    {{ "{$complainant->middlename} " }}
-                                @endif
-                                {{ "{$complainant->lastname}" }}
-                            </u>
+                            
+                                <b>
+                                    {{ "{$complainant->firstname} " }}
+                                    @if($complainant->middlename !== 'N/A')
+                                        {{ "{$complainant->middlename} " }}
+                                    @endif
+                                    {{ "{$complainant->lastname}" }}
+                                </b>
+                            
                         </span><br>
                     @endforeach
                 @else
@@ -107,13 +110,15 @@
                 @if($luponCase->luponCaseRespondents->isNotEmpty())
                     @foreach ($luponCase->luponCaseRespondents as $respondent)
                         <span>
-                            <u>
-                                {{ "{$respondent->firstname} " }}
-                                @if($respondent->middlename !== 'N/A')
-                                    {{ "{$respondent->middlename} " }}
-                                @endif
-                                {{ "{$respondent->lastname}" }}
-                            </u>
+        
+                                <b>
+                                    {{ "{$respondent->firstname} " }}
+                                    @if($respondent->middlename !== 'N/A')
+                                        {{ "{$respondent->middlename} " }}
+                                    @endif
+                                    {{ "{$respondent->lastname}" }}
+                                </b>
+                        
                         </span><br>
                     @endforeach
                 @else
@@ -132,7 +137,7 @@
     </p>
 
     <div style="font-style: italic; margin-left: 20px; margin-right: 20px;">
-        <u>{!! $luponCase->complaint !!}</u>
+        {!! $luponCase->complaint !!}
     </div>
 
     <p>
@@ -140,12 +145,12 @@
     </p>
 
     <div style="font-style: italic; margin-left: 20px; margin-right: 20px;">
-        <u>{!! $luponCase->prayer !!}</u>
+        {!! $luponCase->prayer !!}
     </div>
     <p>
-        Made this <u>{{ date('jS', strtotime($luponCase->date)) }}</u>
-        day of <u>{{ date('F', strtotime($luponCase->date)) }}</u>,
-        20<u>{{ date('y', strtotime($luponCase->date)) }}</u>.
+        Made this <b>{{ date('jS', strtotime($luponCase->date)) }}</b>
+        day of <b>{{ date('F', strtotime($luponCase->date)) }}</b>,
+        20<b>{{ date('y', strtotime($luponCase->date)) }}</b>.
     </p>
 
     <p class="signature">
@@ -154,9 +159,9 @@
     </p>
 
     <p>
-        Received and filed this <u>{{ date('jS', strtotime($luponCase->date)) }}</u>
-        day of <u>{{ date('F', strtotime($luponCase->date)) }}</u>
-        20<u>{{ date('y', strtotime($luponCase->date)) }}</u>.
+        Received and filed this <b>{{ date('jS', strtotime($luponCase->date)) }}</b>
+        day of <b>{{ date('F', strtotime($luponCase->date)) }}</b>
+        20<b>{{ date('y', strtotime($luponCase->date)) }}</b>.
     </p>
 
     <p class="signature">
