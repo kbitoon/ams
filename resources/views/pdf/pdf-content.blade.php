@@ -14,10 +14,7 @@
             <thead>
                 <tr>
                     <th class="px-6 py-3 text-left bg-gray-50">
-                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Right Logo</span>
-                    </th>
-                    <th class="px-6 py-3 text-left bg-gray-50">
-                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Left Logo</span>
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Header</span>
                     </th>
                     <th class="px-6 py-3 text-left bg-gray-50">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Barangay Captain</span>
@@ -30,13 +27,8 @@
                 @forelse($pdfContents as $pdfContent)
                     <tr>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            @if($pdfContent->right_logo)
-                                <img src="{{ asset('storage/' . $pdfContent->right_logo) }}" alt="Right Logo" class="h-8">
-                            @endif
-                        </td>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            @if($pdfContent->left_logo)
-                                <img src="{{ asset('storage/' . $pdfContent->left_logo) }}" alt="Left Logo" class="h-8">
+                            @if($pdfContent->header)
+                                <img src="{{ asset('storage/' . $pdfContent->header) }}" alt="Header" class="h-8">
                             @endif
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">

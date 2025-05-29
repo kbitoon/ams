@@ -7,7 +7,7 @@
         body {
             font-family: Arial, sans-serif;
             font-size: 14px;
-            margin: 0px 40px 0px 40px;
+            margin: 0px 10px 0px 10px;
             line-height: 1.5;
         }
 
@@ -51,26 +51,8 @@
     </style>
     <table width="100%">
         <tr>
-            <td width="20%" align="center">
-                @if(isset($pdfContent) && $pdfContent->left_logo)
-                    <img src="{{ public_path('storage/' . $pdfContent->left_logo) }}" alt="Left Logo" width="150">
-                @else
-                    <img src="/storage/bacayan-logo.png" alt="Barangay Bacayan Logo" width="150">
-                @endif
-            </td>
-            <td width="70%" align="center">
-                <p style="margin: 0; font-size: 14px;">REPUBLIC OF THE PHILIPPINES</p>
-                <p style="margin: 0; font-size: 14px;">CEBU CITY</p>
-                <p style="margin: 0; font-size: 16px; font-weight: bold;">BARANGAY BACAYAN</p>
-                <p style="margin: 0; font-size: 12px;">Tel No.: 032-401-1927</p>
-                <p style="margin: 0; font-size: 14px; font-weight: bold;">OFFICE OF THE BARANGAY CAPTAIN</p>
-            </td>
-            <td width="10%" align="center">
-                @if(isset($pdfContent) && $pdfContent->right_logo)
-                    <img src="{{ public_path('storage/' . $pdfContent->right_logo) }}" alt="Right Logo" width="150">
-                @else
-                    <img src="/storage/cebucity.png" alt="Cebu City Official Seal" width="150">
-                @endif
+            <td width="100%" align="center">
+                <img src="{{ public_path('storage/' . $pdfContent->header) }}" alt="Header" style="width: 100%; height: auto;">
             </td>
         </tr>
     </table>
@@ -111,7 +93,7 @@
                     </tr>
                     <tr>
                         <td align="right" style="white-space: nowrap;"><strong>For:</strong></td>
-                        <td><u>__________________________</u></td>
+                        <td><u>{{$luponCase->title}}</u></td>
                     </tr>
                 </table>
             </td>
@@ -178,7 +160,9 @@
     </p>
 
     <p class="signature">
-        <u><b>{{ !empty($pdfContent?->captain) ? strtoupper($pdfContent->captain) : 'HON. WINSTON C. PEPITO' }}</b></u> <br>
+        <u><b>HON.
+                {{ !empty($pdfContent?->captain) ? strtoupper($pdfContent->captain) : 'HON. WINSTON C. PEPITO' }}</b></u>
+        <br>
         <span style="font-size: 10px;">Punong Barangay/Lupon Chairman</span>
     </p>
 

@@ -12,8 +12,7 @@ class PdfContent extends Model
     protected $table = 'lupon_pdf_contents';
 
     protected $fillable = [
-        'right_logo',
-        'left_logo',
+        'header',
         'captain',
     ];
 }

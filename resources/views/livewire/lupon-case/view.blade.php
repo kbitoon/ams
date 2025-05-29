@@ -39,7 +39,7 @@
                             class="relative bg-red-500 text-white p-2 rounded ml-auto flex items-center justify-center group">
                             <i class="fas fa-file-download text-lg"></i>
                             <span class="absolute bottom-full mb-2 hidden group-hover:block bg-gray-700 text-white text-xs px-2 py-1 rounded">
-                                Download Lupon Case PDF
+                                Generate Summon PDF
                             </span>
                         </a>
                     </div>
