@@ -104,6 +104,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Route::get('/complaints/{complaint}', [ComplaintController::class, 'show'])->name('complaint.show');
 
     Route::get('/lupon-case/{id}/download', [LuponCaseCommentController::class, 'downloadPdf'])->name('lupon-case.download');
+    Route::get('/lupon-summon/{id}/download', [LuponCaseCommentController::class, 'downloadSummonPdf'])->name('lupon-summon.download');
 });
 
 Route::middleware('guest')->group(function () {

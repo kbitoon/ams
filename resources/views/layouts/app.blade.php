@@ -20,7 +20,6 @@
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <!-- FullCalendar CSS -->
         <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.2.0/dist/fullcalendar.min.css" rel="stylesheet" />
-
         
 
         <!-- Icon -->
@@ -61,6 +60,9 @@
                 {{ $slot }}
             </main>
         </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
          <!-- FullCalendar CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css">
         <!-- jQuery -->

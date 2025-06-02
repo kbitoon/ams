@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\LuponCaseComment;
 use App\Models\LuponCase;
+use App\Models\LuponSummonTracking;
 use App\Models\LuponCaseComplainant;
 use App\Models\LuponCaseRespondent;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Exception;
 use Illuminate\Support\Facades\Auth;
+use Log;
 
 class LuponCaseCommentController extends Controller
 {
@@ -36,5 +39,24 @@ class LuponCaseCommentController extends Controller
         $pdf = Pdf::loadView('pdf.lupon_case', compact('luponCase', 'pdfContent'));
 
         return $pdf->download("lupon_case_{$luponCase->case_no}.pdf");
+    }
+
+    public function downloadSummonPdf($luponCaseId)
+    {
+        $luponSummon = LuponSummonTracking::with('luponCase.luponCaseComplainants', 'luponCase.luponCaseRespondents')
+            ->where('lupon_case_id', $luponCaseId)
+            ->latest()
+            ->first();
+
+        if (!$luponSummon) {
+            return response("No summon record found for Lupon Case ID $luponCaseId", 404);
+        }
+
+        $luponCase = $luponSummon->luponCase;
+        $pdfContent = \App\Models\PdfContent::latest()->first();
+
+        $pdf = Pdf::loadView('pdf.summon', compact('luponSummon', 'luponCase', 'pdfContent'));
+
+        return $pdf->download("lupon_summon_{$luponCase->case_no}.pdf");
     }
 }

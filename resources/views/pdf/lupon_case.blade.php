@@ -49,6 +49,7 @@
             margin-bottom: 18px;
         }
     </style>
+    @if (!empty($pdfContent->header))
     <table width="100%">
         <tr>
             <td width="100%" align="center">
@@ -58,6 +59,12 @@
         </tr>
     </table>
     <hr>
+@else
+    <p style="text-align: center; color: red; font-style: italic;">
+        No header image found. Please upload a header image in the settings.
+    </p>
+    <hr>
+@endif
 </head>
 
 <body>
