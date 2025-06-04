@@ -176,7 +176,7 @@
         </div>
 
         <!-- Summon Tab -->
-        <div x-show="openTab === 2" x-transition>
+        <div x-show="openTab === 2" x-transition class="min-h-[300px]">
             <div class="flex justify-end mb-4">
                     <div x-data="{ open: false, summoned_date: '', date_issued: '' }" x-init="
                                             summoned_date = localStorage.getItem('summoned_date') || '';
@@ -227,9 +227,10 @@
                         </div>
                     </div>
                 </div>
+                
             @if($luponSummonTrackings && $luponSummonTrackings->isNotEmpty())
                 
-
+                
                 @foreach($luponSummonTrackings as $summonTracking)
                     <div class="mb-10">
 
@@ -272,7 +273,7 @@
     </div>
 
     <!-- Hearing Tab -->
-    <div x-show="openTab === 3" x-transition>
+    <div x-show="openTab === 3" x-transition class="min-h-[300px]">
         @if($luponHearingTrackings && $luponHearingTrackings->isNotEmpty())
             @foreach($luponHearingTrackings as $hearingTracking)
                 <div class="mb-10">
