@@ -7,7 +7,7 @@
         body {
             font-family: Arial, sans-serif;
             font-size: 14px;
-            margin: 20px;
+             margin: 0px 10px 0px 10px;
             line-height: 1.5;
         }
 
@@ -155,10 +155,10 @@
     <p>
         &nbsp;&nbsp;&nbsp;&nbsp;You are hereby summoned to appear before me in person, together with your witnesses, on
         the
-        <strong>{{ \Carbon\Carbon::parse($luponSummon->date_time)->format('jS') }}</strong> day of
-        <strong>{{ \Carbon\Carbon::parse($luponSummon->date_time)->format('F') }}</strong>,
-        <strong>{{ \Carbon\Carbon::parse($luponSummon->date_time)->format('Y') }}</strong>, at
-        <strong>{{ \Carbon\Carbon::parse($luponSummon->date_time)->format('g:i A') }}</strong> o'clock in the
+        <strong>{{ \Carbon\Carbon::parse($summonedDate)->format('jS') }}</strong> day of
+        <strong>{{ \Carbon\Carbon::parse($summonedDate)->format('F') }}</strong>,
+        <strong>{{ \Carbon\Carbon::parse($summonedDate)->format('Y') }}</strong>, at
+        <strong>{{ \Carbon\Carbon::parse($summonedDate)->format('g:i A') }}</strong> o'clock in the
         morning/afternoon,
         then and there to answer to a complaint made before me, copy of which is attached hereto, for
         mediation/conciliation of your dispute with complainant/s.
@@ -170,12 +170,13 @@
         you may be barred from filing any counterclaim arising from said complaint.
     </p>
 
-    <p><strong>  &nbsp;&nbsp;&nbsp;&nbsp;FAIL NOT or else face punishment as for contempt of court.</strong></p>
+    <p><strong> &nbsp;&nbsp;&nbsp;&nbsp;FAIL NOT or else face punishment as for contempt of court.</strong></p>
 
     <p>
-         &nbsp;&nbsp;&nbsp;&nbsp;This <strong>{{ \Carbon\Carbon::parse($luponSummon->created_at)->format('jS') }}</strong> day of
-        <strong>{{ \Carbon\Carbon::parse($luponSummon->created_at)->format('F') }}</strong>,
-        <strong>{{ \Carbon\Carbon::parse($luponSummon->created_at)->format('Y') }}</strong>.
+        &nbsp;&nbsp;&nbsp;&nbsp;This
+        <strong>{{ \Carbon\Carbon::parse($dateIssued)->format('jS') }}</strong> day of
+        <strong>{{ \Carbon\Carbon::parse($dateIssued)->format('F') }}</strong>,
+        <strong>{{ \Carbon\Carbon::parse($dateIssued)->format('Y') }}</strong>.
     </p>
 
     <div class="signature">

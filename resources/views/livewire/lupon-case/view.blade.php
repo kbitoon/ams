@@ -30,7 +30,7 @@
             <div>
                 <div class="flex justify-between items-center mb-4">
                     <p><span class="font-bold text-xl uppercase">{!! $luponCase->title !!}</span></p>
-                    <a href="{{ route('lupon-case.download', $luponCase->id) }}"
+                    <a href="{{ route('lupon-case.download', $luponCase->id) }}" @click.stop
                         class="relative bg-red-500 text-white p-2 rounded ml-auto flex items-center justify-center group">
                         <i class="fas fa-file-download text-lg"></i>
                         <span
@@ -174,25 +174,70 @@
                 </div>
             </div>
         </div>
+
         <!-- Summon Tab -->
         <div x-show="openTab === 2" x-transition>
             @if($luponSummonTrackings && $luponSummonTrackings->isNotEmpty())
-                @foreach($luponSummonTrackings as $summonTracking)
-                    <div class="mb-10">
-                        <a href="{{ route('lupon-summon.download', $luponCase->id) }}"
-                            class="relative bg-red-500 text-white p-2 rounded ml-auto flex items-center justify-center group w-8">
+                <div class="flex justify-end mb-4">
+                    <div x-data="{ open: false, summoned_date: '', date_issued: '' }" x-init="
+                                            summoned_date = localStorage.getItem('summoned_date') || '';
+                                            date_issued = localStorage.getItem('date_issued') || '';
+                                        ">
+                        <!-- Button to open modal -->
+                        <button @click="open = true"
+                            class="relative bg-red-500 text-white p-2 rounded flex items-center justify-center group w-8">
                             <i class="fas fa-file-download text-lg"></i>
                             <span
                                 class="absolute bottom-full mb-2 hidden group-hover:block bg-gray-700 text-white text-xs px-2 py-1 rounded">
                                 Generate Summon PDF
                             </span>
-                        </a>
+                        </button>
+
+                        <!-- Modal -->
+                        <div x-show="open" style="background: rgba(0,0,0,0.5);"
+                            class="fixed inset-0 flex items-center justify-center z-50">
+                            <div class="bg-white p-6 rounded shadow-lg w-96">
+                                <h2 class="text-lg font-bold mb-4">Summon PDF Details</h2>
+                                <form @submit.prevent="
+                                                            localStorage.setItem('summoned_date', summoned_date);
+                                                            localStorage.setItem('date_issued', date_issued);
+                                                            open = false;
+                                                             setTimeout(() => {
+                                                window.location.href = '{{ route('lupon-summon.download', $luponCase->id) }}?summoned_date=' + summoned_date + '&date_issued=' + date_issued;
+                                            }, 200);
+                                                        ">
+                                    @csrf
+                                    <div class="mb-4">
+                                        <label class="block font-semibold mb-1">Summoned Date & Time</label>
+                                        <input type="datetime-local" x-model="summoned_date" required
+                                            class="border px-2 py-1 rounded w-full">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="block font-semibold mb-1">Date Issued</label>
+                                        <input type="date" x-model="date_issued" required
+                                            class="border px-2 py-1 rounded w-full">
+                                    </div>
+                                    <div class="flex justify-end gap-2">
+                                        <button type="button" @click="open = false"
+                                            class="px-3 py-1 rounded bg-gray-300">Cancel</button>
+                                        <button type="submit" class="px-3 py-1 rounded bg-blue-600 text-white">Generate
+                                            PDF</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @foreach($luponSummonTrackings as $summonTracking)
+                    <div class="mb-10">
+
                         <table width="100%" class="mt-4">
                             <tbody>
                                 <tr class="bg-gray-200">
                                     <td class="font-semibold">Date and Time:</td>
                                     <td class="text-sm">
-                                        {{ \Carbon\Carbon::parse($summonTracking->date_time)->format('M j, Y g:i A') }}</td>
+                                        {{ \Carbon\Carbon::parse($summonTracking->date_time)->format('M j, Y g:i A') }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class="font-semibold">Received By:</td>
@@ -234,7 +279,8 @@
                             <tr class="bg-gray-200">
                                 <td class="font-semibold">Date and Time:</td>
                                 <td class="text-sm">
-                                    {{ \Carbon\Carbon::parse($hearingTracking->date_time)->format('M j, Y g:i A') }}</td>
+                                    {{ \Carbon\Carbon::parse($hearingTracking->date_time)->format('M j, Y g:i A') }}
+                                </td>
                             </tr>
                             <tr>
                                 <td class="font-semibold">Type:</td>

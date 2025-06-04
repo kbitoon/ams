@@ -61,7 +61,7 @@
             </main>
         </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+        <script src="//unpkg.com/@alpinejs/focus@3.x.x/dist/cdn.min.js" defer></script>
 
          <!-- FullCalendar CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css">

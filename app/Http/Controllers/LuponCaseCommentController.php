@@ -41,8 +41,11 @@ class LuponCaseCommentController extends Controller
         return $pdf->download("lupon_case_{$luponCase->case_no}.pdf");
     }
 
-    public function downloadSummonPdf($luponCaseId)
+    public function downloadSummonPdf($luponCaseId, Request $request)
     {
+        $summonedDate = $request->query('summoned_date');
+        $dateIssued = $request->query('date_issued');
+
         $luponSummon = LuponSummonTracking::with('luponCase.luponCaseComplainants', 'luponCase.luponCaseRespondents')
             ->where('lupon_case_id', $luponCaseId)
             ->latest()
@@ -55,7 +58,8 @@ class LuponCaseCommentController extends Controller
         $luponCase = $luponSummon->luponCase;
         $pdfContent = \App\Models\PdfContent::latest()->first();
 
-        $pdf = Pdf::loadView('pdf.summon', compact('luponSummon', 'luponCase', 'pdfContent'));
+        // Pass the dates to the view
+        $pdf = Pdf::loadView('pdf.summon', compact('luponSummon', 'luponCase', 'pdfContent', 'summonedDate', 'dateIssued'));
 
         return $pdf->download("lupon_summon_{$luponCase->case_no}.pdf");
     }
