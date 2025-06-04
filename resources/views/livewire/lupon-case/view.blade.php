@@ -177,8 +177,7 @@
 
         <!-- Summon Tab -->
         <div x-show="openTab === 2" x-transition>
-            @if($luponSummonTrackings && $luponSummonTrackings->isNotEmpty())
-                <div class="flex justify-end mb-4">
+            <div class="flex justify-end mb-4">
                     <div x-data="{ open: false, summoned_date: '', date_issued: '' }" x-init="
                                             summoned_date = localStorage.getItem('summoned_date') || '';
                                             date_issued = localStorage.getItem('date_issued') || '';
@@ -228,6 +227,9 @@
                         </div>
                     </div>
                 </div>
+            @if($luponSummonTrackings && $luponSummonTrackings->isNotEmpty())
+                
+
                 @foreach($luponSummonTrackings as $summonTracking)
                     <div class="mb-10">
 
