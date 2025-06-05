@@ -177,62 +177,107 @@
 
         <!-- Summon Tab -->
         <div x-show="openTab === 2" x-transition class="min-h-[300px]">
-            <div class="flex justify-end mb-4">
-                    <div x-data="{ open: false, summoned_date: '', date_issued: '' }" x-init="
-                                            summoned_date = localStorage.getItem('summoned_date') || '';
-                                            date_issued = localStorage.getItem('date_issued') || '';
-                                        ">
-                        <!-- Button to open modal -->
-                        <button @click="open = true"
-                            class="relative bg-red-500 text-white p-2 rounded flex items-center justify-center group w-8">
-                            <i class="fas fa-file-download text-lg"></i>
-                            <span
-                                class="absolute bottom-full mb-2 hidden group-hover:block bg-gray-700 text-white text-xs px-2 py-1 rounded">
-                                Generate Summon PDF
-                            </span>
-                        </button>
-
-                        <!-- Modal -->
-                        <div x-show="open" style="background: rgba(0,0,0,0.5);"
-                            class="fixed inset-0 flex items-center justify-center z-50">
-                            <div class="bg-white p-6 rounded shadow-lg w-96">
-                                <h2 class="text-lg font-bold mb-4">Summon PDF Details</h2>
-                                <form @submit.prevent="
-                                                            localStorage.setItem('summoned_date', summoned_date);
-                                                            localStorage.setItem('date_issued', date_issued);
-                                                            open = false;
-                                                             setTimeout(() => {
-                                                window.location.href = '{{ route('lupon-summon.download', $luponCase->id) }}?summoned_date=' + summoned_date + '&date_issued=' + date_issued;
-                                            }, 200);
-                                                        ">
-                                    @csrf
-                                    <div class="mb-4">
-                                        <label class="block font-semibold mb-1">Summoned Date & Time</label>
-                                        <input type="datetime-local" x-model="summoned_date" required
-                                            class="border px-2 py-1 rounded w-full">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label class="block font-semibold mb-1">Date Issued</label>
-                                        <input type="date" x-model="date_issued" required
-                                            class="border px-2 py-1 rounded w-full">
-                                    </div>
-                                    <div class="flex justify-end gap-2">
-                                        <button type="button" @click="open = false"
-                                            class="px-3 py-1 rounded bg-gray-300">Cancel</button>
-                                        <button type="submit" class="px-3 py-1 rounded bg-blue-600 text-white">Generate
-                                            PDF</button>
-                                    </div>
-                                </form>
-                            </div>
+            <div class="flex justify-end gap-2 mb-4">
+                <div x-data="{ open: false, summoned_date: '', date_issued: '' }" x-init="
+        summoned_date = localStorage.getItem('summoned_date') || '';
+        date_issued = localStorage.getItem('date_issued') || '';
+    ">
+                    <!-- Button to open modal -->
+                    <button @click="open = true"
+                        class="relative bg-blue-500 text-white p-2 rounded flex items-center justify-center group w-8">
+                        <i class="fas fa-file-download text-lg"></i>
+                        <span
+                            class="absolute bottom-full mb-2 hidden group-hover:block bg-gray-700 text-white text-xs px-2 py-1 rounded">
+                            Generate Complainant Summon PDF
+                        </span>
+                    </button>
+                    <!-- Modal -->
+                    <div x-show="open" style="background: rgba(0,0,0,0.5);"
+                        class="fixed inset-0 flex items-center justify-center z-50">
+                        <div class="bg-white p-6 rounded shadow-lg w-96">
+                            <h2 class="text-lg font-bold mb-4">Summon PDF Details</h2>
+                            <form @submit.prevent="
+                    localStorage.setItem('summoned_date', summoned_date);
+                    localStorage.setItem('date_issued', date_issued);
+                    open = false;
+                    setTimeout(() => {
+                        window.location.href = '{{ route('complainant-summon.download', $luponCase->id) }}?summoned_date=' + summoned_date + '&date_issued=' + date_issued;
+                    }, 200);
+                ">
+                                @csrf
+                                <div class="mb-4">
+                                    <label class="block font-semibold mb-1">Summon Date & Time</label>
+                                    <input type="datetime-local" x-model="summoned_date" required
+                                        class="border px-2 py-1 rounded w-full">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block font-semibold mb-1">Date Issued</label>
+                                    <input type="date" x-model="date_issued" required
+                                        class="border px-2 py-1 rounded w-full">
+                                </div>
+                                <div class="flex justify-end gap-2">
+                                    <button type="button" @click="open = false"
+                                        class="px-3 py-1 rounded bg-gray-300">Cancel</button>
+                                    <button type="submit" class="px-3 py-1 rounded bg-blue-600 text-white">Generate
+                                        PDF</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-                
-            @if($luponSummonTrackings && $luponSummonTrackings->isNotEmpty())
+                <div x-data="{ open: false, summoned_date: '', date_issued: '' }" x-init="
+        summoned_date = localStorage.getItem('summoned_date') || '';
+        date_issued = localStorage.getItem('date_issued') || '';
+    ">
+                    <!-- Button to open modal -->
+                    <button @click="open = true"
+                        class="relative bg-red-500 text-white p-2 rounded flex items-center justify-center group w-8">
+                        <i class="fas fa-file-download text-lg"></i>
+                        <span
+                            class="absolute bottom-full mb-2 hidden group-hover:block bg-gray-700 text-white text-xs px-2 py-1 rounded">
+                            Generate Respondent Summon PDF
+                        </span>
+                    </button>
+                    <!-- Modal -->
+                    <div x-show="open" style="background: rgba(0,0,0,0.5);"
+                        class="fixed inset-0 flex items-center justify-center z-50">
+                        <div class="bg-white p-6 rounded shadow-lg w-96">
+                            <h2 class="text-lg font-bold mb-4">Summon PDF Details</h2>
+                            <form @submit.prevent="
+                    localStorage.setItem('summoned_date', summoned_date);
+                    localStorage.setItem('date_issued', date_issued);
+                    open = false;
+                    setTimeout(() => {
+                        window.location.href = '{{ route('lupon-summon.download', $luponCase->id) }}?summoned_date=' + summoned_date + '&date_issued=' + date_issued;
+                    }, 200);
+                ">
+                                @csrf
+                                <div class="mb-4">
+                                    <label class="block font-semibold mb-1">Summon Date & Time</label>
+                                    <input type="datetime-local" x-model="summoned_date" required
+                                        class="border px-2 py-1 rounded w-full">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block font-semibold mb-1">Date Issued</label>
+                                    <input type="date" x-model="date_issued" required
+                                        class="border px-2 py-1 rounded w-full">
+                                </div>
+                                <div class="flex justify-end gap-2">
+                                    <button type="button" @click="open = false"
+                                        class="px-3 py-1 rounded bg-gray-300">Cancel</button>
+                                    <button type="submit" class="px-3 py-1 rounded bg-blue-600 text-white">Generate
+                                        PDF</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+              @if($luponSummonTrackings && $luponSummonTrackings->isNotEmpty())
                 
                 
                 @foreach($luponSummonTrackings as $summonTracking)
-                    <div class="mb-10">
+                    <div class="mb-5">
 
                         <table width="100%" class="mt-4">
                             <tbody>
@@ -269,72 +314,72 @@
                     <hr class="my-4 border-t-2 border-gray-300 dark:border-gray-700">
                 @endforeach
             @endif
+                </div>
+            </div>
+
+            <!-- Hearing Tab -->
+            <div x-show="openTab === 3" x-transition class="min-h-[300px]">
+                @if($luponHearingTrackings && $luponHearingTrackings->isNotEmpty())
+                    @foreach($luponHearingTrackings as $hearingTracking)
+                        <div class="mb-10">
+                            <table width="100%" class="mt-4">
+                                <tbody>
+                                    <tr class="bg-gray-200">
+                                        <td class="font-semibold">Date and Time:</td>
+                                        <td class="text-sm">
+                                            {{ \Carbon\Carbon::parse($hearingTracking->date_time)->format('M j, Y g:i A') }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">Type:</td>
+                                        <td class="text-sm">{{ ucfirst($hearingTracking->type) }}</td>
+                                    </tr>
+                                    <tr class="bg-gray-200">
+                                        <td class="font-semibold">Secretary:</td>
+                                        <td class="text-sm">{{ $hearingTracking->secretary }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold">Presider:</td>
+                                        <td class="text-sm">{{ $hearingTracking->presider }}</td>
+                                    </tr>
+                                    <tr class="bg-gray-200">
+                                        <td class="font-semibold">Remarks:</td>
+                                        <td class="text-sm">{{ $hearingTracking->remarks }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            @if(!$hearingTracking->assets->isEmpty())
+                                <div class="mt-4">
+                                    <h3 class="font-semibold">Images:</h3>
+                                    <ul class="list-disc list-inside space-y-2">
+                                        @foreach($hearingTracking->assets as $attachements)
+                                            <li>
+                                                <a href="{{ Storage::url($attachements->path) }}" target="_blank"
+                                                    class="text-blue-500 hover:underline">
+                                                    {{ basename($attachements->path) }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                        </div>
+                        <x-secondary-button
+                            wire:click.stop="$dispatch('openModal', { component: 'modals.luponHearingTracking-modal', arguments: { luponHearingTracking: {{ $hearingTracking->id }} }})">
+                            <i class="fas fa-pencil-alt"></i>
+                        </x-secondary-button>
+                        <x-danger-button
+                            @click="if (confirm('Are you sure you want to delete this?')) { $wire.call('deleteHearing', {{ $hearingTracking->id }}) }"
+                            wire:click.stop>
+                            <i class="fas fa-trash-alt"></i>
+                        </x-danger-button>
+                        <hr class="my-4 border-t-2 border-gray-300 dark:border-gray-700">
+
+
+                    @endforeach
+                @endif
+            </div>
+
         </div>
     </div>
-
-    <!-- Hearing Tab -->
-    <div x-show="openTab === 3" x-transition class="min-h-[300px]">
-        @if($luponHearingTrackings && $luponHearingTrackings->isNotEmpty())
-            @foreach($luponHearingTrackings as $hearingTracking)
-                <div class="mb-10">
-                    <table width="100%" class="mt-4">
-                        <tbody>
-                            <tr class="bg-gray-200">
-                                <td class="font-semibold">Date and Time:</td>
-                                <td class="text-sm">
-                                    {{ \Carbon\Carbon::parse($hearingTracking->date_time)->format('M j, Y g:i A') }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="font-semibold">Type:</td>
-                                <td class="text-sm">{{ ucfirst($hearingTracking->type) }}</td>
-                            </tr>
-                            <tr class="bg-gray-200">
-                                <td class="font-semibold">Secretary:</td>
-                                <td class="text-sm">{{ $hearingTracking->secretary }}</td>
-                            </tr>
-                            <tr>
-                                <td class="font-semibold">Presider:</td>
-                                <td class="text-sm">{{ $hearingTracking->presider }}</td>
-                            </tr>
-                            <tr class="bg-gray-200">
-                                <td class="font-semibold">Remarks:</td>
-                                <td class="text-sm">{{ $hearingTracking->remarks }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    @if(!$hearingTracking->assets->isEmpty())
-                        <div class="mt-4">
-                            <h3 class="font-semibold">Images:</h3>
-                            <ul class="list-disc list-inside space-y-2">
-                                @foreach($hearingTracking->assets as $attachements)
-                                    <li>
-                                        <a href="{{ Storage::url($attachements->path) }}" target="_blank"
-                                            class="text-blue-500 hover:underline">
-                                            {{ basename($attachements->path) }}
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                </div>
-                <x-secondary-button
-                    wire:click.stop="$dispatch('openModal', { component: 'modals.luponHearingTracking-modal', arguments: { luponHearingTracking: {{ $hearingTracking->id }} }})">
-                    <i class="fas fa-pencil-alt"></i>
-                </x-secondary-button>
-                <x-danger-button
-                    @click="if (confirm('Are you sure you want to delete this?')) { $wire.call('deleteHearing', {{ $hearingTracking->id }}) }"
-                    wire:click.stop>
-                    <i class="fas fa-trash-alt"></i>
-                </x-danger-button>
-                <hr class="my-4 border-t-2 border-gray-300 dark:border-gray-700">
-
-
-            @endforeach
-        @endif
-    </div>
-
-</div>
-</div>
