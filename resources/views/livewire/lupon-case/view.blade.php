@@ -273,9 +273,9 @@
                     </div>
                 </div>
             </div>
-              @if($luponSummonTrackings && $luponSummonTrackings->isNotEmpty())
-                
-                
+            @if($luponSummonTrackings && $luponSummonTrackings->isNotEmpty())
+
+
                 @foreach($luponSummonTrackings as $summonTracking)
                     <div class="mb-5">
 
@@ -314,72 +314,72 @@
                     <hr class="my-4 border-t-2 border-gray-300 dark:border-gray-700">
                 @endforeach
             @endif
-                </div>
-            </div>
-
-            <!-- Hearing Tab -->
-            <div x-show="openTab === 3" x-transition class="min-h-[300px]">
-                @if($luponHearingTrackings && $luponHearingTrackings->isNotEmpty())
-                    @foreach($luponHearingTrackings as $hearingTracking)
-                        <div class="mb-10">
-                            <table width="100%" class="mt-4">
-                                <tbody>
-                                    <tr class="bg-gray-200">
-                                        <td class="font-semibold">Date and Time:</td>
-                                        <td class="text-sm">
-                                            {{ \Carbon\Carbon::parse($hearingTracking->date_time)->format('M j, Y g:i A') }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-semibold">Type:</td>
-                                        <td class="text-sm">{{ ucfirst($hearingTracking->type) }}</td>
-                                    </tr>
-                                    <tr class="bg-gray-200">
-                                        <td class="font-semibold">Secretary:</td>
-                                        <td class="text-sm">{{ $hearingTracking->secretary }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-semibold">Presider:</td>
-                                        <td class="text-sm">{{ $hearingTracking->presider }}</td>
-                                    </tr>
-                                    <tr class="bg-gray-200">
-                                        <td class="font-semibold">Remarks:</td>
-                                        <td class="text-sm">{{ $hearingTracking->remarks }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                            @if(!$hearingTracking->assets->isEmpty())
-                                <div class="mt-4">
-                                    <h3 class="font-semibold">Images:</h3>
-                                    <ul class="list-disc list-inside space-y-2">
-                                        @foreach($hearingTracking->assets as $attachements)
-                                            <li>
-                                                <a href="{{ Storage::url($attachements->path) }}" target="_blank"
-                                                    class="text-blue-500 hover:underline">
-                                                    {{ basename($attachements->path) }}
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-                        </div>
-                        <x-secondary-button
-                            wire:click.stop="$dispatch('openModal', { component: 'modals.luponHearingTracking-modal', arguments: { luponHearingTracking: {{ $hearingTracking->id }} }})">
-                            <i class="fas fa-pencil-alt"></i>
-                        </x-secondary-button>
-                        <x-danger-button
-                            @click="if (confirm('Are you sure you want to delete this?')) { $wire.call('deleteHearing', {{ $hearingTracking->id }}) }"
-                            wire:click.stop>
-                            <i class="fas fa-trash-alt"></i>
-                        </x-danger-button>
-                        <hr class="my-4 border-t-2 border-gray-300 dark:border-gray-700">
-
-
-                    @endforeach
-                @endif
-            </div>
-
         </div>
     </div>
+
+    <!-- Hearing Tab -->
+    <div x-show="openTab === 3" x-transition class="min-h-[300px]">
+        @if($luponHearingTrackings && $luponHearingTrackings->isNotEmpty())
+            @foreach($luponHearingTrackings as $hearingTracking)
+                <div class="mb-10">
+                    <table width="100%" class="mt-4">
+                        <tbody>
+                            <tr class="bg-gray-200">
+                                <td class="font-semibold">Date and Time:</td>
+                                <td class="text-sm">
+                                    {{ \Carbon\Carbon::parse($hearingTracking->date_time)->format('M j, Y g:i A') }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Type:</td>
+                                <td class="text-sm">{{ ucfirst($hearingTracking->type) }}</td>
+                            </tr>
+                            <tr class="bg-gray-200">
+                                <td class="font-semibold">Secretary:</td>
+                                <td class="text-sm">{{ $hearingTracking->secretary }}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Presider:</td>
+                                <td class="text-sm">{{ $hearingTracking->presider }}</td>
+                            </tr>
+                            <tr class="bg-gray-200">
+                                <td class="font-semibold">Remarks:</td>
+                                <td class="text-sm">{{ $hearingTracking->remarks }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    @if(!$hearingTracking->assets->isEmpty())
+                        <div class="mt-4">
+                            <h3 class="font-semibold">Images:</h3>
+                            <ul class="list-disc list-inside space-y-2">
+                                @foreach($hearingTracking->assets as $attachements)
+                                    <li>
+                                        <a href="{{ Storage::url($attachements->path) }}" target="_blank"
+                                            class="text-blue-500 hover:underline">
+                                            {{ basename($attachements->path) }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                </div>
+                <x-secondary-button
+                    wire:click.stop="$dispatch('openModal', { component: 'modals.luponHearingTracking-modal', arguments: { luponHearingTracking: {{ $hearingTracking->id }} }})">
+                    <i class="fas fa-pencil-alt"></i>
+                </x-secondary-button>
+                <x-danger-button
+                    @click="if (confirm('Are you sure you want to delete this?')) { $wire.call('deleteHearing', {{ $hearingTracking->id }}) }"
+                    wire:click.stop>
+                    <i class="fas fa-trash-alt"></i>
+                </x-danger-button>
+                <hr class="my-4 border-t-2 border-gray-300 dark:border-gray-700">
+
+
+            @endforeach
+        @endif
+    </div>
+
+</div>
+</div>
