@@ -39,23 +39,23 @@ class LuponCase extends Component
         $this->rejectedCount = LuponCaseModel::where('status', 'rejected')->count();
         $this->withdrawnCount = LuponCaseModel::where('status', 'withdrawn')->count();
         $this->unsolvedCount = LuponCaseModel::where('status', 'unsolved')->count();
-       // Get distinct years from LuponCaseModel based on the 'date' column
+        // Get distinct years from LuponCaseModel based on the 'date' column
         $this->availableYears = LuponCaseModel::selectRaw('YEAR(date) as year')
-        ->distinct()
-        ->orderByDesc('year')
-        ->pluck('year')
-        ->toArray();
+            ->distinct()
+            ->orderByDesc('year')
+            ->pluck('year')
+            ->toArray();
 
         $this->selectedYear = !empty($this->availableYears) ? $this->availableYears[0] : date('Y');
 
         $this->loadChartData();
-        
+
     }
     public function updatedSelectedYear()
     {
         $this->loadChartData();
     }
-    
+
     public function loadChartData()
     {
         // Get all months for the selected year
@@ -89,12 +89,14 @@ class LuponCase extends Component
             $chartData['unsolved_cases'][] = $data[$month]->unsolved_cases ?? 0;
         }
 
+        $this->chartData = $chartData;
+
         // Dispatch the event with the chart data
-        $this->dispatch('updateChart', $chartData);
+        $this->dispatch('updateChart', chartData: $this->chartData);
     }
 
 
-   
+
 
     public function updated($propertyName)
     {
@@ -118,7 +120,9 @@ class LuponCase extends Component
     }
 
     #[On('refresh-list')]
-    public function refresh() {}
+    public function refresh()
+    {
+    }
 
     public function searchCase()
     {
@@ -128,13 +132,13 @@ class LuponCase extends Component
     public function delete($id)
     {
         $luponCase = LuponCaseModel::find($id);
-        
+
         if ($luponCase) {
-                // Store the event tracking before deletion
-                LuponEventTracking::create([
-                    'user_id' => auth()->id(),  // Get the current authenticated user ID
-                    'event_description' => 'Deleted Lupon Case with Case Number: ' . $luponCase->case_no,  // Event description for deletion
-                ]);
+            // Store the event tracking before deletion
+            LuponEventTracking::create([
+                'user_id' => auth()->id(),  // Get the current authenticated user ID
+                'event_description' => 'Deleted Lupon Case with Case Number: ' . $luponCase->case_no,  // Event description for deletion
+            ]);
             // Check if there are any associated assets (resolution files)
             foreach ($luponCase->assets as $asset) {
                 if (file_exists(storage_path('app/public/' . $asset->path))) {
@@ -142,13 +146,13 @@ class LuponCase extends Component
                     unlink(storage_path('app/public/' . $asset->path));
                 }
             }
-            
+
             // Delete the associated assets from the database
             $luponCase->assets()->delete();  // Delete related assets records
-            
+
             // Now delete the case
             $luponCase->delete();  // Delete the LuponCase record itself
-            
+
             session()->flash('message', 'Case deleted successfully.');
         } else {
             session()->flash('error', 'Case not found.');
@@ -165,20 +169,19 @@ class LuponCase extends Component
         if ($this->search) {
             $query->where(function ($q) {
                 $q->where('case_no', 'like', "%{$this->search}%")
-                  ->orWhere('title', 'like', "%{$this->search}%")
-                  ->orWhereHas('luponCaseComplainants', function ($subQuery) {
-                      $subQuery->where('firstname', 'like', "%{$this->search}%")
-                               ->orWhere('middlename', 'like', "%{$this->search}%")
-                               ->orWhere('lastname', 'like', "%{$this->search}%");
-                  })
-                  ->orWhereHas('luponCaseRespondents', function ($subQuery) {
-                      $subQuery->where('firstname', 'like', "%{$this->search}%")
-                               ->orWhere('middlename', 'like', "%{$this->search}%")
-                               ->orWhere('lastname', 'like', "%{$this->search}%");
-                  });
+                    ->orWhere('title', 'like', "%{$this->search}%")
+                    ->orWhereHas('luponCaseComplainants', function ($subQuery) {
+                        $subQuery->where('firstname', 'like', "%{$this->search}%")
+                            ->orWhere('middlename', 'like', "%{$this->search}%")
+                            ->orWhere('lastname', 'like', "%{$this->search}%");
+                    })
+                    ->orWhereHas('luponCaseRespondents', function ($subQuery) {
+                        $subQuery->where('firstname', 'like', "%{$this->search}%")
+                            ->orWhere('middlename', 'like', "%{$this->search}%")
+                            ->orWhere('lastname', 'like', "%{$this->search}%");
+                    });
             });
         }
-
         if ($this->status) {
             $query->where('status', $this->status);
         }
