@@ -42,6 +42,12 @@
             <x-input-error :messages="$errors->get('form.vehicle_id')" class="mt-2" />
         </div>
 
+        <div class="mt-4">
+            <x-input-label for="details" :value="__('Details')" />
+            <textarea wire:model="form.details" id="details" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" type="text"> </textarea>
+            <x-input-error :messages="$errors->get('form.details')" class="mt-2" />
+        </div>
+
         @hasanyrole('superadmin|administrator|support')
         <div class="mt-4">
             <x-input-label for="driver_id" :value="__('Driver')" />

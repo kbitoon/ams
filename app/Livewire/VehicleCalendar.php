@@ -17,6 +17,7 @@ class VehicleCalendar extends Component
         $this->vehicleSchedules = VehicleSchedule::where('is_approved', 1)->get()->map(function ($vehicleSchedule) {
             return [
                 'name' => $vehicleSchedule->name,
+                'details' => $vehicleSchedule->details ?? '',
                 'title' => $vehicleSchedule->destination,
                 'driver' => $vehicleSchedule->driver->name ?? '',
                 'contact_number' => $vehicleSchedule->driver->contact_number ?? '',

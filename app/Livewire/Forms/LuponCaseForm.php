@@ -102,7 +102,7 @@ class LuponCaseForm extends Form
             $this->luponCase = LuponCase::create($data);
             
         } else {
-            $data['case_no'] = $this->luponCase->case_no;
+           
             $this->luponCase->update($data);
 
             // Track the event if it's an update (edit)

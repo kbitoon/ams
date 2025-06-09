@@ -57,7 +57,7 @@
 
         <div class="mt-4">
             <x-input-label for="case_no" :value="__('Case Number')" />
-            <x-text-input wire:model="form.case_no" id="case_no" class="mt-1 block w-full" type="text" />
+            <x-text-input wire:model="form.case_no" id="case_no" class="mt-1 block w-full" type="text"/>
             <x-input-error :messages="$errors->get('form.case_no')" class="mt-2" />
         </div>
 

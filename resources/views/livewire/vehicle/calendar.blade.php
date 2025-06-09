@@ -7,6 +7,7 @@
             events: vehicleSchedules.map(function(event) {
                 return {
                     name: event.name,
+                    details: event.details,
                     title: event.title,
                     start: event.start,
                     end: event.end,
@@ -42,16 +43,18 @@
                 var formattedStart = (startDate.getUTCMonth() + 1) + '/' + startDate.getUTCDate() + '/' + startDate.getUTCFullYear() + ' ' + formatUTCDate(startDate);
                 var formattedEnd = endDate ? (endDate.getUTCMonth() + 1) + '/' + endDate.getUTCDate() + '/' + endDate.getUTCFullYear() + ' ' + formatUTCDate(endDate) : 'N/A';
 
-                var details =
+                var data =
                     `Name: ${event.name || 'N/A'}\n` +
+                   
                     `Destination: ${event.title || 'N/A'}\n` +
                     `Vehicle: ${event.vehicle || 'N/A'}\n` +
                     `Driver: ${event.driver || 'N/A'}\n` +
                     `Driver's Contact #: ${event.contact_number || 'N/A'}\n` +
                     `Schedule Start: ${formattedStart}\n` +
-                    `Schedule End: ${formattedEnd}`;
+                    `Schedule End: ${formattedEnd}\n` +
+                     `Details: ${event.details || 'N/A'}`;
 
-                alert(details);
+                alert(data);
             },
             dayRender: function(date, cell) {
                 var eventCount = cell.find('.fc-event').length;

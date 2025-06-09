@@ -20,6 +20,8 @@ class VehicleScheduleForm extends Form
     public string $status = '';
     public string $is_approved = '';
 
+    public string $details = '';
+
     /**
      * @param VehicleSchedule|null $vehicle
      */
@@ -30,6 +32,7 @@ class VehicleScheduleForm extends Form
         $this->start = $vehicleSchedule->start;
         $this->end = $vehicleSchedule->end;
         $this->name = empty($vehicleSchedule->name) ? : $vehicleSchedule->name;
+        $this->details = $vehicleSchedule->details ?? '';
         $this->vehicle_id = $vehicleSchedule->vehicle_id;
         $this->driver_id = $vehicleSchedule->driver_id;
         $this->status = $vehicleSchedule->status;
@@ -46,6 +49,7 @@ class VehicleScheduleForm extends Form
             'end' => ['required', 'date', 'after:start'],
             'name' => ['required'],
             'vehicle_id' => ['required'],
+            'details' => ['nullable', 'string'],
             'driver_id' => ['nullable'],
         ];
     }
@@ -60,6 +64,7 @@ class VehicleScheduleForm extends Form
             'start' => 'start',
             'end' => 'end',
             'name' => 'name',
+            'details' => 'details',
             'vehicle_id' => 'vehicle',
             'driver_id' => 'driver',
         ];
@@ -81,7 +86,7 @@ class VehicleScheduleForm extends Form
         // Automatically set is_approved
         $this->is_approved = $isAdminRole ? '1' : '0';
 
-        $data = $this->only(['destination', 'start', 'end', 'name', 'vehicle_id', 'driver_id', 'status', 'is_approved']);
+        $data = $this->only(['destination', 'start', 'end', 'name','details', 'vehicle_id', 'driver_id', 'status', 'is_approved']);
         $data['user_id'] = auth()->user()->id;
 
         if (!$this->vehicleSchedule) {
