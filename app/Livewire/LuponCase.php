@@ -20,6 +20,7 @@ class LuponCase extends Component
 
     public $search = '';
     public $status = '';
+
     public $startDate = '';
     public $endDate = '';
 
@@ -28,17 +29,17 @@ class LuponCase extends Component
     public $availableYears = [];
 
 
-    public $pendingCount, $resolvedCount, $solvedCount, $dismissedCount, $rejectedCount, $withdrawnCount, $unsolvedCount;
+    public $pendingCount, $settledCount, $mediatedCount, $conciliatedCount;
 
     public function mount()
     {
         $this->pendingCount = LuponCaseModel::where('status', 'pending')->count();
-        $this->resolvedCount = LuponCaseModel::where('status', 'resolved')->count();
-        $this->solvedCount = LuponCaseModel::where('status', 'solved')->count();
-        $this->dismissedCount = LuponCaseModel::where('status', 'dismissed')->count();
-        $this->rejectedCount = LuponCaseModel::where('status', 'rejected')->count();
-        $this->withdrawnCount = LuponCaseModel::where('status', 'withdrawn')->count();
-        $this->unsolvedCount = LuponCaseModel::where('status', 'unsolved')->count();
+        $this->mediatedCount = LuponCaseModel::where('status', 'mediation')->count();
+        $this->conciliatedCount = LuponCaseModel::where('status', 'Conciliated by Pangkat')->count();
+        $this->settledCount = LuponCaseModel::where(function ($query) {
+            $query->where('settled', '1')
+                ->orWhere('status', 'settled');
+        })->count();
         // Get distinct years from LuponCaseModel based on the 'date' column
         $this->availableYears = LuponCaseModel::selectRaw('YEAR(date) as year')
             ->distinct()
@@ -49,7 +50,6 @@ class LuponCase extends Component
         $this->selectedYear = !empty($this->availableYears) ? $this->availableYears[0] : date('Y');
 
         $this->loadChartData();
-
     }
     public function updatedSelectedYear()
     {
@@ -68,7 +68,7 @@ class LuponCase extends Component
         $data = LuponCaseModel::selectRaw("
                 DATE_FORMAT(date, '%Y-%m') as month, 
                 COUNT(*) as total_cases, 
-                SUM(CASE WHEN status = 'unsolved' THEN 1 ELSE 0 END) as unsolved_cases
+                SUM(CASE WHEN settled = 0 THEN 1 ELSE 0 END) as unsolved_cases
             ")
             ->whereYear('date', $this->selectedYear)
             ->groupBy('month')
@@ -114,15 +114,13 @@ class LuponCase extends Component
         }
 
         $this->pendingCount = $query->where('status', 'pending')->count();
-        $this->solvedCount = $query->where('status', 'solved')->count();
-        $this->withdrawnCount = $query->where('status', 'withdrawn')->count();
-        $this->unsolvedCount = $query->where('status', 'unsolved')->count();
+        $this->mediatedCount = $query->where('status', 'mediation')->count();
+        $this->conciliatedCount = $query->where('status', 'Conciliated by Pangkat')->count();
+        $this->settledCount = $query->where('settled', '1')->count();
     }
 
     #[On('refresh-list')]
-    public function refresh()
-    {
-    }
+    public function refresh() {}
 
     public function searchCase()
     {

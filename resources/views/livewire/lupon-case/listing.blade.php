@@ -7,16 +7,16 @@
                 <p class="text-xl font-bold">{{ $pendingCount }}</p>
             </div>
             <div class="bg-green-100 p-4 rounded-lg shadow-md text-center">
-                <p class="text-sm font-semibold text-green-600">Solved</p>
-                <p class="text-xl font-bold">{{ $solvedCount }}</p>
+                <p class="text-sm font-semibold text-green-600">Settled</p>
+                <p class="text-xl font-bold">{{ $settledCount }}</p>
             </div>
             <div class="bg-red-100 p-4 rounded-lg shadow-md text-center">
-                <p class="text-sm font-semibold text-red-600">Withdrawn</p>
-                <p class="text-xl font-bold">{{ $withdrawnCount }}</p>
+                <p class="text-sm font-semibold text-red-600">Mediated</p>
+                <p class="text-xl font-bold">{{ $mediatedCount }}</p>
             </div>
             <div class="bg-orange-100 p-4 rounded-lg shadow-md text-center">
-                <p class="text-sm font-semibold text-orange-600">Unsolved</p>
-                <p class="text-xl font-bold">{{ $unsolvedCount }}</p>
+                <p class="text-sm font-semibold text-orange-600">Consiliated</p>
+                <p class="text-xl font-bold">{{ $conciliatedCount }}</p>
             </div>
         </div>
         <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full md:w-2/3 lg:w-1/2">

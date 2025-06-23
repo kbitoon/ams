@@ -86,7 +86,7 @@ class LuponCaseModal extends ModalComponent
     public function render() : View
     {
         return view('livewire.forms.lupon-case-form',  [
-            'filteredBlotters' => $this->filteredBlotters,
+           'filteredBlotters' => isset($this->search) ? $this->filteredBlotters : collect(),
         ]);
     }
 }

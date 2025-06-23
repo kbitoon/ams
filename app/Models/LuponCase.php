@@ -20,6 +20,7 @@ class LuponCase extends Model
         'complaint',
         'prayer',
         'status',
+        'settled',
         'blotter_id',
         'end',
     ];

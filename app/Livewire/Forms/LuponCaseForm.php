@@ -21,6 +21,7 @@ class LuponCaseForm extends Form
     public string $complaint = '';
     public string $prayer = '';
     public string $status = '';
+    public bool $settled = false;
     public int|string $blotter_id = '';
     public string $end = '';
     public array $resolution_forms = [];
@@ -37,6 +38,7 @@ class LuponCaseForm extends Form
         $this->complaint = $luponCase->complaint;
         $this->prayer = $luponCase->prayer;
         $this->status = $luponCase->status;
+       $this->settled = (bool) $luponCase->settled;
         $this->blotter_id = empty($luponCase->blotter_id) ? '': $luponCase->blotter_id;
         $this->end = empty($luponCase->end) ? '': $luponCase->end;
     }
@@ -54,6 +56,7 @@ class LuponCaseForm extends Form
             'complaint' => ['required'],
             'prayer' => ['required'],
             'status' => ['required'],
+            'settled' => ['nullable', 'boolean'],
             'blotter_id' => ['nullable', 'integer'],
             'end' => ['nullable', 'date_format:Y-m-d'],
         ];
@@ -72,6 +75,7 @@ class LuponCaseForm extends Form
             'complaint' => 'complaint',
             'prayer' => 'prayer',
             'status' => 'status',
+            'settled' => 'settled',
             'blotter_id' => 'blotter_id',
             'end' => 'end',
             'resolution_forms' => 'resolution_form',
@@ -86,7 +90,7 @@ class LuponCaseForm extends Form
         $this->validate();
 
         // Ensure blotter_id is properly handled if it's empty
-        $data = $this->only(['date', 'case_no','title','nature', 'complaint', 'prayer', 'status', 'blotter_id','end']);
+        $data = $this->only(['date', 'case_no','title','nature', 'complaint', 'prayer', 'status', 'settled','blotter_id','end']);
         $data['blotter_id'] = $this->blotter_id ?: null;
         $data['end'] = empty($this->end) ? null : $this->end;
 
