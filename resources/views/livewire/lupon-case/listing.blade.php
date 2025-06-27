@@ -11,11 +11,11 @@
                 <p class="text-xl font-bold">{{ $settledCount }}</p>
             </div>
             <div class="bg-red-100 p-4 rounded-lg shadow-md text-center">
-                <p class="text-sm font-semibold text-red-600">Mediated</p>
+                <p class="text-sm font-semibold text-red-600">Mediation</p>
                 <p class="text-xl font-bold">{{ $mediatedCount }}</p>
             </div>
             <div class="bg-orange-100 p-4 rounded-lg shadow-md text-center">
-                <p class="text-sm font-semibold text-orange-600">Consiliated</p>
+                <p class="text-sm font-semibold text-orange-600">Concilation</p>
                 <p class="text-xl font-bold">{{ $conciliatedCount }}</p>
             </div>
         </div>
