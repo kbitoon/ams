@@ -11,6 +11,22 @@
                 <img src="{{ asset('storage/' . $form->pdfContent->header) }}" alt="Header" class="h-12 mt-2">
             @endif
         </div>
+        <div class="mt-4">
+            <x-input-label for="footer" :value="__('Footer')" />
+            <input wire:model="form.footer" id="footer" class="mt-1 block w-full" type="file" accept="image/*">
+            <x-input-error :messages="$errors->get('form.footer')" class="mt-2" />
+            @if(isset($form->pdfContent) && $form->pdfContent?->footer)
+                <img src="{{ asset('storage/' . $form->pdfContent->footer) }}" alt="Footer" class="h-12 mt-2">
+            @endif
+        </div>
+        <div class="mt-4">
+            <x-input-label for="watermark" :value="__('Watermark')" />
+            <input wire:model="form.watermark" id="watermark" class="mt-1 block w-full" type="file" accept="image/*">
+            <x-input-error :messages="$errors->get('form.watermark')" class="mt-2" />
+            @if(isset($form->pdfContent) && $form->pdfContent?->watermark)
+                <img src="{{ asset('storage/' . $form->pdfContent->watermark) }}" alt="Watermark" class="h-12 mt-2">
+            @endif
+        </div>
 
         <div class="mt-4">
             <x-input-label for="captain" :value="__('Barangay Captain')" />

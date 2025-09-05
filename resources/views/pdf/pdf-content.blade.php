@@ -17,6 +17,13 @@
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Header</span>
                     </th>
                     <th class="px-6 py-3 text-left bg-gray-50">
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Footer</span>
+                    </th>
+                    <th class="px-6 py-3 text-left bg-gray-50">
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Watermark</span>
+                    </th>
+                    
+                    <th class="px-6 py-3 text-left bg-gray-50">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Barangay Captain</span>
                     </th>
                     <th class="px-6 py-3 text-left bg-gray-50"></th>
@@ -29,6 +36,16 @@
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             @if($pdfContent->header)
                                 <img src="{{ asset('storage/' . $pdfContent->header) }}" alt="Header" class="h-8">
+                            @endif
+                        </td>
+                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                            @if($pdfContent->footer)
+                                <img src="{{ asset('storage/' . $pdfContent->footer) }}" alt="Footer" class="h-8">
+                            @endif
+                        </td>
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                            @if($pdfContent->watermark)
+                                <img src="{{ asset('storage/' . $pdfContent->watermark) }}" alt="Watermark" class="h-8">
                             @endif
                         </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">

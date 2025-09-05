@@ -9,6 +9,8 @@ use App\Http\Controllers\PublicInformationController;
 use App\Http\Controllers\FullCalendarController;
 use App\Http\Controllers\LuponCaseCommentController;
 use App\Http\Controllers\LuponEventTrackingController;
+use App\Http\Controllers\CertificateController;
+
 
 Route::get('/pending', Pending::class)->name('pending');
 
@@ -48,7 +50,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::view('vehicle-listing', 'vehicle-listing')
         ->name('vehicle-listing');
-        
+
     Route::view('driver', 'driver')
         ->name('driver');
 
@@ -57,16 +59,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::view('/settings/item-category', 'item-category')
         ->name('item-category');
-    
+
     Route::view('item', 'item')
         ->name('item');
-    
+
     Route::view('item-schedule', 'item-schedule')
         ->name('item-schedule');
-    
+
     Route::view('user-management', 'user-management')
         ->name('user-management');
-        
+
     Route::view('settings', 'settings')
         ->name('settings');
 
@@ -95,7 +97,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/clearancepurposemodal', [App\Http\Controllers\AmsController::class, 'clearancepurposemodal'])->name('clearancepurposemodal');
 
     Route::get('/clearancepurpose', [App\Http\Controllers\AmsController::class, 'clearancepurpose'])->name('clearancepurpose');
-   
+
     Route::post('/photo/upload', [PhotoController::class, 'upload'])->name('photo.upload');
 
     Route::post('/luponCases/{luponCase}/luponCaseComments', [LuponCaseCommentController::class, 'store'])->name('luponCaseComments.store');
@@ -106,10 +108,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/lupon-case/{id}/download', [LuponCaseCommentController::class, 'downloadPdf'])->name('lupon-case.download');
     Route::get('/lupon-summon/{id}/download', [LuponCaseCommentController::class, 'downloadSummonPdf'])->name('lupon-summon.download');
     Route::get('/complainant-summon/{id}/download', [LuponCaseCommentController::class, 'downloadComplainentSummonPdf'])->name('complainant-summon.download');
+
+
+    Route::get('/certificate/{id}/download', [CertificateController::class, 'downloadPdf'])
+        ->name('certificate.download');
+
 });
 
 Route::middleware('guest')->group(function () {
-    Route::view('/', 'welcome')->name('home');  
+    Route::view('/', 'welcome')->name('home');
     Route::view('get-a-clearance', 'clearance')
         ->name('get-a-clearance');
 
@@ -123,13 +130,13 @@ Route::middleware('guest')->group(function () {
 
     Route::view('information-list', 'information-list')
         ->name('information-list');
-        
+
     Route::get('/information/{id}', [PublicInformationController::class, 'show'])->name('information.public');
 
 });
 
 Route::middleware(['auth:campaign'])->group(function () {
-   
+
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

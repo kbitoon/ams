@@ -11,6 +11,8 @@ use Livewire\Form;
 class PdfContentForm extends Form
 {
     public $header = null;  // Accepts file upload
+    public $footer = null;  // Accepts file upload
+    public $watermark = null;  // Accepts file upload
     public string $captain = '';
     public ?PdfContent $pdfContent = null;
 
@@ -20,6 +22,8 @@ class PdfContentForm extends Form
         if ($pdfContent) {
            $this->header = $pdfContent->header ?? '';
             $this->captain = $pdfContent->captain ?? '';
+            $this->footer = $pdfContent->footer ?? '';
+            $this->watermark = $pdfContent->watermark ?? '';
         }
     }
 
@@ -30,7 +34,9 @@ class PdfContentForm extends Form
     {
         return [
             'captain' => ['required', 'string', 'max:255'],
-            'header' => ['nullable', 'image', 'max:2048'], // max 2MB
+            'header' => ['nullable', 'max:2048'], // max 2MB
+            'footer' => ['nullable', 'max:2048'], // max 2MB
+            'watermark' => ['nullable', 'max:2048'], //
         ];
     }
 
@@ -47,6 +53,12 @@ class PdfContentForm extends Form
 
         if ($this->header instanceof UploadedFile) {
             $data['header'] = $this->header->store('header', 'public');
+        }
+        if ($this->footer instanceof UploadedFile) {
+            $data['footer'] = $this->footer->store('footer', 'public');
+        }
+        if ($this->watermark instanceof UploadedFile) {
+            $data['watermark'] = $this->watermark->store('watermark', 'public');
         }
 
 

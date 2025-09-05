@@ -14,5 +14,7 @@ class PdfContent extends Model
     protected $fillable = [
         'header',
         'captain',
+        'footer',
+        'watermark',
     ];
 }
