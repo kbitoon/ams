@@ -76,7 +76,8 @@
 <body>
     <!-- Image Watermark -->
     <div class="watermark">
-        <img src="{{ public_path('storage/' . $pdfContent->watermark) }}" alt="Watermark" style="width:100%; height:auto;">
+        <img src="{{ public_path('storage/' . $pdfContent->watermark) }}" alt="Watermark"
+            style="width:100%; height:auto;">
     </div>
 
     {{-- Header --}}
@@ -111,7 +112,7 @@
         width: 100%;
         text-align: center;
     ">
-            CERTIFICATION
+            CERTIFICATE OF INDIGENCY
         </div>
     </div>
 
@@ -120,76 +121,33 @@
     </p>
 
     <p style="margin-top: 30px; text-indent: 40px;">
-        This is to certify that <strong><u>{{ strtoupper($clearance->name ?? '________________') }}</u></strong>,
-        a bona fide resident of Barangay Bacayan, Cebu City, with Voter’s Precinct No.
-        <strong><u>{{ $clearance->precinct_no ?? '________' }}</u></strong>,
-        is {{ $clearance->age ?? '___' }} years old and of <strong>GOOD MORAL CHARACTER</strong> and
-        <strong>NO DEROGATORY</strong> record filed against him/her in this office as of the issuance of this clearance
-        certificate.
+        This is to certify that <strong><u>{{ strtoupper($clearance->name ?? '________________') }}</u></strong> of
+        legal age,
+        a resident of
+        <strong><u>{{ strtoupper($clearance->address ?? '_____________________________________________') }}</u></strong>
+        Barangay Bacayan, Cebu City. That he/she is one of the indigent constituents in the barangay with precinct no.
+        <strong><u>{{ $clearance->precinct_no ?? '________' }}</u></strong>.
     </p>
 
     <p style="text-indent: 40px;">
-        This certification is issued upon request of the above-named person for the purpose of
+        This certification is issued upon request of the above named person for
         <b><u>{{ $clearance->purpose ?? '________________' }}</u></b>,
-        and for whatever legal purpose it may serve.
     </p>
 
     <p style="text-indent: 40px;">
-        Issued this <b>{{ date('jS', strtotime($clearance->date ?? now())) }}</b> day of
+        Done this <b>{{ date('jS', strtotime($clearance->date ?? now())) }}</b> day of
         <b>{{ date('F', strtotime($clearance->date ?? now())) }}</b>,
         20<b>{{ date('y', strtotime($clearance->date ?? now())) }}</b>,
         at Barangay Bacayan, Cebu City.
     </p>
-    <table width="100%" style="margin-top: 60px;">
+    <table width="100%" style="margin-top: 80px;">
         <tr>
-            <!-- Right Thumb Mark -->
-            <td width="33%" align="center" style="vertical-align: bottom;">
-                <div class="box"></div>
-                <span style="font-size: 12px;">Right Thumb Mark</span>
-            </td>
-
-            <!-- Signature aligned with bottom of Thumb Mark -->
-            <td width="34%" align="center" style="vertical-align: bottom; padding-bottom: 5px;">
-                ____________________ <br>
-                <span style="font-size: 12px;">Signature</span>
-            </td>
-
-            <!-- Barangay Captain with "Yours in Public Service" -->
-            <td width="33%" align="center" style="vertical-align: top;">
-                <div style="margin-bottom: 60px; font-size: 14px; font-style: italic;">
-                    Yours in Public Service,
+            <!-- Barangay Captain aligned right -->
+            <td width="100%" align="right" style="vertical-align: top; text-align: right;">
+                <div style="display: inline-block; text-align: center;">
+                    <u><b>{{ !empty($pdfContent?->captain) ? strtoupper($pdfContent->captain) : 'HON. JENELYN R. LEYSON' }}</b></u><br>
+                    <span style="font-size: 12px;">Barangay Captain</span>
                 </div>
-                <u><b>{{ !empty($pdfContent?->captain) ? strtoupper($pdfContent->captain) : 'HON. JENELYN R. LEYSON' }}</b></u><br>
-                <span style="font-size: 12px;">Barangay Captain</span>
-            </td>
-        </tr>
-    </table>
-
-
-    <!-- Payment Details -->
-    <table width="100%" style="font-size: 13px; margin-top: 20px; border-collapse: collapse;">
-        <tr>
-            <td style="padding: 3px 0;">
-                <b>Paid Under O.R. No.:</b>
-                <span style="display:inline-block; width:150px; border-bottom:1px solid #000;">
-                    &nbsp;
-                </span>
-            </td>
-        </tr>
-        <tr>
-            <td style="padding: 3px 0;">
-                <b>Amount:</b>
-                <span style="display:inline-block; width:170px; border-bottom:1px solid #000; text-align:center;">
-                    {{ $clearance->amount ?? '' }}
-                </span>
-            </td>
-        </tr>
-        <tr>
-            <td style="padding: 3px 0;">
-                <b>Control No.:</b>
-                <span style="display:inline-block; width:160px; border-bottom:1px solid #000;">
-                    &nbsp;
-                </span>
             </td>
         </tr>
     </table>

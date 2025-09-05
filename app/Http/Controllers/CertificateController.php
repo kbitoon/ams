@@ -26,4 +26,22 @@ class CertificateController extends Controller
 
         return $pdf->download("certificate_{$clearance->name}.pdf");
     }
+    public function indigencyPdf($id)
+    {
+        $clearance = Clearance::findOrFail($id);
+
+        $clearance->age = $clearance->date_of_birth
+            ? Carbon::parse($clearance->date_of_birth)->age
+            : null;
+
+        $pdfContent = PdfContent::orderBy('created_at', 'desc')->first();
+
+        $pdf = Pdf::loadView('pdf.indigency', [
+            'clearance' => $clearance,
+            'pdfContent' => $pdfContent,
+        ]);
+
+        return $pdf->download("indigency_{$clearance->name}.pdf");
+    }
+
 }

@@ -110,8 +110,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/complainant-summon/{id}/download', [LuponCaseCommentController::class, 'downloadComplainentSummonPdf'])->name('complainant-summon.download');
 
 
-    Route::get('/certificate/{id}/download', [CertificateController::class, 'downloadPdf'])
-        ->name('certificate.download');
+    Route::get('/certificate/{id}/download', [CertificateController::class, 'downloadPdf'])->name('certificate.download');
+
+    Route::get('/indigency/{id}/download', [CertificateController::class, 'indigencyPdf'])->name('indigency.download');
 
 });
 

@@ -3,19 +3,28 @@
         wire:click="closeModal">
         &times;
     </button>
-    @if(optional($clearance->type)->name === 'Certification')
-    <div class="absolute top-12 right-12">
-        <a href="{{ route('certificate.download', $clearance->id) }}" target="_blank"
-            class="absolute text-red-600 hover:text-red-800 focus:outline-none" title="Download PDF">
-            <!-- Heroicon: Document Arrow Down -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
-                <path d="M6 2a2 2 0 00-2 2v16c0 1.1.9 2 2 2h12a2 
-                 2 0 002-2V8l-6-6H6z" />
-                <text x="6" y="17" font-size="7" font-weight="bold" fill="white">PDF</text>
-            </svg>
-        </a>
-    </div>
+    @php
+        $pdfRoutes = [
+            'Certification' => 'certificate.download',
+            'Certificate of Indigency' => 'indigency.download',
+        ];
+        $typeName = optional($clearance->type)->name;
+    @endphp
+
+    @if(isset($pdfRoutes[$typeName]))
+        <div class="absolute top-12 right-12">
+            <a href="{{ route($pdfRoutes[$typeName], $clearance->id) }}" target="_blank"
+                class="absolute text-red-600 hover:text-red-800 focus:outline-none" title="Download PDF">
+                <!-- Heroicon: Document Arrow Down -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+                    <path d="M6 2a2 2 0 00-2 2v16c0 1.1.9 2 2 2h12a2 
+                                 2 0 002-2V8l-6-6H6z" />
+                    <text x="6" y="17" font-size="7" font-weight="bold" fill="white">PDF</text>
+                </svg>
+            </a>
+        </div>
     @endif
+
     <div class="pt-3 sm:pt-5">
         <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">{!! $clearance->type->name !!}</h3>
 
