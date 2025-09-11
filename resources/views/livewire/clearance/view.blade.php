@@ -6,7 +6,18 @@
     @php
         $pdfRoutes = [
             'Certification' => 'certificate.download',
+            'Open Bank Account' => 'certificate.download',
+            'Postal ID' => 'certificate.download',
+            'Police Clearance' => 'certificate.download',
+            'Employment' => 'certificate.download',
+            'NBI Clearance' => 'certificate.download',
+            'PWD Membership' => 'certificate.download',
+            'School Enrollment' => 'certificate.download',
+            'SSS Requirement' => 'certificate.download',
+            'Solo Parent Membership' => 'certificate.download',
+            'Senior Citizen Membership' => 'certificate.download',
             'Certificate of Indigency' => 'indigency.download',
+            'Electrical connection' => 'electrical.download',
         ];
         $typeName = optional($clearance->type)->name;
     @endphp
