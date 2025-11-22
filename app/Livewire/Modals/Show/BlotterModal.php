@@ -18,7 +18,7 @@ class BlotterModal extends ModalComponent
     public function mount(Blotter $blotter = null): void
     {
         if ($blotter && $blotter->exists) {
-            $this->blotter = $blotter;
+            $this->blotter = $blotter->load(['user', 'complainee']);
         }
     }
 

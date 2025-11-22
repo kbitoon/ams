@@ -54,8 +54,11 @@ class Announcement extends Component
             $query->where('title', 'like', '%' . $this->search . '%');
         }
 
-        // Apply the pagination after filtering
-        $announcements = $query->paginate(10);
+        // Order by pinned first, then by date created (newest first)
+        $announcements = $query
+            ->orderBy('is_pinned', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
 
         return view('livewire.announcement.list', [
             'announcements' => $announcements,

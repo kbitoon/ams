@@ -8,8 +8,8 @@ class PublicInformationController extends Controller
 {
     public function show($id)
     {
-        // Fetch the information record
-        $information = Information::findOrFail($id);
+        // Fetch the information record with relationships
+        $information = Information::with(['category', 'user', 'assets'])->findOrFail($id);
         
         // Return the public view with the information
         return view('public.information', compact('information'));

@@ -11,8 +11,22 @@
             </span>
         </h2>
 
+        <!-- Image Before Narration -->
+        @if($incidentReport->image_path && $incidentReport->image_position === 'before')
+        <div class="mt-4 mb-4">
+            <img src="{{ asset('storage/' . $incidentReport->image_path) }}" alt="{{ $incidentReport->title }}" class="w-full rounded-lg shadow-md max-h-96 object-cover">
+        </div>
+        @endif
+
         <p class="mt-4 text-sm/relaxed overflow-auto max-h-60 sm:max-h-80" style="word-wrap: break-word;">
             {!! $incidentReport->narration !!}
         </p>
+
+        <!-- Image After Narration -->
+        @if($incidentReport->image_path && $incidentReport->image_position === 'after')
+        <div class="mt-4">
+            <img src="{{ asset('storage/' . $incidentReport->image_path) }}" alt="{{ $incidentReport->title }}" class="w-full rounded-lg shadow-md max-h-96 object-cover">
+        </div>
+        @endif
     </div>
 </div>

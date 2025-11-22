@@ -19,6 +19,10 @@ class UserModal extends ModalComponent
     public function mount(User $user = null): void
     {
         if ($user && $user->exists) {
+            // Load personal information relationship
+            if (!$user->relationLoaded('personalInformation')) {
+                $user->load('personalInformation');
+            }
             $this->form->setUser($user);
         }
 

@@ -47,6 +47,16 @@
             <x-input-error :messages="$errors->get('form.public')" class="mt-2" />
         </div>
 
+        <div class="mt-4">
+            <x-input-label for="attachments" :value="__('Attachments')" />
+            <x-text-input wire:model="form.attachments" id="attachments" class="mt-1 block w-full rounded-none" type="file" multiple />
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">You can upload multiple files. Maximum file size: 10MB per file.</p>
+            <x-input-error :messages="$errors->get('form.attachments')" class="mt-2" />
+            @if($errors->has('form.attachments.*'))
+                <x-input-error :messages="$errors->get('form.attachments.*')" class="mt-2" />
+            @endif
+        </div>
+
         <!-- Save button -->
         <div class="mt-4">
             <x-primary-button>

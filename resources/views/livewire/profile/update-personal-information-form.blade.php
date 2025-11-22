@@ -11,6 +11,7 @@ new class extends Component
     public string $mother_firstname = '';
     public string $mother_lastname = '';
     public string $blood_type = '';
+    public string $willing_blood_donor = '';
     public string $occupation = '';
     public float $income = 0.0;
     public string $civil_status = '';
@@ -36,6 +37,7 @@ new class extends Component
         $this->mother_firstname = $userInfo->mother_firstname ?? '';
         $this->mother_lastname = $userInfo->mother_lastname ?? '';
         $this->blood_type = $userInfo->blood_type ?? '';
+        $this->willing_blood_donor = $userInfo->willing_blood_donor ?? '';
         $this->occupation = $userInfo->occupation ?? '';
         $this->income = $userInfo->income ?? 0.0;
         $this->civil_status = $userInfo->civil_status ?? '';
@@ -59,6 +61,7 @@ new class extends Component
             'mother_firstname' => ['nullable','string', 'max:255'],
             'mother_lastname' => ['nullable','string', 'max:255'],
             'blood_type' => ['nullable','string', 'max:3'],
+            'willing_blood_donor' => ['nullable','string', 'max:255'],
             'occupation' => ['nullable','string', 'max:255'],
             'income' => ['nullable','numeric'],
             'civil_status' => ['nullable','string', 'max:255'],
@@ -128,6 +131,21 @@ new class extends Component
         <x-input-label for="blood_type" :value="__('Blood Type')" />
         <x-text-input wire:model="blood_type" id="blood_type" name="blood_type" type="text" class="mt-1 block w-full"/>
         <x-input-error class="mt-2" :messages="$errors->get('blood_type')" />
+    </div>
+
+    <div>
+        <x-input-label for="willing_blood_donor" :value="__('Willing Blood Donor')" />
+        <div class="flex items-center">
+            <label class="mr-2">
+                <input type="radio" wire:model="willing_blood_donor" name="willing_blood_donor" value="Yes" class="mr-1">
+                Yes
+            </label>
+            <label>
+                <input type="radio" wire:model="willing_blood_donor" name="willing_blood_donor" value="No" class="mr-1">
+                No
+            </label>
+        </div>
+        <x-input-error class="mt-2" :messages="$errors->get('willing_blood_donor')" />
     </div>
 
     <div>

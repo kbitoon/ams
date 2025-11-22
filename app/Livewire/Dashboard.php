@@ -17,9 +17,7 @@ class Dashboard extends Component
 {
     public function render()
     {
-        $total_users = UserModel::whereHas('roles', function($query) {
-            $query->where('name', 'user');
-        })->count();
+        $total_users = UserModel::count();
 
         $total_out_of_school_youth = UserStatisticsModel::where('group', 'Out of School Youth')->value('total');
         $total_malnourished_children = UserStatisticsModel::where('group', 'Malnourished Children')->value('total');
@@ -30,6 +28,10 @@ class Dashboard extends Component
         $pending_clearances = ClearanceModel::where('status', 'Pending')->count();
 
         $pending_complaints = ComplaintModel::where('status', 'Pending')->count();
+
+        $pending_tasks = TodoModel::where('is_completed', 0)->count();
+
+        $latest_scheduled_activities = ActivityModel::orderBy('start', 'desc')->limit(3)->get();
 
         $activities = ActivityModel::whereDate('created_at', Carbon::today())->orderByDesc('created_at')->paginate(5);
 
@@ -46,8 +48,8 @@ class Dashboard extends Component
 
 
         return view('livewire.dashboard.landing', [
-            'pinned_announcement' => AnnouncementModel::where('is_pinned', 1)->orderByDesc('created_at')->first(),
-            'announcements' => AnnouncementModel::where('is_pinned', 0)->orderByDesc('created_at')->paginate(3),
+            'pinned_announcement' => AnnouncementModel::with('category')->where('is_pinned', 1)->orderByDesc('created_at')->first(),
+            'announcements' => AnnouncementModel::with('category')->where('is_pinned', 0)->orderByDesc('created_at')->paginate(3),
             'complaints' => ComplaintModel::where('is_pinned', 0)->where('user_id', auth()->user()->id)->orderByDesc('created_at')->paginate(5),
             'total_users' => $total_users,
             'total_out_of_school_youth' => ['total' => $total_out_of_school_youth, 'group' => 'Out of School Youth'],
@@ -57,6 +59,8 @@ class Dashboard extends Component
             'total_single_parents' => ['total' => $total_single_parents, 'group' => 'Single Parent'],
             'pending_clearances' => $pending_clearances,
             'pending_complaints' => $pending_complaints,
+            'pending_tasks' => $pending_tasks,
+            'latest_scheduled_activities' => $latest_scheduled_activities,
             'activities' => $activities,
             'todos' => $todos,
         ]);

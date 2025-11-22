@@ -67,6 +67,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('item-schedule');
 
     Route::view('user-management', 'user-management')
+        ->middleware('role:superadmin|administrator|support')
         ->name('user-management');
 
     Route::view('settings', 'settings')
@@ -136,6 +137,14 @@ Route::middleware('guest')->group(function () {
     Route::get('/information/{id}', [PublicInformationController::class, 'show'])->name('information.public');
 
 });
+
+// Public routes (accessible to everyone, authenticated or not)
+Route::get('announcement/{id}', function ($id) {
+    return view('announcement-view', ['id' => $id]);
+})->name('announcement.view');
+
+// Clearance verification route (public)
+Route::get('clearance/verify/{token}', [CertificateController::class, 'verify'])->name('clearance.verify');
 
 Route::middleware(['auth:campaign'])->group(function () {
 

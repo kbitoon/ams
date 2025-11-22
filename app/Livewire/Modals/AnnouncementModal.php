@@ -6,10 +6,13 @@ use App\Livewire\Forms\AnnouncementForm;
 use App\Models\Announcement;
 use App\Models\AnnouncementCategory;
 use Illuminate\Contracts\View\View;
+use Livewire\WithFileUploads;
 use LivewireUI\Modal\ModalComponent;
 
 class AnnouncementModal extends ModalComponent
 {
+    use WithFileUploads;
+
     public ?Announcement $announcement = null;
     public AnnouncementForm $form;
 

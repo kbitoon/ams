@@ -5,6 +5,10 @@
 
     RewriteEngine On
 
+    # Set RewriteBase for subdirectory installation
+    # This tells Apache where this .htaccess file is located relative to the document root
+    RewriteBase /bis/bis/public/
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

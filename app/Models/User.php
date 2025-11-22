@@ -94,7 +94,7 @@ class User extends Authenticatable
      */
     public function incidentReports(): HasMany
     {
-        return $this->hasMany(incidentReport::class);
+        return $this->hasMany(IncidentReport::class);
     }
 
     /**

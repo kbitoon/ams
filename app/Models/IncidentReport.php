@@ -17,6 +17,8 @@ class IncidentReport extends Model
         'name',
         'narration',
         'date',
+        'image_path',
+        'image_position',
     ];
 
     /**

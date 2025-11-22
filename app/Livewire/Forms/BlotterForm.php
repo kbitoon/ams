@@ -96,13 +96,20 @@ class BlotterForm extends Form
     public function save(): void
     {
         $this->validate();
+        
+        $data = $this->only(['reported','incident','place','lastname', 'firstname', 'middle','contact','civil','date_of_birth','address','place_of_birth','occupation','narration','complainee_id']);
+        
         if (!$this->blotter) {
             if (auth()->user()) {
-            $this->blotter = auth()->user()->blotters()->create($this->only(['user_id','reported','incident','place','lastname', 'firstname', 'middle','contact','civil','date_of_birth','address','place_of_birth','occupation','narration','complainee_id']));
+                $data['user_id'] = auth()->user()->id;
+                $this->blotter = auth()->user()->blotters()->create($data);
+            } else {
+                // For non-authenticated users, create without user_id or set a default
+                $this->blotter = Blotter::create($data);
+            }
         } else {
-            $this->blotter->update($this->only(['reported','incident','place','lastname', 'firstname', 'middle','contact','civil','date_of_birth','address','place_of_birth','occupation','narration','complainee_id']));
+            $this->blotter->update($data);
         }
         $this->reset();
-        }
     }
 }

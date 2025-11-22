@@ -4,6 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="livewire-base-path" content="{{ parse_url(config('app.url'), PHP_URL_PATH) }}">
+        <base href="{{ config('app.url') }}/">
 
         <title>{{ config('app.name', 'Bacayan Information System') }}</title>
 
@@ -33,6 +35,26 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewire('wire-elements-modal')
         @livewireStyles
+        <script>
+            // Configure Livewire to use correct base path for subdirectory
+            // This must run BEFORE Livewire loads
+            (function() {
+                const basePath = '{{ parse_url(config("app.url"), PHP_URL_PATH) }}';
+                if (basePath && basePath !== '/') {
+                    // Intercept fetch requests to add base path
+                    const originalFetch = window.fetch;
+                    window.fetch = function(url, options) {
+                        if (typeof url === 'string') {
+                            // If URL starts with /livewire/ and doesn't already have the base path
+                            if (url.startsWith('/livewire/') && !url.startsWith(basePath)) {
+                                url = basePath + url;
+                            }
+                        }
+                        return originalFetch(url, options);
+                    };
+                }
+            })();
+        </script>
         
     </head>
     <body class="font-sans antialiased">

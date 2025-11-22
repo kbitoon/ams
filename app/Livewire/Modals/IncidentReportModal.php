@@ -5,10 +5,13 @@ namespace App\Livewire\Modals;
 use App\Livewire\Forms\IncidentReportForm;
 use App\Models\IncidentReport;
 use Illuminate\Contracts\View\View;
+use Livewire\WithFileUploads;
 use LivewireUI\Modal\ModalComponent;
 
 class IncidentReportModal extends ModalComponent
 {
+    use WithFileUploads;
+
     public ?IncidentReport $incidentReport = null;
     public IncidentReportForm $form;
 
@@ -16,6 +19,9 @@ class IncidentReportModal extends ModalComponent
     {
         if ($incidentReport && $incidentReport->exists) {
             $this->form->setIncidentReport($incidentReport);
+        } else {
+            // Set default date to today for new reports
+            $this->form->date = now()->format('Y-m-d');
         }
     }
 
@@ -28,8 +34,6 @@ class IncidentReportModal extends ModalComponent
 
     public function render(): View
     {
-        return view('livewire.forms.incident-report-form', [
-            'incidentReports' => IncidentReport::all(),
-        ]);
+        return view('livewire.forms.incident-report-form');
     }
 }

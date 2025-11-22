@@ -18,6 +18,22 @@ class ComplaintModal extends ModalComponent
     public function mount(Complaint $complaint = null): void
     {
         if ($complaint && $complaint->exists) {
+            // Load relationships if not already loaded
+            if (!$complaint->relationLoaded('category')) {
+                $complaint->load('category');
+            }
+            if (!$complaint->relationLoaded('user')) {
+                $complaint->load('user');
+            }
+            if (!$complaint->relationLoaded('assets')) {
+                $complaint->load('assets');
+            }
+            if (!$complaint->relationLoaded('comments')) {
+                $complaint->load('comments.user');
+            }
+            if (!$complaint->relationLoaded('approvedBy')) {
+                $complaint->load('approvedBy');
+            }
             $this->complaint = $complaint;
         }
     }

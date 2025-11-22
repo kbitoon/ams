@@ -1,78 +1,143 @@
-<div class="p-6">
-    <div class="flex justify-between items-center mb-4">
-        <div class="flex items-center ml-auto">
-            <select wire:model="selectedRole" class="border p-1 rounded mr-2">
-                <option value="">All Roles</option>
-                @foreach($roles as $role) 
-                    <option value="{{ $role->name }}">{{ ucfirst($role->name) }}</option> <!-- Display role name -->
-                @endforeach
-            </select>
-            <input type="text" wire:model="search" class="border p-1 rounded mr-2" placeholder="Search users...">
-            <x-primary-button wire:click="searchUsers" class="ml-2">
-                Search
-            </x-primary-button>
+<div class="space-y-6">
+    <!-- Filters Section -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6">
+        <div class="flex flex-col sm:flex-row gap-4 items-end">
+            <div class="flex-1 w-full sm:w-auto">
+                <label for="role-filter" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Filter by Role</label>
+                <select wire:model.live="selectedRole" id="role-filter" class="w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    <option value="">All Roles</option>
+                    @foreach($roles as $role) 
+                        <option value="{{ $role->name }}">{{ ucfirst($role->name) }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="flex-1 w-full sm:w-auto">
+                <label for="search" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Search Users</label>
+                <div class="flex gap-2">
+                    <input type="text" wire:model.live.debounce.300ms="search" id="search" class="flex-1 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="Search by name...">
+                </div>
+            </div>
         </div>
     </div>
-    
-    <div class="overflow-x-auto">
-        <table class="min-w-full border divide-y divide-gray-200">
-            <thead>
-                <tr>
-                    <th class="px-6 py-3 text-left bg-gray-50">
-                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Name</span>
-                    </th>
-                    <th class="px-6 py-3 text-left bg-gray-50">
-                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Email</span>
-                    </th>
-                    <th class="px-6 py-3 text-left bg-gray-50">
-                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Role</span>
-                    </th>
-                    <th class="px-6 py-3 bg-gray-50"></th>
-                </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-                @forelse($users as $user)
+
+    <!-- Desktop Table View -->
+    <div class="hidden md:block bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <thead class="bg-gray-50 dark:bg-gray-900">
                     <tr>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Email</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Role</th>
+                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                    @forelse($users as $user)
+                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <button 
+                                    wire:click="$dispatch('openModal', { component: 'modals.show.user-modal', arguments: { user: {{ $user }} }})"
+                                    class="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 hover:underline">
+                                    {{ $user->name }}
+                                </button>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900 dark:text-gray-100">{{ $user->email }}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                @if($user->roles->isNotEmpty())
+                                    <div class="flex flex-wrap gap-1">
+                                        @foreach($user->roles as $role)
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                                  style="background-color: {{ $role->color ?? '#e2e8f0' }}; color: {{ $role->color && !str_starts_with($role->color, '#') ? 'black' : 'white' }};">
+                                                {{ ucfirst($role->name) }}
+                                            </span>
+                                        @endforeach
+                                    </div>
+                                @else
+                                    <span class="text-sm text-gray-500 dark:text-gray-400">No role</span>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                @hasanyrole('superadmin|administrator')
+                                    <button 
+                                        wire:click="$dispatch('openModal', { component: 'modals.user-modal', arguments: { user: {{ $user->id }} }})"
+                                        class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                        </svg>
+                                    </button>
+                                @endhasanyrole
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="4" class="px-6 py-12 text-center">
+                                <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                                </svg>
+                                <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-gray-100">No users found</h3>
+                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Try adjusting your search or filter criteria.</p>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Mobile Card View -->
+    <div class="md:hidden space-y-4">
+        @forelse($users as $user)
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4">
+                <div class="flex items-start justify-between">
+                    <div class="flex-1 min-w-0">
+                        <button 
+                            wire:click="$dispatch('openModal', { component: 'modals.show.user-modal', arguments: { user: {{ $user }} }})"
+                            class="text-base font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 hover:underline truncate block w-full text-left">
                             {{ $user->name }}
-                        </td>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            {{ $user->email }}
-                        </td>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            {{-- Displaying user roles with dynamic color coding --}}
+                        </button>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1 truncate">{{ $user->email }}</p>
+                        <div class="mt-2 flex flex-wrap gap-1">
                             @if($user->roles->isNotEmpty())
                                 @foreach($user->roles as $role)
-                                    <span class="inline-block text-xs font-semibold mr-2 px-2.5 py-0.5 rounded"
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
                                           style="background-color: {{ $role->color ?? '#e2e8f0' }}; color: {{ $role->color && !str_starts_with($role->color, '#') ? 'black' : 'white' }};">
-                                        {{ $role->name }}
+                                        {{ ucfirst($role->name) }}
                                     </span>
                                 @endforeach
                             @else
-                                <span class="text-gray-500">No role</span>
+                                <span class="text-xs text-gray-500 dark:text-gray-400">No role</span>
                             @endif
-                        </td>
-                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            @hasanyrole('superadmin|admin')
-                                <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.user-modal', arguments: { user: {{ $user }} }})">
-                                    <i class="fas fa-pencil-alt"></i>
-                                </x-secondary-button>
-                            @endhasanyrole
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="5" class="px-6 py-4 text-sm leading-5 text-gray-900">
-                            No users found.
-                        </td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
+                        </div>
+                    </div>
+                    @hasanyrole('superadmin|administrator')
+                        <button 
+                            wire:click="$dispatch('openModal', { component: 'modals.user-modal', arguments: { user: {{ $user->id }} }})"
+                            class="ml-2 p-2 text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300 flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                            </svg>
+                        </button>
+                    @endhasanyrole
+                </div>
+            </div>
+        @empty
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-12 text-center">
+                <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-gray-100">No users found</h3>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Try adjusting your search or filter criteria.</p>
+            </div>
+        @endforelse
     </div>
 
-    <div class="mt-5">
-        {{-- Pagination links --}}
+    <!-- Pagination -->
+    @if($users->hasPages())
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4">
         {{ $users->links() }}
     </div>
+    @endif
 </div>

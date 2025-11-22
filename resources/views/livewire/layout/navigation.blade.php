@@ -23,13 +23,9 @@ new class extends Component
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-{{--                    <a href="{{ route('dashboard') }}" wire:navigate>--}}
-{{--                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />--}}
-{{--                    </a>--}}
                     <div class="inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-red-100 rounded-full dark:bg-red-600">
-                        <a href="/">
-                        {{--                            <span class="font-medium text-gray-600 dark:text-gray-300">BIS</span> --}}
-                        <img src="/storage/logo.png" />
+                        <a href="{{ route('dashboard') }}" wire:navigate>
+                            <img src="{{ asset('storage/logo.png') }}" alt="Logo" class="w-full h-full object-contain" />
                         </a>
                     </div>
                 </div>
@@ -49,19 +45,12 @@ new class extends Component
                             {{ __('Clearances') }}
                         </x-nav-link>
 
-
-                    <!-- Announcement Dropdown -->
-                        <x-nav-link :href="route('announcement')" :active="request()->routeIs('announcement')" wire:navigate>
-                            {{ __('Announcements') }}
-                        </x-nav-link>
-
-
                     @hasanyrole('user|anonymous')
                         <x-nav-link :href="route('information')" :active="request()->routeIs('information')" wire:navigate>
                             {{ __('Information') }}
                         </x-nav-link>
                     @endhasanyrole
-                    @hasanyrole('superadmin|administrator|tanod|lupon')
+                    @hasanyrole('superadmin|administrator|tanod|lupon|support')
                     <div class="hidden sm:flex sm:items-center sm:ml-6 pt-1  ">
                         <x-dropdown align="right" width="48">
                                 <x-slot name="trigger">
@@ -77,7 +66,10 @@ new class extends Component
                                 </x-slot>
                                 <x-slot name="content">
                                         <x-dropdown-link :href="route('information')" :active="request()->routeIs('information')" wire:navigate>
-                                            {{ __('Listing') }}
+                                            {{ __('Information Listing') }}
+                                        </x-dropdown-link>
+                                        <x-dropdown-link :href="route('announcement')" :active="request()->routeIs('announcement')" wire:navigate>
+                                            {{ __('Announcements') }}
                                         </x-dropdown-link>
                                         <x-dropdown-link :href="route('incident-report')" :active="request()->routeIs('incident-report')" wire:navigate>
                                             {{ __('Incident Report') }}
@@ -92,7 +84,7 @@ new class extends Component
                         </x-nav-link>
                     @endhasanyrole
 
-                    @hasanyrole('superadmin|administrator|tanod|lupon')
+                    @hasanyrole('superadmin|administrator|tanod|lupon|support')
                     <div class="hidden sm:flex sm:items-center sm:ml-6 pt-1  ">
                         <x-dropdown align="right" width="48">
                                 <x-slot name="trigger">
@@ -108,7 +100,7 @@ new class extends Component
                                 </x-slot>
                                 <x-slot name="content">
                                         <x-dropdown-link :href="route('complaint')" :active="request()->routeIs('complaint')" wire:navigate>
-                                            {{ __('Listing') }}
+                                            {{ __('Complaints Listing') }}
                                         </x-dropdown-link>
                                         <x-dropdown-link :href="route('blotter')" :active="request()->routeIs('blotter')" wire:navigate>
                                             {{ __('Blotter Report') }}
@@ -270,9 +262,6 @@ new class extends Component
             <x-responsive-nav-link :href="route('clearance')" :active="request()->routeIs('clearance')" wire:navigate>
                 {{ __('Clearances') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('announcement')" :active="request()->routeIs('announcement')" wire:navigate>
-                {{ __('Announcements') }}
-            </x-responsive-nav-link>
             @hasanyrole('user | anonymous')
             <x-responsive-nav-link :href="route('information')" :active="request()->routeIs('information')" wire:navigate>
                 {{ __('Information') }}
@@ -283,7 +272,7 @@ new class extends Component
             @else
             @endhasanyrole
 
-        @hasanyrole('superadmin|administrator|tanod|lupon')
+        @hasanyrole('superadmin|administrator|tanod|lupon|support')
         <div x-data="{ open: false }">
             <button @click="open = !open" class="w-full text-left px-4 py-2 rounded-md bg-white dark:bg-zinc-900">
                 {{ __('Informations') }}
@@ -293,7 +282,10 @@ new class extends Component
             </button>
             <div x-show="open" @click.away="open = false" class="mt-2 space-y-1">
                  <x-responsive-nav-link :href="route('information')" :active="request()->routeIs('information')" wire:navigate>
-                    {{ __('Listing') }}
+                    {{ __('Information Listing') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('announcement')" :active="request()->routeIs('announcement')" wire:navigate>
+                    {{ __('Announcements') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('incident-report')" :active="request()->routeIs('incident-report')" wire:navigate>
                     {{ __('Incident Report') }}
@@ -309,7 +301,7 @@ new class extends Component
             </button>
             <div x-show="open" @click.away="open = false" class="mt-2 space-y-1">
                  <x-responsive-nav-link :href="route('complaint')" :active="request()->routeIs('complaint')" wire:navigate>
-                    {{ __('Listing') }}
+                    {{ __('Complaints Listing') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('blotter')" :active="request()->routeIs('blotter')" wire:navigate>
                     {{ __('Blotter Report') }}

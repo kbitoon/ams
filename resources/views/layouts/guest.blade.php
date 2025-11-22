@@ -7,6 +7,8 @@
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
         <meta http-equiv="Pragma" content="no-cache" />
         <meta http-equiv="Expires" content="0" />
+        <meta name="livewire-base-path" content="{{ parse_url(config('app.url'), PHP_URL_PATH) }}">
+        <base href="{{ config('app.url') }}/">
 
         <title>{{ config('app.name', 'Bacayan Information System') }}</title>
 
@@ -16,6 +18,26 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script>
+            // Configure Livewire to use correct base path for subdirectory
+            // This must run BEFORE Livewire loads
+            (function() {
+                const basePath = '{{ parse_url(config("app.url"), PHP_URL_PATH) }}';
+                if (basePath && basePath !== '/') {
+                    // Intercept fetch requests to add base path
+                    const originalFetch = window.fetch;
+                    window.fetch = function(url, options) {
+                        if (typeof url === 'string') {
+                            // If URL starts with /livewire/ and doesn't already have the base path
+                            if (url.startsWith('/livewire/') && !url.startsWith(basePath)) {
+                                url = basePath + url;
+                            }
+                        }
+                        return originalFetch(url, options);
+                    };
+                }
+            })();
+        </script>
     </head>
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
@@ -35,5 +57,6 @@
                 {{ $slot }}
             </div>
         </div>
+        @livewireScripts
     </body>
 </html>

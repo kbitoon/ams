@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Set the root URL for subdirectory installation
+        $appUrl = config('app.url');
+        if ($appUrl) {
+            URL::forceRootUrl($appUrl);
+        }
     }
 }

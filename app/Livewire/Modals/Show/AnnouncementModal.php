@@ -18,6 +18,16 @@ class AnnouncementModal extends ModalComponent
     public function mount(Announcement $announcement = null): void
     {
         if ($announcement && $announcement->exists) {
+            // Load relationships if not already loaded
+            if (!$announcement->relationLoaded('category')) {
+                $announcement->load('category');
+            }
+            if (!$announcement->relationLoaded('user')) {
+                $announcement->load('user');
+            }
+            if (!$announcement->relationLoaded('assets')) {
+                $announcement->load('assets');
+            }
             $this->announcement = $announcement;
         }
     }

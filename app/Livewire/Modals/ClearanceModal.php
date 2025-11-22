@@ -4,6 +4,7 @@ namespace App\Livewire\Modals;
 
 use App\Models\Clearance;
 use App\Models\ClearanceType;
+use App\Models\ClearanceInstruction;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\WithFileUploads;
@@ -73,9 +74,12 @@ class ClearanceModal extends ModalComponent
      */
     public function render() : View
     {
+        $instructions = ClearanceInstruction::getContent();
+        
         return view('livewire.forms.clearance-form',  [
             'clearanceTypes' => $this->clearanceTypes,
             'requirement' => $this->requirement,
+            'instructions' => $instructions,
         ]);
     }
 }

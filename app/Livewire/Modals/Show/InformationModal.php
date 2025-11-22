@@ -18,6 +18,16 @@ class InformationModal extends ModalComponent
     public function mount(Information $information = null): void
     {
         if ($information && $information->exists) {
+            // Load relationships if not already loaded
+            if (!$information->relationLoaded('category')) {
+                $information->load('category');
+            }
+            if (!$information->relationLoaded('user')) {
+                $information->load('user');
+            }
+            if (!$information->relationLoaded('assets')) {
+                $information->load('assets');
+            }
             $this->information = $information;
         }
     }

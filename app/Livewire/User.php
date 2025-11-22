@@ -48,7 +48,7 @@ class User extends Component
             $query->where('name', 'like', '%' . $this->search . '%');
         }
 
-        $users = $query->paginate(10);
+        $users = $query->with('roles')->paginate(10);
 
         $roles = Role::all(); // Fetch all roles
 

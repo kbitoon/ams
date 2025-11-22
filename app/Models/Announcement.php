@@ -21,6 +21,8 @@ class Announcement extends Model
         'user_id',
         'category_id',
         'is_pinned',
+        'image_path',
+        'image_position',
     ];
 
     /**

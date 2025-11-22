@@ -69,6 +69,41 @@
             text-align: center;
             font-size: 11px;
             color: #333;
+            z-index: 1;
+        }
+
+        /* QR Code */
+        .qr-code {
+            position: fixed;
+            bottom: 10px;
+            right: 20px;
+            width: 100px;
+            height: 100px;
+            z-index: 1000;
+            background: white;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .qr-code img {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* QR Code */
+        .qr-code {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 120px;
+            height: 120px;
+            z-index: 1000;
+        }
+
+        .qr-code img {
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
@@ -158,6 +193,13 @@
     <div class="footer">
         <img src="{{ public_path('storage/' . $pdfContent->footer) }}" alt="Footer" style="width:100%; height:auto;">
     </div>
+
+    <!-- QR Code for Verification -->
+    @if(isset($qrCodePath) && !empty($qrCodePath) && file_exists($qrCodePath))
+    <div class="qr-code">
+        <img src="{{ $qrCodePath }}" alt="Verification QR Code">
+    </div>
+    @endif
 </body>
 
 </html>

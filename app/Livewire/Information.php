@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Information as InformationModel;
+use App\Models\InformationCategory;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -16,8 +17,9 @@ class Information extends Component
     use WithPagination, WithoutUrlPagination;
 
     public string $search = '';
+    public string $filterCategoryId = '';
 
-    protected $updatesQueryString = ['search',];
+    protected $updatesQueryString = ['search', 'filterCategoryId'];
 
     #[On('refresh-list')]
     public function refresh() {}
@@ -25,6 +27,18 @@ class Information extends Component
     public function searchInformation()
     {
         $this->resetPage(); // Reset pagination to the first page
+    }
+
+    public function updatedFilterCategoryId()
+    {
+        $this->resetPage();
+    }
+
+    public function resetFilters()
+    {
+        $this->search = '';
+        $this->filterCategoryId = '';
+        $this->resetPage();
     }
 
     /**
@@ -38,11 +52,19 @@ class Information extends Component
             $query->where('title', 'like', '%' . $this->search . '%');
         }
 
+        if ($this->filterCategoryId !== '') {
+            $query->where('category_id', $this->filterCategoryId);
+        }
+
         // Use the query for pagination
-        $informations = $query->paginate(10);
+        $informations = $query->orderBy('is_pinned', 'desc')->orderBy('created_at', 'desc')->paginate(10);
+
+        // Get all categories for filter dropdown
+        $categories = InformationCategory::orderBy('name')->get();
 
         return view('livewire.information.list', [
             'informations' => $informations,
+            'categories' => $categories,
         ]);
     }
 }

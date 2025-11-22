@@ -69,18 +69,51 @@
     @auth
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Clearance Listing') }}
+                {{ __('Clearances') }}
             </h2>
         </x-slot>
 
-        
-        
-
-        <div class="py-12">
+        <div class="py-6 sm:py-8">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
-                        @livewire('clearance')
+                    <div class="p-6 text-gray-900 dark:text-gray-100" x-data="{ activeTab: 'list' }">
+                        <!-- Tab Navigation -->
+                        <div class="mb-6 border-b border-gray-200 dark:border-gray-700">
+                            <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                                <button
+                                    @click="activeTab = 'list'"
+                                    :class="activeTab === 'list' 
+                                        ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' 
+                                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'"
+                                    class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors"
+                                >
+                                    {{ __('List') }}
+                                </button>
+                                @hasanyrole('superadmin|administrator|support')
+                                <button
+                                    @click="activeTab = 'reports'"
+                                    :class="activeTab === 'reports' 
+                                        ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' 
+                                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'"
+                                    class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors"
+                                >
+                                    {{ __('Reports') }}
+                                </button>
+                                @endhasanyrole
+                            </nav>
+                        </div>
+
+                        <!-- Tab Content -->
+                        <div>
+                            <div x-show="activeTab === 'list'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
+                                @livewire('clearance')
+                            </div>
+                            @hasanyrole('superadmin|administrator|support')
+                            <div x-show="activeTab === 'reports'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
+                                @livewire('clearance-report')
+                            </div>
+                            @endhasanyrole
+                        </div>
                     </div>
                 </div>
             </div>

@@ -27,7 +27,19 @@ class Clearance extends Model
         'sex',
         'civil_status',
         'precinct_no',
+        'verification_token',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($clearance) {
+            if (empty($clearance->verification_token)) {
+                $clearance->verification_token = bin2hex(random_bytes(32));
+            }
+        });
+    }
 
     /**
      * @return BelongsTo

@@ -23,6 +23,7 @@ class PersonalInformation extends Model
         'address',
         'sitio',
         'blood_type',
+        'willing_blood_donor',
         'occupation',
         'income',
         'civil_status',
