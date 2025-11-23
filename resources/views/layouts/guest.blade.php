@@ -48,7 +48,7 @@
                 <div class="relative inline-flex items-center justify-center w-40 h-40 overflow-hidden bg-red-100 rounded-full dark:bg-red-600">
                     <a href="{{ route('home') }}" wire:navigate>
                         {{-- <span class="text-6xl font-medium text-gray-600 dark:text-gray-300">BIS</span> --}}
-                        <img src="{{ asset('storage/logo.png') }}" alt="{{ config('app.name', 'Logo') }}" class="w-full h-full object-contain" />
+                        <img src="{{ asset('logo.png') }}" alt="{{ config('app.name', 'Logo') }}" class="w-full h-full object-contain" />
                     </a>
                 </div>
 {{--            </div>--}}

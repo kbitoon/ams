@@ -25,7 +25,7 @@ new class extends Component
                 <div class="shrink-0 flex items-center">
                     <div class="inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-red-100 rounded-full dark:bg-red-600">
                         <a href="{{ route('dashboard') }}" wire:navigate>
-                            <img src="{{ asset('storage/logo.png') }}" alt="Logo" class="w-full h-full object-contain" />
+                            <img src="{{ asset('logo.png') }}" alt="Logo" class="w-full h-full object-contain" />
                         </a>
                     </div>
                 </div>
