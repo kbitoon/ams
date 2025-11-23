@@ -14,10 +14,22 @@ return new class extends Migration
         if (Schema::hasTable('incident_reports')) {
             Schema::table('incident_reports', function (Blueprint $table) {
                 if (!Schema::hasColumn('incident_reports', 'image_path')) {
-                    $table->string('image_path')->nullable()->after('narration');
+                    // Try to add after 'narration' if it exists, otherwise after 'date', otherwise at the end
+                    if (Schema::hasColumn('incident_reports', 'narration')) {
+                        $table->string('image_path')->nullable()->after('narration');
+                    } elseif (Schema::hasColumn('incident_reports', 'date')) {
+                        $table->string('image_path')->nullable()->after('date');
+                    } else {
+                        $table->string('image_path')->nullable();
+                    }
                 }
                 if (!Schema::hasColumn('incident_reports', 'image_position')) {
-                    $table->enum('image_position', ['before', 'after'])->default('before')->after('image_path');
+                    // Add after image_path if it exists, otherwise at the end
+                    if (Schema::hasColumn('incident_reports', 'image_path')) {
+                        $table->enum('image_position', ['before', 'after'])->default('before')->after('image_path');
+                    } else {
+                        $table->enum('image_position', ['before', 'after'])->default('before');
+                    }
                 }
             });
         }
