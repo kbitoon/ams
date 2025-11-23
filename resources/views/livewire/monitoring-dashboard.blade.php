@@ -224,7 +224,7 @@
                     @foreach($recentComplaintComments->take(5) as $comment)
                         <div class="item-row">
                             <div class="font-semibold mb-1">{{ $comment->complaint->title ?? 'N/A' }}</div>
-                            <div class="text-sm text-gray-300 mb-1">{{ Str::limit($comment->comment, 100) }}</div>
+                            <div class="text-sm text-gray-300 mb-1">{{ \Illuminate\Support\Str::limit($comment->comment, 100) }}</div>
                             <div class="text-sm text-gray-400">
                                 <i class="fas fa-user mr-1"></i>{{ $comment->user->name ?? 'Unknown' }}
                                 <span class="badge badge-new ml-2">New</span>
@@ -245,7 +245,7 @@
                     @foreach($recentLuponComments->take(5) as $comment)
                         <div class="item-row">
                             <div class="font-semibold mb-1">{{ $comment->luponCase->title ?? 'Case #' . ($comment->luponCase->case_no ?? 'N/A') }}</div>
-                            <div class="text-sm text-gray-300 mb-1">{{ Str::limit($comment->comment, 100) }}</div>
+                            <div class="text-sm text-gray-300 mb-1">{{ \Illuminate\Support\Str::limit($comment->comment, 100) }}</div>
                             <div class="text-sm text-gray-400">
                                 <i class="fas fa-user mr-1"></i>{{ $comment->user->name ?? 'Unknown' }}
                                 <span class="badge badge-new ml-2">New</span>
