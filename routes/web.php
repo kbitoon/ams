@@ -116,6 +116,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/indigency/{id}/download', [CertificateController::class, 'indigencyPdf'])->name('indigency.download');
     Route::get('/electrical/{id}/download', [CertificateController::class, 'electricalPdf'])->name('electrical.download');
 
+    // ID Card routes
+    Route::get('/id-card/download', [App\Http\Controllers\IDCardController::class, 'download'])
+        ->name('id-card.download');
+    
+    Route::get('/id-card/download/{userId}', [App\Http\Controllers\IDCardController::class, 'downloadForUser'])
+        ->middleware('role:superadmin|administrator|support')
+        ->name('id-card.download.user');
+
 });
 
 Route::middleware('guest')->group(function () {
@@ -145,6 +153,9 @@ Route::get('announcement/{id}', function ($id) {
 
 // Clearance verification route (public)
 Route::get('clearance/verify/{token}', [CertificateController::class, 'verify'])->name('clearance.verify');
+
+// ID Card verification route (public)
+Route::get('id-card/verify/{token}', [App\Http\Controllers\IDCardController::class, 'verify'])->name('id-card.verify');
 
 Route::middleware(['auth:campaign'])->group(function () {
 

@@ -16,5 +16,6 @@ class PdfContent extends Model
         'captain',
         'footer',
         'watermark',
+        'clearance_expiration_days',
     ];
 }

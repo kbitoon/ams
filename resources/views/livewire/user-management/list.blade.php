@@ -60,15 +60,28 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                @hasanyrole('superadmin|administrator')
-                                    <button 
-                                        wire:click="$dispatch('openModal', { component: 'modals.user-modal', arguments: { user: {{ $user->id }} }})"
-                                        class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                                        </svg>
-                                    </button>
-                                @endhasanyrole
+                                <div class="flex items-center justify-end gap-2">
+                                    @hasanyrole('superadmin|administrator|support')
+                                        <a 
+                                            href="{{ route('id-card.download.user', $user->id) }}"
+                                            target="_blank"
+                                            class="text-green-600 dark:text-green-400 hover:text-green-900 dark:hover:text-green-300"
+                                            title="Download QR Code">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.5v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 19.5v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 4.5h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 10.5h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                                            </svg>
+                                        </a>
+                                    @endhasanyrole
+                                    @hasanyrole('superadmin|administrator')
+                                        <button 
+                                            wire:click="$dispatch('openModal', { component: 'modals.user-modal', arguments: { user: {{ $user->id }} }})"
+                                            class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                            </svg>
+                                        </button>
+                                    @endhasanyrole
+                                </div>
                             </td>
                         </tr>
                     @empty
@@ -112,15 +125,28 @@
                             @endif
                         </div>
                     </div>
-                    @hasanyrole('superadmin|administrator')
-                        <button 
-                            wire:click="$dispatch('openModal', { component: 'modals.user-modal', arguments: { user: {{ $user->id }} }})"
-                            class="ml-2 p-2 text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300 flex-shrink-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                            </svg>
-                        </button>
-                    @endhasanyrole
+                    <div class="flex items-center gap-2 ml-2">
+                        @hasanyrole('superadmin|administrator|support')
+                            <a 
+                                href="{{ route('id-card.download.user', $user->id) }}"
+                                target="_blank"
+                                class="p-2 text-green-600 dark:text-green-400 hover:text-green-900 dark:hover:text-green-300 flex-shrink-0"
+                                title="Download QR Code">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.5v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 19.5v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 4.5h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 10.5h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                                </svg>
+                            </a>
+                        @endhasanyrole
+                        @hasanyrole('superadmin|administrator')
+                            <button 
+                                wire:click="$dispatch('openModal', { component: 'modals.user-modal', arguments: { user: {{ $user->id }} }})"
+                                class="p-2 text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                </svg>
+                            </button>
+                        @endhasanyrole
+                    </div>
                 </div>
             </div>
         @empty

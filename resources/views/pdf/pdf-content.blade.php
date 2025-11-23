@@ -26,6 +26,9 @@
                     <th class="px-6 py-3 text-left bg-gray-50">
                         <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Barangay Captain</span>
                     </th>
+                    <th class="px-6 py-3 text-left bg-gray-50">
+                        <span class="text-xs font-medium leading-4 tracking-wider text-gray-500 uppercase">Expiration Days</span>
+                    </th>
                     <th class="px-6 py-3 text-left bg-gray-50"></th>
                 </tr>
             </thead>
@@ -51,6 +54,9 @@
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900">
                             {{ $pdfContent->captain }}
                         </td>
+                        <td class="px-6 py-4 text-sm leading-5 text-gray-900">
+                            {{ $pdfContent->clearance_expiration_days ?? 30 }} days
+                        </td>
                         <td class="px-6 py-4 text-sm leading-5 text-gray-900 flex space-x-2">
                             <x-secondary-button wire:click="$dispatch('openModal', { component: 'modals.pdf-content-modal', arguments: { pdfContent: {{ $pdfContent->id }} }})">
                                 <i class="fas fa-pencil-alt"></i>
@@ -62,7 +68,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="px-6 py-4 text-sm leading-5 text-gray-900">
+                        <td colspan="6" class="px-6 py-4 text-sm leading-5 text-gray-900">
                             No PDF content added.
                         </td>
                     </tr>

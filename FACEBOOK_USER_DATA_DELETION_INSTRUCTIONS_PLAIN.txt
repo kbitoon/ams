@@ -1,0 +1,48 @@
+USER DATA DELETION INSTRUCTIONS FOR FACEBOOK
+
+App Name: Barangay Bacayan Information System
+App URL: https://barangaysystem.com
+
+HOW USERS CAN REQUEST DELETION OF THEIR DATA
+
+Users who have signed up or logged in using Facebook can request deletion of their account and all associated data by following these steps:
+
+STEP 1: Send an email request
+- Email address: info@barangaysystem.com
+- Subject line: "Account Deletion Request - [User's Name]"
+- Include: Full name, email address, and Facebook User ID (if available)
+
+STEP 2: Verification
+- We will send a confirmation email to verify the request
+- User must confirm the deletion request
+
+STEP 3: Processing
+- Account and all associated data will be deleted within 30 days
+- User will receive confirmation once deletion is complete
+
+ALTERNATIVE METHOD: In-App Request
+- Users can log in to their account
+- Navigate to Profile settings
+- Use the "Delete Account" or "Request Data Deletion" option
+- Follow the on-screen instructions
+
+WHAT DATA IS DELETED
+
+When a user requests account deletion, the following data is permanently removed:
+- User account information (name, email, profile picture)
+- Social authentication links (Facebook, Google, Apple)
+- All user-generated content (clearances, complaints, reports, etc.)
+- Profile information and personal data
+- All associated records and relationships
+
+NOTE: Some anonymized data may be retained for legal or administrative purposes as required by law, but will not be associated with the user's identity.
+
+CONTACT INFORMATION FOR DATA REQUESTS
+
+Email: info@barangaysystem
+Website: https://barangaysystem.com
+
+RESPONSE TIME
+
+All data deletion requests are processed within 30 days of receipt and verification.
+

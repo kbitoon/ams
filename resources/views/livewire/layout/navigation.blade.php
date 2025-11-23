@@ -12,7 +12,7 @@ new class extends Component
     {
         $logout();
 
-        $this->redirect('/', navigate: true);
+        $this->redirect(route('home', absolute: true), navigate: true);
     }
 }; ?>
 

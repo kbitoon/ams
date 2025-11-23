@@ -14,6 +14,7 @@ class PdfContentForm extends Form
     public $footer = null;  // Accepts file upload
     public $watermark = null;  // Accepts file upload
     public string $captain = '';
+    public int $clearance_expiration_days = 30;
     public ?PdfContent $pdfContent = null;
 
     public function setPdfContent(?PdfContent $pdfContent = null): void
@@ -24,6 +25,7 @@ class PdfContentForm extends Form
             $this->captain = $pdfContent->captain ?? '';
             $this->footer = $pdfContent->footer ?? '';
             $this->watermark = $pdfContent->watermark ?? '';
+            $this->clearance_expiration_days = $pdfContent->clearance_expiration_days ?? 30;
         }
     }
 
@@ -37,6 +39,7 @@ class PdfContentForm extends Form
             'header' => ['nullable', 'max:2048'], // max 2MB
             'footer' => ['nullable', 'max:2048'], // max 2MB
             'watermark' => ['nullable', 'max:2048'], //
+            'clearance_expiration_days' => ['required', 'integer', 'min:1', 'max:365'],
         ];
     }
 
@@ -49,6 +52,7 @@ class PdfContentForm extends Form
 
         $data = [
             'captain' => $this->captain,
+            'clearance_expiration_days' => $this->clearance_expiration_days,
         ];
 
         if ($this->header instanceof UploadedFile) {

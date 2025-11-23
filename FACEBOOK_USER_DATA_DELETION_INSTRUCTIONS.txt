@@ -1,0 +1,102 @@
+USER DATA DELETION INSTRUCTIONS
+Barangay Bacayan Information System
+https://barangaysystem.com
+
+HOW TO REQUEST YOUR USER DATA
+
+If you have signed up or logged in using Facebook, Google, or Apple, you can request a copy of your user data or request deletion of your account and associated data.
+
+METHOD 1: REQUEST DATA VIA EMAIL
+
+Send an email to: [YOUR_EMAIL_ADDRESS]
+Subject: User Data Request - [Your Name]
+
+Include the following information:
+- Your full name
+- Email address associated with your account
+- Facebook User ID (if available)
+- Type of request: "Data Export" or "Account Deletion"
+
+METHOD 2: REQUEST DATA VIA IN-APP CONTACT FORM
+
+1. Log in to your account at https://barangaysystem.com
+2. Navigate to your Profile page
+3. Use the contact form or support link
+4. Select "Data Request" or "Account Deletion"
+5. Provide your email address and reason for request
+
+WHAT DATA WE STORE
+
+When you sign up using Facebook, Google, or Apple, we store the following information:
+- Your name
+- Email address
+- Profile picture/avatar (from your social account)
+- Social provider (Facebook, Google, or Apple)
+- Social provider ID
+- Account creation date
+- Any additional information you provide in your profile
+
+HOW TO DELETE YOUR ACCOUNT AND DATA
+
+To request deletion of your account and all associated data:
+
+1. Send an email to: [YOUR_EMAIL_ADDRESS]
+   Subject: Account Deletion Request - [Your Name]
+
+2. Include the following:
+   - Your full name
+   - Email address associated with your account
+   - Confirmation that you want to permanently delete your account
+   - Facebook User ID (if available, for verification)
+
+3. We will verify your identity and process your request within 30 days.
+
+4. Once deleted, the following will be removed:
+   - Your user account
+   - All personal information
+   - All associated data (clearances, complaints, reports, etc.)
+   - Profile information
+   - Social authentication links
+
+NOTE: Some data may be retained for legal or administrative purposes as required by law, but will be anonymized and not associated with your identity.
+
+VERIFICATION PROCESS
+
+For security purposes, we may require additional verification:
+- Confirmation email sent to your registered email address
+- Identity verification questions
+- Photo ID (for sensitive data requests)
+
+RESPONSE TIME
+
+- Data export requests: Processed within 30 days
+- Account deletion requests: Processed within 30 days
+- You will receive confirmation via email once your request is processed
+
+CONTACT INFORMATION
+
+For data requests or account deletion:
+Email: [YOUR_EMAIL_ADDRESS]
+Website: https://barangaysystem.com
+Support Page: https://barangaysystem.com/support
+
+ALTERNATIVE: DELETE VIA FACEBOOK
+
+You can also request data deletion directly through Facebook:
+1. Go to your Facebook Settings
+2. Navigate to "Apps and Websites"
+3. Find "Barangay Bacayan Information System"
+4. Click "Remove" to disconnect the app
+5. Your account will remain active, but Facebook login will be disabled
+
+To completely delete your account and data, you must follow the email request process above.
+
+ADDITIONAL INFORMATION
+
+- Data is stored securely on our servers
+- We do not share your data with third parties except as required by law
+- You have the right to access, modify, or delete your data at any time
+- Account deletion is permanent and cannot be undone
+
+Last Updated: [CURRENT_DATE]
+

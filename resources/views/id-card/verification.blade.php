@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clearance Verification - Barangay Bacayan</title>
+    <title>ID Card Verification - {{ config('app.name') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         body {
@@ -76,20 +76,18 @@
             color: #1f2937;
             text-align: right;
         }
-        .badge {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
+        .user-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            border: 4px solid #10b981;
+            overflow: hidden;
         }
-        .badge-success {
-            background: #d1fae5;
-            color: #065f46;
-        }
-        .badge-pending {
-            background: #fef3c7;
-            color: #92400e;
+        .user-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         .message {
             padding: 20px;
@@ -110,71 +108,48 @@
 </head>
 <body>
     <div class="verification-container">
-        @if($valid && $clearance)
-            @if($expired)
-                <div class="status-icon invalid">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width: 60px; height: 60px;">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </div>
-                <h1>Clearance Expired</h1>
-                <p class="subtitle">This clearance certificate has expired and is no longer valid</p>
+        @if($valid && $user)
+            <div class="status-icon valid">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width: 60px; height: 60px;">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+            </div>
+            <h1>ID Card Verified</h1>
+            <p class="subtitle">This ID card is authentic and valid</p>
 
-                <div class="message message-error">
-                    <strong>✗ Expired Clearance</strong><br>
-                    This clearance was issued on {{ \Carbon\Carbon::parse($clearance->date)->format('F j, Y') }} and expired on {{ $expirationDate->format('F j, Y') }} ({{ $expirationDays }} days after issuance). Please obtain a new clearance.
-                </div>
-            @else
-                <div class="status-icon valid">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width: 60px; height: 60px;">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                </div>
-                <h1>Clearance Verified</h1>
-                <p class="subtitle">This clearance certificate is authentic and valid</p>
+            <div class="message message-success">
+                <strong>✓ Valid ID Card</strong><br>
+                This identification card has been verified and is authentic. The information below matches our records.
+            </div>
 
-                <div class="message message-success">
-                    <strong>✓ Valid Clearance</strong><br>
-                    This document has been verified and is authentic. The information below matches our records.
-                </div>
+            @if($user->photoUrl())
+            <div class="user-photo">
+                <img src="{{ $user->photoUrl() }}" alt="{{ $user->name }}">
+            </div>
             @endif
 
             <div class="info-card">
                 <div class="info-row">
-                    <span class="info-label">Clearance Type:</span>
-                    <span class="info-value">{{ $clearance->type->name ?? 'N/A' }}</span>
-                </div>
-                <div class="info-row">
                     <span class="info-label">Name:</span>
-                    <span class="info-value">{{ strtoupper($clearance->name) }}</span>
+                    <span class="info-value">{{ strtoupper($user->name) }}</span>
                 </div>
                 <div class="info-row">
-                    <span class="info-label">Date Issued:</span>
-                    <span class="info-value">{{ \Carbon\Carbon::parse($clearance->date)->format('F j, Y') }}</span>
+                    <span class="info-label">Email:</span>
+                    <span class="info-value">{{ $user->email }}</span>
                 </div>
-                @if(isset($expirationDate))
+                @if($user->personalInformation)
                 <div class="info-row">
-                    <span class="info-label">Expiration Date:</span>
-                    <span class="info-value {{ $expired ? 'text-red-600 font-bold' : '' }}">{{ $expirationDate->format('F j, Y') }}</span>
+                    <span class="info-label">Address:</span>
+                    <span class="info-value">{{ $user->personalInformation->address ?? 'N/A' }}</span>
                 </div>
                 @endif
                 <div class="info-row">
-                    <span class="info-label">Status:</span>
-                    <span class="info-value">
-                        <span class="badge {{ $clearance->status === 'Done' ? 'badge-success' : 'badge-pending' }}">
-                            {{ $clearance->status }}
-                        </span>
-                    </span>
+                    <span class="info-label">Account Created:</span>
+                    <span class="info-value">{{ $user->created_at->format('M d, Y') }}</span>
                 </div>
-                @if($clearance->approvedBy)
-                <div class="info-row">
-                    <span class="info-label">Approved By:</span>
-                    <span class="info-value">{{ $clearance->approvedBy->name }}</span>
-                </div>
-                @endif
                 <div class="info-row">
                     <span class="info-label">Verification Code:</span>
-                    <span class="info-value" style="font-family: monospace; font-size: 12px;">{{ substr($clearance->verification_token, 0, 8) }}...</span>
+                    <span class="info-value" style="font-family: monospace; font-size: 12px;">{{ substr($user->id_card_token, 0, 8) }}...</span>
                 </div>
             </div>
         @else
@@ -184,11 +159,11 @@
                 </svg>
             </div>
             <h1>Verification Failed</h1>
-            <p class="subtitle">This clearance certificate could not be verified</p>
+            <p class="subtitle">This ID card could not be verified</p>
 
             <div class="message message-error">
                 <strong>✗ Invalid or Expired</strong><br>
-                The verification code provided does not match any clearance in our system. This document may be invalid, expired, or tampered with.
+                The verification code provided does not match any ID card in our system. This ID card may be invalid, expired, or tampered with.
             </div>
 
             <div class="info-card" style="text-align: center; padding: 20px;">
@@ -200,8 +175,8 @@
 
         <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
             <p style="color: #6b7280; font-size: 14px; margin: 0;">
-                Barangay Bacayan, Cebu City<br>
-                Clearance Verification System
+                {{ config('app.name') }}<br>
+                ID Card Verification System
             </p>
         </div>
     </div>

@@ -110,21 +110,27 @@
 
 <body>
     <!-- Image Watermark -->
+    @if (!empty($watermarkPath) && file_exists($watermarkPath))
     <div class="watermark">
-        <img src="{{ public_path('storage/' . $pdfContent->watermark) }}" alt="Watermark"
-            style="width:100%; height:auto;">
+        <img src="{{ $watermarkPath }}" alt="Watermark" style="width:100%; height:auto;">
     </div>
+    @endif
 
     {{-- Header --}}
-    @if (!empty($pdfContent->header))
+    @if (!empty($headerPath) && file_exists($headerPath))
         <table width="100%" style="margin:0; padding:0; border-spacing:0;">
             <tr>
                 <td width="100%" align="center" style="margin:0; padding:0;">
-                    <img src="{{ public_path('storage/' . $pdfContent->header) }}" alt="Header"
+                    <img src="{{ $headerPath }}" alt="Header"
                         style="width: 100%; height: auto; margin:0; padding:0;">
                 </td>
             </tr>
         </table>
+        <hr>
+    @elseif (!empty($pdfContent->header))
+        <p style="text-align: center; color: red; font-style: italic;">
+            Header image not found. Please check the file path in settings.
+        </p>
         <hr>
     @else
         <p style="text-align: center; color: red; font-style: italic;">
@@ -190,9 +196,17 @@
 
 
     <!-- Footer -->
+    @if (!empty($footerPath) && file_exists($footerPath))
     <div class="footer">
-        <img src="{{ public_path('storage/' . $pdfContent->footer) }}" alt="Footer" style="width:100%; height:auto;">
+        <img src="{{ $footerPath }}" alt="Footer" style="width:100%; height:auto;">
     </div>
+    @elseif (!empty($pdfContent->footer))
+        <div class="footer">
+            <p style="text-align: center; color: red; font-style: italic; font-size: 10px;">
+                Footer image not found. Please check the file path in settings.
+            </p>
+        </div>
+    @endif
 
     <!-- QR Code for Verification -->
     @if(isset($qrCodePath) && !empty($qrCodePath) && file_exists($qrCodePath))

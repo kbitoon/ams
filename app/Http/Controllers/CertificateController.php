@@ -58,10 +58,39 @@ class CertificateController extends Controller
             \Log::warning('QR Code package not installed. Please run: composer require simplesoftwareio/simple-qrcode');
         }
 
+        // Prepare image paths for PDF
+        $headerPath = null;
+        $footerPath = null;
+        $watermarkPath = null;
+        
+        if ($pdfContent) {
+            if (!empty($pdfContent->header)) {
+                $headerPath = Storage::disk('public')->path($pdfContent->header);
+                if (!file_exists($headerPath)) {
+                    $headerPath = null;
+                }
+            }
+            if (!empty($pdfContent->footer)) {
+                $footerPath = Storage::disk('public')->path($pdfContent->footer);
+                if (!file_exists($footerPath)) {
+                    $footerPath = null;
+                }
+            }
+            if (!empty($pdfContent->watermark)) {
+                $watermarkPath = Storage::disk('public')->path($pdfContent->watermark);
+                if (!file_exists($watermarkPath)) {
+                    $watermarkPath = null;
+                }
+            }
+        }
+
         $pdf = Pdf::loadView('pdf.certificate', [
             'clearance' => $clearance,
             'pdfContent' => $pdfContent,
             'qrCodePath' => $qrCodeFullPath,
+            'headerPath' => $headerPath,
+            'footerPath' => $footerPath,
+            'watermarkPath' => $watermarkPath,
         ]);
 
         return $pdf->download("certificate_{$clearance->name}.pdf");
@@ -114,10 +143,39 @@ class CertificateController extends Controller
             \Log::warning('QR Code package not installed. Please run: composer require simplesoftwareio/simple-qrcode');
         }
 
+        // Prepare image paths for PDF
+        $headerPath = null;
+        $footerPath = null;
+        $watermarkPath = null;
+        
+        if ($pdfContent) {
+            if (!empty($pdfContent->header)) {
+                $headerPath = Storage::disk('public')->path($pdfContent->header);
+                if (!file_exists($headerPath)) {
+                    $headerPath = null;
+                }
+            }
+            if (!empty($pdfContent->footer)) {
+                $footerPath = Storage::disk('public')->path($pdfContent->footer);
+                if (!file_exists($footerPath)) {
+                    $footerPath = null;
+                }
+            }
+            if (!empty($pdfContent->watermark)) {
+                $watermarkPath = Storage::disk('public')->path($pdfContent->watermark);
+                if (!file_exists($watermarkPath)) {
+                    $watermarkPath = null;
+                }
+            }
+        }
+
         $pdf = Pdf::loadView('pdf.indigency', [
             'clearance' => $clearance,
             'pdfContent' => $pdfContent,
             'qrCodePath' => $qrCodeFullPath,
+            'headerPath' => $headerPath,
+            'footerPath' => $footerPath,
+            'watermarkPath' => $watermarkPath,
         ]);
 
         return $pdf->download("indigency_{$clearance->name}.pdf");
@@ -170,10 +228,39 @@ class CertificateController extends Controller
             \Log::warning('QR Code package not installed. Please run: composer require simplesoftwareio/simple-qrcode');
         }
 
+        // Prepare image paths for PDF
+        $headerPath = null;
+        $footerPath = null;
+        $watermarkPath = null;
+        
+        if ($pdfContent) {
+            if (!empty($pdfContent->header)) {
+                $headerPath = Storage::disk('public')->path($pdfContent->header);
+                if (!file_exists($headerPath)) {
+                    $headerPath = null;
+                }
+            }
+            if (!empty($pdfContent->footer)) {
+                $footerPath = Storage::disk('public')->path($pdfContent->footer);
+                if (!file_exists($footerPath)) {
+                    $footerPath = null;
+                }
+            }
+            if (!empty($pdfContent->watermark)) {
+                $watermarkPath = Storage::disk('public')->path($pdfContent->watermark);
+                if (!file_exists($watermarkPath)) {
+                    $watermarkPath = null;
+                }
+            }
+        }
+
         $pdf = Pdf::loadView('pdf.electrical', [
             'clearance' => $clearance,
             'pdfContent' => $pdfContent,
             'qrCodePath' => $qrCodeFullPath,
+            'headerPath' => $headerPath,
+            'footerPath' => $footerPath,
+            'watermarkPath' => $watermarkPath,
         ]);
         return $pdf->download("electrical_{$clearance->name}.pdf");
     }
@@ -186,15 +273,28 @@ class CertificateController extends Controller
             return view('clearance.verification', [
                 'valid' => false,
                 'clearance' => null,
+                'expired' => false,
             ]);
         }
 
         // Load relationships
         $clearance->load(['type', 'approvedBy']);
 
+        // Get expiration days from settings
+        $pdfContent = PdfContent::orderBy('created_at', 'desc')->first();
+        $expirationDays = $pdfContent->clearance_expiration_days ?? 30;
+
+        // Check if clearance is expired
+        $issueDate = Carbon::parse($clearance->date);
+        $expirationDate = $issueDate->copy()->addDays($expirationDays);
+        $isExpired = Carbon::now()->greaterThan($expirationDate);
+
         return view('clearance.verification', [
             'valid' => true,
             'clearance' => $clearance,
+            'expired' => $isExpired,
+            'expirationDate' => $expirationDate,
+            'expirationDays' => $expirationDays,
         ]);
     }
 }

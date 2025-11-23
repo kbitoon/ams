@@ -26,7 +26,22 @@ class User extends Authenticatable
         'email',
         'photo',
         'password',
+        'provider',
+        'provider_id',
+        'avatar',
+        'id_card_token',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+            if (empty($user->id_card_token)) {
+                $user->id_card_token = bin2hex(random_bytes(32));
+            }
+        });
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -181,9 +196,18 @@ class User extends Authenticatable
 
     public function photoUrl()
     {
-        return $this->photo
-            ? asset('storage/'. auth()->user()->photo)
-            : 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email)));
+        // Use avatar from social auth if available
+        if ($this->avatar) {
+            return $this->avatar;
+        }
+        
+        // Use uploaded photo if available
+        if ($this->photo) {
+            return asset('storage/' . $this->photo);
+        }
+        
+        // Fallback to Gravatar
+        return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email)));
     }
     
 }
