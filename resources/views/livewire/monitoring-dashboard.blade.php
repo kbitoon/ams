@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monitoring Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
         body {
             margin: 0;
             padding: 0;
@@ -102,10 +96,8 @@
             font-style: italic;
         }
     </style>
-    @livewireStyles
-</head>
-<body>
-    <div class="dashboard-container" wire:poll.30s>
+
+<div class="dashboard-container" wire:poll.30s>
         <!-- Header with Summary Counts -->
         <div class="mb-4">
             <h1 class="text-2xl font-bold mb-3 text-center" style="color: #60a5fa;">
@@ -341,9 +333,5 @@
         <div class="text-center mt-4 text-gray-500 text-xs">
             <i class="fas fa-sync-alt mr-1"></i>Last updated: {{ now()->format('M j, Y g:i A') }} | Auto-refreshing every 30 seconds
         </div>
-    </div>
-
-    @livewireScripts
-</body>
-</html>
+</div>
 
