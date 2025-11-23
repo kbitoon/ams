@@ -12,26 +12,38 @@ return new class extends Migration
     public function up(): void
     {
         if (Schema::hasTable('incident_reports')) {
-            Schema::table('incident_reports', function (Blueprint $table) {
-                if (!Schema::hasColumn('incident_reports', 'image_path')) {
-                    // Try to add after 'narration' if it exists, otherwise after 'date', otherwise at the end
+            // Use DB::statement to avoid issues with column ordering
+            if (!Schema::hasColumn('incident_reports', 'image_path')) {
+                try {
+                    // Try to add after 'narration' if it exists
                     if (Schema::hasColumn('incident_reports', 'narration')) {
-                        $table->string('image_path')->nullable()->after('narration');
+                        \DB::statement('ALTER TABLE `incident_reports` ADD COLUMN `image_path` VARCHAR(255) NULL AFTER `narration`');
                     } elseif (Schema::hasColumn('incident_reports', 'date')) {
-                        $table->string('image_path')->nullable()->after('date');
+                        \DB::statement('ALTER TABLE `incident_reports` ADD COLUMN `image_path` VARCHAR(255) NULL AFTER `date`');
+                    } elseif (Schema::hasColumn('incident_reports', 'updated_at')) {
+                        \DB::statement('ALTER TABLE `incident_reports` ADD COLUMN `image_path` VARCHAR(255) NULL AFTER `updated_at`');
                     } else {
-                        $table->string('image_path')->nullable();
+                        \DB::statement('ALTER TABLE `incident_reports` ADD COLUMN `image_path` VARCHAR(255) NULL');
                     }
+                } catch (\Exception $e) {
+                    // Column might already exist, ignore
                 }
-                if (!Schema::hasColumn('incident_reports', 'image_position')) {
+            }
+            
+            if (!Schema::hasColumn('incident_reports', 'image_position')) {
+                try {
                     // Add after image_path if it exists, otherwise at the end
                     if (Schema::hasColumn('incident_reports', 'image_path')) {
-                        $table->enum('image_position', ['before', 'after'])->default('before')->after('image_path');
+                        \DB::statement('ALTER TABLE `incident_reports` ADD COLUMN `image_position` ENUM(\'before\', \'after\') DEFAULT \'before\' AFTER `image_path`');
+                    } elseif (Schema::hasColumn('incident_reports', 'updated_at')) {
+                        \DB::statement('ALTER TABLE `incident_reports` ADD COLUMN `image_position` ENUM(\'before\', \'after\') DEFAULT \'before\' AFTER `updated_at`');
                     } else {
-                        $table->enum('image_position', ['before', 'after'])->default('before');
+                        \DB::statement('ALTER TABLE `incident_reports` ADD COLUMN `image_position` ENUM(\'before\', \'after\') DEFAULT \'before\'');
                     }
+                } catch (\Exception $e) {
+                    // Column might already exist, ignore
                 }
-            });
+            }
         }
     }
 
