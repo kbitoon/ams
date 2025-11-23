@@ -27,6 +27,12 @@
                                 class="py-3 px-6 text-sm font-medium transition-colors">
                                 Roles
                             </button>
+                            <button 
+                                :class="openTab === 3 ? 'border-b-2 border-indigo-500 text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'" 
+                                @click="openTab = 3" 
+                                class="py-3 px-6 text-sm font-medium transition-colors">
+                                Families
+                            </button>
                         </div>
                         
                         <!-- Tab Content -->
@@ -35,6 +41,9 @@
                         </div>
                         <div x-show="openTab === 2" class="mt-4">
                             @livewire('role')
+                        </div>
+                        <div x-show="openTab === 3" class="mt-4">
+                            @livewire('family')
                         </div>
                     </div>
                 </div>

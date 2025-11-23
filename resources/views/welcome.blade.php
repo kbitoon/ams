@@ -13,7 +13,7 @@
                 @livewire('welcome')
             </main>
             <footer class="py-16 text-center text-sm text-black dark:text-white/70">
-            Copyright © 2024, Winston Pepito
+            Copyright © 2024, Barangay Information System
             <p>
                 Read our privacy policy <a href="http://www.barangaysystem.com/information/2" style="color: blue; text-decoration: underline;">here</a>.
             </p>

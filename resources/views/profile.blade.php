@@ -43,6 +43,13 @@
                 </div>
             </div>
 
+            <!-- Relief Assistance Section -->
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                <div class="max-w-7xl">
+                    <livewire:profile.relief-assistance />
+                </div>
+            </div>
+
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     <livewire:profile.update-contact-information-form />

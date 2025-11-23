@@ -74,6 +74,16 @@ new class extends Component
                                         <x-dropdown-link :href="route('incident-report')" :active="request()->routeIs('incident-report')" wire:navigate>
                                             {{ __('Incident Report') }}
                                         </x-dropdown-link>
+                                        @hasanyrole('superadmin|administrator|support')
+                                        <x-dropdown-link :href="route('relief-operation')" :active="request()->routeIs('relief-operation')" wire:navigate>
+                                            {{ __('Relief Monitoring') }}
+                                        </x-dropdown-link>
+                                        @endhasanyrole
+                                        @hasanyrole('superadmin|administrator|support|tanod|lupon')
+                                        <x-dropdown-link :href="route('disaster-management')" :active="request()->routeIs('disaster-management') || request()->routeIs('disaster-*')" wire:navigate>
+                                            {{ __('Disaster Management') }}
+                                        </x-dropdown-link>
+                                        @endhasanyrole
                                 </x-slot>
                             </x-dropdown>
                     </div>        
@@ -290,6 +300,16 @@ new class extends Component
                 <x-responsive-nav-link :href="route('incident-report')" :active="request()->routeIs('incident-report')" wire:navigate>
                     {{ __('Incident Report') }}
                 </x-responsive-nav-link>
+                @hasanyrole('superadmin|administrator|support')
+                <x-responsive-nav-link :href="route('relief-operation')" :active="request()->routeIs('relief-operation')" wire:navigate>
+                    {{ __('Relief Monitoring') }}
+                </x-responsive-nav-link>
+                @endhasanyrole
+                @hasanyrole('superadmin|administrator|support|tanod|lupon')
+                <x-responsive-nav-link :href="route('disaster-management')" :active="request()->routeIs('disaster-management') || request()->routeIs('disaster-*')" wire:navigate>
+                    {{ __('Disaster Management') }}
+                </x-responsive-nav-link>
+                @endhasanyrole
             </div>
         </div>
         <div x-data="{ open: false }">

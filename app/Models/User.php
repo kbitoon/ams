@@ -218,5 +218,29 @@ class User extends Authenticatable
         // Fallback to Gravatar
         return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email)));
     }
+
+    /**
+     * @return HasMany
+     */
+    public function familiesAsHead(): HasMany
+    {
+        return $this->hasMany(Family::class, 'head_of_family_id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function familyMemberships(): HasMany
+    {
+        return $this->hasMany(FamilyMember::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function reliefDistributions(): HasMany
+    {
+        return $this->hasMany(ReliefDistribution::class);
+    }
     
 }

@@ -48,6 +48,48 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('information-category', 'information-category')
         ->name('information-category');
 
+    // Relief Monitoring System
+    Route::middleware('role:superadmin|administrator|support')->group(function () {
+        Route::view('relief-operation', 'relief-operation')
+            ->name('relief-operation');
+        Route::view('relief-type', 'relief-type')
+            ->name('relief-type');
+        Route::view('relief-provider', 'relief-provider')
+            ->name('relief-provider');
+        Route::view('family', 'family')
+            ->name('family');
+        Route::view('relief-report', 'relief-report')
+            ->name('relief-report');
+    });
+
+    // Disaster Management System
+    Route::middleware('role:superadmin|administrator|support|tanod|lupon')->group(function () {
+        Route::view('disaster-management', 'disaster-management')
+            ->name('disaster-management');
+        Route::view('disaster-type', 'disaster-type')
+            ->name('disaster-type');
+        Route::view('disaster-alert', 'disaster-alert')
+            ->name('disaster-alert');
+        Route::view('disaster-monitoring', 'disaster-monitoring')
+            ->name('disaster-monitoring');
+        Route::view('disaster-report', 'disaster-report')
+            ->name('disaster-report');
+        Route::view('disaster-recovery', 'disaster-recovery')
+            ->name('disaster-recovery');
+        Route::view('preparedness-checklist', 'preparedness-checklist')
+            ->name('preparedness-checklist');
+        Route::view('evacuation-center', 'evacuation-center')
+            ->name('evacuation-center');
+        Route::view('disaster-response-team', 'disaster-response-team')
+            ->name('disaster-response-team');
+        Route::view('disaster-resource', 'disaster-resource')
+            ->name('disaster-resource');
+    });
+
+    // RSS Feed (Public)
+    Route::get('/disaster-rss', [App\Http\Controllers\DisasterRssController::class, 'index'])
+        ->name('disaster-rss');
+
     Route::view('vehicle-listing', 'vehicle-listing')
         ->name('vehicle-listing');
 
