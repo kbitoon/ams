@@ -157,6 +157,9 @@ Route::get('clearance/verify/{token}', [CertificateController::class, 'verify'])
 // ID Card verification route (public)
 Route::get('id-card/verify/{token}', [App\Http\Controllers\IDCardController::class, 'verify'])->name('id-card.verify');
 
+// Monitoring Dashboard (public, no authentication required)
+Route::get('monitoring', \App\Livewire\MonitoringDashboard::class)->name('monitoring');
+
 Route::middleware(['auth:campaign'])->group(function () {
 
 });
