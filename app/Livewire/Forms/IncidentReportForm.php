@@ -37,12 +37,12 @@ class IncidentReportForm extends Form
     public function setIncidentReport(?IncidentReport $incidentReport = null): void
     {
         $this->incidentReport = $incidentReport;
-        $this->title = $incidentReport->title;
-        $this->name = $incidentReport->name;
-        $this->narration = $incidentReport->narration;
-        $this->date = $incidentReport->date;
+        $this->title = $incidentReport->title ?? '';
+        $this->name = $incidentReport->name ?? '';
+        $this->narration = $incidentReport->narration ?? '';
+        $this->date = $incidentReport->date ?? '';
         $this->image_position = $incidentReport->image_position ?? 'before';
-        $this->existing_image = $incidentReport->image_path;
+        $this->existing_image = $incidentReport->image_path ?? null;
     }
 
     /**
