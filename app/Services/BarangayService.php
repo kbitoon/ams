@@ -6,10 +6,12 @@ class BarangayService
 {
     /**
      * Get the current barangay ID from environment
+     * Uses config() instead of env() for better caching support
      */
     public static function getCurrentBarangayId(): ?int
     {
-        $barangayId = env('BARANGAY_ID');
+        // Use config() instead of env() to support config caching
+        $barangayId = config('barangay.id');
         return $barangayId ? (int) $barangayId : null;
     }
 

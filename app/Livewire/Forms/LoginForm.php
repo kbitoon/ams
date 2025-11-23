@@ -47,25 +47,18 @@ class LoginForm extends Form
         // Check if user belongs to current barangay (if BARANGAY_ID is set)
         $currentBarangayId = \App\Services\BarangayService::getCurrentBarangayId();
         if ($currentBarangayId) {
-            // If user has no barangay_id, assign them to current barangay
-            if (empty($user->barangay_id)) {
-                $user->barangay_id = $currentBarangayId;
-                $user->save();
-            } elseif ($user->barangay_id != $currentBarangayId) {
-                // User belongs to different barangay
+            // Strict multi-tenancy: user MUST belong to current barangay
+            if ($user->barangay_id != $currentBarangayId) {
+                // User belongs to different barangay or has NULL barangay_id - reject login
                 RateLimiter::hit($this->throttleKey());
 
                 throw ValidationException::withMessages([
                     'form.email' => trans('auth.failed'),
                 ]);
             }
-        } else {
-            // If BARANGAY_ID is not set, assign user to NULL or first barangay
-            // This handles backward compatibility
-            if (empty($user->barangay_id)) {
-                // Keep barangay_id as NULL for backward compatibility
-            }
+            // User belongs to current barangay - allow login
         }
+        // If BARANGAY_ID is not set, allow login (backward compatibility for single-tenant setups)
 
         // Log the user in
         Auth::login($user, $this->remember);
