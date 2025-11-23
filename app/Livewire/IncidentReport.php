@@ -38,8 +38,12 @@ class IncidentReport extends Component
         if ($this->search) {
             $query->where(function ($q) {
                 $q->where('title', 'like', '%' . $this->search . '%')
-                  ->orWhere('name', 'like', '%' . $this->search . '%')
-                  ->orWhere('narration', 'like', '%' . $this->search . '%');
+                  ->orWhere('name', 'like', '%' . $this->search . '%');
+                
+                // Only search narration if the column exists
+                if (\Illuminate\Support\Facades\Schema::hasColumn('incident_reports', 'narration')) {
+                    $q->orWhere('narration', 'like', '%' . $this->search . '%');
+                }
             });
         }
 
