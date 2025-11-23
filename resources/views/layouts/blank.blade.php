@@ -12,6 +12,16 @@
         <script src="https://cdn.tailwindcss.com"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                background: #0f172a;
+                color: #e2e8f0;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+        </style>
+        
         @livewireStyles
     </head>
     <body>
