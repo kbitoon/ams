@@ -10,7 +10,7 @@
         <meta name="livewire-base-path" content="{{ parse_url(config('app.url'), PHP_URL_PATH) }}">
         <base href="{{ config('app.url') }}/">
 
-        <title>{{ config('app.name', 'Bacayan Information System') }}</title>
+        <title>{{ config('barangay.name', 'Barangay') }} - Information System</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
