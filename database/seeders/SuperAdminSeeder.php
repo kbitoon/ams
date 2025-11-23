@@ -28,8 +28,11 @@ class SuperAdminSeeder extends Seeder
         }
 
         // Generate email based on barangay name
-        // Convert barangay name to lowercase, remove spaces and special characters
+        // Format: superadmin@[name of the defined barangay].com
+        // Convert barangay name to lowercase, remove spaces and special characters for valid email domain
         $barangayDomain = Str::lower(Str::slug($barangayName, ''));
+        // Remove any remaining special characters that might not be valid in email domains
+        $barangayDomain = preg_replace('/[^a-z0-9]/', '', $barangayDomain);
         // If barangay name is empty or results in empty domain, use a default
         if (empty($barangayDomain)) {
             $barangayDomain = 'barangay';

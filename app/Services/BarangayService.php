@@ -25,10 +25,11 @@ class BarangayService
 
     /**
      * Get barangay name from environment
+     * Uses config() instead of env() for better caching support
      */
     public static function getCurrentBarangayName(): string
     {
-        return env('BARANGAY_NAME', 'Barangay');
+        return config('barangay.name', 'Barangay');
     }
 }
 
