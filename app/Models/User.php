@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Concerns\BelongsToBarangay;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -14,7 +15,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, BelongsToBarangay;
 
     /**
      * The attributes that are mass assignable.
@@ -30,6 +31,7 @@ class User extends Authenticatable
         'provider_id',
         'avatar',
         'id_card_token',
+        'barangay_id',
     ];
 
     protected static function boot()
@@ -39,6 +41,13 @@ class User extends Authenticatable
         static::creating(function ($user) {
             if (empty($user->id_card_token)) {
                 $user->id_card_token = bin2hex(random_bytes(32));
+            }
+            // Set barangay_id if not set and BARANGAY_ID is configured
+            if (empty($user->barangay_id)) {
+                $barangayId = \App\Services\BarangayService::getCurrentBarangayId();
+                if ($barangayId) {
+                    $user->barangay_id = $barangayId;
+                }
             }
         });
     }

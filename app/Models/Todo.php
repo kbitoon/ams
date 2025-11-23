@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\BelongsToBarangay;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Models\Role;
 
 class Todo extends Model
 {
-    use HasFactory;
+    use HasFactory, BelongsToBarangay;
 
     protected $fillable = [
+        'barangay_id',
         'user_id',
         'role_id',
         'assigned_user_id',

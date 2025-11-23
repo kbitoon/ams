@@ -31,14 +31,17 @@ class SocialAuthController extends Controller
             return redirect()->route('login')->with('error', 'Authentication failed. Please try again.');
         }
 
-        // Find or create user
-        $user = User::where('provider', $provider)
+        // Find or create user (bypass barangay scope for social auth lookup)
+        $user = User::allBarangays()
+            ->where('provider', $provider)
             ->where('provider_id', $socialUser->getId())
             ->first();
 
         if (!$user) {
-            // Check if user exists with same email
-            $user = User::where('email', $socialUser->getEmail())->first();
+            // Check if user exists with same email (bypass scope)
+            $user = User::allBarangays()
+                ->where('email', $socialUser->getEmail())
+                ->first();
 
             if ($user) {
                 // Link social account to existing user

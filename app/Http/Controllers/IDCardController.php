@@ -94,7 +94,8 @@ class IDCardController extends Controller
      */
     public function verify($token)
     {
-        $user = User::where('id_card_token', $token)->first();
+        // For public verification, bypass barangay scope since token is unique
+        $user = User::allBarangays()->where('id_card_token', $token)->first();
 
         if (!$user) {
             return view('id-card.verification', [

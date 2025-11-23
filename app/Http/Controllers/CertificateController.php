@@ -24,6 +24,7 @@ class CertificateController extends Controller
             ? Carbon::parse($clearance->date_of_birth)->age
             : null;
 
+        // Get barangay-specific PDF content
         $pdfContent = PdfContent::orderBy('created_at', 'desc')->first();
 
         // Generate verification URL
@@ -109,6 +110,7 @@ class CertificateController extends Controller
             ? Carbon::parse($clearance->date_of_birth)->age
             : null;
 
+        // Get barangay-specific PDF content
         $pdfContent = PdfContent::orderBy('created_at', 'desc')->first();
 
         // Generate verification URL
@@ -194,6 +196,7 @@ class CertificateController extends Controller
             ? Carbon::parse($clearance->date_of_birth)->age
             : null;
 
+        // Get barangay-specific PDF content
         $pdfContent = PdfContent::orderBy('created_at', 'desc')->first();
 
         // Generate verification URL
@@ -267,7 +270,8 @@ class CertificateController extends Controller
 
     public function verify($token)
     {
-        $clearance = Clearance::where('verification_token', $token)->first();
+        // For public verification, bypass barangay scope since token is unique
+        $clearance = Clearance::allBarangays()->where('verification_token', $token)->first();
 
         if (!$clearance) {
             return view('clearance.verification', [
@@ -280,8 +284,12 @@ class CertificateController extends Controller
         // Load relationships
         $clearance->load(['type', 'approvedBy']);
 
-        // Get expiration days from settings
-        $pdfContent = PdfContent::orderBy('created_at', 'desc')->first();
+        // Get expiration days from settings for the clearance's barangay
+        // Bypass scope to get the correct barangay's settings
+        $pdfContent = PdfContent::allBarangays()
+            ->where('barangay_id', $clearance->barangay_id)
+            ->orderBy('created_at', 'desc')
+            ->first();
         $expirationDays = $pdfContent->clearance_expiration_days ?? 30;
 
         // Check if clearance is expired

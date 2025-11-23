@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\BelongsToBarangay;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,10 +10,11 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class PersonalInformation extends Model
 {
-    use HasFactory;
+    use HasFactory, BelongsToBarangay;
     protected $table = 'personal_informations';
 
     protected $fillable = [
+        'barangay_id',
         'user_id',
        'contact_number',
         'birthdate',

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\BelongsToBarangay;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -10,9 +11,10 @@ use Carbon\Carbon;
 
 class VehicleSchedule extends Model
 {
-    use HasFactory;
+    use HasFactory, BelongsToBarangay;
 
     protected $fillable = [
+        'barangay_id',
         'user_id',
         'start',
         'end',
