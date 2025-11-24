@@ -105,11 +105,14 @@ class PhotoController extends Controller
         imagedestroy($resizedImage);
 
         // Store the resized image
+        // Save to photos directory (same pattern as announcements)
         $path = Storage::disk('public')->putFileAs('photos', new \Illuminate\Http\File($tempPath), $filename);
 
         // Clean up temp file
         @unlink($tempPath);
 
+        // Storage::disk('public')->putFileAs returns path like 'photos/filename.jpg'
+        // This works with asset('storage/' . $path) when storage link points to storage/app/public
         // Save the photo path to the database
         Photo::create(['path' => $path]);
 
