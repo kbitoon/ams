@@ -15,8 +15,14 @@ class PhotoController extends Controller
     public function upload(Request $request)
     {
         // Validate the uploaded photo (removed dimensions validation as we'll resize it)
-        $request->validate([
+        // Note: No dimensions validation - we automatically resize/crop to required size
+        $validated = $request->validate([
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240', // Increased max size to 10MB
+        ], [
+            'photo.required' => 'Please select an image file.',
+            'photo.image' => 'The file must be an image.',
+            'photo.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif.',
+            'photo.max' => 'The image may not be greater than 10MB.',
         ]);
 
         $uploadedFile = $request->file('photo');
