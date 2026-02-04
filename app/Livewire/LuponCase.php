@@ -103,6 +103,9 @@ class LuponCase extends Component
         if (in_array($propertyName, ['startDate', 'endDate'])) {
             $this->updateCounts();
         }
+        if (in_array($propertyName, ['search', 'status'])) {
+            $this->resetPage();
+        }
     }
 
     public function updateCounts()

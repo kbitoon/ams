@@ -90,19 +90,16 @@ class LuponCaseForm extends Form
         $this->validate();
 
         // Ensure blotter_id is properly handled if it's empty
-        $data = $this->only(['date', 'case_no','title','nature', 'complaint', 'prayer', 'status', 'settled','blotter_id','end']);
+        $data = $this->only(['date', 'case_no', 'title', 'nature', 'complaint', 'prayer', 'status', 'settled', 'blotter_id', 'end']);
         $data['blotter_id'] = $this->blotter_id ?: null;
         $data['end'] = empty($this->end) ? null : $this->end;
 
-         // Get the last case ID for case_no generation
-        $latestCase = LuponCase::latest('id')->first();
-        $lastId = $latestCase ? $latestCase->id : 0;
-
         // Check if it's an update (edit) or create
-        $isUpdate = $this->luponCase ? true : false;
+        $isUpdate = (bool) $this->luponCase;
 
-    
         if (!$this->luponCase) {
+            // Auto-generate chronological case number for new cases (YYYY-NNNN, e.g. 2025-0001)
+            $data['case_no'] = LuponCase::generateNextCaseNo($data['date']);
             $this->luponCase = LuponCase::create($data);
             
         } else {

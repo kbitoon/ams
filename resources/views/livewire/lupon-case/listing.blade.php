@@ -88,7 +88,7 @@
             <div class="flex flex-col sm:flex-row gap-3 flex-1">
                 <div class="flex-1">
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Search</label>
-                    <input type="text" wire:model.debounce.500ms="search" placeholder="Search by case no, title, or name..."
+                    <input type="text" wire:model.live.debounce.500ms="search" placeholder="Search by case no, title, or name..."
                         class="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white px-3 py-2 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                 </div>
                 <div class="sm:w-48">

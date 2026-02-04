@@ -26,14 +26,9 @@ class LuponCaseModal extends ModalComponent
         if ($luponCase && $luponCase->exists) {
             $this->form->setLuponCase($luponCase);
         } else {
-            // Generate suggested case_no if creating a new case
-            $latestCase = LuponCase::latest('id')->first();
-            $lastId = $latestCase ? $latestCase->id : 0;
-            $suggestedCaseNo = now()->format('Y-m') . '-' . ($lastId + 1);
-    
-            $this->form->case_no = $suggestedCaseNo; // Pre-fill case_no
+            $this->form->case_no = ''; // Auto-generated chronologically on save
         }
-    
+
         $this->blotters = Blotter::orderBy('id')->get();
     }
 

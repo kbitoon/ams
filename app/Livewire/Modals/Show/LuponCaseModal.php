@@ -3,6 +3,8 @@
 namespace App\Livewire\Modals\Show;
 
 use App\Models\LuponCase;
+use App\Models\LuponCaseComplainant;
+use App\Models\LuponCaseRespondent;
 use App\Models\LuponHearingTracking;
 use App\Models\LuponSummonTracking;
 use Illuminate\Contracts\View\Factory;
@@ -73,6 +75,37 @@ class LuponCaseModal extends ModalComponent
             $this->dispatch('refresh-list');
         }
     }
+
+    public function deleteComplainant($id)
+    {
+        $complainant = LuponCaseComplainant::find($id);
+
+        if ($complainant && $complainant->lupon_case_id === $this->luponCase->id) {
+            foreach ($complainant->assets as $asset) {
+                Storage::delete($asset->path);
+                $asset->delete();
+            }
+            $complainant->delete();
+            $this->luponCase = $this->luponCase->fresh(['luponCaseComplainants', 'luponCaseRespondents']);
+            $this->dispatch('refresh-list');
+        }
+    }
+
+    public function deleteRespondent($id)
+    {
+        $respondent = LuponCaseRespondent::find($id);
+
+        if ($respondent && $respondent->lupon_case_id === $this->luponCase->id) {
+            foreach ($respondent->assets as $asset) {
+                Storage::delete($asset->path);
+                $asset->delete();
+            }
+            $respondent->delete();
+            $this->luponCase = $this->luponCase->fresh(['luponCaseComplainants', 'luponCaseRespondents']);
+            $this->dispatch('refresh-list');
+        }
+    }
+
     /**
      * @return \Illuminate\Contracts\Foundation\Application|Factory|View|Application
      */
