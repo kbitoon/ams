@@ -40,14 +40,16 @@ class LuponCase extends Component
             $query->where('settled', '1')
                 ->orWhere('status', 'settled');
         })->count();
-        // Get distinct years from LuponCaseModel based on the 'date' column
-        $this->availableYears = LuponCaseModel::selectRaw('YEAR(date) as year')
+        // Get distinct years from LuponCaseModel; always include current year and 2026
+        $yearsFromDb = LuponCaseModel::selectRaw('YEAR(date) as year')
             ->distinct()
-            ->orderByDesc('year')
             ->pluck('year')
             ->toArray();
+        $currentYear = (int) date('Y');
+        $this->availableYears = array_values(array_unique(array_merge($yearsFromDb, [$currentYear, 2026])));
+        rsort($this->availableYears, SORT_NUMERIC);
 
-        $this->selectedYear = !empty($this->availableYears) ? $this->availableYears[0] : date('Y');
+        $this->selectedYear = !empty($this->availableYears) ? $this->availableYears[0] : $currentYear;
 
         $this->loadChartData();
     }

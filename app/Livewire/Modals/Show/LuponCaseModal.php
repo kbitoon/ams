@@ -19,6 +19,11 @@ class LuponCaseModal extends ModalComponent
 
     protected $listeners = ['refresh-list' => '$refresh'];
 
+    public static function modalMaxWidth(): string
+    {
+        return '4xl'; // Wider (≈33%) than default 2xl for easier reading
+    }
+
     public function mount(LuponCase $luponCase = null): void
     {
          if ($luponCase && $luponCase->exists) {

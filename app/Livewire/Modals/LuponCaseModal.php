@@ -18,6 +18,12 @@ class LuponCaseModal extends ModalComponent
     public LuponCaseForm $form;
     public Collection $blotters;
     public string $search = '';
+
+    public static function modalMaxWidth(): string
+    {
+        return '4xl'; // Same as detail modal for easier reading
+    }
+
     /**
      * @param LuponCase|null $luponCase
      */

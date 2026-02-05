@@ -190,7 +190,18 @@
                                                         class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                                                         Mark as Ongoing
                                                     </button>
+                                                    <button 
+                                                        wire:click.stop="markAsDone({{ $vehicleSchedule->id }})"
+                                                        class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                                        Mark as Done
+                                                    </button>
                                                 @elseif($vehicleSchedule->status === 'Ongoing')
+                                                    <button 
+                                                        wire:click.stop="markAsDone({{ $vehicleSchedule->id }})"
+                                                        class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                                        Mark as Done
+                                                    </button>
+                                                @elseif($vehicleSchedule->status !== 'Done')
                                                     <button 
                                                         wire:click.stop="markAsDone({{ $vehicleSchedule->id }})"
                                                         class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -345,7 +356,18 @@
                                                 class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                                                 Mark as Ongoing
                                             </button>
+                                            <button 
+                                                wire:click.stop="markAsDone({{ $vehicleSchedule->id }})"
+                                                class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                                Mark as Done
+                                            </button>
                                         @elseif($vehicleSchedule->status === 'Ongoing')
+                                            <button 
+                                                wire:click.stop="markAsDone({{ $vehicleSchedule->id }})"
+                                                class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                                Mark as Done
+                                            </button>
+                                        @elseif($vehicleSchedule->status !== 'Done')
                                             <button 
                                                 wire:click.stop="markAsDone({{ $vehicleSchedule->id }})"
                                                 class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
