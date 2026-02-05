@@ -56,8 +56,14 @@
         <div class="mt-4">
             <x-input-label for="case_no" :value="__('Case Number')" />
             @if($form->luponCase)
-                <x-text-input wire:model="form.case_no" id="case_no" class="mt-1 block w-full bg-gray-100 dark:bg-gray-700 cursor-not-allowed" type="text" readonly />
-                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Case number cannot be changed when editing.</p>
+                @php $isSettled = $form->settled || (strtolower($form->status ?? '') === 'settled'); @endphp
+                @if($isSettled)
+                    <x-text-input wire:model="form.case_no" id="case_no" class="mt-1 block w-full bg-gray-100 dark:bg-gray-700 cursor-not-allowed" type="text" readonly />
+                    <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Case number cannot be changed for settled cases.</p>
+                @else
+                    <x-text-input wire:model="form.case_no" id="case_no" class="mt-1 block w-full" type="text" />
+                    <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">You can edit the case number while the case is not yet settled.</p>
+                @endif
             @else
                 <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">Auto-generated when saved (e.g. {{ now()->format('Y') }}-0001, {{ now()->format('Y') }}-0002…)</p>
             @endif
