@@ -52,6 +52,8 @@ class LuponHearingTrackingForm extends Form
             'lupon_case_id' => ['required'],
             'secretary' => ['nullable'],
             'presider' => ['nullable'],
+            'attachments' => ['nullable', 'array'],
+            'attachments.*' => ['file', 'max:10240'], // 10MB per file
         ];
     }
 
@@ -92,21 +94,22 @@ class LuponHearingTrackingForm extends Form
             throw new \Exception("LuponHearingTracking instance is null after saving.");
         }
     
-        // 🔹 Handle Attachments
-        foreach ($this->attachments as $attachment) {
-            $id = auth()->id() ?? 1;
-            $path = $attachment->storePubliclyAs('attachments/' . $id, time() . '-' . $attachment->getClientOriginalName());
-    
-            // 🔹 Ensure relationship exists before calling assets()
-            if (method_exists($this->luponHearingTracking, 'assets')) {
-                $this->luponHearingTracking->assets()->create([
-                    'path' => $path,
-                ]);
-            } else {
-                throw new \Exception("Method 'assets' does not exist on LuponHearingTracking model.");
+        // Handle multiple file uploads (normalize to array, process each valid file)
+        $files = is_array($this->attachments) ? $this->attachments : [];
+        foreach ($files as $index => $file) {
+            if (!$file instanceof \Illuminate\Http\UploadedFile) {
+                continue;
             }
+            if (!method_exists($this->luponHearingTracking, 'assets')) {
+                continue;
+            }
+            $userId = auth()->id() ?? 1;
+            $filename = $file->getClientOriginalName();
+            $uniqueName = (string) (time() + $index) . '-' . preg_replace('/[^a-zA-Z0-9._-]/', '_', $filename);
+            $path = $file->storePubliclyAs('attachments/' . $userId, $uniqueName);
+            $this->luponHearingTracking->assets()->create(['path' => $path]);
         }
-    
+
         $this->reset();
     }
 }    

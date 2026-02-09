@@ -9,7 +9,7 @@
         <!-- Name input -->
         <div>
             <x-input-label for="date_time" :value="__('Date and Time')" />
-            <input type="datetime-local" wire:model="form.date_time" id="date_time" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" type="text" ></nput>
+            <input type="datetime-local" wire:model="form.date_time" id="date_time" class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
             <x-input-error :messages="$errors->get('form.date_time')" class="mt-2" />
         </div>
 
@@ -44,8 +44,11 @@
         </div>
 
         <div class="mt-4">
-            <x-input-label for="attachments" :value="__('Upload Images')" />
-            <x-text-input wire:model="form.attachments" id="attachments" class="mt-1 block w-full rounded-none" type="file" multiple />
+            <x-input-label for="attachments" :value="__('Upload Images (multiple files allowed)')" />
+            <input type="file" wire:model.defer="form.attachments" id="attachments" multiple
+                accept="image/*,.pdf,.doc,.docx"
+                class="mt-1 block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-indigo-50 file:text-indigo-700 dark:file:bg-indigo-900/30 dark:file:text-indigo-300 hover:file:bg-indigo-100 dark:hover:file:bg-indigo-900/50">
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Select one or more images or documents.</p>
             <x-input-error :messages="$errors->get('form.attachments')" class="mt-2" />
         </div>
 

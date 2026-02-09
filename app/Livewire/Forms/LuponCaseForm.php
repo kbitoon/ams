@@ -59,6 +59,8 @@ class LuponCaseForm extends Form
             'settled' => ['nullable', 'boolean'],
             'blotter_id' => ['nullable', 'integer'],
             'end' => ['nullable', 'date_format:Y-m-d'],
+            'resolution_forms' => ['nullable', 'array'],
+            'resolution_forms.*' => ['file', 'max:10240'], // 10MB per file
         ];
     }
 
@@ -148,18 +150,17 @@ class LuponCaseForm extends Form
                 }
             }
         }
-        // Handle file uploads
-        foreach ($this->resolution_forms as $resolution_form) {
-            if ($resolution_form instanceof \Illuminate\Http\UploadedFile) {
-                $id = auth()->id() ?? 1;
-                $path = $resolution_form->storePubliclyAs('resolution_forms/' . $id, time() . '-' . $resolution_form->getClientOriginalName());
-                $this->luponCase->assets()->create([
-                    'path' => $path,
-                ]);
-            } else {
-                // Handle invalid file type or data here
-                throw new \Exception('Invalid file data.');
+        // Handle multiple file uploads (normalize to array, process each valid file)
+        $files = is_array($this->resolution_forms) ? $this->resolution_forms : [];
+        foreach ($files as $index => $file) {
+            if (!$file instanceof \Illuminate\Http\UploadedFile) {
+                continue;
             }
+            $userId = auth()->id() ?? 1;
+            $filename = $file->getClientOriginalName();
+            $uniqueName = (string) (time() + $index) . '-' . preg_replace('/[^a-zA-Z0-9._-]/', '_', $filename);
+            $path = $file->storePubliclyAs('resolution_forms/' . $userId, $uniqueName);
+            $this->luponCase->assets()->create(['path' => $path]);
         }
 
         $this->reset();
