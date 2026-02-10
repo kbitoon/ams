@@ -7,6 +7,7 @@ use App\Models\LuponCaseComplainant;
 use App\Models\LuponCaseRespondent;
 use App\Models\LuponHearingTracking;
 use App\Models\LuponSummonTracking;
+use App\Models\Asset;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -44,6 +45,20 @@ class LuponCaseModal extends ModalComponent
             $this->luponCase = $this->luponCase->refresh();
 
             $this->dispatch('attachmentDeleted');
+        }
+    }
+
+    public function deleteHearingAttachment($attachmentId): void
+    {
+        // Find the attachment by ID and ensure it belongs to a hearing tracking
+        $attachment = Asset::find($attachmentId);
+
+        if ($attachment && $attachment->assetable instanceof LuponHearingTracking) {
+            Storage::delete($attachment->path);
+            $attachment->delete();
+
+            // Refresh the case with hearing attachments so UI updates
+            $this->luponCase = $this->luponCase->fresh(['luponHearingTrackings.assets']);
         }
     }
 
