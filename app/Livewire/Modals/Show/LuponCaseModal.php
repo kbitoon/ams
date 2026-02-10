@@ -28,7 +28,7 @@ class LuponCaseModal extends ModalComponent
     {
          if ($luponCase && $luponCase->exists) {
             $this->luponCase = $luponCase->load('luponCaseComments.user', 'luponCaseComplainants', 'luponCaseRespondents',
-                                                'luponSummonTrackings', 'luponHearingTrackings');
+                'luponSummonTrackings', 'luponHearingTrackings.assets', 'assets');
         }
     }
     public function deleteAttachment($attachmentId)

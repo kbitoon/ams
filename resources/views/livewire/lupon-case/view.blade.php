@@ -234,36 +234,40 @@
             </div>
             @endif
 
-            <!-- Resolution Forms Section -->
-            @if($luponCase->assets->isNotEmpty())
+            <!-- Attachments (Resolution Forms) - always shown right before Comments -->
             <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 sm:p-5">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700 flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13" />
                     </svg>
-                    Resolution Forms
+                    Case Resolution / Attachments
                 </h3>
-                <div class="space-y-2">
-                    @foreach($luponCase->assets as $resolution_form)
-                        <div class="flex items-center justify-between bg-white dark:bg-gray-800 rounded-lg p-3 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                            <a href="{{ asset('storage/' . $resolution_form->path) }}" target="_blank"
-                                class="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                                </svg>
-                                <span class="truncate">{{ basename($resolution_form->path) }}</span>
-                            </a>
-                            <button wire:click="deleteAttachment({{ $resolution_form->id }})"
-                                class="ml-2 p-2 text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/50 rounded-lg transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                </svg>
-                            </button>
-                        </div>
-                    @endforeach
-                </div>
+                @if($luponCase->assets->isNotEmpty())
+                    <div class="space-y-2">
+                        @foreach($luponCase->assets as $resolution_form)
+                            <div class="flex items-center justify-between bg-white dark:bg-gray-800 rounded-lg p-3 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                                <a href="{{ asset('storage/' . $resolution_form->path) }}" target="_blank"
+                                    class="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                                    </svg>
+                                    <span class="truncate">{{ basename($resolution_form->path) }}</span>
+                                </a>
+                                @hasanyrole('superadmin|administrator|lupon')
+                                <button wire:click="deleteAttachment({{ $resolution_form->id }})"
+                                    class="ml-2 p-2 text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/50 rounded-lg transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                    </svg>
+                                </button>
+                                @endhasanyrole
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">No resolution forms or attachments uploaded.</p>
+                @endif
             </div>
-            @endif
 
             <!-- Comments Section -->
             <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 sm:p-5">
@@ -477,20 +481,36 @@
                                 </div>
                             </div>
 
-                            @if($hearingTracking->assets->isNotEmpty())
-                                <div class="mb-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Images</p>
+                            <!-- Attachments - always shown below the hearing details -->
+                            <div class="mb-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                <p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Attachments</p>
+                                @if($hearingTracking->assets->isNotEmpty())
                                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                                         @foreach($hearingTracking->assets as $attachment)
+                                            @php
+                                                $ext = strtolower(pathinfo($attachment->path, PATHINFO_EXTENSION));
+                                                $isImage = in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']);
+                                            @endphp
                                             <a href="{{ asset('storage/' . $attachment->path) }}" target="_blank"
                                                 class="block rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-indigo-500 dark:hover:border-indigo-400 transition-colors">
-                                                <img src="{{ asset('storage/' . $attachment->path) }}" alt="Hearing image"
-                                                    class="w-full h-24 object-cover">
+                                                @if($isImage)
+                                                    <img src="{{ asset('storage/' . $attachment->path) }}" alt="Hearing attachment"
+                                                        class="w-full h-24 object-cover">
+                                                @else
+                                                    <div class="w-full h-24 flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-700 p-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-gray-400">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                                                        </svg>
+                                                        <span class="text-xs text-gray-600 dark:text-gray-300 truncate w-full text-center mt-1">{{ basename($attachment->path) }}</span>
+                                                    </div>
+                                                @endif
                                             </a>
                                         @endforeach
                                     </div>
-                                </div>
-                            @endif
+                                @else
+                                    <p class="text-gray-500 dark:text-gray-400 text-sm">No attachments for this hearing.</p>
+                                @endif
+                            </div>
 
                             <div class="flex gap-2 pt-4 border-t border-gray-200 dark:border-gray-700">
                                 <x-secondary-button
