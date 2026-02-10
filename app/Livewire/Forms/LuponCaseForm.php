@@ -59,8 +59,6 @@ class LuponCaseForm extends Form
             'settled' => ['nullable', 'boolean'],
             'blotter_id' => ['nullable', 'integer'],
             'end' => ['nullable', 'date_format:Y-m-d'],
-            'resolution_forms' => ['nullable', 'array'],
-            'resolution_forms.*' => ['file', 'max:10240'], // 10MB per file
         ];
     }
 
@@ -80,14 +78,14 @@ class LuponCaseForm extends Form
             'settled' => 'settled',
             'blotter_id' => 'blotter_id',
             'end' => 'end',
-            'resolution_forms' => 'resolution_form',
         ];
     }
 
     /**
      * @throws ValidationException
+     * @return LuponCase
      */
-    public function save(): void
+    public function save(): LuponCase
     {
         $this->validate();
 
@@ -150,20 +148,10 @@ class LuponCaseForm extends Form
                 }
             }
         }
-        // Handle multiple file uploads (normalize to array, process each valid file)
-        $files = is_array($this->resolution_forms) ? $this->resolution_forms : [];
-        foreach ($files as $index => $file) {
-            if (!$file instanceof \Illuminate\Http\UploadedFile) {
-                continue;
-            }
-            $userId = auth()->id() ?? 1;
-            $filename = $file->getClientOriginalName();
-            $uniqueName = (string) (time() + $index) . '-' . preg_replace('/[^a-zA-Z0-9._-]/', '_', $filename);
-            $path = $file->storePubliclyAs('resolution_forms/' . $userId, $uniqueName);
-            $this->luponCase->assets()->create(['path' => $path]);
-        }
-
+        // File uploads are processed by the modal (LuponCaseModal) so they are not handled here
+        $case = $this->luponCase;
         $this->reset();
+        return $case;
     }
 
 }

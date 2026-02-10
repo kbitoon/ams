@@ -79,9 +79,21 @@ class LuponCaseModal extends ModalComponent
      */
     public function save(): void
     {
-        // Pass uploaded files from component to form (component has WithFileUploads; form may not receive multiple files otherwise)
-        $this->form->resolution_forms = is_array($this->resolution_forms) ? $this->resolution_forms : [];
-        $this->form->save();
+        $case = $this->form->save();
+
+        // Process resolution form uploads on the component (reliable for multiple files)
+        $files = is_array($this->resolution_forms) ? $this->resolution_forms : [];
+        $userId = auth()->id() ?? 1;
+        foreach ($files as $index => $file) {
+            if (!$file instanceof \Illuminate\Http\UploadedFile) {
+                continue;
+            }
+            $filename = $file->getClientOriginalName();
+            $uniqueName = (string) (time() + $index) . '-' . preg_replace('/[^a-zA-Z0-9._-]/', '_', $filename);
+            $path = $file->storePubliclyAs('resolution_forms/' . $userId, $uniqueName);
+            $case->assets()->create(['path' => $path]);
+        }
+
         $this->resolution_forms = [];
         $this->closeModal();
         $this->dispatch('refresh-list');
