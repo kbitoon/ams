@@ -19,6 +19,9 @@ class LuponCaseModal extends ModalComponent
     public Collection $blotters;
     public string $search = '';
 
+    /** @var array Files for resolution forms - kept on component so multiple uploads hydrate correctly */
+    public array $resolution_forms = [];
+
     public static function modalMaxWidth(): string
     {
         return '4xl'; // Same as detail modal for easier reading
@@ -76,9 +79,12 @@ class LuponCaseModal extends ModalComponent
      */
     public function save(): void
     {
+        // Pass uploaded files from component to form (component has WithFileUploads; form may not receive multiple files otherwise)
+        $this->form->resolution_forms = is_array($this->resolution_forms) ? $this->resolution_forms : [];
         $this->form->save();
+        $this->resolution_forms = [];
         $this->closeModal();
-        $this->dispatch('refresh-list'); 
+        $this->dispatch('refresh-list');
     }
 
     /**
