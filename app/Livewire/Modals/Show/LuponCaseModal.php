@@ -12,11 +12,17 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Storage;
+use Livewire\WithFileUploads;
 use LivewireUI\Modal\ModalComponent;
 
 class LuponCaseModal extends ModalComponent
 {
+    use WithFileUploads;
+
     public ?LuponCase $luponCase = null;
+
+    /** @var array New attachments to upload (multiple files) */
+    public array $newAttachments = [];
 
     protected $listeners = ['refresh-list' => '$refresh'];
 
@@ -32,6 +38,31 @@ class LuponCaseModal extends ModalComponent
                 'luponSummonTrackings', 'luponHearingTrackings.assets', 'assets');
         }
     }
+    /**
+     * Upload and save additional attachments to the case.
+     */
+    public function uploadNewAttachments(): void
+    {
+        $files = is_array($this->newAttachments) ? $this->newAttachments : [];
+        if (!empty($this->newAttachments) && $this->newAttachments instanceof \Illuminate\Http\UploadedFile) {
+            $files = [$this->newAttachments];
+        }
+
+        $userId = auth()->id() ?? 1;
+        foreach ($files as $index => $file) {
+            if (!$file instanceof \Illuminate\Http\UploadedFile) {
+                continue;
+            }
+            $filename = $file->getClientOriginalName();
+            $uniqueName = (string) (time() + $index) . '-' . preg_replace('/[^a-zA-Z0-9._-]/', '_', $filename);
+            $path = $file->storePubliclyAs('resolution_forms/' . $userId, $uniqueName);
+            $this->luponCase->assets()->create(['path' => $path]);
+        }
+
+        $this->newAttachments = [];
+        $this->luponCase = $this->luponCase->fresh(['assets']);
+    }
+
     public function deleteAttachment($attachmentId)
     {
         $attachment = $this->luponCase->assets()->find($attachmentId);

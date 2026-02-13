@@ -83,6 +83,9 @@ class LuponCaseModal extends ModalComponent
 
         // Process resolution form uploads on the component (reliable for multiple files)
         $files = is_array($this->resolution_forms) ? $this->resolution_forms : [];
+        if (!empty($this->resolution_forms) && $this->resolution_forms instanceof \Illuminate\Http\UploadedFile) {
+            $files = [$this->resolution_forms];
+        }
         $userId = auth()->id() ?? 1;
         foreach ($files as $index => $file) {
             if (!$file instanceof \Illuminate\Http\UploadedFile) {

@@ -96,7 +96,7 @@
 
         <div class="mt-4">
             <x-input-label for="resolution_forms" :value="__('Resolution Form (multiple files allowed)')" />
-            <input type="file" wire:model="resolution_forms" id="resolution_forms" multiple
+            <input type="file" wire:model.defer="resolution_forms" id="resolution_forms" multiple
                 accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif"
                 class="mt-1 block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-indigo-50 file:text-indigo-700 dark:file:bg-indigo-900/30 dark:file:text-indigo-300 hover:file:bg-indigo-100 dark:hover:file:bg-indigo-900/50">
             <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Select one or more files (PDF, Word, images). Files upload when selected; then click Save.</p>
