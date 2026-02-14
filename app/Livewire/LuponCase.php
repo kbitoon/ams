@@ -21,6 +21,9 @@ class LuponCase extends Component
     public $search = '';
     public $status = '';
 
+    public string $sortBy = 'date';
+    public string $sortDirection = 'desc';
+
     public $startDate = '';
     public $endDate = '';
 
@@ -105,7 +108,7 @@ class LuponCase extends Component
         if (in_array($propertyName, ['startDate', 'endDate'])) {
             $this->updateCounts();
         }
-        if (in_array($propertyName, ['search', 'status'])) {
+        if (in_array($propertyName, ['search', 'status', 'sortBy', 'sortDirection'])) {
             $this->resetPage();
         }
     }
@@ -122,6 +125,17 @@ class LuponCase extends Component
         $this->mediatedCount = $query->where('status', 'mediation')->count();
         $this->conciliatedCount = $query->where('status', 'Conciliated by Pangkat')->count();
         $this->settledCount = $query->where('settled', '1')->count();
+    }
+
+    public function sortByColumn(string $column): void
+    {
+        if ($this->sortBy === $column) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortBy = $column;
+            $this->sortDirection = in_array($column, ['date', 'end', 'case_no']) ? 'desc' : 'asc';
+        }
+        $this->resetPage();
     }
 
     #[On('refresh-list')]
@@ -193,8 +207,12 @@ class LuponCase extends Component
             $query->whereBetween('date', [$this->startDate, $this->endDate]);
         }
 
+        $allowedSort = ['case_no', 'date', 'title', 'status', 'end'];
+        $column = in_array($this->sortBy, $allowedSort) ? $this->sortBy : 'date';
+        $direction = in_array($this->sortDirection, ['asc', 'desc']) ? $this->sortDirection : 'desc';
+
         return view('livewire.lupon-case.listing', [
-            'luponCases' => $query->orderBy('date', 'desc')->paginate(10),
+            'luponCases' => $query->orderBy($column, $direction)->paginate(10),
         ]);
     }
 }
